@@ -6,6 +6,8 @@ var myApp = angular.module('myApp', [
 
 
 myApp.factory('Authentication', function ($http, $cookies){
+    var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
+
     return {
         getAuthenticatedAccount: getAuthenticatedAccount,
         isAuthenticated: isAuthenticated,
@@ -29,7 +31,7 @@ myApp.factory('Authentication', function ($http, $cookies){
     }
 
     function login(formData) {
-        return $http.post('http://localhost:8000/login/', {
+        return $http.post(server_url + 'login/', {
             email: formData.the_email, password: formData.password, user_type: formData.user_type
         }).then(loginSuccessFn, loginErrorFn);
 
@@ -46,7 +48,7 @@ myApp.factory('Authentication', function ($http, $cookies){
     }
 
     function logout() {
-        return $http.post('http://localhost:8000/logout/')
+        return $http.post(server_url + 'logout/')
             .then(logoutSuccessFn, logoutErrorFn);
 
         function logoutSuccessFn(data, status, headers, config) {
@@ -61,7 +63,7 @@ myApp.factory('Authentication', function ($http, $cookies){
     }
 
     function register(formData) {
-        $http.post('http://localhost:8000/register/', {
+        $http.post(server_url + 'register/', {
             email: formData.the_email,
             user_type: formData.user_type,
             password: formData.password,
