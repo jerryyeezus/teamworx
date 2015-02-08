@@ -1,0 +1,20 @@
+<section class="credentials">
+    <div>
+        <form ng-submit="login(formData)">
+            <h1>Login</h1>
+            <input ng-model="formData.the_email" placeholder="your email" autofocus><br>
+
+            <input type="password" ng-model="formData.password" placeholder="your password" autofocus>
+            <br>
+            <label>Type:</label>
+            <input type="radio" ng-model="formData.user_type" value="STUDENT">Student
+            <input type="radio" ng-model="formData.user_type" value="INSTRUCTOR">Instructor
+            <br>
+
+            <input type="submit"/>
+        </form>
+
+        <p>No account? Register <a href="#/register">here</a>.
+        </p>
+    </div>
+</section>
