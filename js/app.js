@@ -113,8 +113,14 @@ myApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpP
         })
         .when('/create_class', {
             templateUrl: 'partials/create_class.html',
-            controller: 'CreateClassController'
+            controller: 'AddCourseController'
         })
+
+        .when('/add_assignment/:which_class', {
+            templateUrl: 'partials/add_assignment.html',
+            controller: 'AddAssignmentController'
+        })
+
         .otherwise({
             redirectTo: '/login'
     });

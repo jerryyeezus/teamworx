@@ -1,4 +1,6 @@
 <h2><p>Welcome, {{ the_user }}.</h2><a href="" ng-click="logout()">logout</a></p>
+<h3>{{course.course_dept_and_id}}</h3>
+
 <hr>
 <ul>
     <li ng-repeat="x in assignments">
@@ -7,6 +9,4 @@
 
 </ul>
 
-<p>Click <a href="#create_class">here</a> to create a course</p>
-
-
+<p>Click <a href="#add_assignment/{{my_pk}}">here</a> to add an assignment</p>
