@@ -1,6 +1,6 @@
 <section class="credentials">
     <div>
-        <form ng-submit="login(formData)">
+        <form class="genericPanel" ng-submit="login(formData)">
             <h1>Login</h1>
             <input ng-model="formData.the_email" placeholder="your email" autofocus><br>
 
@@ -12,9 +12,11 @@
             <br>
 
             <input type="submit"/>
+            <br>
+            <br>
+            <p>No account? Register <a href="#/register">here</a>.
         </form>
 
-        <p>No account? Register <a href="#/register">here</a>.
         </p>
     </div>
 </section>

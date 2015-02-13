@@ -1,11 +1,13 @@
-<h1>portal (TODO)</h1>
-
-<p>Welcome, {{ the_user }}. <a href="" ng-click="logout()">logout</a>
-</p>
+<h2><p>Welcome, {{ the_user }}.</h2><a href="" ng-click="logout()">logout</a></p>
+<p>Your Classes:</p>
+<hr>
 <ol>
-    <li>add class</li>
-    <li>click on class</li>
+    <li ng-repeat="course in course_list">
+        <h3><a href="#main/{{course.pk}}">{{ course.course_dept_and_id}}: {{ course.course_name}}</a></h3>
+        <h4>Instructor: {{ course.prof }}</h4>
+    </li>
 
 </ol>
 
+<p>Click <a href="#create_class">here</a> to create a course</p>
 

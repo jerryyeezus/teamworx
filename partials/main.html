@@ -1,0 +1,12 @@
+<h2><p>Welcome, {{ the_user }}.</h2><a href="" ng-click="logout()">logout</a></p>
+<hr>
+<ul>
+    <li ng-repeat="x in assignments">
+        Assignment {{ x.assignment_number}}: {{ x.assignment_title}}
+    </li>
+
+</ul>
+
+<p>Click <a href="#create_class">here</a> to create a course</p>
+
+

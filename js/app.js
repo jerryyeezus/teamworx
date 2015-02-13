@@ -7,6 +7,7 @@ var myApp = angular.module('myApp', [
 
 myApp.factory('Authentication', function ($http, $cookies){
     var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
+    //server_url = 'http://localhost:8000/';
 
     return {
         getAuthenticatedAccount: getAuthenticatedAccount,
@@ -102,9 +103,17 @@ myApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpP
             templateUrl: 'partials/portal.html',
             controller: 'PortalController'
         })
+        .when('/main/:which_class', {
+            templateUrl: 'partials/main.html',
+            controller: 'CMainController'
+        })
         .when('/register', {
             templateUrl: 'partials/register.html',
             controller: 'CredentialsController'
+        })
+        .when('/create_class', {
+            templateUrl: 'partials/create_class.html',
+            controller: 'CreateClassController'
         })
         .otherwise({
             redirectTo: '/login'
