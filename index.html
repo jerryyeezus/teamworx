@@ -23,6 +23,7 @@
 <body>
 <div class="main" ng-view></div>
 
+<!-- Navbar Begin -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -36,33 +37,35 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="mainpage.html">[Professor Name]</a></li>
+                <li class=""><a href="#portal">[Professor Name]</a></li>
+                <!-- 'My Courses' List
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Courses<span class="caret"></span></a>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Courses<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="404.html">[Course 1]</a></li>
-                        <li><a href="404.html">[Course 2]</a></li>
-                        <li><a href="404.html">[Course 3]</a></li>
+                        <li><a href="#main/1">[Course 1]</a></li>
+                        <li><a href="">[Course 2]</a></li>
+                        <li><a href="">[Course 3]</a></li>
                         <li class="divider"></li>
-                        <li><a href="add_course.html">Add a new Course</a></li>
+                        <li><a href="">Add a new Course</a></li>
                     </ul>
                 </li>
-                <li><a href="add_course.html">Add a New Course</a></li>
+                -->
+                <li><a href="#create_class">Add a New Course</a></li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Recent Assignments<span class="caret"></span></a>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Recent Assignments<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="404.html">[Most recent assignment]</a></li>
-                        <li><a href="404.html">[2nd most Recent]</a></li>
-                        <li><a href="404.html">[3rd most recent]</a></li>
+                        <li><a href="">[Most recent assignment]</a></li>
+                        <li><a href="">[2nd most Recent]</a></li>
+                        <li><a href="">[3rd most recent]</a></li>
                     </ul>
                 </li>
 
                 <li class="dropdown" id="settingsMenu">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span class="caret"></span></a>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="404.html">Delete a Course</a></li>
-                        <li><a href="404.html">Change Password</a></li>
-                        <li><a href="" ng-click="logout()">Logout</a></li>
+                        <li><a href="">Delete a Course</a></li>
+                        <li><a href="">Change Password</a></li>
+                        <li><a href="">Logout</a></li>
                     </ul>
                 </li>
 
