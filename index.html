@@ -24,7 +24,7 @@
 <div class="main" ng-view></div>
 
 <!-- Navbar Begin -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-hide="isActive('/login')" ng-controller="NavigationController">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -65,7 +65,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="">Delete a Course</a></li>
                         <li><a href="">Change Password</a></li>
-                        <li><a href="">Logout</a></li>
+                        <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
                 </li>
 
