@@ -7,7 +7,6 @@ mainControllers.controller('PortalController', ['$http', '$location', '$scope', 
 
   /* Get list of courses */
   $http.get(server_url + 'courses/' + $scope.the_user).then(function (response) {
-    //$scope.course_list = response.data;
     var course_list = response.data;
     course_list.forEach(function(course) {
       course.prof = course.course_professor.split("|")[1];
