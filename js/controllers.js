@@ -60,6 +60,8 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
 
 }]);
 
+
+
 mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentication', function($scope, $http, Authentication) {
     $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
     $scope.submitTheForm = function(formData) {
