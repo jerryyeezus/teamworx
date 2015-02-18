@@ -9,6 +9,7 @@
   <script src="lib/angular/angular-animate.min.js"></script>
   <script src="lib/angular/angular-cookies.min.js"></script>
   <link href="./css/bootstrap.css" rel="stylesheet">
+
   <!-- Bootstrap Theme -->
   <link href="./css/bootstrap-theme.min.css" rel="stylesheet">
   <link href="./css/bootstrap-theme.css" rel="stylesheet">
@@ -19,6 +20,50 @@
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/docs.min.js"></script>
+
+
+
+  <script>
+      $(function() {
+          var dialog, form,
+              course_dept = $("#course_dept"),
+              course_id = $("#course_id"),
+              course_name = $("#course_name"),
+              course_prof = $("#course_prof"),
+              allFields = $([]).add(course_dept).add(course_id).add(course_name).add(course_prof);
+      dialog = $( "#upload-form" ).dialog({
+          autoOpen: false,
+          height: 300,
+          width: 350,
+          modal: true,
+          buttons: {
+              "Upload Student Roster": uploadRoster,
+              Cancel: function () {
+                  dialog.dialog("close");
+              }
+          },
+          close: function() {
+              form[0].reset();
+              allFields.removeClass( "ui-state-error" );
+          }
+      });
+
+      function uploadRoster() {
+          var valid = true;
+          allFields.removeClass("ui-state-error");
+
+          if (valid) {
+              dialog.dialog("close");
+          }
+      }
+
+        $("#uploadStudentRoster").button().on( "click", function() {
+              dialog.dialog( "open" );
+        });
+      });
+  </script>
+
+
 </head>
 <body>
 <div class="main" ng-view></div>
@@ -74,9 +119,8 @@
     </div>
 </nav> <!-- Navbar end -->
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+
+
 
 </body>
 </html>
