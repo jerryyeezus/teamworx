@@ -45,12 +45,12 @@ mainControllers.controller('CMainController', ['$http', '$scope', '$routeParams'
                 modal: true,
                 buttons: {
                     "Upload Student Roster": uploadRoster,
-                    Cancel: function () {
-                        dialog.dialog("close");
+                    "Cancel": function () {
+                        dialog1.dialog("close");
                     }
                 },
                 close: function() {
-                    //form[0].reset();
+                    form.reset();
                     allFields.removeClass( "ui-state-error" );
                 }
             });
@@ -61,7 +61,7 @@ mainControllers.controller('CMainController', ['$http', '$scope', '$routeParams'
                 allFields.removeClass("ui-state-error");
 
                 if (valid) {
-                    dialog.dialog("close");
+                    dialog1.dialog("close");
                 }
             }
 

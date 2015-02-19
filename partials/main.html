@@ -38,16 +38,7 @@
     </div>
 </nav>
 <!-- Navbar end -->
-<div class="container" id="upload-form" title="Upload a Class Roster">
-    <form>
-        <fieldset>
-            <label for="file-roster">Upload your Student Roster</label>
-            <input type="file" id="file-roster" file-model="myFile"/>
 
-            <input type="submit" tabindex="-1" style="position: absolute; top:-1000px">
-        </fieldset>
-    </form>
-</div>
 
 
 <div class="container-fluid" id="studentPanel">
@@ -63,26 +54,26 @@
         <div ng-controller="ListCtrl" ng-init="initialize('Loading')">
             <ul style="list-style-type:none;">
                 <li ng-repeat="item in items | filter:search">
-                    <div class="studentProfile" id="draggable">
+                    <div class="studentProfile">
                         <img src="{{ item.profile_img }}" class="imgStudent">
                         <a href="" class="student-main">{{ item.name }}</a>
                     </div>
                     <!-- {{ item.name }} <img src="{{ item.profile_img }}" width="80" height="80"//-->
                 </li>
                 <li>
-                    <div class="studentProfile" id="draggable">
+                    <div class="studentProfile">
                         <img src="./pics/portrait_240.png" class="imgStudent">
                         <a href="404.html" class="student-main">Sample Student 1</a>
                     </div>
                 </li>
                 <li>
-                    <div class="studentProfile" id="draggable">
+                    <div class="studentProfile">
                         <img src="./pics/portrait_240.png" class="imgStudent">
                         <a href="404.html" class="student-main">Sample Student 1</a>
                     </div>
                 </li>
                 <li>
-                    <div class="studentProfile" id="draggable">
+                    <div class="studentProfile">
                         <img src="./pics/portrait_240.png" class="imgStudent">
                         <a href="404.html" class="student-main">Sample Student 1</a>
                     </div>
@@ -104,6 +95,15 @@
 
 </ul>
 
-<div id="uploadWindow" title="Upload a Class Roster">
 
+<div class="ui-widget-overlay" id="upload-form" title="Upload a Class Roster">
+    <form>
+        <fieldset>
+            <label for="file-roster">Upload your Student Roster</label>
+            <input type="file" id="file-roster" file-model="myFile"/>
+
+            <input type="submit" tabindex="-1" style="position: absolute; top:-1000px">
+        </fieldset>
+    </form>
 </div>
+
