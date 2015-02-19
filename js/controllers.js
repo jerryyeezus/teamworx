@@ -73,6 +73,7 @@ mainControllers.controller('CMainController', ['$http', '$scope', '$routeParams'
     /* Get list of courses */
     $http.get(server_url + 'assignments/' + which_class).then(function (response) {
         $scope.assignments = response.data;
+        console.log($scope.assignments);
     });
 
     /* Logout function */
