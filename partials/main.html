@@ -1,68 +1,61 @@
 <div class="container" id="upload-form" title="Upload a Class Roster">
     <form>
         <fieldset>
-            <label for="course_dept">Course Department</label>
-            <input type="text" name="course_dept" id="course_dept" class="text ui-widget-content ui-corner-all">
-            <label for="course_id">Course ID</label>
-            <input type="text" name="course_id" id="course_id" class="text ui-widget-content ui-corner-all">
-            <label for="course_name">Course Name</label>
-            <input type="text" name="course_dept" id="course_name" class="text ui-widget-content ui-corner-all">
-            <label for="course_professor">Course Professor</label>
-            <input type="text" name="course_dept" id="course_professor" class="text ui-widget-content ui-corner-all">
             <label for="file-roster">Upload your Student Roster</label>
             <input type="file" id="file-roster" file-model="myFile"/>
 
-            <input type="submit" tabindex="-1" style="position absolute; top:-1000px">
+            <input type="submit" tabindex="-1" style="position: absolute; top:-1000px">
         </fieldset>
     </form>
 </div>
 
 
-    <div class="container-fluid" id="studentPanel">
-        <div class="container-fluid" id="studentClassRosterTitle">
-            <h2 style="text-align:center;">{{course.course_dept_and_id}} Roster</h2>
-        </div>
-        <div class="input-group" id="studentSearchBar">
-            <span class="input-group-addon" id="searchBarAddon">Search:</span>
-            <input ng-model="search.name" id="searchBarField">
-        </div>la
-        <div class="studentProfileContent">
-            <div ng-controller="ListCtrl" ng-init="initialize('Loading')">
-                <ul style="list-style-type:none;">
-                    <li ng-repeat="item in items | filter:search">
-                        <div class="studentProfile" id="draggable">
-                            <img src="{{ item.profile_img }}" class="imgStudent">
-                            <a href="" class="student-main">{{ item.name }}</a>
-                        </div>
-                        <!-- {{ item.name }} <img src="{{ item.profile_img }}" width="80" height="80"//-->
-                    </li>
-                    <li>
-                        <div class="studentProfile" id="draggable">
-                            <img src="./pics/portrait_240.png" class="imgStudent">
-                            <a href="404.html" class="student-main">Sample Student 1</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="studentProfile" id="draggable">
-                            <img src="./pics/portrait_240.png" class="imgStudent">
-                            <a href="404.html" class="student-main">Sample Student 1</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="studentProfile" id="draggable">
-                            <img src="./pics/portrait_240.png" class="imgStudent">
-                            <a href="404.html" class="student-main">Sample Student 1</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="studentUploadRoster">
-                <button class="btn-default" id="uploadClassRoster">Upload Class Roster</button>
-            </div>
+<div class="container-fluid" id="studentPanel">
+    <div class="container-fluid" id="studentClassRosterTitle">
+        <h2 style="text-align:center;">{{course.course_dept_and_id}} Roster</h2>
+    </div>
+    <div class="input-group" id="studentSearchBar">
+        <span class="input-group-addon" id="searchBarAddon">Search:</span>
+        <input ng-model="search.name" id="searchBarField">
+    </div>
+    la
+    <div class="studentProfileContent">
+        <div ng-controller="ListCtrl" ng-init="initialize('Loading')">
+            <ul style="list-style-type:none;">
+                <li ng-repeat="item in items | filter:search">
+                    <div class="studentProfile" id="draggable">
+                        <img src="{{ item.profile_img }}" class="imgStudent">
+                        <a href="" class="student-main">{{ item.name }}</a>
+                    </div>
+                    <!-- {{ item.name }} <img src="{{ item.profile_img }}" width="80" height="80"//-->
+                </li>
+                <li>
+                    <div class="studentProfile" id="draggable">
+                        <img src="./pics/portrait_240.png" class="imgStudent">
+                        <a href="404.html" class="student-main">Sample Student 1</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="studentProfile" id="draggable">
+                        <img src="./pics/portrait_240.png" class="imgStudent">
+                        <a href="404.html" class="student-main">Sample Student 1</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="studentProfile" id="draggable">
+                        <img src="./pics/portrait_240.png" class="imgStudent">
+                        <a href="404.html" class="student-main">Sample Student 1</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
+    <div class="container-fluid">
+        <div class="studentUploadRoster">
+            <button class="btn-default" id="uploadStudentRoster">Upload Class Roster</button>
+        </div>
+    </div>
+</div>
 
 <ul>
     <li ng-repeat="x in assignments">
