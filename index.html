@@ -16,8 +16,67 @@
 
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/docs.min.js"></script>
 </head>
 <body>
 <div class="main" ng-view></div>
+
+<!-- Navbar Begin -->
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-hide="isActive('/login')" ng-controller="NavigationController">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">TeamWorx</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class=""><a href="#portal">[Professor Name]</a></li>
+                <!-- 'My Courses' List
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Courses<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#main/1">[Course 1]</a></li>
+                        <li><a href="">[Course 2]</a></li>
+                        <li><a href="">[Course 3]</a></li>
+                        <li class="divider"></li>
+                        <li><a href="">Add a new Course</a></li>
+                    </ul>
+                </li>
+                -->
+                <li><a href="#create_class">Add a New Course</a></li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Recent Assignments<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="">[Most recent assignment]</a></li>
+                        <li><a href="">[2nd most Recent]</a></li>
+                        <li><a href="">[3rd most recent]</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" id="settingsMenu">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="">Delete a Course</a></li>
+                        <li><a href="">Change Password</a></li>
+                        <li><a href="" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav> <!-- Navbar end -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
 </body>
 </html>

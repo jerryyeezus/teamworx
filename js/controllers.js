@@ -59,6 +59,8 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
 
 }]);
 
+
+
 mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentication', function($scope, $http, Authentication) {
     $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
     $scope.submitTheForm = function(formData) {
@@ -109,4 +111,32 @@ mainControllers.controller("AddAssignmentController", ['$scope', '$http',  '$rou
             console.log(dataObject);
         });
     }
+}]);
+
+
+mainControllers.controller('NavigationController', ['$location', '$scope', 'Authentication', '$rootScope', function($location, $scope, Authentication, $rootScope) {
+    activate();
+
+    function activate() {
+        if (Authentication.isAuthenticated()) {
+            $location.url('/portal');
+        }
+    }
+
+    $rootScope.isActive = function(viewLocation) {
+        return viewLocation === $location.path();
+    }
+
+    $scope.register = function (formData) {
+        Authentication.register(formData);
+    }
+
+    $scope.login = function(formData) {
+        Authentication.login(formData)
+    }
+
+    $scope.logout = function() {
+        Authentication.logout();
+    }
+
 }]);
