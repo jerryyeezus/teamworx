@@ -15,6 +15,16 @@ mainControllers.controller('PortalController', ['$http', '$location', 'Authentic
 
         $scope.course_list = course_list;
     });
+
+    $http.get(server_url + 'student_courses/' + $scope.user.email).then(function (response) {
+        var course_list = response.data;
+        course_list.forEach(function (course) {
+            course.prof = course.course_professor.split("|")[1];
+        });
+
+        $scope.course_list = course_list;
+    });
+
     $scope.selectCourse = function (course) {
         $cookieStore.put('course', course);
         document.location.href = "#main/" + course.pk;
