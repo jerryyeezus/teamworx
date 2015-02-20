@@ -1,12 +1,107 @@
-<h2><p>Welcome, {{ the_user }}.</h2><a href="" ng-click="logout()">logout</a></p>
-<h3>{{course.course_dept_and_id}}</h3>
+<!-- Navbar Begin -->
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-hide="isActive('/login')" ng-controller="NavigationController">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">TeamWorx</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{the_user}}
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Assignments<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="x in assignments">
+                            <a href="#">Assignment {{x.assignment_number}}: {{x.assignment_title}}</a>
+                        </li>
+                        <li><a href="#add_assignment/{{my_pk}}"><b>+ New Assignment</b></a></li>
+                    </ul>
+                </li>
 
-<hr>
-<ul>
-    <li ng-repeat="x in assignments">
-        Assignment {{ x.assignment_number}}: {{ x.assignment_title}}
-    </li>
+                <li class="dropdown" id="settingsMenu">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="">Delete a Course</a></li>
+                        <li><a href="">Change Password</a></li>
+                        <li><a href="" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </li>
+                <li class=""><a href="#portal">Back</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Navbar end -->
 
-</ul>
 
-<p>Click <a href="#add_assignment/{{my_pk}}">here</a> to add an assignment</p>
+
+<div class="container-fluid" id="studentPanel">
+    <div class="container-fluid" id="studentClassRosterTitle">
+        <h2 style="text-align:center;">{{course.course_dept_and_id}} Roster</h2>
+    </div>
+    <div class="input-group" id="studentSearchBar">
+        <span class="input-group-addon" id="searchBarAddon">Search:</span>
+        <input ng-model="search.name" id="searchBarField">
+    </div>
+    la
+    <div class="studentProfileContent">
+        <div ng-controller="ListCtrl" ng-init="initialize('Loading')">
+            <ul style="list-style-type:none;">
+                <li ng-repeat="item in items | filter:search">
+                    <div class="studentProfile">
+                        <img src="{{ item.profile_img }}" class="imgStudent">
+                        <a href="" class="student-main">{{ item.name }}</a>
+                    </div>
+                    <!-- {{ item.name }} <img src="{{ item.profile_img }}" width="80" height="80"//-->
+                </li>
+                <li>
+                    <div class="studentProfile">
+                        <img src="./pics/portrait_240.png" class="imgStudent">
+                        <a href="404.html" class="student-main">Sample Student 1</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="studentProfile">
+                        <img src="./pics/portrait_240.png" class="imgStudent">
+                        <a href="404.html" class="student-main">Sample Student 1</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="studentProfile">
+                        <img src="./pics/portrait_240.png" class="imgStudent">
+                        <a href="404.html" class="student-main">Sample Student 1</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="studentUploadRoster">
+            <button class="btn-default" id="uploadStudentRoster">Upload Class Roster</button>
+        </div>
+    </div>
+</div>
+
+<div class="ui-widget-overlay" id="upload-form" title="Upload a Class Roster">
+    <form>
+        <fieldset>
+            <label for="file-roster">Upload your Student Roster</label>
+            <input type="file" id="file-roster" file-model="myFile"/>
+
+            <input type="submit" tabindex="-1" style="position: absolute; top:-1000px">
+        </fieldset>
+    </form>
+</div>
+

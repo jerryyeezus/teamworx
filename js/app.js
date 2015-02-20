@@ -4,8 +4,7 @@ var myApp = angular.module('myApp', [
     'ngCookies'
 ]);
 
-
-myApp.factory('Authentication', function ($http, $cookies){
+myApp.factory('Authentication', function ($http, $cookies) {
     var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
     //server_url = 'http://localhost:8000/';
 
@@ -90,7 +89,7 @@ myApp.factory('Authentication', function ($http, $cookies){
     }
 });
 
-myApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+myApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
@@ -123,5 +122,5 @@ myApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpP
 
         .otherwise({
             redirectTo: '/login'
-    });
+        });
 }]);
