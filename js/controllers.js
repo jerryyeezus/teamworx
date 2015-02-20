@@ -1,12 +1,12 @@
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);
 
-mainControllers.controller('PortalController', ['$http', '$location', '$scope', 'Authentication', function ($http, $location, $scope, Authentication) {
+mainControllers.controller('PortalController', ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', function ($http, $location, Authentication, $scope, $rootScope, $cookieStore) {
+    $scope.user = Authentication.getAuthenticatedAccount();
     var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
     //server_url = 'http://localhost:8000/';
-    $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
 
     /* Get list of courses */
-    $http.get(server_url + 'courses/' + $scope.the_user).then(function (response) {
+    $http.get(server_url + 'courses/' + $scope.user.email).then(function (response) {
         var course_list = response.data;
         course_list.forEach(function (course) {
             course.prof = course.course_professor.split("|")[1];
@@ -15,13 +15,20 @@ mainControllers.controller('PortalController', ['$http', '$location', '$scope', 
         $scope.course_list = course_list;
     });
 
+    $scope.selectCourse = function(course) {
+        $cookieStore.put('course', course);
+        document.location.href = "#main/" + course.pk;
+    };
+
     /* Logout function */
     $scope.logout = function () {
         Authentication.logout();
     }
 }]);
 
-mainControllers.controller('CMainController', ['$http', '$scope', '$routeParams', 'Authentication', function ($http, $scope, $routeParams, Authentication) {
+mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authentication', '$scope', '$rootScope', '$cookieStore', function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore) {
+    $scope.course = $cookieStore.get('course');
+    $scope.user = Authentication.getAuthenticatedAccount();
     var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
     //server_url = 'http://localhost:8000/';
     var which_class = $routeParams.which_class;
@@ -54,7 +61,6 @@ mainControllers.controller('CMainController', ['$http', '$scope', '$routeParams'
                 }
             });
 
-            console.log($("#upload-form"));
             function uploadRoster() {
                 var valid = true;
                 allFields.removeClass("ui-state-error");
@@ -103,7 +109,7 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
 
 
 mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentication', function ($scope, $http, Authentication) {
-    $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+    $scope.the_user = Authentication.getAuthenticatedAccount();
     $scope.submitTheForm = function (formData) {
         var dataObject = {
             course_dept_and_id: $scope.myForm.course_dept + ' ' + $scope.myForm.course_id
@@ -113,9 +119,8 @@ mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentic
 
         var responsePromise = $http.post('http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/add_courses/', dataObject, {});
         responsePromise.success(function (dataFromServer, status, headers, config) {
-            console.log(dataFromServer.title);
-            console.log(dataObject);
-            alert("Course created!");
+            alert("Course created!!");
+            window.location = '/teamworx/index.html#/portal';
         });
         responsePromise.error(function (data, status, headers, config) {
             alert("Submitting form failed!");

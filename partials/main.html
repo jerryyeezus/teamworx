@@ -20,6 +20,12 @@
                 </li>
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{course.course_name}}
+                    </a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         Assignments<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li ng-repeat="x in assignments">
@@ -49,13 +55,12 @@
 
 <div class="container-fluid" id="studentPanel">
     <div class="container-fluid" id="studentClassRosterTitle">
-        <h2 style="text-align:center;">{{course.course_dept_and_id}} Roster</h2>
+        <h4 style="text-align:center;">{{course.course_dept_and_id}} Roster</h4>
     </div>
     <div class="input-group" id="studentSearchBar">
         <span class="input-group-addon" id="searchBarAddon">Search:</span>
         <input ng-model="search.name" id="searchBarField">
     </div>
-    la
     <div class="studentProfileContent">
         <div ng-controller="ListCtrl" ng-init="initialize('Loading')">
             <ul style="list-style-type:none;">

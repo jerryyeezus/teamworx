@@ -36,10 +36,10 @@ myApp.factory('Authentication', function ($http, $cookies) {
         }).then(loginSuccessFn, loginErrorFn);
 
         function loginSuccessFn(data, status, headers, config) {
+            console.log(data.data)
             setAuthenticatedAccount(data.data);
 
             window.location = '/teamworx/index.html#/portal';
-            alert('Success! Logged in')
         }
 
         function loginErrorFn(data, status, headers, config) {
@@ -63,7 +63,10 @@ myApp.factory('Authentication', function ($http, $cookies) {
     }
 
     function register(formData) {
+        console.log(formData);
         $http.post(server_url + 'register/', {
+            name: formData.the_name,
+            skills_str: '',
             email: formData.the_email,
             user_type: formData.user_type,
             password: formData.password,
@@ -76,7 +79,8 @@ myApp.factory('Authentication', function ($http, $cookies) {
         }
 
         function registerErrorFn(data, status, headers, config) {
-            alert('Register failed!')
+            alert('Register failed!\nError: ' + data['data']['status']);
+            console.log(data['data']['message']);
         }
     }
 
