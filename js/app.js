@@ -5,9 +5,13 @@ var myApp = angular.module('myApp', [
     'ui.bootstrap'
 ]);
 
+var DEBUG = false;
+
+var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
+if (DEBUG)
+    server_url = 'http://localhost:8000/';
+
 myApp.factory('Authentication', function ($http, $cookies) {
-    var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
-    //server_url = 'http://localhost:8000/';
 
     return {
         getAuthenticatedAccount: getAuthenticatedAccount,

@@ -1,9 +1,13 @@
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);
 
+var DEBUG = false;
+
+var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
+if (DEBUG)
+    server_url = 'http://localhost:8000/';
+
 mainControllers.controller('PortalController', ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', function ($http, $location, Authentication, $scope, $rootScope, $cookieStore) {
     $scope.user = Authentication.getAuthenticatedAccount();
-    var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
-    //server_url = 'http://localhost:8000/';
 
     /* Get list of courses */
     $http.get(server_url + 'courses/' + $scope.user.email).then(function (response) {
@@ -32,8 +36,6 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
-        var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
-        //server_url = 'http://localhost:8000/';
         var which_class = $routeParams.which_class;
         $scope.my_pk = which_class;
 
@@ -108,10 +110,10 @@ mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentic
         var dataObject = {
             course_dept_and_id: $scope.myForm.course_dept + ' ' + $scope.myForm.course_id
             , course_name: $scope.myForm.course_name
-            , course_professor: "INSTRUCTOR|" + $scope.the_user
+            , course_professor: "INSTRUCTOR|" + $scope.the_user.email
         };
 
-        var responsePromise = $http.post('http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/add_courses/', dataObject, {});
+        var responsePromise = $http.post(server_url + 'add_courses/', dataObject, {});
         responsePromise.success(function (dataFromServer, status, headers, config) {
             alert("Course created!!");
             window.location = '/teamworx/index.html#/portal';
