@@ -12,6 +12,11 @@
 #settingsMenu {
 }
 
+.checkedClass {
+  font-weight: bold;
+  color: blue;
+}
+
 .genericPanel {
     background-color:#ddd;
     padding:10px 10px 10px 10px;

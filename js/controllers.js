@@ -36,6 +36,14 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
 
     $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
 
+    $scope.is_current_assignment = function(num) {
+        return $scope.which_assignment == num;
+    }
+
+    $scope.selectAssignment = function(id) {
+        $scope.which_assignment = id;
+    };
+
     $scope.$on('$viewContentLoaded', function () {
         $(function() {
             var dialog1, form,
@@ -78,6 +86,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
     /* Get list of courses */
     $http.get(server_url + 'assignments/' + which_class).then(function (response) {
         $scope.assignments = response.data;
+        $scope.which_assignment = $scope.assignments.length;
         console.log($scope.assignments);
     });
 
