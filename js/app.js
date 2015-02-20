@@ -134,6 +134,17 @@ myApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $http
             controller: 'UploadController'
         })
 
+        .when('/assignment/:which_class', {
+            templateUrl: 'partials/assignment.html',
+            controller: 'AssignmentController'
+        })
+
+
+        .when('/add_question', {
+            templateUrl: 'partials/add_question.html',
+            controller: 'AddQuestionController'
+        })
+
         .otherwise({
             redirectTo: '/login'
         });

@@ -10,7 +10,17 @@ mainControllers.controller('PortalController', ['$http', '$location', 'Authentic
     $scope.user = Authentication.getAuthenticatedAccount();
 
     /* Get list of courses */
+
     $http.get(server_url + 'courses/' + $scope.user.email).then(function (response) {
+        var course_list = response.data;
+        course_list.forEach(function (course) {
+            course.prof = course.course_professor.split("|")[1];
+        });
+
+        $scope.course_list = course_list;
+    });
+
+    $http.get(server_url + 'student_courses/' + $scope.user.email).then(function (response) {
         var course_list = response.data;
         course_list.forEach(function (course) {
             course.prof = course.course_professor.split("|")[1];
@@ -182,4 +192,72 @@ mainControllers.controller('NavigationController', ['$location', '$scope', 'Auth
         Authentication.logout();
     }
 
+}]);
+
+mainControllers.controller("AssignmentController", ['$scope', '$http', '$routeParams', 'Authentication', function ($scope, $http, $routeParams, Authentication) {
+    $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+    $scope.course = "";
+
+    $scope.items = [];
+
+    $scope.add = function () {
+        $scope.items.push({
+            question: "",
+            questionPlaceholder: "New Question",
+            text: ""
+        });
+    };
+
+    $scope.submitTheForm = function (formData) {
+        var dataObject = {
+
+            course_fk: $routeParams.which_class
+            , assignment_number: $scope.myForm.assignment_number
+            , assignment_title: $scope.myForm.assignment_title
+            , assignment_text: $scope.myForm.assignment_text
+
+        };
+
+
+
+        console.log(dataObject);
+
+
+        var responsePromise = $http.post('http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/add_assignment/', dataObject, {});
+        responsePromise.success(function (dataFromServer, status, headers, config) {
+            console.log(dataFromServer.title);
+            console.log(dataObject);
+            alert("Assignment created!");
+        });
+        responsePromise.error(function (data, status, headers, config) {
+            alert("Submitting form failed!");
+            console.log(dataObject);
+        });
+    }
+}]);
+
+mainControllers.controller("AddQuestionController", ['$scope', '$http', '$routeParams', 'Authentication', function ($scope, $http, $routeParams, Authentication) {
+    $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+
+    $scope.submitTheForm = function (formData) {
+        var dataObject = {
+
+            course_fk: $routeParams.which_class
+            , assignment_number: $scope.myForm.assignment_number
+            , assignment_title: $scope.myForm.assignment_title
+            , assignment_text: $scope.myForm.assignment_text
+
+        };
+        console.log(dataObject);
+        var responsePromise = $http.post('http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/add_question/', dataObject, {});
+        responsePromise.success(function (dataFromServer, status, headers, config) {
+            console.log(dataFromServer.title);
+            console.log(dataObject);
+            alert("Assignment created!");
+        });
+        responsePromise.error(function (data, status, headers, config) {
+            alert("Submitting form failed!");
+            console.log(dataObject);
+        });
+    }
 }]);

@@ -38,7 +38,7 @@
                         Assignments<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li ng-repeat="x in assignments">
-                            <a style="cursor:pointer" ng-click="selectAssignment(x.assignment_number)">
+                            <a href = "#assignment/{{my_pk}}" style="cursor:pointer" ng-click="selectAssignment(x.assignment_number)">
                                 <p ng-class="{'checkedClass': is_current_assignment(x.assignment_number)}">Assignment {{x.assignment_number}}: {{x.assignment_title}}</p>
                             </a>
                         </li>
