@@ -21,7 +21,16 @@
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         {{course.course_name}}
+                        <span class="caret"></span>
                     </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a style="cursor:pointer" ng-click="foo()">
+                               + Import CSV
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="dropdown">
@@ -64,51 +73,40 @@
         <input ng-model="search.name" id="searchBarField">
     </div>
     <div class="studentProfileContent">
-        <div ng-controller="ListCtrl" ng-init="initialize('Loading')">
+        <div>
             <ul style="list-style-type:none;">
-                <li ng-repeat="item in items | filter:search">
-                    <div class="studentProfile">
-                        <img src="{{ item.profile_img }}" class="imgStudent">
-                        <a href="" class="student-main">{{ item.name }}</a>
-                    </div>
-                    <!-- {{ item.name }} <img src="{{ item.profile_img }}" width="80" height="80"//-->
-                </li>
                 <li>
                     <div class="studentProfile">
-                        <img src="./pics/portrait_240.png" class="imgStudent">
+                        <img src="img/no_profile.png" class="imgStudent">
                         <a href="404.html" class="student-main">Sample Student 1</a>
                     </div>
                 </li>
                 <li>
                     <div class="studentProfile">
-                        <img src="./pics/portrait_240.png" class="imgStudent">
-                        <a href="404.html" class="student-main">Sample Student 1</a>
-                    </div>
-                </li>
-                <li>
-                    <div class="studentProfile">
-                        <img src="./pics/portrait_240.png" class="imgStudent">
+                        <img src="img/no_profile.png" class="imgStudent">
                         <a href="404.html" class="student-main">Sample Student 1</a>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="studentUploadRoster">
-            <button class="btn-default" id="uploadStudentRoster">Upload Class Roster</button>
-        </div>
-    </div>
 </div>
 
-<div class="ui-widget-overlay" id="upload-form" title="Upload a Class Roster">
-    <form>
-        <fieldset>
-            <label for="file-roster">Upload your Student Roster</label>
-            <input type="file" id="file-roster" file-model="myFile"/>
-
-            <input type="submit" tabindex="-1" style="position: absolute; top:-1000px">
-        </fieldset>
-    </form>
-</div>
+<!--<script type="text/ng-template" id="myModalContent.html">-->
+    <!--<div class="modal-header">-->
+        <!--<h3>I'm a modal!</h3>-->
+    <!--</div>-->
+    <!--<form ng-submit="submit()">-->
+        <!--<div class="modal-body">-->
+            <!--<label>User name</label>-->
+            <!--<input type="text" ng-model="user.user" />-->
+            <!--<label>Password</label>-->
+            <!--<input type="password" ng-model="user.password" />-->
+        <!--</div>-->
+        <!--<div class="modal-footer">-->
+            <!--<button class="btn btn-warning" ng-click="cancel()">Cancel</button>-->
+            <!--<input type="submit" class="btn primary-btn" value="Submit" />-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</script>-->
 

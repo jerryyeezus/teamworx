@@ -1,7 +1,8 @@
 var myApp = angular.module('myApp', [
     'ngRoute',
     'mainControllers',
-    'ngCookies'
+    'ngCookies',
+    'ui.bootstrap'
 ]);
 
 myApp.factory('Authentication', function ($http, $cookies) {
@@ -39,7 +40,7 @@ myApp.factory('Authentication', function ($http, $cookies) {
             console.log(data.data)
             setAuthenticatedAccount(data.data);
 
-            window.location = '/teamworx/index.html#/portal';
+            window.location = 'index.html#/portal';
         }
 
         function loginErrorFn(data, status, headers, config) {
@@ -54,7 +55,7 @@ myApp.factory('Authentication', function ($http, $cookies) {
         function logoutSuccessFn(data, status, headers, config) {
             unauthenticate();
 
-            window.location = '/teamworx/index.html#/';
+            window.location = 'index.html#/';
         }
 
         function logoutErrorFn(data, status, headers, config) {
@@ -122,6 +123,11 @@ myApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $http
         .when('/add_assignment/:which_class', {
             templateUrl: 'partials/add_assignment.html',
             controller: 'AddAssignmentController'
+        })
+
+        .when('/import', {
+            templateUrl: 'modalContainer',
+            controller: 'UploadController'
         })
 
         .otherwise({

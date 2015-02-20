@@ -15,7 +15,7 @@ mainControllers.controller('PortalController', ['$http', '$location', 'Authentic
         $scope.course_list = course_list;
     });
 
-    $scope.selectCourse = function(course) {
+    $scope.selectCourse = function (course) {
         $cookieStore.put('course', course);
         document.location.href = "#main/" + course.pk;
     };
@@ -26,75 +26,60 @@ mainControllers.controller('PortalController', ['$http', '$location', 'Authentic
     }
 }]);
 
-mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authentication', '$scope', '$rootScope', '$cookieStore', function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore) {
-    $scope.course = $cookieStore.get('course');
-    $scope.user = Authentication.getAuthenticatedAccount();
-    var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
-    //server_url = 'http://localhost:8000/';
-    var which_class = $routeParams.which_class;
-    $scope.my_pk = which_class;
+mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authentication',
+    '$scope', '$rootScope', '$cookieStore', '$modal', '$window',
+    function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore, $modal, $window) {
 
-    $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+        $scope.course = $cookieStore.get('course');
+        $scope.user = Authentication.getAuthenticatedAccount();
+        var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
+        //server_url = 'http://localhost:8000/';
+        var which_class = $routeParams.which_class;
+        $scope.my_pk = which_class;
 
-    $scope.is_current_assignment = function(num) {
-        return $scope.which_assignment == num;
-    }
+        $scope.foo = function() {
+            $modal.open({
+                templateUrl : 'partials/upload_form.html',
+                controller: function($scope, $modalInstance) {
+                    $scope.submit = function() {
+                        $modalInstance.dismiss('cancel');
+                    };
 
-    $scope.selectAssignment = function(id) {
-        $scope.which_assignment = id;
-    };
-
-    $scope.$on('$viewContentLoaded', function () {
-        $(function() {
-            var dialog1, form,
-                course_dept = $("#course_dept"),
-                course_id = $("#course_id"),
-                course_name = $("#course_name"),
-                course_prof = $("#course_prof"),
-                allFields = $([]).add(course_dept).add(course_id).add(course_name).add(course_prof);
-            dialog1 = $("#upload-form").dialog({
-                autoOpen: false,
-                height: 300,
-                width: 350,
-                modal: true,
-                buttons: {
-                    "Upload Student Roster": uploadRoster,
-                    "Cancel": function () {
-                        dialog1.dialog("close");
-                    }
-                },
-                close: function() {
-                    form.reset();
-                    allFields.removeClass( "ui-state-error" );
+                    $scope.cancel = function() {
+                        $modalInstance.dismiss('cancel');}
                 }
-            });
-
-            function uploadRoster() {
-                var valid = true;
-                allFields.removeClass("ui-state-error");
-
-                if (valid) {
-                    dialog1.dialog("close");
                 }
-            }
+            );
 
-            $("#uploadStudentRoster").button().on( "click", function() {
-                dialog1.dialog( "open" );
-            });
+            // Hack to make modal appear... angular is fucking stupid
+            $window.history.back();
+        };
+
+        $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+
+        $scope.is_current_assignment = function (num) {
+            return $scope.which_assignment == num;
+        }
+
+        $scope.selectAssignment = function (id) {
+            $scope.which_assignment = id;
+        };
+
+        $scope.$on('$viewContentLoaded', function () {
         });
-    });
-    /* Get list of courses */
-    $http.get(server_url + 'assignments/' + which_class).then(function (response) {
-        $scope.assignments = response.data;
-        $scope.which_assignment = $scope.assignments.length;
-        console.log($scope.assignments);
-    });
+        /* Get list of courses */
+        $http.get(server_url + 'assignments/' + which_class).then(function (response) {
+            $scope.assignments = response.data;
+            $scope.which_assignment = $scope.assignments.length;
+        });
 
-    /* Logout function */
-    $scope.logout = function () {
-        Authentication.logout();
+        /* Logout function */
+        $scope.logout = function () {
+            Authentication.logout();
+        }
     }
-}]);
+])
+;
 
 mainControllers.controller('CredentialsController', ['$location', '$scope', 'Authentication', function ($location, $scope, Authentication) {
     activate();

@@ -88,6 +88,10 @@
 
 }
 
+.modal {
+  display: block;
+}
+
 #groupPanel {
     background-color:#ddd;
     margin:10px 10px 10px 10px;
