@@ -6,7 +6,8 @@ var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/'
 if (DEBUG)
     server_url = 'http://localhost:8000/';
 
-mainControllers.controller('PortalController', ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', function ($http, $location, Authentication, $scope, $rootScope, $cookieStore) {
+mainControllers.controller('PortalController', ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', '$modal', '$window',
+    function ($http, $location, Authentication, $scope, $rootScope, $cookieStore, $modal, $window) {
     $scope.user = Authentication.getAuthenticatedAccount();
 
     /* Get list of courses */
@@ -32,6 +33,27 @@ mainControllers.controller('PortalController', ['$http', '$location', 'Authentic
     $scope.selectCourse = function (course) {
         $cookieStore.put('course', course);
         document.location.href = "#main/" + course.pk;
+    };
+
+    //launches modal for creating a course
+    $scope.foo_portal = function() {
+        $modal.open({
+                templateUrl : 'partials/create_class.html',
+                controller: function($scope, $modalInstance) {
+                    $scope.submit = function() {
+                        $modalInstance.dismiss('cancel');
+                    };
+
+                    $scope.cancel = function() {
+                        $modalInstance.dismiss('cancel');}
+                }
+            }
+        );
+
+        // Hack to make modal appear... angular is fucking stupid
+        //$window.history.back();
+        window.location.href = "index.html#";
+        window.location.href = "index.html#/portal";
     };
 
     /* Logout function */
@@ -125,8 +147,8 @@ mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentic
 
         var responsePromise = $http.post(server_url + 'add_courses/', dataObject, {});
         responsePromise.success(function (dataFromServer, status, headers, config) {
-            alert("Course created!!");
-            window.location = '/teamworx/index.html#/portal';
+            //alert("Course created!!");
+            location.reload();
         });
         responsePromise.error(function (data, status, headers, config) {
             alert("Submitting form failed!");
