@@ -26,7 +26,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a style="cursor:pointer" ng-click="foo()">
+                            <a style="cursor:pointer" ng-click="import()">
                                + Import CSV
                             </a>
                         </li>
@@ -76,17 +76,19 @@
     </div>
     <div class="studentProfileContent">
         <div>
+            <span ng-show="!students.length" style="color:#ffffff">
+                No students yet.
+                <br>
+                <br>
+                <a ng-click="import()">Import students button</a>
+            </span>
             <ul style="list-style-type:none;">
-                <li>
+                <li ng-repeat="student in students">
                     <div class="studentProfile">
-                        <img src="img/no_profile.png" class="imgStudent">
-                        <a href="404.html" class="student-main">Sample Student 1</a>
-                    </div>
-                </li>
-                <li>
-                    <div class="studentProfile">
-                        <img src="img/no_profile.png" class="imgStudent">
-                        <a href="404.html" class="student-main">Sample Student 1</a>
+                        <img src="img/no_profile.png" class="imgStudent" ng-if="hasProfile(student)" />
+                        <!--<img src="img/no_profile.png" class="imgStudent">-->
+                        <a href="#student_profile/{{student.pk}}" class="student-main">{{student.name}}</a>
+                        {{student.email}}
                     </div>
                 </li>
             </ul>
@@ -116,7 +118,7 @@
                 <!-- Currently not implemented -->
                 <div class="groupProfile">
                     <div class="groupProfileHeader">
-                        <img src="img/no_group.jpg" class="imgGroup">
+                        <!--<img src="img/no_group.jpg" class="imgGroup">-->
                         <h3>DUMMY GROUP 1</h3>
                     </div>
                     <div class="groupProfileContent">
@@ -126,7 +128,7 @@
                 </div>
                 <div class="groupProfile">
                     <div class="groupProfileHeader">
-                        <img src="img/no_group.jpg" class="imgGroup">
+                        <!--<img src="img/no_group.jpg" class="imgGroup">-->
                         <h3>DUMMY GROUP 2</h3>
                     </div>
                     <div class="groupProfileContent">
@@ -136,7 +138,7 @@
                 </div>
                 <div class="groupProfile">
                     <div class="groupProfileHeader">
-                        <img src="img/no_group.jpg" class="imgGroup">
+                        <!--<img src="img/no_group.jpg" class="imgGroup">-->
                         <h3>DUMMY GROUP 3</h3>
                     </div>
                     <div class="groupProfileContent">
@@ -146,7 +148,7 @@
                 </div>
                 <div class="groupProfile">
                     <div class="groupProfileHeader">
-                        <img src="img/no_group.jpg" class="imgGroup">
+                        <!--<img src="img/no_group.jpg" class="imgGroup">-->
                         <h3>DUMMY GROUP 4</h3>
                     </div>
                     <div class="groupProfileContent">

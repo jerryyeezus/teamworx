@@ -5,6 +5,7 @@ var myApp = angular.module('myApp', [
     'ui.bootstrap'
 ]);
 
+// flag
 var DEBUG = false;
 
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
@@ -53,7 +54,8 @@ myApp.factory('Authentication', function ($http, $cookies) {
         logout: logout,
         register: register,
         setAuthenticatedAccount: setAuthenticatedAccount,
-        unauthenticate: unauthenticate
+        unauthenticate: unauthenticate,
+        server_url: server_url
     }
 
     function getAuthenticatedAccount() {
@@ -74,7 +76,6 @@ myApp.factory('Authentication', function ($http, $cookies) {
         }).then(loginSuccessFn, loginErrorFn);
 
         function loginSuccessFn(data, status, headers, config) {
-            console.log(data.data)
             setAuthenticatedAccount(data.data);
 
             window.location = 'index.html#/portal';
