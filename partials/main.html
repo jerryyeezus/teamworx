@@ -63,10 +63,12 @@
 <!-- Navbar end -->
 
 
+<!-- If we're using the integrated Upload Roster Button (LN: 95-96)
+<div class="container-fluid" id="studentPanel" ng-controller="NavigationController"> -->
 
 <div class="container-fluid" id="studentPanel">
     <div class="container-fluid" id="studentClassRosterTitle">
-        <h4 style="text-align:center;">{{course.course_dept_and_id}} Roster</h4>
+        <h3 style="text-align:center;">Student Roster</h3>
     </div>
     <div class="input-group" id="studentSearchBar">
         <span class="input-group-addon" id="searchBarAddon">Search:</span>
@@ -89,6 +91,82 @@
                 </li>
             </ul>
         </div>
+    </div>
+    <!-- An integrated upload button
+    <button type="button" class="btn button-primary btn-lg" ng-click=foo()>Upload a Student Roster</button> -->
+</div>
+
+<div class="container-fluid" id="courseInfoPanel">
+    <!--//TODO Peter: Course Information Panel-->
+</div>
+
+<div class="container-fluid" id="assignmentsPanel">
+    <!--//TODO Peter: Assignments Panel-->
+</div>
+
+<div class="container-fluid" id="groupPanel">
+    <div class="groupPanelHeader">
+        <h3 style="position:relative; top:auto;">Groups for [Assignment #]</h3>
+        <button class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
+    </div>
+    <hr>
+    <div class="groupPanelContent">
+        <ul style="list-style-type:none; padding:5px 5px 5px 5px">
+            <li>
+                <!-- Currently not implemented -->
+                <div class="groupProfile">
+                    <div class="groupProfileHeader">
+                        <img src="img/no_group.jpg" class="imgGroup">
+                        <h3>DUMMY GROUP 1</h3>
+                    </div>
+                    <div class="groupProfileContent">
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                    </div>
+                </div>
+                <div class="groupProfile">
+                    <div class="groupProfileHeader">
+                        <img src="img/no_group.jpg" class="imgGroup">
+                        <h3>DUMMY GROUP 2</h3>
+                    </div>
+                    <div class="groupProfileContent">
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                    </div>
+                </div>
+                <div class="groupProfile">
+                    <div class="groupProfileHeader">
+                        <img src="img/no_group.jpg" class="imgGroup">
+                        <h3>DUMMY GROUP 3</h3>
+                    </div>
+                    <div class="groupProfileContent">
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                    </div>
+                </div>
+                <div class="groupProfile">
+                    <div class="groupProfileHeader">
+                        <img src="img/no_group.jpg" class="imgGroup">
+                        <h3>DUMMY GROUP 4</h3>
+                    </div>
+                    <div class="groupProfileContent">
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                    </div>
+                </div>
+                <div class="groupProfile">
+                    <div class="groupProfileHeader">
+                        <img src="img/no_group.jpg" class="imgGroup">
+                        <h3>DUMMY GROUP 5</h3>
+                    </div>
+                    <div class="groupProfileContent">
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
     </div>
 </div>
 
