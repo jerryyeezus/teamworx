@@ -1,10 +1,10 @@
 <div class="modal-header">
-    <h3>Uploading {{course.course_dept_and_id}} Class Roster</h3>
+    <h3>Uploading Class Roster</h3>
 </div>
 <form ng-submit="submit()">
     <div class="modal-body">
         <label for="file-roster">Choose a .csv file</label>
-        <input type="file" id="file-roster"/>
+        <input file-model="myFile" type="file" id="file-roster"/>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
