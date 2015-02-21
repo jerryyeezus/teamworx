@@ -5,11 +5,44 @@ var myApp = angular.module('myApp', [
     'ui.bootstrap'
 ]);
 
-var DEBUG = false;
+var DEBUG = true;
 
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
     server_url = 'http://localhost:8000/';
+
+myApp.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
+
+myApp.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function (file, uploadUrl, pk) {
+        var fd = new FormData();
+        fd.append('import_csv', file);
+        fd.append('pk', pk);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+            .success(function () {
+                alert("Student Roster Uploaded!");
+            })
+            .error(function () {
+                alert('Error uploading!')
+            });
+    }
+}]);
 
 myApp.factory('Authentication', function ($http, $cookies) {
 

@@ -1,6 +1,6 @@
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);
 
-var DEBUG = false;
+var DEBUG = true;
 
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
@@ -41,25 +41,27 @@ mainControllers.controller('PortalController', ['$http', '$location', 'Authentic
 }]);
 
 mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authentication',
-    '$scope', '$rootScope', '$cookieStore', '$modal', '$window',
-    function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore, $modal, $window) {
+    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload',
+    function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore, $modal, $window, $fileUpload) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
         var which_class = $routeParams.which_class;
         $scope.my_pk = which_class;
 
-        $scope.foo = function() {
+        $scope.foo = function () {
             $modal.open({
-                templateUrl : 'partials/upload_form.html',
-                controller: function($scope, $modalInstance) {
-                    $scope.submit = function() {
-                        $modalInstance.dismiss('cancel');
-                    };
+                    templateUrl: 'partials/upload_form.html',
+                    controller: function ($scope, $modalInstance) {
+                        $scope.submit = function () {
+                            $fileUpload.uploadFileToUrl($scope.myFile, server_url+'add_import/', $cookieStore.get('course').pk)
+                            $modalInstance.dismiss('cancel');
+                        };
 
-                    $scope.cancel = function() {
-                        $modalInstance.dismiss('cancel');}
-                }
+                        $scope.cancel = function () {
+                            $modalInstance.dismiss('cancel');
+                        }
+                    }
                 }
             );
 
@@ -79,7 +81,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
 
         $scope.$on('$viewContentLoaded', function () {
         });
-        /* Get list of courses */
+        /* Get list of assignments */
         $http.get(server_url + 'assignments/' + which_class).then(function (response) {
             $scope.assignments = response.data;
             $scope.which_assignment = $scope.assignments.length;
@@ -135,7 +137,8 @@ mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentic
     }
 }]);
 
-mainControllers.controller("AddAssignmentController", ['$scope', '$http', '$routeParams', 'Authentication', function ($scope, $http, $routeParams, Authentication) {
+mainControllers.controller("AddAssignmentController", ['$scope', '$http', '$routeParams', 'Authentication', '$cookieStore',
+    function ($scope, $http, $routeParams, Authentication, $cookieStore) {
     $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
     $scope.course = "";
 
@@ -152,11 +155,12 @@ mainControllers.controller("AddAssignmentController", ['$scope', '$http', '$rout
         console.log(dataObject);
 
 
-        var responsePromise = $http.post('http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/add_assignment/', dataObject, {});
+        var responsePromise = $http.post(server_url + 'add_assignment/', dataObject, {});
         responsePromise.success(function (dataFromServer, status, headers, config) {
             console.log(dataFromServer.title);
             console.log(dataObject);
             alert("Assignment created!");
+            window.location.href = '#main/' + $cookieStore.get('course').pk;
         });
         responsePromise.error(function (data, status, headers, config) {
             alert("Submitting form failed!");
@@ -217,7 +221,6 @@ mainControllers.controller("AssignmentController", ['$scope', '$http', '$routePa
             , assignment_text: $scope.myForm.assignment_text
 
         };
-
 
 
         console.log(dataObject);
