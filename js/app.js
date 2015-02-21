@@ -5,7 +5,7 @@ var myApp = angular.module('myApp', [
     'ui.bootstrap'
 ]);
 
-var DEBUG = true;
+var DEBUG = false;
 
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
