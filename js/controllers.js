@@ -269,7 +269,7 @@ mainControllers.controller("AssignmentController", ['$scope', '$http', '$routePa
         console.log(dataObject);
 
 
-        var responsePromise = $http.post('http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/add_assignment/', dataObject, {});
+        var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
         responsePromise.success(function (dataFromServer, status, headers, config) {
             console.log(dataFromServer.title);
             console.log(dataObject);
@@ -295,7 +295,7 @@ mainControllers.controller("AddQuestionController", ['$scope', '$http', '$routeP
 
         };
         console.log(dataObject);
-        var responsePromise = $http.post('http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/add_question/', dataObject, {});
+        var responsePromise = $http.post(Authentication.server_url +'add_question/', dataObject, {});
         responsePromise.success(function (dataFromServer, status, headers, config) {
             console.log(dataFromServer.title);
             console.log(dataObject);
