@@ -2,7 +2,8 @@ var myApp = angular.module('myApp', [
     'ngRoute',
     'mainControllers',
     'ngCookies',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'toaster'
 ]);
 
 // flag

@@ -1,53 +1,60 @@
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);
 
-mainControllers.controller('PortalController', ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', '$modal', '$window',
-    function ($http, $location, Authentication, $scope, $rootScope, $cookieStore, $modal, $window) {
-        $scope.user = Authentication.getAuthenticatedAccount();
+mainControllers.controller('PortalController',
+    ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'toaster',
+        function ($http, $location, Authentication, $scope, $rootScope, $cookieStore, $modal, $window, toaster) {
+            $scope.user = Authentication.getAuthenticatedAccount();
 
-        var which_url = $scope.user.user_type == 'STUDENT' ? 'student_courses/' : 'courses/';
+            $scope.pop = function () {
+                toaster.pop('success', 'Course successfully added!');
+                $cookieStore.put('showToaster', false);
+            }
 
-        /* Get list of courses */
-        $http.get(Authentication.server_url + which_url + $scope.user.email).then(function (response) {
-            var course_list = response.data;
-            course_list.forEach(function (course) {
-                course.prof = course.course_professor.split("|")[1];
+            $rootScope.$on('courseAdded', function () {
+                $cookieStore.put('showToaster', true);
             });
 
-            $scope.course_list = course_list;
-        });
+            $scope.$on('$viewContentLoaded', function () {
+                var showToaster = $cookieStore.get('showToaster');
+                if (!(showToaster === undefined) && showToaster == true)
+                    $scope.pop();
+            });
 
-        $scope.selectCourse = function (course) {
-            $cookieStore.put('course', course);
-            console.log(course)
-            document.location.href = "#main/" + course.pk;
-        };
+            var which_url = $scope.user.user_type == 'STUDENT' ? 'student_courses/' : 'courses/';
 
-        //launches modal for creating a course
-        $scope.foo_portal = function () {
-            $modal.open({
-                    templateUrl: 'partials/create_class.html',
-                    controller: function ($scope, $modalInstance) {
-                        $scope.submit = function () {
-                            $modalInstance.dismiss('cancel');
-                        };
+            /* Get list of courses */
+            $http.get(Authentication.server_url + which_url + $scope.user.email).then(function (response) {
+                var course_list = response.data;
+                course_list.forEach(function (course) {
+                    course.prof = course.course_professor.split("|")[1];
+                });
 
-                        $scope.cancel = function () {
-                            $modalInstance.dismiss('cancel');
-                        }
+                $scope.course_list = course_list;
+            });
+
+            $scope.selectCourse = function (course) {
+                $cookieStore.put('course', course);
+                console.log(course)
+                document.location.href = "#main/" + course.pk;
+            };
+
+            //launches modal for creating a course
+            $scope.foo_portal = function () {
+                $modal.open({
+                        templateUrl: 'partials/create_class.html'
                     }
-                }
-            );
+                );
 
-            // Hack to make modal appear... angular is fucking stupid
-            window.location.href = "index.html#";
-            window.location.href = "index.html#/portal";
-        };
+                // Hack to make modal appear... angular is fucking stupid
+                window.location.href = "index.html#";
+                window.location.href = "index.html#/portal";
+            };
 
-        /* Logout function */
-        $scope.logout = function () {
-            Authentication.logout();
-        }
-    }]);
+            /* Logout function */
+            $scope.logout = function () {
+                Authentication.logout();
+            }
+        }]);
 
 mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload',
@@ -58,7 +65,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         var which_class = $routeParams.which_class;
         $scope.my_pk = which_class;
 
-        $rootScope.$on('rosterUpdated', function(event, data) {
+        $rootScope.$on('rosterUpdated', function (event, data) {
             $scope.students = data;
             $scope.apply();
         })
@@ -147,26 +154,27 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
 }]);
 
 
-mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentication', function ($scope, $http, Authentication) {
-    $scope.the_user = Authentication.getAuthenticatedAccount();
-    $scope.submitTheForm = function (formData) {
-        var dataObject = {
-            course_dept_and_id: $scope.myForm.course_dept + ' ' + $scope.myForm.course_id
-            , course_name: $scope.myForm.course_name
-            , course_professor: "INSTRUCTOR|" + $scope.the_user.email
-        };
+mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentication', '$rootScope',
+    function ($scope, $http, Authentication, $rootScope) {
+        $scope.the_user = Authentication.getAuthenticatedAccount();
+        $scope.submitTheForm = function (formData) {
+            var dataObject = {
+                course_dept_and_id: $scope.myForm.course_dept + ' ' + $scope.myForm.course_id
+                , course_name: $scope.myForm.course_name
+                , course_professor: "INSTRUCTOR|" + $scope.the_user.email
+            };
 
-        var responsePromise = $http.post(Authentication.server_url + 'add_courses/', dataObject, {});
-        responsePromise.success(function (dataFromServer, status, headers, config) {
-            alert("Course created!!");
-            location.reload();
-        });
-        responsePromise.error(function (data, status, headers, config) {
-            alert("Submitting form failed!");
-            console.log(dataObject);
-        });
-    }
-}]);
+            var responsePromise = $http.post(Authentication.server_url + 'add_courses/', dataObject, {});
+            responsePromise.success(function (dataFromServer, status, headers, config) {
+                $rootScope.$broadcast('courseAdded');
+                location.reload();
+            });
+            responsePromise.error(function (data, status, headers, config) {
+                alert("Submitting form failed!");
+                console.log(dataObject);
+            });
+        }
+    }]);
 
 mainControllers.controller("AddAssignmentController", ['$scope', '$http', '$routeParams', 'Authentication', '$cookieStore',
     function ($scope, $http, $routeParams, Authentication, $cookieStore) {
