@@ -94,7 +94,8 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         $rootScope.$on('rosterUpdated', function (event, data) {
             $scope.students = data;
             $scope.apply();
-        })
+            console.log($scope.students);
+        });
 
         $scope.import = function () {
             $modal.open({
@@ -120,7 +121,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $window.history.back();
         };
 
-        $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+        $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
 
         $scope.is_current_assignment = function (num) {
             return $scope.which_assignment == num;
@@ -161,6 +162,15 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
 
 mainControllers.controller('CredentialsController', ['$location', '$scope', 'Authentication', function ($location, $scope, Authentication) {
     activate();
+    $scope.formData = {
+        'the_email': 'you@gatech.edu',
+        'password': 'pass',
+        'user_type': 'INSTRUCTOR'
+    }
+
+    $scope.clearData = function (which) {
+        $scope.formData[which] = '';
+    };
 
     function activate() {
         if (Authentication.isAuthenticated()) {
@@ -169,8 +179,8 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
         }
     }
 
-    $scope.register = function (formData) {
-        Authentication.register(formData);
+    $scope.register = function (formData2) {
+        Authentication.register(formData2);
     }
 
     $scope.login = function (formData) {
@@ -196,8 +206,6 @@ mainControllers.controller("AddAssignmentController", ['$scope', '$http', '$rout
             };
 
             console.log(dataObject);
-
-
             var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
             responsePromise.success(function (dataFromServer, status, headers, config) {
                 console.log(dataFromServer.title);

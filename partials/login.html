@@ -2,13 +2,16 @@
     <div>
         <form class="genericPanel" ng-submit="login(formData)">
             <h1>Login</h1>
-            <input ng-model="formData.the_email" placeholder="your email" autofocus><br>
+            <label>E-mail:</label>
+            <input ng-model="formData.the_email" ng-focus="clearData('the_email')"><br>
 
-            <input type="password" ng-model="formData.password" placeholder="your password" autofocus>
+            <label>Password</label>
+            <input type="password" ng-focus="clearData('password')" ng-model="formData.password">
+            <br>
             <br>
             <label>Type:</label>
             <input type="radio" ng-model="formData.user_type" name="userType" value="STUDENT">Student
-            <input type="radio" ng-model="formData.user_type" name="userType" value="INSTRUCTOR">Instructor
+            <input type="radio" ng-model="formData.user_type" name="userType" value="INSTRUCTOR" formData="formData.bool">Instructor
             <br>
 
             <input type="submit"/>

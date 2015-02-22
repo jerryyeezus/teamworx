@@ -102,20 +102,20 @@ myApp.factory('Authentication', function ($http, $cookies) {
         }
     }
 
-    function register(formData) {
-        console.log(formData);
+    function register(formData2) {
+        console.log(formData2);
         $http.post(server_url + 'register/', {
-            name: formData.the_name,
+            name: formData2.the_name,
             skills_str: '',
-            email: formData.the_email,
-            user_type: formData.user_type,
-            password: formData.password,
-            confirm_password: formData.confirm_password
+            email: formData2.the_email,
+            user_type: formData2.user_type,
+            password: formData2.password,
+            confirm_password: formData2.confirm_password
         }).then(registerSuccessFn, registerErrorFn);
 
         function registerSuccessFn(data, status, headers, config) {
             // Login after we register
-            login(formData);
+            login(formData2);
         }
 
         function registerErrorFn(data, status, headers, config) {
