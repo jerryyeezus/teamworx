@@ -34,7 +34,6 @@ mainControllers.controller('PortalController',
 
             $scope.selectCourse = function (course) {
                 $cookieStore.put('course', course);
-                console.log(course)
                 document.location.href = "#main/" + course.pk;
             };
 
@@ -83,31 +82,51 @@ mainControllers.controller('PortalController',
         }]);
 
 mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authentication',
-    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload',
-    function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore, $modal, $window, $fileUpload) {
+    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', '$route', 'toaster',
+    function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore,
+              $modal, $window, $fileUpload, $route, toaster) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
         var which_class = $routeParams.which_class;
         $scope.my_pk = which_class;
 
-        $rootScope.$on('rosterUpdated', function (event, data) {
-            $scope.students = data;
-            $scope.apply();
-            console.log($scope.students);
+        $rootScope.$on('rosterUpdated', function (event, mass) {
+            $cookieStore.put('rosterUpdated', mass.success);
+            location.reload();
         });
+
+        $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
+            $scope.students = response.data;
+        });
+
+        $scope.$on('$viewContentLoaded', function () {
+            console.log($cookieStore.get('rosterUpdated'))
+            if ($cookieStore.get('rosterUpdated') == 'success') {
+                toaster.pop('success', 'Student roster uploaded!');
+            }
+            else if ($cookieStore.get('rosterUpdated') == 'fail') {
+                toaster.pop('error', 'Upload failed!');
+            }
+            $cookieStore.put('rosterUpdated', 'none');
+        });
+
 
         $scope.import = function () {
             $modal.open({
                     templateUrl: 'partials/upload_form.html',
                     controller: function ($scope, $modalInstance, $rootScope) {
                         $scope.submit = function () {
-                            $fileUpload.uploadFileToUrl($scope.myFile, Authentication.server_url + 'add_import/', $cookieStore.get('course').pk)
+                            $fileUpload.uploadFileToUrl($scope.myFile,
+                                Authentication.server_url + 'add_import/', $cookieStore.get('course').pk)
+                                //.success(function (dataFromServer, status, headers, config) {
+                                //    $rootScope.$broadcast('rosterUpdated', {'success': 'success'});
+                                //})
+                                //.error(function (dataFromServer, status, headers, config) {
+                                //    alert('bad');
+                                //});
+
                             $modalInstance.dismiss('cancel');
-                            $http.get(Authentication.server_url + 'roster/' + $cookieStore.get('course').pk).then(function (response) {
-                                students = response.data;
-                                $rootScope.$broadcast('rosterUpdated', students);
-                            });
                         };
 
                         $scope.cancel = function () {
@@ -131,24 +150,15 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $scope.which_assignment = id;
         };
 
-        $scope.$on('$viewContentLoaded', function () {
-        });
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
             $scope.assignments = response.data;
             $scope.which_assignment = $scope.assignments.length;
         });
 
-
-        $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
-            $scope.students = response.data;
-            //console.log(response.data)
-        });
-
-
         $scope.hasProfile = function (student) {
-            console.log(student);
-            return true;
+            //console.log(student);
+            return false;
             //return student.profile_img != null;
         };
 
@@ -205,7 +215,6 @@ mainControllers.controller("AddAssignmentController", ['$scope', '$http', '$rout
 
             };
 
-            console.log(dataObject);
             var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
             responsePromise.success(function (dataFromServer, status, headers, config) {
                 console.log(dataFromServer.title);

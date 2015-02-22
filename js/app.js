@@ -28,7 +28,7 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-myApp.service('fileUpload', ['$http', function ($http) {
+myApp.service('fileUpload', ['$http', '$rootScope', function ($http, $rootScope) {
     this.uploadFileToUrl = function (file, uploadUrl, pk) {
         var fd = new FormData();
         fd.append('import_csv', file);
@@ -38,10 +38,12 @@ myApp.service('fileUpload', ['$http', function ($http) {
             headers: {'Content-Type': undefined}
         })
             .success(function () {
-                alert("Student Roster Uploaded!");
+                $rootScope.$broadcast('rosterUpdated', {'success': 'success'});
+                //alert("Student Roster Uploaded!");
             })
             .error(function () {
-                alert('Error uploading!')
+                $rootScope.$broadcast('rosterUpdated', {'success': 'fail'});
+                //alert('Error uploading!')
             });
     }
 }]);
