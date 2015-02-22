@@ -154,10 +154,10 @@ myApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $http
             templateUrl: 'partials/register.html',
             controller: 'CredentialsController'
         })
-        .when('/create_class', {
-            templateUrl: 'partials/create_class.html',
-            controller: 'AddCourseController'
-        })
+        //.when('/create_class', {
+        //    templateUrl: 'partials/create_class.html',
+        //    controller: 'AddCourseController'
+        //})
 
         .when('/add_assignment/:which_class', {
             templateUrl: 'partials/add_assignment.html',

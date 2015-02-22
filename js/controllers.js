@@ -41,10 +41,36 @@ mainControllers.controller('PortalController',
             //launches modal for creating a course
             $scope.foo_portal = function () {
                 $modal.open({
-                        templateUrl: 'partials/create_class.html'
-                    }
-                );
+                    templateUrl: 'partials/create_class.html',
+                    controller: function ($scope, $http, Authentication, $rootScope, $modalInstance) {
+                        $scope.the_user = Authentication.getAuthenticatedAccount();
+                        $scope.submitTheForm = function (formData) {
+                            var dataObject = {
+                                course_dept_and_id: $scope.myForm.course_dept + ' ' + $scope.myForm.course_id
+                                , course_name: $scope.myForm.course_name
+                                , course_professor: "INSTRUCTOR|" + $scope.the_user.email
+                            };
 
+                            var responsePromise = $http.post(Authentication.server_url + 'add_courses/', dataObject, {});
+                            responsePromise.success(function (dataFromServer, status, headers, config) {
+                                $rootScope.$broadcast('courseAdded');
+                                location.reload();
+                            });
+                            responsePromise.error(function (data, status, headers, config) {
+                                alert("Submitting form failed!");
+                                console.log(dataObject);
+                            });
+                        }
+
+                        $scope.submit = function () {
+                        };
+
+                        $scope.cancel = function () {
+                            $modalInstance.dismiss('cancel');
+                        }
+
+                    }
+                });
                 // Hack to make modal appear... angular is fucking stupid
                 window.location.href = "index.html#";
                 window.location.href = "index.html#/portal";
@@ -153,28 +179,6 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
 
 }]);
 
-
-mainControllers.controller("AddCourseController", ['$scope', '$http', 'Authentication', '$rootScope',
-    function ($scope, $http, Authentication, $rootScope) {
-        $scope.the_user = Authentication.getAuthenticatedAccount();
-        $scope.submitTheForm = function (formData) {
-            var dataObject = {
-                course_dept_and_id: $scope.myForm.course_dept + ' ' + $scope.myForm.course_id
-                , course_name: $scope.myForm.course_name
-                , course_professor: "INSTRUCTOR|" + $scope.the_user.email
-            };
-
-            var responsePromise = $http.post(Authentication.server_url + 'add_courses/', dataObject, {});
-            responsePromise.success(function (dataFromServer, status, headers, config) {
-                $rootScope.$broadcast('courseAdded');
-                location.reload();
-            });
-            responsePromise.error(function (data, status, headers, config) {
-                alert("Submitting form failed!");
-                console.log(dataObject);
-            });
-        }
-    }]);
 
 mainControllers.controller("AddAssignmentController", ['$scope', '$http', '$routeParams', 'Authentication', '$cookieStore',
     function ($scope, $http, $routeParams, Authentication, $cookieStore) {
