@@ -139,7 +139,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             // Hack to make modal appear... angular is fucking stupid
             $window.history.back();
         };
-        
+
         //controller for creating a new group
         $scope.addGroup = function () {
             $modal.open({
