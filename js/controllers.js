@@ -120,6 +120,44 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $window.history.back();
         };
 
+        //controller for creating a new group
+        $scope.addGroup = function () {
+            $modal.open({
+                templateUrl: 'partials/add_group.html',
+                controller: function ($scope, $http, Authentication, $rootScope, $modalInstance) {
+                    /*
+                    $scope.the_user = Authentication.getAuthenticatedAccount();
+                    $scope.submitTheForm = function (formData) {
+                        var dataObject = {
+                            course_dept_and_id: $scope.myForm.course_dept + ' ' + $scope.myForm.course_id
+                            , course_name: $scope.myForm.course_name
+                            , course_professor: "INSTRUCTOR|" + $scope.the_user.email
+                        };
+
+                        var responsePromise = $http.post(Authentication.server_url + 'add_courses/', dataObject, {});
+                        responsePromise.success(function (dataFromServer, status, headers, config) {
+                            $rootScope.$broadcast('courseAdded');
+                            location.reload();
+                        });
+                        responsePromise.error(function (data, status, headers, config) {
+                            alert("Submitting form failed!");
+                            console.log(dataObject);
+                        });
+                    }
+
+                    $scope.submit = function () {
+                    };
+                    */
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    }
+
+                }
+            });
+            // Hack to make modal appear... angular is fucking stupid
+            $window.history.back();
+        };
+
         $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
 
         $scope.is_current_assignment = function (num) {
