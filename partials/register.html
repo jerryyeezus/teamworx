@@ -1,21 +1,21 @@
 <section class="credentials">
     <div>
-        <form class="genericPanel" ng-submit="register(formData)">
+        <form class="genericPanel" ng-submit="register(formData2)">
             <h1>Register:</h1>
             <label>Name:</label>
-            <input ng-model="formData.the_name" placeholder="Your full name" autofocus><br>
+            <input ng-model="formData2.the_name" placeholder="Your full name" autofocus><br>
 
             <label>Email:</label>
-            <input ng-model="formData.the_email" placeholder="E-mail" autofocus><br>
+            <input ng-model="formData2.the_email" placeholder="E-mail" autofocus><br>
 
             <label>Type:</label>
-            <input type="radio" ng-model="formData.user_type" name="user_type" value="STUDENT"> Student
-            <input type="radio" ng-model="formData.user_type" name="user_type" value="INSTRUCTOR">Instructor
+            <input type="radio" ng-model="formData2.user_type" name="user_type" value="STUDENT"> Student
+            <input type="radio" ng-model="formData2.user_type" name="user_type" value="INSTRUCTOR">Instructor
             <br>
 
             <label>Choose Password:</label>
-            <input type="password" ng-model="formData.password" placeholder="password" autofocus>
-            <input type="password" ng-model="formData.confirm_password" placeholder="confirm password" autofocus>
+            <input type="password" ng-model="formData2.password" placeholder="password" autofocus>
+            <input type="password" ng-model="formData2.confirm_password" placeholder="confirm password" autofocus>
             <input type="submit"/>
         </form>
     </div>

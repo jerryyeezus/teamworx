@@ -28,7 +28,7 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-myApp.service('fileUpload', ['$http', function ($http) {
+myApp.service('fileUpload', ['$http', '$rootScope', function ($http, $rootScope) {
     this.uploadFileToUrl = function (file, uploadUrl, pk) {
         var fd = new FormData();
         fd.append('import_csv', file);
@@ -38,10 +38,12 @@ myApp.service('fileUpload', ['$http', function ($http) {
             headers: {'Content-Type': undefined}
         })
             .success(function () {
-                alert("Student Roster Uploaded!");
+                $rootScope.$broadcast('rosterUpdated', {'success': 'success'});
+                //alert("Student Roster Uploaded!");
             })
             .error(function () {
-                alert('Error uploading!')
+                $rootScope.$broadcast('rosterUpdated', {'success': 'fail'});
+                //alert('Error uploading!')
             });
     }
 }]);
@@ -102,20 +104,20 @@ myApp.factory('Authentication', function ($http, $cookies) {
         }
     }
 
-    function register(formData) {
-        console.log(formData);
+    function register(formData2) {
+        console.log(formData2);
         $http.post(server_url + 'register/', {
-            name: formData.the_name,
+            name: formData2.the_name,
             skills_str: '',
-            email: formData.the_email,
-            user_type: formData.user_type,
-            password: formData.password,
-            confirm_password: formData.confirm_password
+            email: formData2.the_email,
+            user_type: formData2.user_type,
+            password: formData2.password,
+            confirm_password: formData2.confirm_password
         }).then(registerSuccessFn, registerErrorFn);
 
         function registerSuccessFn(data, status, headers, config) {
             // Login after we register
-            login(formData);
+            login(formData2);
         }
 
         function registerErrorFn(data, status, headers, config) {

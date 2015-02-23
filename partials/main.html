@@ -15,7 +15,7 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{the_user}}
+                        {{the_user}}'s Profile
                     </a>
                 </li>
                 <li class="dropdown">
@@ -64,6 +64,7 @@
 </nav>
 <!-- Navbar end -->
 
+<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
 
 <!-- If we're using the integrated Upload Roster Button (LN: 95-96)
 <div class="container-fluid" id="studentPanel" ng-controller="NavigationController"> -->
@@ -87,7 +88,7 @@
             <ul style="list-style-type:none;">
                 <li ng-repeat="student in students">
                     <div class="studentProfile">
-                        <img src="img/no_profile.png" class="imgStudent" ng-if="hasProfile(student)" />
+                        <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)" />
                         <!--<img src="img/no_profile.png" class="imgStudent">-->
                         <a href="#student_profile/{{student.pk}}" class="student-main">{{student.name}}</a>
                         {{student.email}}
