@@ -25,11 +25,11 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a style="cursor:pointer" ng-click="import()">
-                                + Import CSV
-                            </a>
-                        </li>
+                        <!--<li>-->
+                        <!--<a style="cursor:pointer" ng-click="import()">-->
+                        <!--+ Import CSV-->
+                        <!--</a>-->
+                        <!--</li>-->
                     </ul>
                 </li>
 
@@ -38,7 +38,7 @@
                         Assignments<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li ng-repeat="x in assignments">
-                            <a href="#assignment/{{my_pk}}" style="cursor:pointer"
+                            <a style="cursor:pointer"
                                ng-click="selectAssignment(x.assignment_number)">
                                 <p ng-class="{'checkedClass': is_current_assignment(x.assignment_number)}">Assignment
                                     {{x.assignment_number}}: {{x.assignment_title}}</p>
@@ -78,23 +78,27 @@
         <input ng-model="search.name" id="searchBarField">
     </div>
     <div>
-        <!--import roster button-->
-        <button type="button" class="btn btn-primary" ng-controller="CMainController" ng-click="import()">
-            + Import CSV
-        </button>
     </div>
     <div class="studentProfileContent">
         <div>
-            <span ng-show="!students.length" style="color:#ffffff">
+            <span ng-show="!students.length">
                 No students yet.
                 <br>
                 <br>
-                <a ng-click="import()">Import students button</a>
+
+                Import a CSV file to populate your course.
+                <br>
+                <br>
+        <!--import roster button-->
+        <button type="button" class="btn btn-primary" ng-click="import()">
+            + Import CSV
+        </button>
             </span>
+            <!--<a ng-click="import()">Import students button</a>-->
             <ul style="list-style-type:none;">
                 <li ng-repeat="student in students">
                     <div class="studentProfile">
-                        <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)" />
+                        <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)"/>
                         <!--<img src="img/no_profile.png" class="imgStudent">-->
                         <a href="#student_profile/{{student.pk}}" class="student-main">{{student.name}}</a>
                         {{student.email}}
@@ -117,119 +121,41 @@
 
 <div class="container-fluid" id="groupPanel">
     <div class="groupPanelHeader">
-        <h3 style="position:relative; top:auto;">Groups for [Assignment #]</h3>
-        <button class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
+        <h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>
+        <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
+        <button ng-show="assignments.length > 0" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
     </div>
     <hr>
     <div class="groupPanelContent">
+
         <ul style="list-style-type:none; padding:5px 5px 5px 5px">
             <li>
+                <div class="groupProfile" ng-hide="assignments.length > 0">
+                    <!-- Button trigger modal -->
+                    <p>
+                        There are no assignments for this course. <br><br>
+                        You must create at least 1 assignment to assign teams.
+                    </p>
+                </div>
+            </li>
+            <li ng-show="assignments.length > 0">
                 <div class="groupProfile">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"
-                            ng-controller="CMainController" ng-click="addGroup()">
+                            ng-click="addGroup()">
                         Create New Team
                     </button>
                 </div>
+
                 <!-- Currently not implemented -->
-                <div class="groupProfile">
+                <div class="groupProfile" ng-repeat="team in teams">
                     <div class="groupProfileHeader">
-                        <!--<img src="img/no_group.jpg" class="imgGroup">-->
-
-                        <h3>DUMMY GROUP 1</h3>
+                        <h3>{{team.team_name}}</h3>
                     </div>
                     <div class="groupProfileContent">
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
-
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
-                    </div>
-                </div>
-                <div class="groupProfile">
-                    <div class="groupProfileHeader">
-                        <!--<img src="img/no_group.jpg" class="imgGroup">-->
-
-                        <h3>DUMMY GROUP 2</h3>
-                    </div>
-                    <div class="groupProfileContent">
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
-
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
-                    </div>
-                </div>
-                <div class="groupProfile">
-                    <div class="groupProfileHeader">
-                        <!--<img src="img/no_group.jpg" class="imgGroup">-->
-
-                        <h3>DUMMY GROUP 3</h3>
-                    </div>
-                    <div class="groupProfileContent">
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
-
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
-                    </div>
-                </div>
-                <div class="groupProfile">
-                    <div class="groupProfileHeader">
-                        <!--<img src="img/no_group.jpg" class="imgGroup">-->
-
-                        <h3>DUMMY GROUP 4</h3>
-                    </div>
-                    <div class="groupProfileContent">
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
-
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
-                    </div>
-                </div>
-                <div class="groupProfile">
-                    <div class="groupProfileHeader">
-                        <img src="img/no_group.jpg" class="imgGroup">
-
-                        <h3>DUMMY GROUP 5</h3>
-                    </div>
-                    <div class="groupProfileContent">
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
-
-                        <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is
-                            the level that things could be at. So when you get something that has the name Kanye West on
-                            it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a
-                            company that ends up being worth billions of dollars, because I got the answers. I
-                            understand culture. I am the nucleus.</p>
+                        <p>
+                            {{team.team_description}}
+                        </p>
                     </div>
                 </div>
             </li>

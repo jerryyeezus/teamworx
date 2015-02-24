@@ -90,9 +90,16 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         $scope.user = Authentication.getAuthenticatedAccount();
         var which_class = $routeParams.which_class;
         $scope.my_pk = which_class;
+        $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
             $cookieStore.put('rosterUpdated', mass.success);
+            location.reload();
+        });
+
+        // TODO ass
+        $rootScope.$on('assCreated', function(event, mass) {
+            $cookieStore.put('assCreated', mass);
             location.reload();
         });
 
@@ -100,14 +107,24 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $scope.students = response.data;
         });
 
+        $rootScope.$on('tmp', function(event,mass) {
+            $scope.selectAssignment(mass.assignment_number);
+        })
+
         $scope.$on('$viewContentLoaded', function () {
-            console.log($cookieStore.get('rosterUpdated'))
             if ($cookieStore.get('rosterUpdated') == 'success') {
                 toaster.pop('success', 'Student roster uploaded!');
             }
             else if ($cookieStore.get('rosterUpdated') == 'fail') {
                 toaster.pop('error', 'Upload failed!');
             }
+            var assCreated = $cookieStore.get('assCreated');
+            if (assCreated) {
+                $scope.selectAssignment(assCreated.assignment_number);
+                toaster.pop('success', 'Assignment created!')
+                $cookieStore.put('assCreated', false);
+            }
+
             $cookieStore.put('rosterUpdated', 'none');
         });
 
@@ -119,13 +136,6 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
                         $scope.submit = function () {
                             $fileUpload.uploadFileToUrl($scope.myFile,
                                 Authentication.server_url + 'add_import/', $cookieStore.get('course').pk)
-                                //.success(function (dataFromServer, status, headers, config) {
-                                //    $rootScope.$broadcast('rosterUpdated', {'success': 'success'});
-                                //})
-                                //.error(function (dataFromServer, status, headers, config) {
-                                //    alert('bad');
-                                //});
-
                             $modalInstance.dismiss('cancel');
                         };
 
@@ -178,10 +188,9 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $window.history.back();
         };
 
-        $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
 
         $scope.is_current_assignment = function (num) {
-            return $scope.which_assignment == num;
+            return $scope.assignments[$scope.which_assignment].assignment_number == num;
         }
 
         $scope.selectAssignment = function (id) {
@@ -191,13 +200,15 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
             $scope.assignments = response.data;
-            $scope.which_assignment = $scope.assignments.length;
+
+            // Index of assignment in assignments array
+            $scope.which_assignment = $scope.assignments.length - 1; // TODO shouldn't this be -1
+
+            $cookieStore.put('assignments', response.data);
         });
 
         $scope.hasProfile = function (student) {
-            //console.log(student);
-            return false;
-            //return student.profile_img != null;
+            return student.profile_img != null;
         };
 
         /* Logout function */
@@ -238,30 +249,32 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
 }]);
 
 
-mainControllers.controller("AddAssignmentController", ['$scope', '$http', '$routeParams', 'Authentication', '$cookieStore',
-    function ($scope, $http, $routeParams, Authentication, $cookieStore) {
+mainControllers.controller("AddAssignmentController",
+    ['$scope', '$http', '$routeParams', 'Authentication', '$cookieStore', '$rootScope',
+    function ($scope, $http, $routeParams, Authentication, $cookieStore, $rootScope) {
         $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
         $scope.course = "";
+        $scope.myForm = {
+            'assignment_number': $cookieStore.get('assignments').length + 1
+        };
 
         $scope.submitTheForm = function (formData) {
+            // TODO how the hell does this work? myForm should be formData??
             var dataObject = {
-
                 course_fk: $routeParams.which_class
                 , assignment_number: $scope.myForm.assignment_number
                 , assignment_title: $scope.myForm.assignment_title
                 , assignment_text: $scope.myForm.assignment_text
-
             };
 
             var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
             responsePromise.success(function (dataFromServer, status, headers, config) {
-                console.log(dataFromServer.title);
-                console.log(dataObject);
-                alert("Assignment created!");
+                //$rootScope.$broadcast('assCreated', dataObject); // TODO when modal is done
+                $rootScope.$broadcast('tmp', dataObject);
                 window.location.href = '#main/' + $cookieStore.get('course').pk;
             });
             responsePromise.error(function (data, status, headers, config) {
-                alert("Submitting form failed!");
+                console.log(data)
                 console.log(dataObject);
             });
         }

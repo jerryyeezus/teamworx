@@ -14712,7 +14712,7 @@ function $RootScopeProvider() {
             if (!listeners[i]) {
               listeners.splice(i, 1);
               i--;
-              length--;
+              length--;AddAssi
               continue;
             }
 
