@@ -25,11 +25,11 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <!--<li>-->
-                        <!--<a style="cursor:pointer" ng-click="import()">-->
-                        <!--+ Import CSV-->
-                        <!--</a>-->
-                        <!--</li>-->
+                        <li>
+                        <a style="cursor:pointer" ng-click="deleteCourse()">
+                            Delete Course
+                        </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -52,7 +52,6 @@
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="">Delete a Course</a></li>
                         <li><a href="">Change Password</a></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
@@ -96,7 +95,7 @@
             </span>
             <!--<a ng-click="import()">Import students button</a>-->
             <ul style="list-style-type:none;">
-                <li ng-repeat="student in students">
+                <li ng-repeat="student in students | filter: search.name">
                     <div class="studentProfile">
                         <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)"/>
                         <!--<img src="img/no_profile.png" class="imgStudent">-->

@@ -128,6 +128,9 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $cookieStore.put('rosterUpdated', 'none');
         });
 
+        $scope.deleteCourse = function() {
+            alert('ayyyy lmao');
+        }
 
         $scope.import = function () {
             $modal.open({
