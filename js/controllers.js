@@ -188,6 +188,47 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $window.history.back();
         };
 
+        //controller for creating a new assignment
+        $scope.addAssignment = function () {
+            $modal.open({
+                templateUrl: 'partials/add_assignment.html',
+                controller: function ($scope, $http, $routeParams, Authentication, $cookieStore, $rootScope) {
+                    $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+                    $scope.course = "";
+                    $scope.myForm = {
+                        'assignment_number': $cookieStore.get('assignments').length + 1
+                    };
+
+                    $scope.submitTheForm = function (formData) {
+                        // TODO how the hell does this work? myForm should be formData??
+                        var dataObject = {
+                            course_fk: $routeParams.which_class
+                            , assignment_number: $scope.myForm.assignment_number
+                            , assignment_title: $scope.myForm.assignment_title
+                            , assignment_text: $scope.myForm.assignment_text
+                        };
+
+                        var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
+                        responsePromise.success(function (dataFromServer, status, headers, config) {
+                            //$rootScope.$broadcast('assCreated', dataObject); // TODO when modal is done
+                            $rootScope.$broadcast('tmp', dataObject);
+                            window.location.href = '#main/' + $cookieStore.get('course').pk;
+                        });
+                        responsePromise.error(function (data, status, headers, config) {
+                            console.log(data)
+                            console.log(dataObject);
+                        });
+                    }
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    }
+
+                }
+            });
+            // Hack to make modal appear... angular is fucking stupid
+            $window.history.back();
+        };
+
 
         $scope.is_current_assignment = function (num) {
             return $scope.assignments[$scope.which_assignment].assignment_number == num;

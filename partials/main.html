@@ -44,7 +44,8 @@
                                     {{x.assignment_number}}: {{x.assignment_title}}</p>
                             </a>
                         </li>
-                        <li><a href="#add_assignment/{{my_pk}}"><b>+ New Assignment</b></a></li>
+                        <li><button data-toggle="modal" data-target="#myModal" ng-click="addAssignment()"><b>+ New Assignment</b></button></li>
+
                     </ul>
                 </li>
 
