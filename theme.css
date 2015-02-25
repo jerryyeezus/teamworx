@@ -8,7 +8,8 @@ body {
     color:#23274F;
     margin-top: 51px; */
     font-family: 'Open Sans', sans-serif;
-    background: url(img/bg/bg_06.jpg) no-repeat 0 0;
+    background: url(img/bg/bg_08.jpg) no-repeat 0 0 fixed;
+    opacity: 0.85;
 }
 div .main {
     margin-top: 51px;
@@ -94,10 +95,10 @@ a:active {
 }
 
 .studentProfileContent {
+    overflow-x:hidden;
     max-height: 76%;
     border: 3px solid black;
     border-radius: 3px;
-    overflow: auto;
 }
 
 .studentProfile {
