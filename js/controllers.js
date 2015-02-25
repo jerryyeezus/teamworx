@@ -179,7 +179,9 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
                     $scope.submitTheForm = function () {
                         var dataObject = {
                             name: $scope.myForm.team_name,
-                            description: $scope.myForm.team_description
+                            description: $scope.myForm.team_description,
+                            which_assignment: '2', //To do: fix it with which class
+                            owner: "INSTRUCTOR|" + $scope.the_user.email
                         };
 
                         var responsePromise = $http.post(Authentication.server_url + 'add_team/', dataObject, {});
@@ -202,6 +204,14 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $window.history.back();
         };
 
+        $scope.is_current_assignment = function (num) {
+            return $scope.assignments[$scope.which_assignment].assignment_number == num;
+        }
+
+        $scope.selectAssignment = function (id) {
+            $scope.which_assignment = id;
+        };
+
         //controller for creating a new assignment
         $scope.addAssignment = function () {
             $modal.open({
@@ -213,7 +223,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
                         'assignment_number': $cookieStore.get('assignments').length + 1
                     };
 
-                    $scope.submitTheForm = function (formData) {
+                    $scope.submitTheForm = function() {
                         // TODO how the hell does this work? myForm should be formData??
                         var dataObject = {
                             course_fk: $routeParams.which_class
@@ -244,13 +254,6 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         };
 
 
-        $scope.is_current_assignment = function (num) {
-            return $scope.assignments[$scope.which_assignment].assignment_number == num;
-        }
-
-        $scope.selectAssignment = function (id) {
-            $scope.which_assignment = id;
-        };
 
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
