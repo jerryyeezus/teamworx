@@ -1,0 +1,221 @@
+/*!
+ *
+ */
+
+body {
+    /*
+    background: #6e7190;
+    color:#23274F;
+    margin-top: 51px; */
+    font-family: 'Open Sans', sans-serif;
+}
+div .main {
+    margin-top: 51px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+}
+
+div::after {
+    content: "";
+    background-image: url(img/bg/bg_02.jpg);
+    background-size: 100% 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    opacity: 0.2;
+    z-index: -1;
+}
+
+a:link {
+    font-weight: bold;
+}
+
+a:visited {
+    font-weight: bold;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+a:active {
+    font-weight: bold;
+}
+
+.checkedClass {
+    font-weight: bold;
+    color: blue;
+}
+
+.genericPanel {
+    min-height: 220px;
+    height: auto;
+    min-width: 220px;
+    width: 20%;
+    border: solid 3px black;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 10px 10px 10px;
+    position: relative;
+}
+
+#studentPanel {
+    min-height: 92%;
+    height: auto;
+    width: 20%;
+    border: solid 3px black;
+    border-radius: 3px;
+    margin: 10px 10px 10px 10px;
+    top: 51px;
+    left: 0px;
+    bottom: 0px;
+    position: absolute;
+}
+
+#studentSearchBar {
+    border: 3px solid black;
+    border-radius: 3px;
+    margin: 5px 0px 5px 0px;
+    max-width: 100%;
+}
+
+#searchBarAddon {
+    margin: 0px;
+    padding: 0px 5px 0px 5px;
+}
+
+#searchBarField {
+    width: 100%;
+}
+
+.studentProfileContent {
+    max-height: 76%;
+    border: 3px solid black;
+    border-radius: 3px;
+    overflow: auto;
+}
+
+.studentProfile {
+    background-color: #dddddd;
+    max-width: inherit;
+    border: 3px solid black;
+    border-radius: 3px;
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+}
+
+.imgStudent {
+    height: auto;
+    max-height: 48px;
+    width: auto;
+    max-width: 48px;
+    border: 1px solid black;
+}
+
+.studentUploadRoster {
+    max-width: inherit;
+    border: 3px solid black;
+    border-radius: 3px;
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+}
+
+.modal {
+    display: block;
+}
+
+#courseInfoPanel {
+    /**
+     * TODO Peter
+     */
+}
+
+#assignmentsPanel {
+    /**
+     * TODO Peter
+     */
+}
+
+#groupPanel {
+    min-height: 92%;
+    height: auto;
+    max-height: inherit;
+    width: 78%;
+    border: 3px solid black;
+    border-radius: 3px;
+    margin: 10px 10px 10px 10px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    top: 51px;
+}
+
+.groupPanelHeader {
+    min-height: 2%;
+    height: auto;
+    max-height: 10%;
+}
+
+.groupPanelContent {
+    min-height: 10%;
+    height: auto;
+    max-height: 80%;
+    width: auto;
+    border: 3px solid black;
+    border-radius: 3px;
+    overflow: auto;
+}
+
+.groupProfile {
+    background-color: #cccccc;
+    min-height: 170px;
+    height: auto;
+    max-height: 240px;
+    width: 32%;
+    border: 3px solid black;
+    border-radius: 3px;
+    margin: 8px 8px 8px 8px;
+    padding: 5px 5px 5px 5px;
+    float: left;
+}
+
+.groupProfileHeader {
+    min-height: 48px;
+    height: auto;
+    max-height: 80px;
+    width: 96%;
+    margin: 5px 5px 5px 5px;
+    border: 3px solid black;
+    border-radius: 3px;
+    display: flex;
+}
+
+.groupProfileContent {
+    min-height: 70px;
+    height: auto;
+    max-height: 135px;
+    width: 96%;
+    margin: 5px 5px 5px 5px;
+    border: 3px solid black;
+    border-radius: 3px;
+    word-wrap: normal;
+    overflow: auto;
+    text-overflow: ellipsis;
+}
+
+.imgGroup {
+    border: 1px solid black;
+    min-height: 48px;
+    height: auto;
+    max-height: 80px;
+    min-width: 48px;
+    width: auto;
+    max-width: 80px;
+    margin-right: 2px;
+}
