@@ -8,6 +8,7 @@ body {
     color:#23274F;
     margin-top: 51px; */
     font-family: 'Open Sans', sans-serif;
+    background: url(img/bg/bg_06.jpg) no-repeat 0 0;
 }
 div .main {
     margin-top: 51px;
@@ -19,14 +20,7 @@ div .main {
 
 div::after {
     content: "";
-    background-image: url(img/bg/bg_03.jpg);
-    background-size: 100% 100%;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     position: absolute;
-    opacity: 0.2;
     z-index: -1;
 }
 
@@ -53,6 +47,8 @@ a:active {
 
 .genericPanel {
     min-height: 220px;
+    opacity: 0.7;
+    background-color: #23527c;
     height: auto;
     min-width: 220px;
     width: 20%;
@@ -66,6 +62,7 @@ a:active {
 }
 
 #studentPanel {
+    color:#ffffff;
     min-height: 92%;
     height: auto;
     width: 18%;
@@ -75,6 +72,8 @@ a:active {
     top: 51px;
     left: 0px;
     bottom: 0px;
+    background-color: #000000;
+    opacity: 0.7;
     position: absolute;
 }
 
@@ -154,6 +153,9 @@ a:active {
     right: 0px;
     bottom: 0px;
     top: 51px;
+    background-color: #000000;
+    opacity: 0.4;
+    color:#ffffff;
 }
 
 .groupPanelHeader {
