@@ -211,7 +211,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         $scope.addAssignment = function () {
             $modal.open({
                 templateUrl: 'partials/add_assignment.html',
-                controller: function ($scope, $http, $routeParams, Authentication, $cookieStore, $rootScope) {
+                controller: function ($scope, $http, $routeParams, Authentication, $cookieStore, $rootScope, $modalInstance) {
                     $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
                     $scope.course = "";
                     $scope.myForm = {
