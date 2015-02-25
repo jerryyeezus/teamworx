@@ -97,6 +97,25 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             location.reload();
         });
 
+
+        $scope.randomAssign = function() {
+            var dataObject = {
+                which_assignment: $scope.which_assignment
+            };
+
+            var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
+            responsePromise.success(function (dataFromServer, status, headers, config) {
+                console.log(dataFromServer.title);
+                console.log(dataObject);
+                alert("Teams created!");
+            });
+            responsePromise.error(function (data, status, headers, config) {
+                console.log(data)
+                console.log(dataObject);
+            });
+        }
+
+
         // TODO ass
         $rootScope.$on('assCreated', function(event, mass) {
             $cookieStore.put('assCreated', mass);
@@ -155,7 +174,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $modal.open({
                 templateUrl: 'partials/add_group.html',
                 controller: function ($scope, $http, Authentication, $rootScope, $modalInstance) {
-                    /*
+
                     $scope.the_user = Authentication.getAuthenticatedAccount();
                     $scope.submitTheForm = function (formData) {
                         var dataObject = {
@@ -175,9 +194,9 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
                         });
                     }
 
-                    $scope.submit = function () {
-                    };
-                    */
+                    //$scope.submit = function () {
+                    //};
+
                     $scope.cancel = function () {
                         $modalInstance.dismiss('cancel');
                     }
