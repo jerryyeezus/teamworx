@@ -118,6 +118,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
 
         // TODO ass
         $rootScope.$on('assCreated', function(event, mass) {
+            $scope.selectAssignment(mass.assignment_number);
             $cookieStore.put('assCreated', mass);
             location.reload();
         });
@@ -125,10 +126,6 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
             $scope.students = response.data;
         });
-
-        $rootScope.$on('tmp', function(event,mass) {
-            $scope.selectAssignment(mass.assignment_number);
-        })
 
         $scope.$on('$viewContentLoaded', function () {
             if ($cookieStore.get('rosterUpdated') == 'success') {
@@ -208,9 +205,10 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         };
 
         $scope.is_current_assignment = function (num) {
-            return $scope.assignments[$scope.which_assignment].assignment_number == num;
+            return $scope.which_assignment == num;
         }
 
+        // TODO cookie shit
         $scope.selectAssignment = function (id) {
             $scope.which_assignment = id;
         };
@@ -237,9 +235,10 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
 
                         var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
                         responsePromise.success(function (dataFromServer, status, headers, config) {
-                            //$rootScope.$broadcast('assCreated', dataObject); // TODO when modal is done
-                            $rootScope.$broadcast('tmp', dataObject);
-                            window.location.href = '#main/' + $cookieStore.get('course').pk;
+                            $rootScope.$broadcast('assCreated', dataObject); // TODO when modal is done
+                            location.reload();
+                            //$rootScope.$broadcast('tmp', dataObject);
+                            //window.location.href = '#main/' + $cookieStore.get('course').pk;
                         });
                         responsePromise.error(function (data, status, headers, config) {
                             console.log(data)
@@ -309,37 +308,6 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
 
 }]);
 
-
-mainControllers.controller("AddAssignmentController",
-    ['$scope', '$http', '$routeParams', 'Authentication', '$cookieStore', '$rootScope',
-        function ($scope, $http, $routeParams, Authentication, $cookieStore, $rootScope) {
-            $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-            $scope.course = "";
-            $scope.myForm = {
-                'assignment_number': $cookieStore.get('assignments').length + 1
-            };
-
-            $scope.submitTheForm = function (formData) {
-                // TODO how the hell does this work? myForm should be formData??
-                var dataObject = {
-                    course_fk: $routeParams.which_class
-                    , assignment_number: $scope.myForm.assignment_number
-                    , assignment_title: $scope.myForm.assignment_title
-                    , assignment_text: $scope.myForm.assignment_text
-                };
-
-                var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
-                responsePromise.success(function (dataFromServer, status, headers, config) {
-                    //$rootScope.$broadcast('assCreated', dataObject); // TODO when modal is done
-                    $rootScope.$broadcast('tmp', dataObject);
-                    window.location.href = '#main/' + $cookieStore.get('course').pk;
-                });
-                responsePromise.error(function (data, status, headers, config) {
-                    console.log(data)
-                    console.log(dataObject);
-                });
-            }
-        }]);
 
 
 mainControllers.controller('NavigationController', ['$location', '$scope', 'Authentication', '$rootScope', function ($location, $scope, Authentication, $rootScope) {
