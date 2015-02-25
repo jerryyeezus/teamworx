@@ -44,7 +44,8 @@
                                     {{x.assignment_number}}: {{x.assignment_title}}</p>
                             </a>
                         </li>
-                        <li><a href="#add_assignment/{{my_pk}}"><b>+ New Assignment</b></a></li>
+                        <li><button data-toggle="modal" data-target="#myModal" ng-click="addAssignment()"><b>+ New Assignment</b></button></li>
+
                     </ul>
                 </li>
 
@@ -122,7 +123,7 @@
     <div class="groupPanelHeader">
         <h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>
         <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
-        <button ng-show="assignments.length > 0" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
+        <button ng-click="randomAssign()" ng-show="assignments.length > 0" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
     </div>
     <hr>
     <div class="groupPanelContent">
