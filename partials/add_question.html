@@ -16,10 +16,21 @@
 <body>
 <div>
     <form>
-        <input type="text" id="assignment_number" ng-model="myForm.assignment_number" ng-minlength="0" ng-maxlength="20"> Question Number <br/>
+        <div class="modal-body">
         <input type="text" id="assignment_text" ng-model="myForm.assignment_text" ng-minlength="0" ng-maxlength="20"> Question Text <br/>
+        </div>
 
-        <button ng-click="submitTheForm(myForm)">Submit Question</button>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" ng-click="submitTheForm(myForm)">Add</button>
+        </div>
+
+        <div class="modal-body">
+            <li ng-repeat="x in questions">
+                <a href="#questions/{{my_pk}}">Question {{x.question_number}}: {{x.question_text}}</a>
+            </li>
+            <p>Will add the list of questions here</p>
+        </div>
     </form>
 
 </div>

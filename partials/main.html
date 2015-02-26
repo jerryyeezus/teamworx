@@ -30,6 +30,7 @@
                             Delete Course
                         </a>
                         </li>
+                        <li><button data-toggle="modal" data-target="#myModal" ng-click="addQuestion()"><b>Update Question</b></button></li>
                     </ul>
                 </li>
 
@@ -121,7 +122,8 @@
 
 <div class="container-fluid" id="groupPanel">
     <div class="groupPanelHeader">
-        <h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>
+        <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
+        <h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{which_assignment}}]</h3>
         <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
         <button ng-click="randomAssign()" ng-show="assignments.length > 0" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
     </div>
@@ -150,11 +152,11 @@
                 <!-- Currently not implemented -->
                 <div class="groupProfile" ng-repeat="team in teams">
                     <div class="groupProfileHeader">
-                        <h3>{{team.team_name}}</h3>
+                        <h3>{{team.name}}</h3>
                     </div>
                     <div class="groupProfileContent">
                         <p>
-                            {{team.team_description}}
+                            {{team.description}}
                         </p>
                     </div>
                 </div>

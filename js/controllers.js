@@ -127,6 +127,11 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $scope.students = response.data;
         });
 
+        $http.get(Authentication.server_url + 'teams/' + '1'+ '/' + which_class).then(function (response) {
+            $scope.teams = response.data;
+            console.log(which_class + '' + which_assignment);
+        });
+
         $scope.$on('$viewContentLoaded', function () {
             if ($cookieStore.get('rosterUpdated') == 'success') {
                 toaster.pop('success', 'Student roster uploaded!');
@@ -180,6 +185,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
                         var dataObject = {
                             name: $scope.myForm.team_name,
                             description: $scope.myForm.team_description,
+                            which_class: $scope.which_class,
                             which_assignment: '2', //To do: fix it with which class
                             owner: "INSTRUCTOR|" + $scope.the_user.email
                         };
@@ -211,6 +217,50 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         // TODO cookie shit
         $scope.selectAssignment = function (id) {
             $scope.which_assignment = id;
+        };
+
+        //Controller to add a new question
+        $scope.addQuestion = function () {
+            $modal.open({
+                templateUrl: 'partials/add_question.html',
+                controller: function ($scope, $http, $routeParams, Authentication, $cookieStore, $rootScope, $modalInstance) {
+                    $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+                    $scope.myForm = {
+                        'assignment_number': $cookieStore.get('assignments').length
+                    };
+
+                    $scope.submitTheForm = function() {
+                        var dataObject = {
+                            course_fk: $routeParams.which_class,
+                            description: $scope.myForm.description
+                        };
+
+                        var responsePromise = $http.post(Authentication.server_url + 'add_question/', dataObject, {});
+                        responsePromise.success(function () {
+                            $rootScope.$broadcast('QuestionCreated', dataObject);
+                            console.log(dataFromServer.title);
+                            console.log(dataObject);
+                            alert("Assignment created!");
+                        });
+                        responsePromise.error(function (data) {
+                            console.log(data);
+                            console.log(dataObject);
+                            alert("Submitting form failed!");
+                        });
+                    }
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    }
+
+                    $http.get(Authentication.server_url + 'questions/' + which_class).then(function (response) {
+                        $scope.questions = response.data;
+                        console.log(which_class + '' + which_assignment);
+                    });
+
+                }
+            });
+            // Hack to make modal appear... angular is fucking stupid
+            $window.history.back();
         };
 
         //controller for creating a new assignment
