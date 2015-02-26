@@ -16,7 +16,6 @@
  *
  */
 
-
 /* Variables */
 $textColor: #ffffff;
 $textColorHover: #cccccc;
@@ -31,7 +30,6 @@ $toastError: #bd362f;
 $toastInfo: #2f96b4;
 $toastWarning: #f89406;
 
-
 $toastPositionFullWidthTop: 0;
 $toastPositionFullWidthBottom: 0;
 
@@ -43,7 +41,6 @@ $toastPossitionBottom: 12px;
 $toastContainerColor: #ffffff;
 $toastContainerShadowColor: #999999;
 $toastContainerShadowColorHover: #000000;
-
 
 .toast-title {
   font-weight: bold;
@@ -73,14 +70,14 @@ $toastContainerShadowColorHover: #000000;
   text-shadow: 0 1px 0 $closeButton;
   opacity: 0.8;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-  filter: alpha(opacity = 80);
+  filter: alpha(opacity=80);
   &:hover, &:focus {
     color: $closeButtonHover;
     text-decoration: none;
     cursor: pointer;
     opacity: 0.4;
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
-    filter: alpha(opacity = 40);
+    filter: alpha(opacity=40);
   }
 }
 
@@ -176,7 +173,7 @@ button.toast-close-button {
       color: $toastContainerColor;
       opacity: 0.8;
       -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-      filter: alpha(opacity = 80);
+      filter: alpha(opacity=80);
     }
     :hover {
       -moz-box-shadow: 0 0 12px $toastContainerShadowColorHover;
@@ -184,7 +181,7 @@ button.toast-close-button {
       box-shadow: 0 0 12px $toastContainerShadowColorHover;
       opacity: 1;
       -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-      filter: alpha(opacity = 100);
+      filter: alpha(opacity=100);
       cursor: pointer;
     }
     .toast-info {

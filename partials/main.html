@@ -25,11 +25,11 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <!--<li>-->
-                        <!--<a style="cursor:pointer" ng-click="import()">-->
-                        <!--+ Import CSV-->
-                        <!--</a>-->
-                        <!--</li>-->
+                        <li>
+                            <a style="cursor:pointer" ng-click="deleteCourse()">
+                                Delete Course
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -44,7 +44,11 @@
                                     {{x.assignment_number}}: {{x.assignment_title}}</p>
                             </a>
                         </li>
-                        <li><a href="#add_assignment/{{my_pk}}"><b>+ New Assignment</b></a></li>
+                        <li>
+                            <button data-toggle="modal" data-target="#myModal" ng-click="addAssignment()"><b>+ New
+                                Assignment</b></button>
+                        </li>
+
                     </ul>
                 </li>
 
@@ -52,7 +56,6 @@
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="">Delete a Course</a></li>
                         <li><a href="">Change Password</a></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
@@ -96,7 +99,7 @@
             </span>
             <!--<a ng-click="import()">Import students button</a>-->
             <ul style="list-style-type:none;">
-                <li ng-repeat="student in students">
+                <li ng-repeat="student in students | filter: search.name">
                     <div class="studentProfile">
                         <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)"/>
                         <!--<img src="img/no_profile.png" class="imgStudent">-->
@@ -121,9 +124,13 @@
 
 <div class="container-fluid" id="groupPanel">
     <div class="groupPanelHeader">
-        <h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>
+        <h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment
+            {{assignments[which_assignment].assignment_number}}]</h3>
+
         <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
-        <button ng-show="assignments.length > 0" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
+        <button ng-click="randomAssign()" ng-show="assignments.length > 0" class="btn-primary"
+                style="position:relative; top:auto;">Randomly Assign Groups
+        </button>
     </div>
     <hr>
     <div class="groupPanelContent">
@@ -162,22 +169,4 @@
         </ul>
     </div>
 </div>
-
-<!--<script type="text/ng-template" id="myModalContent.html">-->
-<!--<div class="modal-header">-->
-<!--<h3>I'm a modal!</h3>-->
-<!--</div>-->
-<!--<form ng-submit="submit()">-->
-<!--<div class="modal-body">-->
-<!--<label>User name</label>-->
-<!--<input type="text" ng-model="user.user" />-->
-<!--<label>Password</label>-->
-<!--<input type="password" ng-model="user.password" />-->
-<!--</div>-->
-<!--<div class="modal-footer">-->
-<!--<button class="btn btn-warning" ng-click="cancel()">Cancel</button>-->
-<!--<input type="submit" class="btn primary-btn" value="Submit" />-->
-<!--</div>-->
-<!--</form>-->
-<!--</script>-->
 

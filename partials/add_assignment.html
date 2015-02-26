@@ -14,16 +14,26 @@
 
 </head>
 <body>
+<div class="modal-header">
+    <h3>Create a New Assignment</h3>
+</div>
 <div>
     <form>
-        <input type="text" disabled id="assignment_number" ng-model="myForm.assignment_number" ng-minlength="0" ng-maxlength="20" readonly>
-        Assignment Number <br/>
-        <input type="text" id="assignment_title" ng-model="myForm.assignment_title" ng-minlength="0" ng-maxlength="20"> Assignment Title<br/>
-        <input type="text" id="assignment_text" ng-model="myForm.assignment_text" ng-minlength="0" ng-maxlength="20"> Assignment Text <br/>
+        <div class="modal-body">
+            <input type="text" disabled id="assignment_number" ng-model="myForm.assignment_number" ng-minlength="0"
+                   ng-maxlength="20" readonly>
+            Assignment Number <br/>
+            <input type="text" id="assignment_title" ng-model="myForm.assignment_title" ng-minlength="0"
+                   ng-maxlength="20"> Assignment Title<br/>
+            <input type="text" id="assignment_text" ng-model="myForm.assignment_text" ng-minlength="0"
+                   ng-maxlength="20"> Assignment Text <br/>
+        </div>
 
-        <button ng-click="submitTheForm(myForm)">Submit Form</button>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" ng-click="submitTheForm(myForm)">Add</button>
+        </div>
     </form>
-
 </div>
 
 </body>
