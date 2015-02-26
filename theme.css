@@ -9,6 +9,7 @@ body {
     margin-top: 51px; */
     font-family: 'Open Sans', sans-serif;
     background: url(img/bg/bg_08.jpg) no-repeat 0 0 fixed;
+    background-size: cover;
     opacity: 0.85;
 }
 
@@ -93,10 +94,12 @@ a:active {
 
 #searchBarField {
     width: 100%;
+    color: black;
 }
 
 .studentProfileContent {
-    overflow-x:hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     max-height: 76%;
     border: 3px solid black;
     border-radius: 3px;
@@ -156,7 +159,7 @@ a:active {
     bottom: 0px;
     top: 51px;
     background-color: #000000;
-    opacity: 0.4;
+    opacity: 0.7;
     color:#ffffff;
 }
 
