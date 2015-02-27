@@ -1,5 +1,23 @@
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);
 
+mainControllers.controller('UploadController',
+    ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
+        '$modal', '$window', 'toaster', '$modalInstance', 'fileUpload',
+        function ($http, $location, Authentication, $scope, $rootScope, $cookieStore,
+                  $modal, $window, toaster, $modalInstance, $fileUpload) {
+
+            $scope.submit = function () {
+                console.log($scope.myFile);
+                $fileUpload.uploadFileToUrl($scope.myFile,
+                    Authentication.server_url + 'add_import/', $cookieStore.get('course').pk)
+                $modalInstance.dismiss('cancel');
+            };
+
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            }
+        }]);
+
 mainControllers.controller('AddCourseController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance',
         function ($http, $location, Authentication, $scope, $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance) {
@@ -87,8 +105,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
-            $cookieStore.put('rosterUpdated', mass.success);
-            location.reload();
+            // TODO
         });
 
         $scope.randomAssign = function () {
@@ -123,47 +140,28 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             //console.log(which_class + '' + which_assignment);
         });
 
-        $scope.$on('$viewContentLoaded', function () {
-            if ($cookieStore.get('rosterUpdated') == 'success') {
-                toaster.pop('success', 'Student roster uploaded!');
-            }
-            else if ($cookieStore.get('rosterUpdated') == 'fail') {
-                toaster.pop('error', 'Upload failed!');
-            }
-            var assCreated = $cookieStore.get('assCreated');
-            if (assCreated) {
-                $scope.selectAssignment(assCreated.assignment_number);
-                toaster.pop('success', 'Assignment created!')
-                $cookieStore.put('assCreated', false);
-            }
-
-            $cookieStore.put('rosterUpdated', 'none');
-        });
+        //$scope.$on('$viewContentLoaded', function () {
+        //    if ($cookieStore.get('rosterUpdated') == 'success') {
+        //        toaster.pop('success', 'Student roster uploaded!');
+        //    }
+        //    else if ($cookieStore.get('rosterUpdated') == 'fail') {
+        //        toaster.pop('error', 'Upload failed!');
+        //    }
+        //    var assCreated = $cookieStore.get('assCreated');
+        //    if (assCreated) {
+        //        $scope.selectAssignment(assCreated.assignment_number);
+        //        toaster.pop('success', 'Assignment created!')
+        //        $cookieStore.put('assCreated', false);
+        //    }
+        //
+        //    $cookieStore.put('rosterUpdated', 'none');
+        //});
 
         $scope.deleteCourse = function () {
             alert('ayyyy lmao');
         }
 
-        $scope.import = function () {
-            $modal.open({
-                    templateUrl: 'partials/upload_form.html',
-                    controller: function ($scope, $modalInstance, $rootScope) {
-                        $scope.submit = function () {
-                            $fileUpload.uploadFileToUrl($scope.myFile,
-                                Authentication.server_url + 'add_import/', $cookieStore.get('course').pk)
-                            $modalInstance.dismiss('cancel');
-                        };
 
-                        $scope.cancel = function () {
-                            $modalInstance.dismiss('cancel');
-                        }
-                    }
-                }
-            );
-
-            // Hack to make modal appear... angular is fucking stupid
-            $window.history.back();
-        };
 
         //controller for creating a new group
         $scope.addGroup = function () {

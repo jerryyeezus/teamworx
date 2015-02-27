@@ -96,7 +96,7 @@
                 <br>
                 <br>
         <!--import roster button-->
-        <button type="button" class="btn btn-primary" ng-click="import()">
+        <button type="button" class="btn btn-primary" ui-sref="main.import_roster">
             + Import CSV
         </button>
             </span>
@@ -124,6 +124,8 @@
 <div class="container-fluid" id="assignmentsPanel">
     <!--//TODO Peter: Assignments Panel-->
 </div>
+
+<div ui-view></div>
 
 <div class="container-fluid" id="groupPanel">
     <div class="groupPanelHeader">
