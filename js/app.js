@@ -7,7 +7,7 @@ var myApp = angular.module('myApp', [
 ]);
 
 // flag
-var DEBUG = false;
+var DEBUG = true;
 
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
@@ -28,8 +28,8 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-myApp.service('fileUpload', ['$http', '$rootScope', function ($http, $rootScope) {
-    this.uploadFileToUrl = function (file, uploadUrl, pk) {
+myApp.service('fileUpload', ['$http', '$rootScope', 'Authentication', function ($http, $rootScope, Authentication) {
+    this.uploadFileToUrl = function (file, uploadUrl, pk, rootScope) {
         var fd = new FormData();
         fd.append('import_csv', file);
         fd.append('pk', pk);
@@ -38,12 +38,12 @@ myApp.service('fileUpload', ['$http', '$rootScope', function ($http, $rootScope)
             headers: {'Content-Type': undefined}
         })
             .success(function () {
-                $rootScope.$broadcast('rosterUpdated', {'success': 'success'});
-                //alert("Student Roster Uploaded!");
+                $http.get(Authentication.server_url + 'roster/' + pk).then(function (response) {
+                    rootScope.$broadcast('rosterUpdated', response.data);
+                })
             })
             .error(function () {
-                $rootScope.$broadcast('rosterUpdated', {'success': 'fail'});
-                //alert('Error uploading!')
+                rootScope.$broadcast('rosterUpdated', {'success': 'error'});
             });
     }
 }]);

@@ -7,9 +7,8 @@ mainControllers.controller('UploadController',
                   $modal, $window, toaster, $modalInstance, $fileUpload) {
 
             $scope.submit = function () {
-                console.log($scope.myFile);
                 $fileUpload.uploadFileToUrl($scope.myFile,
-                    Authentication.server_url + 'add_import/', $cookieStore.get('course').pk)
+                    Authentication.server_url + 'add_import/', $cookieStore.get('course').pk, $rootScope);
                 $modalInstance.dismiss('cancel');
             };
 
@@ -105,7 +104,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
-            // TODO
+            $scope.students = mass;
+            toaster.pop('success', 'Roster uploaded');
         });
 
         $scope.randomAssign = function () {
