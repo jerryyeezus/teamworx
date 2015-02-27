@@ -31,11 +31,11 @@ mainControllers.controller('AddCourseController',
                     console.log(dataObject);
                 });
                 $modalInstance.dismiss('cancel');
-                $window.location.href = '#/portal';
+                //$window.location.href = '#/portal';
             }
 
             $scope.cancel = function () {
-                $window.location.href = '#/portal';
+                //$window.location.href = '#/portal';
                 $modalInstance.dismiss('cancel');
             }
 
@@ -372,8 +372,8 @@ mainControllers.controller('QuestionController', ['$http', '$routeParams', 'Auth
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', '$route', 'toaster',
     function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore,
               $modal, $window, $fileUpload, $route, toaster) {
-
         $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+    $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
 
         $http.get(Authentication.server_url + 'questions/' + $routeParams.which_class).then(function (response) {

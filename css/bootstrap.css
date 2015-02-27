@@ -6330,3 +6330,9 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+#logo{
+    height: 150%;
+    margin-right: 5px;
+    margin-top: -5px;
+}

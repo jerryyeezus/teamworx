@@ -166,6 +166,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                     templateUrl: 'partials/create_class.html',
                     controller: 'AddCourseController'
                 }).result.finally(function () {
+                        $state.go('^');
                     });
             }]
         }, add_assignment = {
