@@ -1,22 +1,30 @@
 <section class="credentials">
     <div>
-        <form class="genericPanel" ng-submit="login(formData)">
+        <form class="genericPanel" ng-submit="login(formData)" style="margin-top: 6%; color: lemonchiffon">
             <h1>Login</h1>
             <label>E-mail:</label>
-            <input ng-model="formData.the_email" ng-focus="clearData('the_email')"><br>
+            <input class="form-control" ng-model="formData.the_email" ng-focus="clearData('the_email')"><br>
 
             <label>Password</label>
-            <input type="password" ng-focus="clearData('password')" ng-model="formData.password">
-            <br>
+            <input class="form-control" type="password" ng-focus="clearData('password')" ng-model="formData.password">
+
             <br>
             <label>Type:</label>
-            <input type="radio" ng-model="formData.user_type" name="userType" value="STUDENT">Student
-            <input type="radio" ng-model="formData.user_type" name="userType" value="INSTRUCTOR"
-                   formData="formData.bool">Instructor
-            <br>
+            <div clss="radio">
+                <label>
+                    <input type="radio" ng-model="formData.user_type" name="userType" value="STUDENT">
+                    Student
+                </label>
+            </div>
+            <div clss="radio">
+                <label>
+                    <input type="radio" ng-model="formData.user_type" name="userType" value="INSTRUCTOR"
+                           formData="formData.bool">
+                    Instructor
+                </label>
+            </div>
 
-            <input type="submit"/>
-            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in </button>
             <br>
 
             <p>No account? Register <a href="#/register">here</a>.

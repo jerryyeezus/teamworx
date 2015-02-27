@@ -3,6 +3,8 @@ var mainControllers = angular.module('mainControllers', ['ngAnimate']);
 mainControllers.controller('PortalController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'toaster',
         function ($http, $location, Authentication, $scope, $rootScope, $cookieStore, $modal, $window, toaster) {
+            $('.wrapper').addClass('zout');
+
             $scope.user = Authentication.getAuthenticatedAccount();
 
             $scope.pop = function () {
@@ -288,6 +290,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
 ;
 
 mainControllers.controller('CredentialsController', ['$location', '$scope', 'Authentication', function ($location, $scope, Authentication) {
+    $('.wrapper').removeClass('zout');
     activate();
     $scope.formData = {
         'the_email': 'you@gatech.edu',
