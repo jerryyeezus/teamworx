@@ -182,6 +182,10 @@ myApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $http
             controller: 'AddQuestionController'
         })
 
+        .when('/groups', {
+            templateUrl: 'partials/groupProfile.html'
+        })
+
         .otherwise({
             redirectTo: '/login'
         });
