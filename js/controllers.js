@@ -97,27 +97,25 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             location.reload();
         });
 
-
         $scope.randomAssign = function() {
             var dataObject = {
                 which_assignment: $scope.which_assignment
             };
-
             var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
-            responsePromise.success(function (dataFromServer, status, headers, config) {
+            responsePromise.success(function (dataFromServer) {
                 console.log(dataFromServer.title);
                 console.log(dataObject);
                 alert("Teams created!");
             });
-            responsePromise.error(function (data, status, headers, config) {
+            responsePromise.error(function (data) {
                 console.log(data)
                 console.log(dataObject);
             });
         }
 
-
         // TODO ass
         $rootScope.$on('assCreated', function(event, mass) {
+            $scope.selectAssignment(mass.assignment_number);
             $cookieStore.put('assCreated', mass);
             location.reload();
         });
@@ -126,9 +124,10 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $scope.students = response.data;
         });
 
-        $rootScope.$on('tmp', function(event,mass) {
-            $scope.selectAssignment(mass.assignment_number);
-        })
+        $http.get(Authentication.server_url + 'teams/' + '1'+ '/' + which_class).then(function (response) {
+            $scope.teams = response.data;
+            //console.log(which_class + '' + which_assignment);
+        });
 
         $scope.$on('$viewContentLoaded', function () {
             if ($cookieStore.get('rosterUpdated') == 'success') {
@@ -147,6 +146,9 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
             $cookieStore.put('rosterUpdated', 'none');
         });
 
+        $scope.deleteCourse = function() {
+            alert('ayyyy lmao');
+        }
 
         $scope.import = function () {
             $modal.open({
@@ -176,35 +178,43 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
                 controller: function ($scope, $http, Authentication, $rootScope, $modalInstance) {
 
                     $scope.the_user = Authentication.getAuthenticatedAccount();
-                    $scope.submitTheForm = function (formData) {
+                    $scope.submitTheForm = function () {
                         var dataObject = {
-                            course_dept_and_id: $scope.myForm.course_dept + ' ' + $scope.myForm.course_id
-                            , course_name: $scope.myForm.course_name
-                            , course_professor: "INSTRUCTOR|" + $scope.the_user.email
+                            name: $scope.myForm.team_name,
+                            description: $scope.myForm.team_description,
+                            which_class: $scope.which_class,
+                            which_assignment: '2', //To do: fix it with which class
+                            owner: "INSTRUCTOR|" + $scope.the_user.email
                         };
 
-                        var responsePromise = $http.post(Authentication.server_url + 'add_courses/', dataObject, {});
+                        var responsePromise = $http.post(Authentication.server_url + 'add_team/', dataObject, {});
                         responsePromise.success(function (dataFromServer, status, headers, config) {
-                            $rootScope.$broadcast('courseAdded');
+                            $rootScope.$broadcast('GroupCreated', dataObject); // TODO when modal is done
                             location.reload();
+                            $rootScope.$broadcast('tmp', dataObject);
+                            window.location.href = '#main/' + $cookieStore.get('course').pk;
                         });
-                        responsePromise.error(function (data, status, headers, config) {
+                        responsePromise.error(function () {
                             alert("Submitting form failed!");
                             console.log(dataObject);
                         });
                     }
-
-                    //$scope.submit = function () {
-                    //};
-
                     $scope.cancel = function () {
                         $modalInstance.dismiss('cancel');
                     }
-
                 }
             });
             // Hack to make modal appear... angular is fucking stupid
             $window.history.back();
+        };
+
+        $scope.is_current_assignment = function (num) {
+            return $scope.which_assignment == num;
+        }
+
+        // TODO cookie shit
+        $scope.selectAssignment = function (id) {
+            $scope.which_assignment = id;
         };
 
         //controller for creating a new assignment
@@ -218,7 +228,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
                         'assignment_number': $cookieStore.get('assignments').length + 1
                     };
 
-                    $scope.submitTheForm = function (formData) {
+                    $scope.submitTheForm = function() {
                         // TODO how the hell does this work? myForm should be formData??
                         var dataObject = {
                             course_fk: $routeParams.which_class
@@ -229,7 +239,8 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
 
                         var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
                         responsePromise.success(function (dataFromServer, status, headers, config) {
-                            //$rootScope.$broadcast('assCreated', dataObject); // TODO when modal is done
+                            $rootScope.$broadcast('assCreated', dataObject); // TODO when modal is done
+                            location.reload();
                             $rootScope.$broadcast('tmp', dataObject);
                             window.location.href = '#main/' + $cookieStore.get('course').pk;
                         });
@@ -241,7 +252,6 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
                     $scope.cancel = function () {
                         $modalInstance.dismiss('cancel');
                     }
-
                 }
             });
             // Hack to make modal appear... angular is fucking stupid
@@ -249,13 +259,6 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         };
 
 
-        $scope.is_current_assignment = function (num) {
-            return $scope.assignments[$scope.which_assignment].assignment_number == num;
-        }
-
-        $scope.selectAssignment = function (id) {
-            $scope.which_assignment = id;
-        };
 
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
@@ -309,37 +312,6 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
 }]);
 
 
-mainControllers.controller("AddAssignmentController",
-    ['$scope', '$http', '$routeParams', 'Authentication', '$cookieStore', '$rootScope',
-    function ($scope, $http, $routeParams, Authentication, $cookieStore, $rootScope) {
-        $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-        $scope.course = "";
-        $scope.myForm = {
-            'assignment_number': $cookieStore.get('assignments').length + 1
-        };
-
-        $scope.submitTheForm = function (formData) {
-            // TODO how the hell does this work? myForm should be formData??
-            var dataObject = {
-                course_fk: $routeParams.which_class
-                , assignment_number: $scope.myForm.assignment_number
-                , assignment_title: $scope.myForm.assignment_title
-                , assignment_text: $scope.myForm.assignment_text
-            };
-
-            var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
-            responsePromise.success(function (dataFromServer, status, headers, config) {
-                //$rootScope.$broadcast('assCreated', dataObject); // TODO when modal is done
-                $rootScope.$broadcast('tmp', dataObject);
-                window.location.href = '#main/' + $cookieStore.get('course').pk;
-            });
-            responsePromise.error(function (data, status, headers, config) {
-                console.log(data)
-                console.log(dataObject);
-            });
-        }
-    }]);
-
 
 mainControllers.controller('NavigationController', ['$location', '$scope', 'Authentication', '$rootScope', function ($location, $scope, Authentication, $rootScope) {
     activate();
@@ -382,8 +354,7 @@ mainControllers.controller("AssignmentController", ['$scope', '$http', '$routePa
             text: ""
         });
     };
-
-    $scope.submitTheForm = function (formData) {
+    $scope.submitTheForm = function () {
         var dataObject = {
 
             course_fk: $routeParams.which_class
@@ -392,46 +363,69 @@ mainControllers.controller("AssignmentController", ['$scope', '$http', '$routePa
             , assignment_text: $scope.myForm.assignment_text
 
         };
-
-
         console.log(dataObject);
-
-
         var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
-        responsePromise.success(function (dataFromServer, status, headers, config) {
+        responsePromise.success(function (dataFromServer) {
             console.log(dataFromServer.title);
             console.log(dataObject);
             alert("Assignment created!");
         });
-        responsePromise.error(function (data, status, headers, config) {
+        responsePromise.error(function () {
             alert("Submitting form failed!");
             console.log(dataObject);
         });
     }
 }]);
 
-mainControllers.controller("AddQuestionController", ['$scope', '$http', '$routeParams', 'Authentication', function ($scope, $http, $routeParams, Authentication) {
+
+mainControllers.controller('QuestionController', ['$http', '$routeParams', 'Authentication',
+    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', '$route', 'toaster',
+    function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore,
+              $modal, $window, $fileUpload, $route, toaster) {
     $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+    $scope.user = Authentication.getAuthenticatedAccount();
+    $scope.course = $cookieStore.get('course');
 
-    $scope.submitTheForm = function (formData) {
-        var dataObject = {
+    $http.get(Authentication.server_url + 'questions/' + $routeParams.which_class).then(function (response) {
+        $scope.questions = response.data;
+    });
 
-            course_fk: $routeParams.which_class
-            , assignment_number: $scope.myForm.assignment_number
-            , assignment_title: $scope.myForm.assignment_title
-            , assignment_text: $scope.myForm.assignment_text
+    //Controller to add a new question
+    $scope.addQuestion = function () {
+        $modal.open({
+            templateUrl: 'partials/add_question.html',
+            controller: function ($scope, $http, $routeParams, Authentication, $cookieStore, $rootScope, $modalInstance) {
+                $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+                $scope.myForm = {
+                    'assignment_number': $cookieStore.get('assignments').length
+                };
 
-        };
-        console.log(dataObject);
-        var responsePromise = $http.post(Authentication.server_url +'add_question/', dataObject, {});
-        responsePromise.success(function (dataFromServer, status, headers, config) {
-            console.log(dataFromServer.title);
-            console.log(dataObject);
-            alert("Assignment created!");
+                $scope.submitTheForm = function () {
+                    var dataObject = {
+                        course_fk: $routeParams.which_class
+                        , value: $scope.myForm.value
+                        , text: $scope.myForm.text
+                    };
+                    console.log(dataObject);
+                    var responsePromise = $http.post(Authentication.server_url +'questions/', dataObject, {});
+                    responsePromise.success(function () {
+                        $rootScope.$broadcast('QuestionCreated', dataObject);
+                        location.reload();
+                        $rootScope.$broadcast('tmp', dataObject);
+                        window.location.href = '#question/' + $cookieStore.get('course').pk;
+                    });
+                    responsePromise.error(function () {
+                        alert("Submitting form failed!");
+                        console.log(dataObject);
+                    });
+                }
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                }
+            }
         });
-        responsePromise.error(function (data, status, headers, config) {
-            alert("Submitting form failed!");
-            console.log(dataObject);
-        });
-    }
+        window.location.href = "index.html#";
+        window.location.href = "index.html#/question/" + $cookieStore.get('course').pk;
+        $window.history.back();
+    };
 }]);
