@@ -50,8 +50,10 @@ mainControllers.controller('PortalController',
             var which_url = $scope.user.user_type == 'STUDENT' ? 'student_courses/' : 'courses/';
 
             $rootScope.$on('courseAdded', function(mass, event) {
+                toaster.pop('success', 'Course has been added!');
                 $scope.course_list = event;
             });
+
             /* Get list of courses */
             $http.get(Authentication.server_url + which_url + $scope.user.email).then(function (response) {
                 var course_list = response.data;
