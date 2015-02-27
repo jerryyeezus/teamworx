@@ -81,14 +81,14 @@ mainControllers.controller('PortalController',
             }
         }]);
 
-mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authentication',
-    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', '$route', 'toaster',
-    function ($http, $routeParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, $window, $fileUpload, $route, toaster) {
+mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
+    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster',
+    function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
+              $modal, $window, $fileUpload, toaster) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
-        var which_class = $routeParams.which_class;
+        var which_class = $stateParams.which_class;
         $scope.my_pk = which_class;
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
 
@@ -221,7 +221,7 @@ mainControllers.controller('CMainController', ['$http', '$routeParams', 'Authent
         $scope.addAssignment = function () {
             $modal.open({
                 templateUrl: 'partials/add_assignment.html',
-                controller: function ($scope, $http, $routeParams, Authentication, $cookieStore, $rootScope, $modalInstance) {
+                controller: function ($scope, $http, $stateParams, Authentication, $cookieStore, $rootScope, $modalInstance) {
                     $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
                     $scope.course = "";
                     $scope.myForm = {

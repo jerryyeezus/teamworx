@@ -1,13 +1,13 @@
 var myApp = angular.module('myApp', [
-    'ngRoute',
     'mainControllers',
     'ngCookies',
     'ui.bootstrap',
-    'toaster'
+    'toaster',
+    'ui.router'
 ]);
 
 // flag
-var DEBUG = false;
+var DEBUG = true;
 
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
@@ -135,59 +135,111 @@ myApp.factory('Authentication', function ($http, $cookies) {
     }
 });
 
-myApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
-    $httpProvider.defaults.useXDomain = true;
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-
-    $routeProvider.
-        when('/login', {
+myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+    var home = {
+            name: 'home',
+            url: '/login',
             templateUrl: 'partials/login.html',
             controller: 'CredentialsController'
-        })
-        .when('/portal', {
+        },
+        portal = {
+            name: 'portal',
+            url: '/portal',
             templateUrl: 'partials/portal.html',
             controller: 'PortalController'
-        })
-        .when('/main/:which_class', {
+        }, main = {
+            name: 'main',
+            url: '/main/:which_class',
             templateUrl: 'partials/main.html',
-            controller: 'CMainController'
-        })
-        .when('/register', {
+            controller: 'CMainController',
+            reloadOnSearch: false // TODO not sure what this does but..
+        }, register = {
+            name: 'register',
+            url: '/register',
             templateUrl: 'partials/register.html',
             controller: 'CredentialsController'
-        })
-        //.when('/create_class', {
-        //    templateUrl: 'partials/create_class.html',
-        //    controller: 'AddCourseController'
-        //})
-
-        .when('/add_assignment/:which_class', {
+        }, create_class = {
+            name: 'create_class',
+            url: 'partials/create_class.html',
+            templateUrl: 'partials/create_class.html',
+            controller: 'AddCourseController'
+        }, add_assignment = {
+            name: 'add_assignment',
+            url: '/add_assignment/:which_class',
             templateUrl: 'partials/add_assignment.html',
             controller: 'AddAssignmentController'
-        })
-
-        .when('/import', {
-            templateUrl: 'modalContainer',
+        }, import_roster = {
+            name: 'import_roster',
+            templateUrl: 'modalContainer',// TODO
             controller: 'UploadController'
-        })
+        };
 
-        .when('/assignment/:which_class', {
-            templateUrl: 'partials/assignment.html',
-            controller: 'AssignmentController'
-        })
+    var states = [home, portal, main, register, create_class, import_roster];
+    for (var i = 0; i < states.length; i++) {
+        console.log(states[i])
+        $stateProvider.state(states[i]);
+    }
 
 
-        .when('/add_question', {
-            templateUrl: 'partials/add_question.html',
-            controller: 'AddQuestionController'
-        })
+    //home.onExit(function () {
+    //})
+    $urlRouterProvider.otherwise('/login');
 
-        .when('/question/:which_class', {
-            templateUrl: 'partials/question.html',
-            controller: 'QuestionController'
-        })
+}])
 
-        .otherwise({
-            redirectTo: '/login'
-        });
-}]);
+//myApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+//    $httpProvider.defaults.useXDomain = true;
+//    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+//
+//    $routeProvider.
+//        when('/login', {
+//            templateUrl: 'partials/login.html',
+//            controller: 'CredentialsController'
+//        })
+//        .when('/portal', {
+//            templateUrl: 'partials/portal.html',
+//            controller: 'PortalController'
+//        })
+//        .when('/main/:which_class', {
+//            templateUrl: 'partials/main.html',
+//            controller: 'CMainController'
+//        })
+//        .when('/register', {
+//            templateUrl: 'partials/register.html',
+//            controller: 'CredentialsController'
+//        })
+//        //.when('/create_class', {
+//        //    templateUrl: 'partials/create_class.html',
+//        //    controller: 'AddCourseController'
+//        //})
+//
+//        .when('/add_assignment/:which_class', {
+//            templateUrl: 'partials/add_assignment.html',
+//            controller: 'AddAssignmentController'
+//        })
+//
+//        .when('/import', {
+//            templateUrl: 'modalContainer',
+//            controller: 'UploadController'
+//        })
+//
+//        .when('/assignment/:which_class', {
+//            templateUrl: 'partials/assignment.html',
+//            controller: 'AssignmentController'
+//        })
+//
+//
+//        .when('/add_question', {
+//            templateUrl: 'partials/add_question.html',
+//            controller: 'AddQuestionController'
+//        })
+//
+//        .when('/question/:which_class', {
+//            templateUrl: 'partials/question.html',
+//            controller: 'QuestionController'
+//        })
+//
+//        .otherwise({
+//            redirectTo: '/login'
+//        });
+//}]);
