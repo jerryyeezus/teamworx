@@ -33,15 +33,32 @@
     </div>
 </nav>
 <!-- Navbar end -->
-<p>Your Classes:</p>
-<hr>
-<ol>
-    <li ng-repeat="course in course_list">
-        <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{ course.course_name}}</a></h3>
-        <h4>Instructor: {{ course.prof }}</h4>
-    </li>
 
-</ol>
+<!--Professor Profile-->
+<div class="professorProfileContent">
+    <div class="professorProfile"">
+        <!-- Button trigger modal -->
+        <p>
+            <img src="img/no_profile.png" class="imgProfessor"/>{{user.name}}
+        </p>
+        <p>
+            Bio:
+        </p>
+        <p>
+            Contact:
+        </p>
+    </div>
+</div>
+
+
+<p>My Classes:</p>
+    <div class="professorProfileContent">
+        <li ng-repeat="course in course_list">
+            <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{ course.course_name}}</a></h3>
+            <h4>Instructor: {{ course.prof }}</h4>
+        </li>
+    </div>
+
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary btn-lg" ng-show="user.user_type=='INSTRUCTOR'" data-toggle="modal" data-target="#myModal" ng-controller="PortalController" ng-click="foo_portal()">
