@@ -26,7 +26,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                        <a style="cursor:pointer" ng-click="deleteCourse()">
+                        <a style="cursor:pointer" ng-show="user.user_type=='INSTRUCTOR'" ng-click="deleteCourse()">
                             Delete Course
                         </a>
                         </li>
@@ -47,7 +47,7 @@
                                     {{x.assignment_number}}: {{x.assignment_title}}</p>
                             </a>
                         </li>
-                        <li><button data-toggle="modal" data-target="#myModal" ng-click="addAssignment()"><b>+ New Assignment</b></button></li>
+                        <li><button data-toggle="modal" data-target="#myModal" ng-show="user.user_type=='INSTRUCTOR'"  ng-click="addAssignment()"><b>+ New Assignment</b></button></li>
 
                     </ul>
                 </li>
@@ -127,7 +127,7 @@
         <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
         <h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{which_assignment}}]</h3>
         <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
-        <button ng-click="randomAssign()" ng-show="assignments.length > 0" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
+        <button ng-click="randomAssign()" ng-show="user.user_type=='INSTRUCTOR'" ng-show="assignments.length > 0" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
     </div>
     <hr>
     <div class="groupPanelContent">

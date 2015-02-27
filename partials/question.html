@@ -24,7 +24,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><button data-toggle="modal" data-target="#myModal" ng-click="addQuestion()"><b>Add Question</b></button></li>
+                        <li><button data-toggle="modal" data-target="#myModal" ng-show="user.user_type=='INSTRUCTOR'"  ng-click="addQuestion()"><b>Add Question</b></button></li>
                     </ul>
 
                 </li>
@@ -46,6 +46,8 @@
 <h3>List of Questions to Form Team</h3>
 <div>
     <li ng-repeat="x in questions">
-        <a href="#questions/{{my_pk}}">Question {{x.value}}: {{x.text}}</a>
-</li>
+        <a ng-show="user.user_type=='INSTRUCTOR'">Question {{x.value}}: {{x.text}}</a>
+        <input type="text" id="value" ng-model="myForm.value" ng-show="user.user_type=='STUDENT'" ng-minlength="0" ng-maxlength="20">  <a>Question {{x.value}}: {{x.text}}</a><br/>
+    </li>
+
 </div>
