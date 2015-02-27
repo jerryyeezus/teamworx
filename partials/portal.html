@@ -33,21 +33,26 @@
     </div>
 </nav>
 <!-- Navbar end -->
-<p>Your Classes:</p>
-<hr>
-<ol>
-    <li ng-repeat="course in course_list">
-        <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
-            course.course_name}}</a></h3>
-        <h4>Instructor: {{ course.prof }}</h4>
-    </li>
+<div class="container-fluid" id="coursePanel">
+    <div class="coursePanelHeader">
+        Your Classes:
+    </div>
+    <div class="coursePanelContent">
+        <ol>
+            <li ng-repeat="course in course_list">
+                <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
+                    course.course_name}}</a></h3>
+                <h4>Instructor: {{ course.prof }}</h4>
+            </li>
+        </ol>
 
-</ol>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-lg center-block" data-toggle="modal" data-target="#myModal"
+                ng-controller="PortalController" ng-click="foo_portal()">
+            Add New Course
+        </button>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"
-        ng-controller="PortalController" ng-click="foo_portal()">
-    Add New Course
-</button>
+    </div>
+</div>
 
 <toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>

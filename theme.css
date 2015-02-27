@@ -179,6 +179,43 @@ a:active {
     overflow: auto;
 }
 
+#coursePanel {
+    min-height: 92%;
+    height: auto;
+    max-height: inherit;
+    width: 57%;
+    border: 3px solid black;
+    border-radius: 3px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:8%;
+    /*margin: 10px 10px 10px 10px;*/
+    /*position: absolute;*/
+    /*right: 0px;*/
+    /*bottom: 0px;*/
+    background-color: #000000;
+    opacity: 0.7;
+    color:#ffffff;
+}
+
+.coursePanelHeader {
+    font-size: medium;
+    margin-left: 6%;
+    margin-top: 1%;
+    border-radius: 3px;
+}
+
+.coursePanelContent {
+    min-height: 10%;
+    height: auto;
+    max-height: 80%;
+    width: auto;
+    border: 3px solid black;
+    border-radius: 3px;
+    overflow: auto;
+    min-height: 400px;
+}
+
 .groupProfile {
     /*background-color: #cccccc;*/
     min-height: 170px;
