@@ -159,10 +159,15 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             templateUrl: 'partials/register.html',
             controller: 'CredentialsController'
         }, create_class = {
-            name: 'create_class',
-            url: 'partials/create_class.html',
-            templateUrl: 'partials/create_class.html',
-            controller: 'AddCourseController'
+            name: 'portal.create_class',
+            url: '/portal/create_class',
+            onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/create_class.html',
+                    controller: 'AddCourseController'
+                }).result.finally(function () {
+                    });
+            }]
         }, add_assignment = {
             name: 'add_assignment',
             url: '/add_assignment/:which_class',
@@ -174,11 +179,13 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             controller: 'UploadController'
         };
 
-    var states = [home, portal, main, register, create_class, import_roster];
-    for (var i = 0; i < states.length; i++) {
-        console.log(states[i])
-        $stateProvider.state(states[i]);
-    }
+    $stateProvider.state(home);
+    $stateProvider.state(main);
+    $stateProvider.state(register);
+    $stateProvider.state(import_roster);
+
+    $stateProvider.state(portal).state(create_class);
+
 
 
     //home.onExit(function () {
