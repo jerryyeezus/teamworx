@@ -424,6 +424,8 @@ mainControllers.controller('QuestionController', ['$http', '$routeParams', 'Auth
                 }
             }
         });
+        window.location.href = "index.html#";
+        window.location.href = "index.html#/question/" + $cookieStore.get('course').pk;
         $window.history.back();
     };
 }]);
