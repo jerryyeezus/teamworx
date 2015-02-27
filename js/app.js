@@ -182,6 +182,11 @@ myApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $http
             controller: 'AddQuestionController'
         })
 
+        .when('/question/:which_class', {
+            templateUrl: 'partials/question.html',
+            controller: 'QuestionController'
+        })
+
         .otherwise({
             redirectTo: '/login'
         });

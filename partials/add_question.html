@@ -8,32 +8,19 @@
     <script src="lib/angular/angular-animate.min.js"></script>
     <script src="lib/angular/angular-cookies.min.js"></script>
 
-    <!--<script src="js/app.js"></script>-->
-    <!--<script src="js/controllers.js"></script>-->
-
-
 </head>
 <body>
 <div>
     <form>
         <div class="modal-body">
-        <input type="text" id="assignment_text" ng-model="myForm.assignment_text" ng-minlength="0" ng-maxlength="20"> Question Text <br/>
+            <input type="text" id="value" ng-model="myForm.value" ng-minlength="0" ng-maxlength="20"> Question Number <br/>
+            <input type="text" id="text" ng-model="myForm.text" ng-minlength="0" ng-maxlength="24"> Question Text <br/>
         </div>
-
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             <button class="btn btn-primary" ng-click="submitTheForm(myForm)">Add</button>
         </div>
-
-        <div class="modal-body">
-            <li ng-repeat="x in questions">
-                <a href="#questions/{{my_pk}}">Question {{x.question_number}}: {{x.question_text}}</a>
-            </li>
-            <p>Will add the list of questions here</p>
-        </div>
     </form>
-
 </div>
-
 </body>
 </html>

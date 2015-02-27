@@ -1,0 +1,68 @@
+<!-- Navbar Begin -->
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-hide="isActive('/login')" ng-controller="NavigationController">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">TeamWorx</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{the_user}}'s Profile
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{course.course_name}}
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a style="cursor:pointer" ng-click="deleteCourse()">
+                                Delete Course
+                            </a>
+                        </li>
+                        <!--<li><button data-toggle="modal" data-target="#myModal" ng-click="addQuestion()"><b>Update Question</b></button></li>-->
+                        <li>
+                            <a href ='#add_question'> Update Question </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Edit Question <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><button data-toggle="modal" data-target="#myModal" ng-click="addQuestion()"><b>Add Question</b></button></li>
+                    </ul>
+                </li>
+
+
+                <li class="dropdown" id="settingsMenu">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="">Change Password</a></li>
+                        <li><a href="" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </li>
+                <li class=""><a href="#main/{{course.pk}}">Back</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Navbar end -->
+<h3>List of Questions to Form Team</h3>
+<div>
+    <li ng-repeat="x in questions">
+        <a href="#questions/{{my_pk}}">Question {{x.value}}: {{x.text}}</a>
+</li>
+</div>
