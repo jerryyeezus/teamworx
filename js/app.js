@@ -160,6 +160,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             templateUrl: 'partials/main.html',
             controller: 'CMainController'
             //reloadOnSearch: false // TODO not sure what this does but..
+        }, question = {
+            name: 'question',
+            url: '/question/:which_class',
+            templateUrl: 'partials/question.html',
+            controller: 'QuestionController'
         }, register = {
             name: 'register',
             url: '/register',
@@ -198,6 +203,17 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
+        },add_question = {
+            name: 'question.add_question',
+            url: '/add_question/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/add_question.html',
+                    controller: 'AddQuestionController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
         }, import_roster = {
             name: 'main.import_roster',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
@@ -208,7 +224,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-
         };
 
 
@@ -222,6 +237,10 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     var portal_state = $stateProvider.state(portal)
     portal_state.state(create_class);
     portal_state.state(edit_professor_profile);
+
+
+    var question_state = $stateProvider.state(question)
+    question_state.state(add_question);
 
 
     //home.onExit(function () {
