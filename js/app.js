@@ -210,7 +210,10 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(add_assignment);
     $stateProvider.state(register);
 
-    $stateProvider.state(portal).state(create_class);
+
+    var portal_state = $stateProvider.state(portal)
+    portal_state.state(create_class);
+    portal_state.state(edit_professor_profile);
 
 
     //home.onExit(function () {

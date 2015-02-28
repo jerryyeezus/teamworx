@@ -262,7 +262,6 @@ a:active {
 .groupProfileContent {
     min-height: 70px;
     height: auto;
-<<<<<<< HEAD
     max-height: 120px;
     margin: 4px 4px 4px 4px;
 }
@@ -327,23 +326,21 @@ a:active {
 }
 
 .addCourseButton {
-     width: 44vw;
-     float: right;
- }
+    width: 44vw;
+    float: right;
+}
 
 .editProfileButton {
-    width: 55vw;
-    margin: 0px 4px 4px 4px;
+    width: 50vw;
+    margin: 0px 4px 4px 10px;
     float: left;
 }
 
-.imgGroup {
-    border: 1px solid black;
-    min-height: 48px;
+.imgProfessor {
+    border: 1px solid #7c688c;
     height: auto;
-    max-height: 80px;
-    min-width: 48px;
+    max-height: 250px;
     width: auto;
-    max-width: 80px;
+    max-width: 250px;
     margin-right: 2px;
 }

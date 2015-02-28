@@ -48,8 +48,8 @@
 </div>
 
 <p class="editProfileButton">
-    <button type="button" class="btn btn-primary btn-lg">
-        <a ui-sref="portal.edit_professor_profile">Edit Profile</a>
+    <button type="button" class="btn btn-primary btn-lg" ui-sref="portal.edit_professor_profile">
+        Edit Profile
     </button>
 </p>
 
@@ -65,10 +65,12 @@
 
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
-    <!--<a ui-sref="portal.create_class">Add New Course</a>-->
-    Add New Course
-</button>
+<p class="addCourseButton">
+    <button type="button" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
+        <!--<a ui-sref="portal.create_class">Add New Course</a>-->
+        Add New Course
+    </button>
+</p>
 
 <div ui-view></div>
 <!--<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>-->
