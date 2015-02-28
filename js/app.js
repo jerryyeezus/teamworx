@@ -140,7 +140,14 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             name: 'home',
             url: '/login',
             templateUrl: 'partials/login.html',
-            controller: 'CredentialsController'
+            controller: 'CredentialsController',
+            onExit: ['$state', function($state) {
+                $(".wrapper").addClass("zout")
+            }],
+            onEnter: ['$state', function($state) {
+                $(".wrapper").removeClass("zout")
+                //$(".wrapper").addClass("zout")
+            }]
         },
         portal = {
             name: 'portal',
@@ -193,6 +200,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
         };
 
+
     $stateProvider.state(home);
     var main_state = $stateProvider.state(main)
     main_state.state(import_roster);
@@ -203,6 +211,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
 
     //home.onExit(function () {
+    //
     //})
     $urlRouterProvider.otherwise('/login');
 

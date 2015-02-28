@@ -28,7 +28,6 @@ body {
 
 .zout {
     transform: scale(1.9, 1.0) translateX(-150px);
-    opacity: 0.8;
 }
 
 div .main {
