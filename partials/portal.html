@@ -33,15 +33,18 @@
     </div>
 </nav>
 <!-- Navbar end -->
+<div style="padding: 0.0em">
 
 <!--Professor Profile-->
 <div class="professorProfileContent">
     <p>
         <img src="img/no_profile.png" class="imgProfessor"/>&nbsp;&nbsp;{{user.name}}
     </p>
+
     <p>
         Bio:
     </p>
+
     <p>
         Contact: &nbsp;&nbsp;{{user.email}}
     </p>
@@ -54,26 +57,23 @@
 </p>
 
 
-
 <div class="courseListContent">
     <h1>My Courses:</h1>
-    <li ng-repeat="course in course_list">
-        <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{ course.course_name}}</a></h3>
+    <li ng-repeat="course in course_list" style="list-style-type: none">
+        <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
+            course.course_name}}</a></h3>
         <h4>Instructor: {{ course.prof }}</h4>
     </li>
 </div>
 
-        <!-- Button trigger modal -->
+<!-- Button trigger modal -->
 <p class="addCourseButton">
     <button type="button" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
         <!--<a ui-sref="portal.create_class">Add New Course</a>-->
         Add New Course
     </button>
 </p>
+</div>
 
-            <h4>Instructor: {{ course.prof }}</h4>
-        </li>
-    </div>
 
 <div ui-view></div>
-<!--<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>-->

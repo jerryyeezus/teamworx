@@ -332,7 +332,6 @@ a:active {
     background-color: black;
     border: 1px solid black;
     border-radius: 3px;
-    padding: 5px 5px 5px 5px;
     word-wrap: normal;
     overflow: auto;
     text-overflow: ellipsis;
@@ -341,6 +340,7 @@ a:active {
     height: 80vh;
     margin: 70px 4px 4px 4px;
     opacity: 0.7;
+    padding: 1.0em 5px 5px 1.5em;
     color: #ffffff;
 }
 
