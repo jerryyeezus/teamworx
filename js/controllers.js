@@ -187,7 +187,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.randomAssign = function () {
             var dataObject = {
-                which_assignment: $cookieStore.get('which_assignment')
+                which_assignment: $cookieStore.get('assignment_pk')
             };
             var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
             responsePromise.success(function (dataFromServer) {
@@ -214,7 +214,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.students = response.data;
         });
 
-        $http.get(Authentication.server_url + 'teams/' + '1' + '/' + which_class).then(function (response) {
+        $http.get(Authentication.server_url + 'teams/' + $cookieStore.get('which_assignment') + '/' + which_class).then(function (response) {
             $scope.teams = response.data;
         });
 
@@ -263,8 +263,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             return $cookieStore.get('which_assignment') == num;
         }
 
-        $scope.selectAssignment = function (id) {
+        $scope.selectAssignment = function (id, pk) {
             $cookieStore.put('which_assignment', id);
+            $cookieStore.put('assignment_pk', pk);
         };
 
         /* Get list of assignments */
