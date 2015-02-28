@@ -53,8 +53,11 @@ mainControllers.controller('UploadController',
         }]);
 
 mainControllers.controller('AddCourseController',
-    ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance',
-        function ($http, $location, Authentication, $scope, $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance) {
+    ['$http', '$location', 'Authentication', '$scope',
+        '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'portal_service',
+        function ($http, $location, Authentication, $scope,
+                  $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance, portal_service) {
+
             $scope.the_user = Authentication.getAuthenticatedAccount();
             $scope.submitTheForm = function (formData) {
                 var dataObject = {
@@ -74,7 +77,9 @@ mainControllers.controller('AddCourseController',
                             course.prof = course.course_professor.split("|")[1];
                         });
 
-                        $rootScope.$broadcast('courseAdded', course_list);
+                        portal_service.setCourses(course_list);
+                        portal_service.setDirty();
+                        //$rootScope.$broadcast('courseAdded', course_list);
                     });
 
                 });
@@ -135,19 +140,22 @@ mainControllers.controller('EditProfessorController',
         }]);
 
 mainControllers.controller('PortalController',
-    ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'toaster',
-        function ($http, $location, Authentication, $scope, $rootScope, $cookieStore, $modal, $window, toaster) {
+    ['$http', '$location', 'Authentication', '$scope',
+        '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', 'portal_service',
+        function ($http, $location, Authentication, $scope, $rootScope,
+                  $cookieStore, $modal, $window, toaster, portal_service) {
+
             $scope.user = Authentication.getAuthenticatedAccount();
 
             var which_url = $scope.user.user_type == 'STUDENT' ? 'student_courses/' : 'courses/';
 
-            $rootScope.$on('courseAdded', function(mass, event) {
-                if (event['success'] == 'error')
-                ; else {
-                    toaster.pop('success', 'Course has been added!');
-                    $scope.course_list = event;
-                }
+            portal_service.init($scope);
+
+            $scope.$on(portal_service.dirty(), function () {
+                $scope.course_list = portal_service.getCourses();
+                toaster.pop('success', 'Course has been added!');
             });
+
 
             /* Get list of courses */
             $http.get(Authentication.server_url + which_url + $scope.user.email).then(function (response) {
@@ -204,7 +212,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
         };
 
-        $scope.$on('ass_dirty', function() {
+        $scope.$on(ass_service.dirty(), function() {
             $scope.assignments = ass_service.getAssignments();
             $scope.which_assignment = ass_service.getWhichAssignment();
             toaster.pop('success', 'Assignment created!');
@@ -275,8 +283,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.assignments = response.data;
 
             // Index of assignment in assignments array
-            //$cookieStore.put('which_assignment', $scope.assignments.length - 1); // TODO shouldn't this be -1
-            //$cookieStore.put('assignments', response.data);
             ass_service.setAssignments(response.data);
             ass_service.setWhichAssignment($scope.assignments.length - 1);
         });

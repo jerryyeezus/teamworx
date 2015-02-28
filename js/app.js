@@ -255,6 +255,39 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
 }]);
 
+myApp.factory('portal_service', ['$cookieStore', function($cookieStore) {
+    var course_list = [];
+    var _scope;
+    return {
+        init: init,
+        getCourses: getCourses,
+        setCourses: setCourses,
+        setDirty: setDirty,
+        dirty: dirty
+    };
+
+    function dirty() {
+        return 'portal_dirty';
+    }
+
+    function getCourses() {
+        return course_list;
+    }
+
+    function setCourses(courses) {
+        course_list = courses;
+    }
+
+    function init(scope) {
+        _scope = scope;
+    }
+
+    function setDirty() {
+        _scope.$emit(dirty());
+    }
+
+}])
+
 myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
     var assignments = [];
     var which_assignment = -1;
@@ -269,15 +302,20 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
         pushAssignment: pushAssignment,
         setAssignments: setAssignments,
         setWhichAssignment: setWhichAssignment,
-        setDirty: setDirty
+        setDirty: setDirty,
+        dirty: dirty
     };
 
     function init(scope) {
         _scope = scope;
     }
 
+    function dirty() {
+        return 'ass_dirty';
+    }
+
     function setDirty() {
-        _scope.$emit('ass_dirty')
+        _scope.$emit(dirty());
     }
 
     function setAssignments(the_assignments) {
