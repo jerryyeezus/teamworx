@@ -1,0 +1,118 @@
+<!-- Navbar Begin -->
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-hide="isActive('/login')" ng-controller="NavigationController">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">TeamWorx</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{the_user}}'s Profile
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{course.course_name}}
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a style="cursor:pointer" ng-click="deleteCourse()">
+                                Delete Course
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Assignments<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="x in assignments">
+                            <a style="cursor:pointer"
+                               ng-click="selectAssignment(x.assignment_number)">
+                                <p ng-class="{'checkedClass': is_current_assignment(x.assignment_number)}">Assignment
+                                    {{x.assignment_number}}: {{x.assignment_title}}</p>
+                            </a>
+                        </li>
+                        <li>
+                            <button data-toggle="modal" data-target="#myModal" ng-click="addAssignment()"><b>+ New
+                                Assignment</b></button>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="dropdown" id="settingsMenu">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="">Change Password</a></li>
+                        <li><a href="" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </li>
+                <li class=""><a href="#portal">Back</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Navbar end -->
+
+<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
+
+<div class="container-fluid" id="bgPageGroupProfile"></div>
+<div class="container-fluid" id="pageGroupProfileFull">
+    <div class="container-fluid" id="pageGroupProfileHeader">
+        <div class="container-fluid" id="pageGroupProfileHeaderSidebar">
+            <img src="img/no_group.jpg" id="GroupProfileSidebarImage">
+        </div>
+        <div class="container-fluid" id="pageGroupProfileHeaderMain">
+            <h1>Dummy Group</h1>
+
+            <p>Class: CS2358</p>
+
+            <p>Assignment: Intro to Testing</p>
+        </div>
+        <button class="btn btn-lg btn-default" style="float:right; margin:5px;">Edit Group Profile</button>
+    </div>
+    <hr/>
+    <div class="container-fluid" id="pageGroupProfileBody">
+        <div class="container-fluid" id="pageGroupProfileBodySidebar">
+            <button class="btn btn-lg btn-info" style="margin: 0 auto;">Send Join Request</button>
+            <h3>Members</h3>
+            <ul style="list-style-type: none; margin: 0px; padding: 0px;">
+                <div class="studentProfile">
+                    <img src="img/no_profile.png" class="imgStudent"/>
+                    <!--<img src="img/no_profile.png" class="imgStudent">-->
+                    <a class="student-main">{{student name}}</a>
+                    {{student email}}
+                </div>
+            </ul>
+        </div>
+        <div class="container-fluid" id="pageGroupProfileBodyMain">
+            <h2 style="padding: 0; margin: 0;">Description</h2>
+
+            <div class="container-fluid" id="pageGroupProfileDescription">
+                <p>Lorem Ipsum Et al</p>
+            </div>
+            <hr/>
+            <h2 style="padding: 0; margin: 0;">Seeking Skills:</h2>
+
+            <div class="container-fluid" id="pageGroupProfileSkillsSeeking">
+                <ul style="list-style-type: circle">
+                    <li>Skill Type 1</li>
+                </ul>
+            </div>
+            <h2></h2>
+        </div>
+    </div>
+</div>
