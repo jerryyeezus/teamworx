@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3>Edit Your Profile</h3>
+</div>
+<form>
+    <div class="modal-body">
+        <input type="text" id="professor_name" ng-model="myForm.professor_name" ng-minlength="0" ng-maxlength="50"> Name <br/>
+        <input type="text" id="professor_bio" ng-model="myForm.professor_bio" ng-minlength="0" ng-maxlength="500"> Bio <br/>
+        <input type="text" id="professor_email" ng-model="myForm.professor_email" ng-minlength="0" ng-maxlength="30"> Email <br/>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-warning" type="submit" ng-click="submitTheForm(myForm)">Submit Changes</button>
+    </div>
+</form>

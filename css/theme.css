@@ -203,6 +203,7 @@ a:active {
     margin-right: 2px;
 }
 
+/*THIS CODE IS FOR THE PROFESSOR PROFILE PAGE (PORTAL)*/
 .professorProfile {
     background-color: #9e90a9;
     border: 4px solid #7c688c;
@@ -227,22 +228,48 @@ a:active {
     background-color: #9e90a9;
     border: 4px solid #7c688c;
     border-radius: 6px;
-    padding: 5px 5px 5px 15px;
+    padding: 15px 5px 5px 15px;
     word-wrap: normal;
     overflow: auto;
     text-overflow: ellipsis;
+    width: 55vw;
     min-height: 70px;
     height: auto;
-    max-height: 300px;
-    margin: 4px 4px 4px 4px;
+    margin: 0px 4px 4px 4px;
+    float: left;
+}
+
+.courseListContent {
+    background-color: #9e90a9;
+    border: 4px solid #7c688c;
+    border-radius: 6px;
+    padding: 5px 5px 5px 5px;
+    word-wrap: normal;
+    overflow: auto;
+    text-overflow: ellipsis;
+    width: 43vw;
+    min-height: 70px;
+    height: 80vh;
+    margin: 70px 4px 4px 4px;
+}
+
+.addCourseButton {
+     width: 44vw;
+     float: right;
+ }
+
+.editProfileButton {
+    width: 55vw;
+    margin: 0px 4px 4px 4px;
+    float: left;
 }
 
 .imgProfessor {
     border: 1px solid #7c688c;
     height: auto;
-    max-height: 150px;
+    max-height: 250px;
     width: auto;
-    max-width: 150px;
+    max-width: 250px;
     margin-right: 2px;
 }
 

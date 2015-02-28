@@ -169,6 +169,17 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
+        }, edit_professor_profile = {
+            name: 'portal.edit_professor_profile',
+            url: '/portal/edit_professor_profile',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/edit_professor_profile.html',
+                    controller: 'EditProfessorController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
         }, add_assignment = {
             name: 'add_assignment',
             url: '/add_assignment/:which_class',
