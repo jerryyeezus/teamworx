@@ -272,6 +272,7 @@ a:active {
     max-height: 300px;
     width: 300px;
     margin: 10px 0 5px;
+    padding: 0;
     position: relative;
     float: left;
 }
@@ -309,17 +310,19 @@ a:active {
     height: auto;
     max-height: 750px;
     width: 280px;
-    left:0;
+    left: 0;
     margin: 15px auto 0;
     float: left;
-    position: relative;
+    position: absolute;
 }
 
 #pageGroupProfileBodyMain {
     height: auto;
     max-height: 750px;
-    width: 82%;
-    right: 0;
+    min-width: 64%;
+    width: auto;
+    max-width: 82%;
+    left: 300px;
     margin: 0 5px 0;
     padding: 15px 10px 10px 10px;
     background: #000000;
