@@ -258,11 +258,14 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
     var assignments = [];
     var which_assignment = -1;
+    var assignment_pk = -1;
     var _scope;
     return {
         init: init,
         getAssignments: getAssignments,
         getWhichAssignment: getWhichAssignment,
+        getAssignmentpk: getAssignmentpk,
+        setAssignmentpk: setAssignmentpk,
         pushAssignment: pushAssignment,
         setAssignments: setAssignments,
         setWhichAssignment: setWhichAssignment,
@@ -291,7 +294,13 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
     function getAssignments() {
         return assignments;
     }
-
+    function getAssignmentpk() {
+        return assignment_pk;
+    }
+    function setAssignmentpk(ass_pk) {
+        $cookieStore.put('assignment_pk', ass_pk);
+        assignment_pk = ass_pk;
+    }
     function getWhichAssignment() {
         return which_assignment;
     }

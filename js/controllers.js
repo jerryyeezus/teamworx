@@ -190,7 +190,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.randomAssign = function () {
             var dataObject = {
-                which_assignment: $cookieStore.get('assignment_pk')
+                which_assignment: ass_service.getAssignmentpk()
             };
             var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
             responsePromise.success(function (dataFromServer) {
@@ -266,6 +266,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.selectAssignment = function (id, pk) {
             ass_service.setWhichAssignment(id);
             $scope.which_assignment = id;
+            ass_service.setAssignmentpk(pk);
+            $scope.assignment_pk = pk;
         };
 
         /* Get list of assignments */
@@ -402,7 +404,7 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
         });
 
         $rootScope.$on('QuestionCreated', function (event, mass) {
-            toaster.pop('success', 'Assignment created!')
+            toaster.pop('success', 'Questioncreated!')
         });
     }]);
 
