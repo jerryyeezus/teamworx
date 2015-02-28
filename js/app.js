@@ -146,20 +146,29 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }],
             onEnter: ['$state', function($state) {
                 $(".wrapper").removeClass("zout")
-                //$(".wrapper").addClass("zout")
             }]
         },
         portal = {
             name: 'portal',
             url: '/portal',
             templateUrl: 'partials/portal.html',
-            controller: 'PortalController'
+            controller: 'PortalController',
+            onEnter: ['$state', function($state) {
+                $(".wrapper").addClass("zout")
+            }]
         }, main = {
             name: 'main',
             url: '/main/:which_class',
             templateUrl: 'partials/main.html',
             controller: 'CMainController',
-            reloadOnSearch: false // TODO not sure what this does but..
+            reloadOnSearch: false, // TODO not sure what this does but..
+            onExit: ['$state', function($state) {
+                $(".wrapper").removeClass("move")
+            }],
+            onEnter: ['$state', function($state) {
+                $(".wrapper").removeClass('zout');
+                $(".wrapper").addClass("move")
+            }]
         }, question = {
             name: 'question',
             url: '/question/:which_class',
