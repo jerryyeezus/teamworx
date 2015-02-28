@@ -160,6 +160,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             templateUrl: 'partials/main.html',
             controller: 'CMainController',
             reloadOnSearch: false // TODO not sure what this does but..
+        }, question = {
+            name: 'question',
+            url: '/question/:which_class',
+            templateUrl: 'partials/question.html',
+            controller: 'QuestionController'
         }, register = {
             name: 'register',
             url: '/register',
@@ -176,6 +181,17 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
+        }, edit_professor_profile = {
+            name: 'portal.edit_professor_profile',
+            url: '/portal/edit_professor_profile',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/edit_professor_profile.html',
+                    controller: 'EditProfessorController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
         }, add_assignment = {
             name: 'main.add_assignment',
             url: '/add_assignment/:which_class',
@@ -183,6 +199,17 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                 $modal.open({
                     templateUrl: 'partials/add_assignment.html',
                     controller: 'AddAssignmentController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        },add_question = {
+            name: 'question.add_question',
+            url: '/add_question/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/add_question.html',
+                    controller: 'AddQuestionController'
                 }).result.finally(function () {
                         $state.go('^');
                     });
@@ -197,7 +224,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-
         };
 
 
@@ -207,7 +233,14 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(add_assignment);
     $stateProvider.state(register);
 
-    $stateProvider.state(portal).state(create_class);
+
+    var portal_state = $stateProvider.state(portal)
+    portal_state.state(create_class);
+    portal_state.state(edit_professor_profile);
+
+
+    var question_state = $stateProvider.state(question)
+    question_state.state(add_question);
 
     $urlRouterProvider.otherwise('/login');
 

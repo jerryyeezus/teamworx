@@ -9,6 +9,7 @@ body {
     margin-top: 51px; */
     font-family: 'Open Sans', sans-serif;
     overflow: hidden;
+    color: white;
 }
 .professorProfileContent {
     background-color: #000000;
@@ -274,23 +275,193 @@ a:active {
 .groupProfileContent {
     min-height: 70px;
     height: auto;
-    max-height: 135px;
-    width: 96%;
-    margin: 5px 5px 5px 5px;
-    border: 3px solid black;
-    border-radius: 3px;
-    word-wrap: normal;
-    overflow: auto;
-    text-overflow: ellipsis;
+    max-height: 120px;
+    margin: 4px 4px 4px 4px;
 }
 
 .imgGroup {
     border: 1px solid black;
-    min-height: 48px;
     height: auto;
-    max-height: 80px;
-    min-width: 48px;
+    max-height: 64px;
     width: auto;
-    max-width: 80px;
+    max-width: 64px;
     margin-right: 2px;
+}
+
+/*THIS CODE IS FOR THE PROFESSOR PROFILE PAGE (PORTAL)*/
+.professorProfile {
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin: 8px 8px 8px 8px;
+    padding: 5px 5px 5px 5px;
+    float: left;
+    width: 50%;
+    min-height: 164px;
+    height: auto;
+    max-height: 214px;
+    color: #ffffff;
+}
+
+.professorProfileHeader {
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 3px;
+    display: flex;
+    color: #ffffff;
+}
+
+.professorProfileContent {
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 15px 5px 5px 15px;
+    word-wrap: normal;
+    overflow: auto;
+    text-overflow: ellipsis;
+    width: 55vw;
+    min-height: 70px;
+    height: auto;
+    margin: 0px 4px 4px 4px;
+    float: left;
+    opacity: 0.7;
+    color: #ffffff;
+}
+
+.courseListContent {
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 5px 5px 5px 5px;
+    word-wrap: normal;
+    overflow: auto;
+    text-overflow: ellipsis;
+    width: 43vw;
+    min-height: 70px;
+    height: 80vh;
+    margin: 70px 4px 4px 4px;
+    opacity: 0.7;
+    color: #ffffff;
+}
+
+.addCourseButton {
+    width: 44vw;
+    float: right;
+}
+
+.editProfileButton {
+    width: 50vw;
+    margin: 0px 4px 4px 10px;
+    float: left;
+}
+
+.imgProfessor {
+    border: 1px solid black;
+    height: auto;
+    max-height: 250px;
+    width: auto;
+    max-width: 250px;
+    margin-right: 2px;
+}
+
+#bgPageGroupProfile {
+    min-height: 92%;
+    height: auto;
+    width: auto;
+    max-width: 99%;
+    margin: 5px auto;
+    background-color: #000000;
+    opacity: 0.7;
+    top: 51px;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+#pageGroupProfileFull {
+    min-height: 92%;
+    height: auto;
+    width: auto;
+    max-width: 99%;
+    margin: 5px auto;
+    top: 51px;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+#pageGroupProfileHeader {
+    min-height: 250px;
+    height: auto;
+    max-height: 300px;
+    width: auto;
+    max-width: 99%;
+    margin: 5px auto;
+    left: 0;
+    right: 0;
+    position: relative;
+}
+
+#pageGroupProfileHeaderSidebar {
+    min-height: 250px;
+    height: auto;
+    max-height: 300px;
+    width: 300px;
+    margin: 10px 0 5px;
+    padding: 0;
+    position: relative;
+    float: left;
+}
+
+#GroupProfileSidebarImage {
+    height: 240px;
+    width: 240px;
+}
+
+#pageGroupProfileHeaderMain {
+    min-height: 210px;
+    height: auto;
+    max-height: 250px;
+    width: auto;
+    max-width: 86%;
+    padding: 5px;
+    float: left;
+    position: relative;
+    text-align: left;
+}
+
+#pageGroupProfileBody {
+    height: auto;
+    max-height: 750px;
+    width: auto;
+    max-width: 99%;
+    margin: 0 auto 5px;
+    left: 0;
+    right: 0;
+    position: relative;
+}
+
+#pageGroupProfileBodySidebar {
+    min-height: 500px;
+    height: auto;
+    max-height: 750px;
+    width: 280px;
+    left: 0;
+    margin: 15px auto 0;
+    float: left;
+    position: absolute;
+}
+
+#pageGroupProfileBodyMain {
+    height: auto;
+    max-height: 750px;
+    min-width: 64%;
+    width: auto;
+    max-width: 82%;
+    left: 300px;
+    margin: 0 5px 0;
+    padding: 15px 10px 10px 10px;
+    background: #000000;
+    float: left;
+    position: relative;
 }
