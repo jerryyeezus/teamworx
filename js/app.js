@@ -28,8 +28,8 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-myApp.service('fileUpload', ['$http', '$rootScope', function ($http, $rootScope) {
-    this.uploadFileToUrl = function (file, uploadUrl, pk) {
+myApp.service('fileUpload', ['$http', '$rootScope', 'Authentication', function ($http, $rootScope, Authentication) {
+    this.uploadFileToUrl = function (file, uploadUrl, pk, rootScope) {
         var fd = new FormData();
         fd.append('import_csv', file);
         fd.append('pk', pk);
@@ -38,12 +38,12 @@ myApp.service('fileUpload', ['$http', '$rootScope', function ($http, $rootScope)
             headers: {'Content-Type': undefined}
         })
             .success(function () {
-                $rootScope.$broadcast('rosterUpdated', {'success': 'success'});
-                //alert("Student Roster Uploaded!");
+                $http.get(Authentication.server_url + 'roster/' + pk).then(function (response) {
+                    rootScope.$broadcast('rosterUpdated', response.data);
+                })
             })
             .error(function () {
-                $rootScope.$broadcast('rosterUpdated', {'success': 'fail'});
-                //alert('Error uploading!')
+                rootScope.$broadcast('rosterUpdated', {'success': 'error'});
             });
     }
 }]);
@@ -151,8 +151,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             name: 'main',
             url: '/main/:which_class',
             templateUrl: 'partials/main.html',
-            controller: 'CMainController',
-            reloadOnSearch: false // TODO not sure what this does but..
+            controller: 'CMainController'
+            //reloadOnSearch: false // TODO not sure what this does but..
         }, register = {
             name: 'register',
             url: '/register',
@@ -181,10 +181,16 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                     });
             }]
         }, add_assignment = {
-            name: 'add_assignment',
+            name: 'main.add_assignment',
             url: '/add_assignment/:which_class',
-            templateUrl: 'partials/add_assignment.html',
-            controller: 'AddAssignmentController'
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/add_assignment.html',
+                    controller: 'AddAssignmentController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
         }, import_roster = {
             name: 'main.import_roster',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
@@ -199,7 +205,9 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
         };
 
     $stateProvider.state(home);
-    $stateProvider.state(main).state(import_roster);
+    var main_state = $stateProvider.state(main)
+    main_state.state(import_roster);
+    main_state.state(add_assignment);
     $stateProvider.state(register);
 
     $stateProvider.state(portal).state(create_class);
@@ -209,61 +217,5 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     //})
     $urlRouterProvider.otherwise('/login');
 
-}])
+}]);
 
-//myApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
-//    $httpProvider.defaults.useXDomain = true;
-//    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-//
-//    $routeProvider.
-//        when('/login', {
-//            templateUrl: 'partials/login.html',
-//            controller: 'CredentialsController'
-//        })
-//        .when('/portal', {
-//            templateUrl: 'partials/portal.html',
-//            controller: 'PortalController'
-//        })
-//        .when('/main/:which_class', {
-//            templateUrl: 'partials/main.html',
-//            controller: 'CMainController'
-//        })
-//        .when('/register', {
-//            templateUrl: 'partials/register.html',
-//            controller: 'CredentialsController'
-//        })
-//        //.when('/create_class', {
-//        //    templateUrl: 'partials/create_class.html',
-//        //    controller: 'AddCourseController'
-//        //})
-//
-//        .when('/add_assignment/:which_class', {
-//            templateUrl: 'partials/add_assignment.html',
-//            controller: 'AddAssignmentController'
-//        })
-//
-//        .when('/import', {
-//            templateUrl: 'modalContainer',
-//            controller: 'UploadController'
-//        })
-//
-//        .when('/assignment/:which_class', {
-//            templateUrl: 'partials/assignment.html',
-//            controller: 'AssignmentController'
-//        })
-//
-//
-//        .when('/add_question', {
-//            templateUrl: 'partials/add_question.html',
-//            controller: 'AddQuestionController'
-//        })
-//
-//        .when('/question/:which_class', {
-//            templateUrl: 'partials/question.html',
-//            controller: 'QuestionController'
-//        })
-//
-//        .otherwise({
-//            redirectTo: '/login'
-//        });
-//}]);

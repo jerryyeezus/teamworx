@@ -1,5 +1,39 @@
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);
 
+mainControllers.controller('AddAssignmentController',
+    ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
+        '$modal', '$window', 'toaster', '$modalInstance', '$stateParams',
+        function ($http, $location, Authentication, $scope, $rootScope, $cookieStore,
+                  $modal, $window, toaster, $modalInstance, $stateParams) {
+            $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+            $scope.course = "";
+            $scope.myForm = {
+                'assignment_number': $cookieStore.get('assignments').length + 1
+            };
+
+            $scope.submit = function () {
+                var dataObject = {
+                    course_fk: $stateParams.which_class
+                    , assignment_number: $scope.myForm.assignment_number
+                    , assignment_title: $scope.myForm.assignment_title
+                    , assignment_text: $scope.myForm.assignment_text
+                };
+
+                var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
+                responsePromise.success(function (dataFromServer, status, headers, config) {
+                    $rootScope.$broadcast('assCreated', dataObject);
+                });
+                responsePromise.error(function (data, status, headers, config) {
+                    alert('bad')
+                });
+                $modalInstance.dismiss('cancel');
+            };
+
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            }
+        }]);
+
 mainControllers.controller('UploadController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
         '$modal', '$window', 'toaster', '$modalInstance', 'fileUpload',
@@ -7,9 +41,8 @@ mainControllers.controller('UploadController',
                   $modal, $window, toaster, $modalInstance, $fileUpload) {
 
             $scope.submit = function () {
-                console.log($scope.myFile);
                 $fileUpload.uploadFileToUrl($scope.myFile,
-                    Authentication.server_url + 'add_import/', $cookieStore.get('course').pk)
+                    Authentication.server_url + 'add_import/', $cookieStore.get('course').pk, $rootScope);
                 $modalInstance.dismiss('cancel');
             };
 
@@ -108,8 +141,11 @@ mainControllers.controller('PortalController',
             var which_url = $scope.user.user_type == 'STUDENT' ? 'student_courses/' : 'courses/';
 
             $rootScope.$on('courseAdded', function(mass, event) {
-                toaster.pop('success', 'Course has been added!');
-                $scope.course_list = event;
+                if (event['success'] == 'error')
+                ; else {
+                    toaster.pop('success', 'Course has been added!');
+                    $scope.course_list = event;
+                }
             });
 
             /* Get list of courses */
@@ -145,12 +181,13 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
-            // TODO
+            $scope.students = mass;
+            toaster.pop('success', 'Roster uploaded');
         });
 
         $scope.randomAssign = function () {
             var dataObject = {
-                which_assignment: $scope.which_assignment
+                which_assignment: $cookieStore.get('which_assignment')
             };
             var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
             responsePromise.success(function (dataFromServer) {
@@ -164,11 +201,13 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
         }
 
-        // TODO ass
         $rootScope.$on('assCreated', function (event, mass) {
             $scope.selectAssignment(mass.assignment_number);
-            $cookieStore.put('assCreated', mass);
-            location.reload();
+            toaster.pop('success', 'Assignment created!')
+            var my_assignments = $cookieStore.get('assignments');
+            my_assignments.push(mass);
+            $scope.assignments = my_assignments;
+            $cookieStore.put('assignments', my_assignments);
         });
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
@@ -177,31 +216,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $http.get(Authentication.server_url + 'teams/' + '1' + '/' + which_class).then(function (response) {
             $scope.teams = response.data;
-            //console.log(which_class + '' + which_assignment);
         });
-
-        //$scope.$on('$viewContentLoaded', function () {
-        //    if ($cookieStore.get('rosterUpdated') == 'success') {
-        //        toaster.pop('success', 'Student roster uploaded!');
-        //    }
-        //    else if ($cookieStore.get('rosterUpdated') == 'fail') {
-        //        toaster.pop('error', 'Upload failed!');
-        //    }
-        //    var assCreated = $cookieStore.get('assCreated');
-        //    if (assCreated) {
-        //        $scope.selectAssignment(assCreated.assignment_number);
-        //        toaster.pop('success', 'Assignment created!')
-        //        $cookieStore.put('assCreated', false);
-        //    }
-        //
-        //    $cookieStore.put('rosterUpdated', 'none');
-        //});
 
         $scope.deleteCourse = function () {
             alert('ayyyy lmao');
-        }
-
-
+        };
 
         //controller for creating a new group
         $scope.addGroup = function () {
@@ -241,64 +260,21 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.is_current_assignment = function (num) {
-            return $scope.which_assignment == num;
+            return $cookieStore.get('which_assignment') == num;
         }
 
-        // TODO cookie shit
         $scope.selectAssignment = function (id) {
-            $scope.which_assignment = id;
+            $cookieStore.put('which_assignment', id);
         };
-
-        //controller for creating a new assignment
-        $scope.addAssignment = function () {
-            $modal.open({
-                templateUrl: 'partials/add_assignment.html',
-                controller: function ($scope, $http, $stateParams, Authentication, $cookieStore, $rootScope, $modalInstance) {
-                    $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-                    $scope.course = "";
-                    $scope.myForm = {
-                        'assignment_number': $cookieStore.get('assignments').length + 1
-                    };
-
-                    $scope.submitTheForm = function () {
-                        // TODO how the hell does this work? myForm should be formData??
-                        var dataObject = {
-                            course_fk: $routeParams.which_class
-                            , assignment_number: $scope.myForm.assignment_number
-                            , assignment_title: $scope.myForm.assignment_title
-                            , assignment_text: $scope.myForm.assignment_text
-                        };
-
-                        var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
-                        responsePromise.success(function (dataFromServer, status, headers, config) {
-                            $rootScope.$broadcast('assCreated', dataObject); // TODO when modal is done
-                            location.reload();
-                            $rootScope.$broadcast('tmp', dataObject);
-                            window.location.href = '#main/' + $cookieStore.get('course').pk;
-                        });
-                        responsePromise.error(function (data, status, headers, config) {
-                            console.log(data)
-                            console.log(dataObject);
-                        });
-                    }
-                    $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
-                    }
-                }
-            });
-            // Hack to make modal appear... angular is fucking stupid
-            $window.history.back();
-        };
-
 
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
             $scope.assignments = response.data;
 
             // Index of assignment in assignments array
-            $scope.which_assignment = $scope.assignments.length - 1; // TODO shouldn't this be -1
-
+            $cookieStore.put('which_assignment', $scope.assignments.length - 1); // TODO shouldn't this be -1
             $cookieStore.put('assignments', response.data);
+            $scope.assignments = response.data;
         });
 
         $scope.hasProfile = function (student) {
@@ -339,9 +315,7 @@ mainControllers.controller('CredentialsController', ['$location', '$scope', 'Aut
     $scope.login = function (formData) {
         Authentication.login(formData)
     }
-
 }]);
-
 
 mainControllers.controller('NavigationController', ['$location', '$scope', 'Authentication', '$rootScope', function ($location, $scope, Authentication, $rootScope) {
     activate();
@@ -386,7 +360,6 @@ mainControllers.controller("AssignmentController", ['$scope', '$http', '$routePa
     };
     $scope.submitTheForm = function () {
         var dataObject = {
-
             course_fk: $routeParams.which_class
             , assignment_number: $scope.myForm.assignment_number
             , assignment_title: $scope.myForm.assignment_title

@@ -50,7 +50,7 @@
                                     {{x.assignment_number}}: {{x.assignment_title}}</p>
                             </a>
                         </li>
-                        <li><button data-toggle="modal" data-target="#myModal" ng-show="user.user_type=='INSTRUCTOR'"  ng-click="addAssignment()"><b>+ New Assignment</b></button></li>
+                        <li><button class="btn btn-sm" data-toggle="modal" data-target="#myModal" ng-show="user.user_type=='INSTRUCTOR'" ui-sref="main.add_assignment"><b>+ New Assignment</b></button></li>
 
                     </ul>
                 </li>
@@ -70,7 +70,7 @@
 </nav>
 <!-- Navbar end -->
 
-<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
+<!--<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>-->
 
 <!-- If we're using the integrated Upload Roster Button (LN: 95-96)
 <div class="container-fluid" id="studentPanel" ng-controller="NavigationController"> -->
