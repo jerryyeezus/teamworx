@@ -2,9 +2,9 @@ var mainControllers = angular.module('mainControllers', ['ngAnimate']);
 
 mainControllers.controller('AddAssignmentController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
-        '$modal', '$window', 'toaster', '$modalInstance', '$stateParams',
+        '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'ass_service',
         function ($http, $location, Authentication, $scope, $rootScope, $cookieStore,
-                  $modal, $window, toaster, $modalInstance, $stateParams) {
+                  $modal, $window, toaster, $modalInstance, $stateParams, ass_service) {
             $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
             $scope.course = "";
             $scope.myForm = {
@@ -21,7 +21,8 @@ mainControllers.controller('AddAssignmentController',
 
                 var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
                 responsePromise.success(function (dataFromServer, status, headers, config) {
-                    $rootScope.$broadcast('assCreated', dataObject);
+                    ass_service.pushAssignment(dataObject);
+                    ass_service.setDirty();
                 });
                 responsePromise.error(function (data, status, headers, config) {
                     alert('bad')
@@ -130,15 +131,17 @@ mainControllers.controller('PortalController',
         }]);
 
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
-    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster',
+    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, $window, $fileUpload, toaster) {
+              $modal, $window, $fileUpload, toaster, ass_service) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
         var which_class = $stateParams.which_class;
         $scope.my_pk = which_class;
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
+
+        ass_service.init($scope);
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
             $scope.students = mass;
@@ -159,15 +162,12 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 console.log(data)
                 console.log(dataObject);
             });
-        }
+        };
 
-        $rootScope.$on('assCreated', function (event, mass) {
-            $scope.selectAssignment(mass.assignment_number);
-            toaster.pop('success', 'Assignment created!')
-            var my_assignments = $cookieStore.get('assignments');
-            my_assignments.push(mass);
-            $scope.assignments = my_assignments;
-            $cookieStore.put('assignments', my_assignments);
+        $scope.$on('ass_dirty', function() {
+            $scope.assignments = ass_service.getAssignments();
+            $scope.which_assignment = ass_service.getWhichAssignment();
+            toaster.pop('success', 'Assignment created!');
         });
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
@@ -220,11 +220,12 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.is_current_assignment = function (num) {
-            return $cookieStore.get('which_assignment') == num;
+            return ass_service.getWhichAssignment() == num;
         }
 
         $scope.selectAssignment = function (id) {
-            $cookieStore.put('which_assignment', id);
+            ass_service.setWhichAssignment(id);
+            $scope.which_assignment = id;
         };
 
         /* Get list of assignments */
@@ -232,9 +233,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.assignments = response.data;
 
             // Index of assignment in assignments array
-            $cookieStore.put('which_assignment', $scope.assignments.length - 1); // TODO shouldn't this be -1
-            $cookieStore.put('assignments', response.data);
-            $scope.assignments = response.data;
+            //$cookieStore.put('which_assignment', $scope.assignments.length - 1); // TODO shouldn't this be -1
+            //$cookieStore.put('assignments', response.data);
+            ass_service.setAssignments(response.data);
+            ass_service.setWhichAssignment($scope.assignments.length - 1);
         });
 
         $scope.hasProfile = function (student) {

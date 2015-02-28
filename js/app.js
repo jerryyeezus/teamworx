@@ -7,7 +7,7 @@ var myApp = angular.module('myApp', [
 ]);
 
 // flag
-var DEBUG = false;
+var DEBUG = true;
 
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
@@ -59,7 +59,7 @@ myApp.factory('Authentication', function ($http, $cookies) {
         setAuthenticatedAccount: setAuthenticatedAccount,
         unauthenticate: unauthenticate,
         server_url: server_url
-    }
+    };
 
     function getAuthenticatedAccount() {
         if (!$cookies.authenticatedAccount) {
@@ -158,8 +158,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             name: 'main',
             url: '/main/:which_class',
             templateUrl: 'partials/main.html',
-            controller: 'CMainController'
-            //reloadOnSearch: false // TODO not sure what this does but..
+            controller: 'CMainController',
+            reloadOnSearch: false // TODO not sure what this does but..
         }, register = {
             name: 'register',
             url: '/register',
@@ -209,11 +209,53 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
     $stateProvider.state(portal).state(create_class);
 
-
-    //home.onExit(function () {
-    //
-    //})
     $urlRouterProvider.otherwise('/login');
 
 }]);
 
+myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
+    var assignments = [];
+    var which_assignment = -1;
+    var _scope;
+    return {
+        init: init,
+        getAssignments: getAssignments,
+        getWhichAssignment: getWhichAssignment,
+        pushAssignment: pushAssignment,
+        setAssignments: setAssignments,
+        setWhichAssignment: setWhichAssignment,
+        setDirty: setDirty
+    };
+
+    function init(scope) {
+        _scope = scope;
+    }
+
+    function setDirty() {
+        _scope.$emit('ass_dirty')
+    }
+
+    function setAssignments(the_assignments) {
+        $cookieStore.put('assignments', the_assignments);
+        assignments = the_assignments
+    }
+
+    function pushAssignment(assignment) {
+        assignments.push(assignment);
+        $cookieStore.put('assignments', assignments);
+        setWhichAssignment(assignment.assignment_number);
+        return assignments;
+    }
+    function getAssignments() {
+        return assignments;
+    }
+
+    function getWhichAssignment() {
+        return which_assignment;
+    }
+
+    function setWhichAssignment(in_which_assignment) {
+        $cookieStore.put('which_assignment', in_which_assignment);
+        which_assignment = in_which_assignment;
+    }
+}]);
