@@ -219,11 +219,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         var which_class = $stateParams.which_class;
         $scope.my_pk = which_class;
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
-
         ass_service.init($scope);
         group_service.init($scope);
-        //ass_service.setAssignmentpk(-1);
-        //ass_service.setWhichAssignment(-1);
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
             $scope.students = mass;
@@ -271,14 +268,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             ass_service.setWhichAssignment($scope.assignments.length);
             ass_service.setAssignmentpk($scope.assignments[ass_service.getWhichAssignment() - 1].pk);
             $scope.which_assignment = ass_service.getWhichAssignment();
-        });
 
-        if (ass_service.getAssignmentpk() != -1) {
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
-                console.log($cookieStore.get('assignment_pk'));
             });
-        }
+        });
 
         $scope.deleteCourse = function () {
             alert('ayyyy lmao');
