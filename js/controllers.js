@@ -209,6 +209,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 console.log(data)
                 console.log(dataObject);
             });
+            $scope.updateGroups();
         };
 
         $scope.$on(ass_service.dirty(), function() {
@@ -222,8 +223,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.students = response.data;
         });
 
-        $http.get(Authentication.server_url + 'teams/' + $cookieStore.get('which_assignment') + '/' + which_class).then(function (response) {
+        $http.get(Authentication.server_url + 'teams/' + $cookieStore.get('assignment_pk') ).then(function (response) {
             $scope.teams = response.data;
+            console.log($cookieStore.get('assignment_pk'));
         });
 
         $scope.deleteCourse = function () {
@@ -242,7 +244,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                             name: $scope.myForm.team_name,
                             description: $scope.myForm.team_description,
                             which_class: $scope.which_class,
-                            which_assignment: '2', //To do: fix it with which class
+                            which_assignment: $cookieStore.get('assignment_pk'),
                             owner: "INSTRUCTOR|" + $scope.the_user.email
                         };
 
@@ -276,8 +278,15 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.which_assignment = id;
             ass_service.setAssignmentpk(pk);
             $scope.assignment_pk = pk;
+            $scope.updateGroups();
         };
 
+        $scope.updateGroups = function() {
+            $http.get(Authentication.server_url + 'teams/' + $cookieStore.get('assignment_pk') ).then(function (response) {
+                $scope.teams = response.data;
+                console.log($cookieStore.get('assignment_pk'));
+            });
+        }
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
             $scope.assignments = response.data;
@@ -289,10 +298,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         });
 
         $scope.updateQuestion = function() {
-            //document.location.href = "index.html#/question/" + $scope.course.pk;
             console.log(document.location.href);
             window.location.href = "index.html#/question/" + $cookieStore.get('course').pk;
-            //document.location.href = "#question/" + $scope.course.pk;
         };
         $scope.hasProfile = function (student) {
             return student.profile_img != null;
