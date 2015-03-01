@@ -164,6 +164,9 @@
                     <div class="groupProfileContent">
                         <p>
                             {{team.description}}
+                            <div ng-repeat="member in team.members">
+                                <p>{{member}}</p>
+                            </div>
                         </p>
                     </div>
                 </div>
