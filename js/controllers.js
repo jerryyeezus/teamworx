@@ -60,7 +60,7 @@ mainControllers.controller('AddGroupController',
                     console.log(dataObject);
                 });
                 $modalInstance.dismiss('cancel');
-            }
+            };
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             }
@@ -120,12 +120,12 @@ mainControllers.controller('AddCourseController',
                 });
                 $modalInstance.dismiss('cancel');
                 //$window.location.href = '#/portal';
-            }
+            };
 
             $scope.cancel = function () {
                 //$window.location.href = '#/portal';
                 $modalInstance.dismiss('cancel');
-            }
+            };
 
         }]);
 
@@ -161,12 +161,12 @@ mainControllers.controller('EditProfessorController',
                 });
                 $modalInstance.dismiss('cancel');
                 //$window.location.href = '#/portal';
-            }
+            };
 
             $scope.cancel = function () {
                 //$window.location.href = '#/portal';
                 $modalInstance.dismiss('cancel');
-            }
+            };
 
         }]);
 
@@ -206,7 +206,7 @@ mainControllers.controller('PortalController',
             /* Logout function */
             $scope.logout = function () {
                 Authentication.logout();
-            }
+            };
         }]);
 
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
@@ -222,6 +222,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         ass_service.init($scope);
         group_service.init($scope);
+        ass_service.setAssignmentpk(-1);
+        ass_service.setWhichAssignment(-1);
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
             $scope.students = mass;
@@ -233,35 +235,40 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 which_assignment: ass_service.getAssignmentpk()
             };
             var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
-            responsePromise.success(function (dataFromServer) {
-                alert("Teams created!");
+            responsePromise.success(function () {
+                $scope.updateGroup();
             });
             responsePromise.error(function (data) {
-                console.log(data)
+                console.log(data);
                 console.log(dataObject);
             });
-            $scope.updateGroups();
+            toaster.pop('success', 'Random Groups Created');
         };
 
-        $scope.$on(ass_service.dirty(), function() {
+        $scope.$on(ass_service.dirty(), function () {
             $scope.assignments = ass_service.getAssignments();
             $scope.which_assignment = ass_service.getWhichAssignment();
             $scope.assignment_pk = ass_service.getAssignmentpk();
             toaster.pop('success', 'Assignment created!');
+            $scope.updateAssignment();
+            $scope.updateGroup();
         });
 
-        $scope.$on(group_service.dirty(), function() {
+        $scope.$on(group_service.dirty(), function () {
             toaster.pop('success', 'Group created!');
+            $scope.updateGroup();
         });
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
             $scope.students = response.data;
         });
 
-        $http.get(Authentication.server_url + 'teams/' + $cookieStore.get('assignment_pk') ).then(function (response) {
-            $scope.teams = response.data;
-            console.log($cookieStore.get('assignment_pk'));
-        });
+        if (ass_service.getAssignmentpk() != -1) {
+            $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
+                $scope.teams = response.data;
+                console.log($cookieStore.get('assignment_pk'));
+            });
+        }
 
         $scope.deleteCourse = function () {
             alert('ayyyy lmao');
@@ -269,36 +276,45 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.is_current_assignment = function (num) {
             return ass_service.getWhichAssignment() == num;
-        }
+        };
 
         $scope.selectAssignment = function (id, pk) {
             ass_service.setWhichAssignment(id);
             $scope.which_assignment = id;
             ass_service.setAssignmentpk(pk);
             $scope.assignment_pk = pk;
-            $scope.updateGroups();
+            console.log('Err here' + pk);
+            $scope.updateGroup();
         };
 
-        $scope.updateGroups = function() {
-            $http.get(Authentication.server_url + 'teams/' + $cookieStore.get('assignment_pk') ).then(function (response) {
+        $scope.updateGroup = function () {
+            console.log(ass_service.getAssignmentpk());
+            console.log('line 291');
+            $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
-                console.log($cookieStore.get('assignment_pk'));
             });
-        }
+            console.log('line 296');
+        };
+
         /* Get list of assignments */
+
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
             $scope.assignments = response.data;
-
             // Index of assignment in assignments array
             ass_service.setAssignments(response.data);
             ass_service.setWhichAssignment($scope.assignments[$scope.assignments.length - 1].assignment_number);
             ass_service.setAssignmentpk($scope.assignments[ass_service.getWhichAssignment() - 1].pk);
         });
-
+        $scope.updateAssignment = function() {
+            $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
+                $scope.assignments = response.data;
+            });
+        };
         $scope.updateQuestion = function() {
             console.log(document.location.href);
             window.location.href = "index.html#/question/" + $cookieStore.get('course').pk;
         };
+
         $scope.hasProfile = function (student) {
             return student.profile_img != null;
         };
@@ -306,7 +322,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();
-        }
+        };
     }
 ])
 ;
