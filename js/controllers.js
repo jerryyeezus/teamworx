@@ -59,6 +59,7 @@ mainControllers.controller('AddGroupController',
                     alert("Submitting form failed!");
                     console.log(dataObject);
                 });
+                $modalInstance.dismiss('cancel');
             }
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
