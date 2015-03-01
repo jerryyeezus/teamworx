@@ -8,7 +8,6 @@ var myApp = angular.module('myApp', [
 
 // flag
 var DEBUG = false;
-
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
     server_url = 'http://localhost:8000/';
@@ -27,9 +26,6 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
-
-
-
 
 myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     var home = {
@@ -150,11 +146,9 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(add_group);
     $stateProvider.state(register);
 
-
     var portal_state = $stateProvider.state(portal)
     portal_state.state(create_class);
     portal_state.state(edit_professor_profile);
-
 
     var question_state = $stateProvider.state(question)
     question_state.state(add_question);
@@ -162,7 +156,5 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     $urlRouterProvider.otherwise('/login');
 
 }]);
-
-
 
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);
