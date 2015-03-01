@@ -222,8 +222,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         ass_service.init($scope);
         group_service.init($scope);
-        ass_service.setAssignmentpk(-1);
-        ass_service.setWhichAssignment(-1);
+        //ass_service.setAssignmentpk(-1);
+        //ass_service.setWhichAssignment(-1);
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
             $scope.students = mass;
@@ -263,6 +263,16 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.students = response.data;
         });
 
+        /* Get list of assignments */
+        $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
+            $scope.assignments = response.data;
+            // Index of assignment in assignments array
+            ass_service.setAssignments(response.data);
+            ass_service.setWhichAssignment($scope.assignments.length);
+            ass_service.setAssignmentpk($scope.assignments[ass_service.getWhichAssignment() - 1].pk);
+            $scope.which_assignment = ass_service.getWhichAssignment();
+        });
+
         if (ass_service.getAssignmentpk() != -1) {
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
@@ -289,22 +299,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.updateGroup = function () {
             console.log(ass_service.getAssignmentpk());
-            console.log('line 291');
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
             });
-            console.log('line 296');
         };
 
-        /* Get list of assignments */
-
-        $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
-            $scope.assignments = response.data;
-            // Index of assignment in assignments array
-            ass_service.setAssignments(response.data);
-            ass_service.setWhichAssignment($scope.assignments[$scope.assignments.length - 1].assignment_number);
-            ass_service.setAssignmentpk($scope.assignments[ass_service.getWhichAssignment() - 1].pk);
-        });
         $scope.updateAssignment = function() {
             $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
                 $scope.assignments = response.data;
