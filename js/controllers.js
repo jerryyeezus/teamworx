@@ -59,7 +59,8 @@ mainControllers.controller('AddGroupController',
                     alert("Submitting form failed!");
                     console.log(dataObject);
                 });
-            }
+                $modalInstance.dismiss('cancel');
+            };
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             }
@@ -221,6 +222,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         ass_service.init($scope);
         group_service.init($scope);
+        $cookieStore.put('assignment_pk', -1);
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
             $scope.students = mass;
@@ -232,7 +234,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 which_assignment: ass_service.getAssignmentpk()
             };
             var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
-            responsePromise.success(function (dataFromServer) {
+            responsePromise.success(function () {
                 alert("Teams created!");
             });
             responsePromise.error(function (data) {
@@ -240,6 +242,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 console.log(dataObject);
             });
             $scope.updateGroups();
+            console.log('just updated groups');
         };
 
         $scope.$on(ass_service.dirty(), function() {
@@ -251,6 +254,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.$on(group_service.dirty(), function() {
             toaster.pop('success', 'Group created!');
+            $scope.updateGroups();
         });
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
@@ -283,7 +287,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 $scope.teams = response.data;
                 console.log($cookieStore.get('assignment_pk'));
             });
-        }
+        };
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
             $scope.assignments = response.data;
