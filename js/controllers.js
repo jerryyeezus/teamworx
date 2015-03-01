@@ -236,14 +236,13 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             };
             var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
             responsePromise.success(function () {
-                alert("Teams created!");
             });
             responsePromise.error(function (data) {
-                console.log(data)
+                console.log(data);
                 console.log(dataObject);
             });
             $scope.updateGroups();
-            console.log('just updated groups');
+            toaster.pop('success', 'Random Groups Created');
         };
 
         $scope.$on(ass_service.dirty(), function () {
@@ -286,8 +285,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.updateGroups = function () {
-            console.log(ass_service.getAssignmentpk());
-            console.log(ass_service.getAssignmentpk() == '-1');
             if (ass_service.getAssignmentpk() != '-1') {
                 $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                     $scope.teams = response.data;
