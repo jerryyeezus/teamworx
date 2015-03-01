@@ -212,7 +212,18 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        },add_question = {
+        },add_group = {
+            name: 'main.add_group',
+            url: '/add_group/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/add_group.html',
+                    controller: 'AddGroupController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        }, add_question = {
             name: 'question.add_question',
             url: '/add_question/:which_class',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
@@ -240,6 +251,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     var main_state = $stateProvider.state(main)
     main_state.state(import_roster);
     main_state.state(add_assignment);
+    main_state.state(add_group);
     $stateProvider.state(register);
 
 
@@ -353,4 +365,43 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
         $cookieStore.put('which_assignment', in_which_assignment);
         which_assignment = in_which_assignment;
     }
+}]);
+
+myApp.factory('group_service', ['$cookieStore', function($cookieStore) {
+    var groups = [];
+    var _scope;
+    return {
+        init: init,
+        pushGroups: pushGroups,
+        getCourses: getGroups,
+        setCourses: setGroups,
+        setDirty: setDirty,
+        dirty: dirty
+    };
+
+    function pushGroups(group) {
+        groups.push(group);
+        $cookieStore.put('groups', groups);
+        return groups;
+    }
+    function dirty() {
+        return 'group_dirty';
+    }
+
+    function getGroups() {
+        return groups;
+    }
+
+    function setGroups(gro) {
+        groups = gro;
+    }
+
+    function init(scope) {
+        _scope = scope;
+    }
+
+    function setDirty() {
+        _scope.$emit(dirty());
+    }
+
 }]);

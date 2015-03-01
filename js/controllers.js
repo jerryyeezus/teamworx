@@ -6,7 +6,6 @@ mainControllers.controller('AddAssignmentController',
         function ($http, $location, Authentication, $scope, $rootScope, $cookieStore,
                   $modal, $window, toaster, $modalInstance, $stateParams, ass_service) {
             $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-            $scope.course = "";
             $scope.myForm = {
                 'assignment_number': $cookieStore.get('assignments').length + 1
             };
@@ -31,6 +30,36 @@ mainControllers.controller('AddAssignmentController',
                 $modalInstance.dismiss('cancel');
             };
 
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            }
+        }]);
+
+mainControllers.controller('AddGroupController',
+    ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
+        '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'group_service',
+        function ($http, $location, Authentication, $scope, $rootScope, $cookieStore,
+                  $modal, $window, toaster, $modalInstance, $stateParams , group_service) {
+            $scope.the_user = Authentication.getAuthenticatedAccount();
+            $scope.submitTheForm = function () {
+                var dataObject = {
+                    name: $scope.myForm.team_name,
+                    description: $scope.myForm.team_description,
+                    which_class: $scope.which_class,
+                    which_assignment: $cookieStore.get('assignment_pk'),
+                    owner: "INSTRUCTOR|" + $scope.the_user.email
+                };
+
+                var responsePromise = $http.post(Authentication.server_url + 'add_team/', dataObject, {});
+                responsePromise.success(function () {
+                    group_service.pushGroups(dataObject);
+                    group_service.setDirty();
+                });
+                responsePromise.error(function () {
+                    alert("Submitting form failed!");
+                    console.log(dataObject);
+                });
+            }
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             }
@@ -68,7 +97,7 @@ mainControllers.controller('AddCourseController',
                 };
 
                 var responsePromise = $http.post(Authentication.server_url + 'add_courses/', dataObject, {});
-                responsePromise.success(function (dataFromServer, status, headers, config) {
+                responsePromise.success(function () {
                     /* Get list of courses */
                     $scope.user = Authentication.getAuthenticatedAccount();
                     var which_url = $scope.user.user_type == 'STUDENT' ? 'student_courses/' : 'courses/';
@@ -180,9 +209,9 @@ mainControllers.controller('PortalController',
         }]);
 
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
-    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service',
+    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, $window, $fileUpload, toaster, ass_service) {
+              $modal, $window, $fileUpload, toaster, ass_service, group_service) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
@@ -191,6 +220,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
 
         ass_service.init($scope);
+        group_service.init($scope);
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
             $scope.students = mass;
@@ -219,6 +249,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             toaster.pop('success', 'Assignment created!');
         });
 
+        $scope.$on(group_service.dirty(), function() {
+            toaster.pop('success', 'Group created!');
+        });
+
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
             $scope.students = response.data;
         });
@@ -230,43 +264,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.deleteCourse = function () {
             alert('ayyyy lmao');
-        };
-
-        //controller for creating a new group
-        $scope.addGroup = function () {
-            $modal.open({
-                templateUrl: 'partials/add_group.html',
-                controller: function ($scope, $http, Authentication, $rootScope, $modalInstance) {
-
-                    $scope.the_user = Authentication.getAuthenticatedAccount();
-                    $scope.submitTheForm = function () {
-                        var dataObject = {
-                            name: $scope.myForm.team_name,
-                            description: $scope.myForm.team_description,
-                            which_class: $scope.which_class,
-                            which_assignment: $cookieStore.get('assignment_pk'),
-                            owner: "INSTRUCTOR|" + $scope.the_user.email
-                        };
-
-                        var responsePromise = $http.post(Authentication.server_url + 'add_team/', dataObject, {});
-                        responsePromise.success(function (dataFromServer, status, headers, config) {
-                            $rootScope.$broadcast('GroupCreated', dataObject); // TODO when modal is done
-                            location.reload();
-                            $rootScope.$broadcast('tmp', dataObject);
-                            window.location.href = '#main/' + $cookieStore.get('course').pk;
-                        });
-                        responsePromise.error(function () {
-                            alert("Submitting form failed!");
-                            console.log(dataObject);
-                        });
-                    }
-                    $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
-                    }
-                }
-            });
-            // Hack to make modal appear... angular is fucking stupid
-            $window.history.back();
         };
 
         $scope.is_current_assignment = function (num) {
@@ -368,42 +365,6 @@ mainControllers.controller('NavigationController', ['$location', '$scope', 'Auth
     }
 
 }]);
-
-mainControllers.controller("AssignmentController", ['$scope', '$http', '$routeParams', 'Authentication', function ($scope, $http, $routeParams, Authentication) {
-    $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-    $scope.course = "";
-
-    $scope.items = [];
-
-    $scope.add = function () {
-        $scope.items.push({
-            question: "",
-            questionPlaceholder: "New Question",
-            text: ""
-        });
-    };
-    $scope.submitTheForm = function () {
-        var dataObject = {
-            course_fk: $routeParams.which_class
-            , assignment_number: $scope.myForm.assignment_number
-            , assignment_title: $scope.myForm.assignment_title
-            , assignment_text: $scope.myForm.assignment_text
-
-        };
-        console.log(dataObject);
-        var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
-        responsePromise.success(function (dataFromServer) {
-            console.log(dataFromServer.title);
-            console.log(dataObject);
-            alert("Assignment created!");
-        });
-        responsePromise.error(function () {
-            alert("Submitting form failed!");
-            console.log(dataObject);
-        });
-    }
-}]);
-
 
 mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster',
