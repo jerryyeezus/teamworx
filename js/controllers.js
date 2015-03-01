@@ -22,6 +22,7 @@ mainControllers.controller('AddAssignmentController',
                 var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
                 responsePromise.success(function (dataFromServer, status, headers, config) {
                     ass_service.pushAssignment(dataObject);
+                    ass_service.setAssignmentpk(dataFromServer.pk);
                     ass_service.setDirty();
                 });
                 responsePromise.error(function (data, status, headers, config) {
@@ -202,8 +203,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             };
             var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
             responsePromise.success(function (dataFromServer) {
-                console.log(dataFromServer.title);
-                console.log(dataObject);
                 alert("Teams created!");
             });
             responsePromise.error(function (data) {
@@ -215,6 +214,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.$on(ass_service.dirty(), function() {
             $scope.assignments = ass_service.getAssignments();
             $scope.which_assignment = ass_service.getWhichAssignment();
+            $scope.assignment_pk = ass_service.getAssignmentpk();
             toaster.pop('success', 'Assignment created!');
         });
 
@@ -284,7 +284,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
             // Index of assignment in assignments array
             ass_service.setAssignments(response.data);
-            ass_service.setWhichAssignment($scope.assignments.length - 1);
+            ass_service.setWhichAssignment($scope.assignments[$scope.assignments.length - 1].assignment_number);
+            ass_service.setAssignmentpk($scope.assignments[ass_service.getWhichAssignment() - 1].pk);
         });
 
         $scope.updateQuestion = function() {

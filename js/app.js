@@ -7,7 +7,7 @@ var myApp = angular.module('myApp', [
 ]);
 
 // flag
-var DEBUG = false;
+var DEBUG = true;
 
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
@@ -290,7 +290,10 @@ myApp.factory('portal_service', ['$cookieStore', function($cookieStore) {
 
 myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
     var assignments = [];
+
+    // the assignment number (NOT pk)
     var which_assignment = -1;
+
     var assignment_pk = -1;
     var _scope;
     return {
@@ -327,12 +330,15 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
         assignments.push(assignment);
         $cookieStore.put('assignments', assignments);
         setWhichAssignment(assignment.assignment_number);
+        //setAssignmentpk(assignment.pk);
         return assignments;
     }
     function getAssignments() {
         return assignments;
     }
     function getAssignmentpk() {
+        console.log(assignment_pk);
+
         return assignment_pk;
     }
     function setAssignmentpk(ass_pk) {
