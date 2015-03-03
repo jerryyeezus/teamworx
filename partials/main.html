@@ -45,7 +45,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li ng-repeat="x in assignments">
                             <a style="cursor:pointer"
-                               ng-click="selectAssignment(x.assignment_number, x.pk)">
+                               ng-click="selectAssignment(x.assignment_number, x.pk, x)">
                                 <p ng-class="{'checkedClass': is_current_assignment(x.assignment_number)}">Assignment
                                     {{x.assignment_number}}: {{x.assignment_title}}</p>
                             </a>
@@ -159,7 +159,7 @@
                 <!-- Currently not implemented -->
                 <div class="groupProfile" ng-repeat="team in teams">
                     <div class="groupProfileHeader">
-                        <h3>{{team.name}}</h3>
+                        <h3 ng-click="selectTeam(team)">{{team.name}}</h3>
                     </div>
                     <div class="groupProfileContent">
                         <p>

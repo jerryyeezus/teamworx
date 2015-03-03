@@ -75,12 +75,13 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             return ass_service.getWhichAssignment() == num;
         };
 
-        $scope.selectAssignment = function (id, pk) {
+        $scope.selectAssignment = function (id, pk, ass) {
             ass_service.setWhichAssignment(id);
             $scope.which_assignment = id;
             ass_service.setAssignmentpk(pk);
             $scope.assignment_pk = pk;
-            console.log('Err here' + pk);
+            ass_service.setAssignment(ass);
+            $scope.assignment = ass;
             $scope.updateGroup();
         };
 
@@ -105,6 +106,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             return student.profile_img != null;
         };
 
+        $scope.selectTeam = function(team) {
+            $cookieStore.put('team', team);
+            console.log(ass_service.getAssignmentpk());
+            window.location.href = "#groupProfile/" + ass_service.getAssignmentpk();
+        };
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();

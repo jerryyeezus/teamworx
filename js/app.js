@@ -66,7 +66,17 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/question/:which_class',
             templateUrl: 'partials/question.html',
             controller: 'QuestionController'
-        }, register = {
+        }, groupProfile = {
+            name: 'groupProfile',
+            url: '/groupProfile/:assignmentpk',
+            templateUrl: 'partials/groupProfile.html',
+            controller: 'GroupProfileController'
+        }, studentProfile = {
+            name: 'studentProfile',
+            url: '/studentProfile/:assignmentpk',
+            templateUrl: 'partials/studentProfile.html',
+            controller: 'StudentProfileController'
+        },register = {
             name: 'register',
             url: '/register',
             templateUrl: 'partials/register.html',
@@ -152,6 +162,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
     var question_state = $stateProvider.state(question)
     question_state.state(add_question);
+
+    var groupProfile_state = $stateProvider.state(groupProfile);
+    //Add more later on
+    var studentProfile_state = $stateProvider.state(studentProfile);
+    //Add more later on
 
     $urlRouterProvider.otherwise('/login');
 

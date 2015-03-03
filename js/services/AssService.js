@@ -5,19 +5,26 @@
 myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
     var assignments = [];
 
+    var assignment = [];
+
     // the assignment number (NOT pk)
     var which_assignment = -1;
 
     var assignment_pk = -1;
+
+
+
     var _scope;
     return {
         init: init,
         getAssignments: getAssignments,
+        getAssignment: getAssignment,
         getWhichAssignment: getWhichAssignment,
         getAssignmentpk: getAssignmentpk,
         setAssignmentpk: setAssignmentpk,
         pushAssignment: pushAssignment,
         setAssignments: setAssignments,
+        setAssignment: setAssignment,
         setWhichAssignment: setWhichAssignment,
         setDirty: setDirty,
         dirty: dirty
@@ -37,7 +44,7 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
 
     function setAssignments(the_assignments) {
         $cookieStore.put('assignments', the_assignments);
-        assignments = the_assignments
+        assignments = the_assignments;
     }
 
     function pushAssignment(assignment) {
@@ -63,6 +70,14 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
         return which_assignment;
     }
 
+    function setAssignment(the_assignment) {
+        $cookieStore.put('assignment', the_assignment);
+        assignment = the_assignment;
+    }
+
+    function getAssignment() {
+        return assignment;
+    }
     function setWhichAssignment(in_which_assignment) {
         $cookieStore.put('which_assignment', in_which_assignment);
         which_assignment = in_which_assignment;

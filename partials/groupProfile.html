@@ -78,9 +78,9 @@
         <div class="container-fluid" id="pageGroupProfileHeaderMain">
             <h1>Dummy Group</h1>
 
-            <p>Class: CS2358</p>
+            <p>Class: {{course.course_dept_and_id}}</p>
 
-            <p>Assignment: Intro to Testing</p>
+            <p>Assignment: {{assignment.assignment_title}}</p>
         </div>
         <button class="btn btn-lg btn-default" style="float:right; margin:5px;">Edit Group Profile</button>
     </div>
@@ -93,8 +93,7 @@
                 <div class="studentProfile">
                     <img src="img/no_profile.png" class="imgStudent"/>
                     <!--<img src="img/no_profile.png" class="imgStudent">-->
-                    <a class="student-main">{{student name}}</a>
-                    {{student email}}
+                    <a class="student-main" ng-click ="selectStudent(member)" ng-repeat="member in team.members">{{member}}</a>
                 </div>
             </ul>
         </div>
@@ -102,7 +101,7 @@
             <h2 style="padding: 0; margin: 0;">Description</h2>
 
             <div class="container-fluid" id="pageGroupProfileDescription">
-                <p>Lorem Ipsum Et al</p>
+                <p>{{team.description}}</p>
             </div>
             <hr/>
             <h2 style="padding: 0; margin: 0;">Seeking Skills:</h2>
