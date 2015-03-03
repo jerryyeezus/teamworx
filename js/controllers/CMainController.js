@@ -55,7 +55,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
             $scope.students = response.data;
+            if ($scope.students != null) {
+                $scope.isUploaded = true;
+            }
         });
+
 
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
