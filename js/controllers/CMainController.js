@@ -16,13 +16,17 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         ass_service.init($scope);
         group_service.init($scope);
         question_service.init($scope);
-        $scope.isUploaded = ass_service.getIsUploaded();
+        $scope.isUploaded = false;
+
+        $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
+            $scope.students = response.data;
+            if ($scope.students.length > 0) {
+                $scope.isUploaded = true;
+            }
+        });
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
             $scope.students = mass
-            ass_service.setIsUploaded(true);
-            $scope.isUploaded = ass_service.getIsUploaded();
-            console.log($scope.isUploaded);
             toaster.pop('success', 'Roster uploaded');
         });
 
@@ -58,13 +62,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.$on(question_service.dirty(), function () {
             toaster.pop('success', 'Question created!');
             $scope.updateQuestion();
-        });
-
-        $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
-            $scope.students = response.data;
-            if ($scope.students != null) {
-                $scope.isUploaded = true;
-            }
         });
 
 
