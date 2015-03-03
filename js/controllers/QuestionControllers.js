@@ -14,9 +14,5 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
         $http.get(Authentication.server_url + 'questions/' + $stateParams.which_class).then(function (response) {
             $scope.questions = response.data;
         });
-
-        $rootScope.$on('QuestionCreated', function (event, mass) {
-            toaster.pop('success', 'Questioncreated!')
-        });
     }]);
 

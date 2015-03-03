@@ -62,7 +62,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                 $(".wrapper").addClass("move")
             }]
         }, question = {
-            name: 'question',
+            name: 'main.question',
             url: '/question/:which_class',
             templateUrl: 'partials/question.html',
             controller: 'QuestionController'
@@ -126,7 +126,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                     });
             }]
         }, add_question = {
-            name: 'question.add_question',
+            name: 'main.add_question',
             url: '/add_question/:which_class',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
@@ -156,15 +156,13 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(add_group);
     main_state.state(groupProfile);
     main_state.state(studentProfile);
+    main_state.state(question);
+    main_state.state(add_question);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)
     portal_state.state(create_class);
     portal_state.state(edit_profile);
-
-    var question_state = $stateProvider.state(question)
-    question_state.state(add_question);
-
 
     $urlRouterProvider.otherwise('/login');
 

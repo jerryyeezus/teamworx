@@ -4,8 +4,9 @@
 
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
+    'question_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, $window, $fileUpload, toaster, ass_service, group_service) {
+              $modal, $window, $fileUpload, toaster, ass_service, group_service, question_service) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
@@ -14,6 +15,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
         ass_service.init($scope);
         group_service.init($scope);
+        question_service.init($scope);
         $scope.isUploaded = ass_service.getIsUploaded();
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
@@ -51,6 +53,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.$on(group_service.dirty(), function () {
             toaster.pop('success', 'Group created!');
             $scope.updateGroup();
+        });
+
+        $scope.$on(question_service.dirty(), function () {
+            toaster.pop('success', 'Question created!');
+            $scope.updateQuestion();
         });
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
@@ -106,8 +113,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
         };
         $scope.updateQuestion = function() {
-            console.log(document.location.href);
-            window.location.href = "index.html#/question/" + $cookieStore.get('course').pk;
+            $http.get(Authentication.server_url + 'questions/' + $stateParams.which_class).then(function (response) {
+                $scope.questions = response.data;
+            });
         };
 
         $scope.hasProfile = function (student) {

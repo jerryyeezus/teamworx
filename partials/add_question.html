@@ -13,8 +13,8 @@
 <div>
     <form>
         <div class="modal-body">
-            <input type="text" id="value" ng-model="myForm.value" ng-minlength="0" ng-maxlength="20"> Question Number <br/>
-            <input type="text" id="text" ng-model="myForm.text" ng-minlength="0" ng-maxlength="24"> Question Text <br/>
+
+            Question {{questions.length + 1}} <input type="text" id="text" ng-model="myForm.text" ng-minlength="0" ng-maxlength="24"> <br/>
         </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
