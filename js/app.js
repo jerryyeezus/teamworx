@@ -69,25 +69,13 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
         }, groupProfile = {
             name: 'main.groupProfile',
             url: '/groupProfile/:assignmentpk',
-            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-                $modal.open({
-                    templateUrl: 'partials/GroupProfile.html',
-                    controller: 'GroupProfileController'
-                }).result.finally(function () {
-                        $state.go('^');
-                    });
-            }]
+            templateUrl: 'partials/groupProfile.html',
+            controller: 'GroupProfileController'
         }, studentProfile = {
             name: 'main.studentProfile',
             url: '/studentProfile',
-            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-                $modal.open({
-                    templateUrl: 'partials/StudentProfile.html',
-                    controller: 'StudentProfileController'
-                }).result.finally(function () {
-                        $state.go('^');
-                    });
-            }]
+            templateUrl: 'partials/studentProfile.html',
+            controller: 'StudentProfileController'
         },register = {
             name: 'register',
             url: '/register',

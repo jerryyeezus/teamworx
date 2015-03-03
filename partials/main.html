@@ -125,17 +125,15 @@
     <!--//TODO Peter: Assignments Panel-->
 </div>
 
-<div ui-view></div>
-
 <div class="container-fluid" id="groupPanel">
     <div class="groupPanelHeader">
         <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
-        <h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{which_assignment}}]</h3>
+        <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups [Assignment {{which_assignment}}]</h3>
         <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
-        <button ng-click="randomAssign()" ng-show="user.user_type=='INSTRUCTOR'" ng-show="assignments.length > 0" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
+        <button ng-show ="isUploaded" ng-click="randomAssign() && assignments.length <= 0 " ng-show="user.user_type=='INSTRUCTOR'" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
     </div>
     <hr>
-    <div class="groupPanelContent">
+    <div class="groupPanelContent" ui-view>
 
         <ul style="list-style-type:none; padding:5px 5px 5px 5px">
             <li>
@@ -164,8 +162,8 @@
                     <div class="groupProfileContent">
                         <p>
                             {{team.description}}
-                            <div ui-sref="main.studentProfile" ng-repeat="member in team.members">
-                                <p>{{member}}</p>
+                            <div  ng-repeat="member in team.members">
+                                <a ui-sref="main.studentProfile">{{member}}</a>
                             </div>
                         </p>
                     </div>

@@ -12,6 +12,7 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
 
     var assignment_pk = -1;
 
+    var isUploaded = false;
 
 
     var _scope;
@@ -21,6 +22,8 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
         getAssignment: getAssignment,
         getWhichAssignment: getWhichAssignment,
         getAssignmentpk: getAssignmentpk,
+        getIsUploaded: getIsUploaded,
+        setIsUploaded: setIsUploaded,
         setAssignmentpk: setAssignmentpk,
         pushAssignment: pushAssignment,
         setAssignments: setAssignments,
@@ -77,6 +80,13 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
 
     function getAssignment() {
         return assignment;
+    }
+
+    function setIsUploaded(uploaded) {
+        isUploaded = uploaded;
+    }
+    function getIsUploaded() {
+        return isUploaded;
     }
     function setWhichAssignment(in_which_assignment) {
         $cookieStore.put('which_assignment', in_which_assignment);

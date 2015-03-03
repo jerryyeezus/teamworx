@@ -14,9 +14,13 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
         ass_service.init($scope);
         group_service.init($scope);
+        $scope.isUploaded = ass_service.getIsUploaded();
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
-            $scope.students = mass;
+            $scope.students = mass
+            ass_service.setIsUploaded(true);
+            $scope.isUploaded = ass_service.getIsUploaded();
+            console.log($scope.isUploaded);
             toaster.pop('success', 'Roster uploaded');
         });
 
