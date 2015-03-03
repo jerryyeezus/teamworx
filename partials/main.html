@@ -159,12 +159,12 @@
                 <!-- Currently not implemented -->
                 <div class="groupProfile" ng-repeat="team in teams">
                     <div class="groupProfileHeader">
-                        <h3 ng-click="selectTeam(team)">{{team.name}}</h3>
+                        <h3 ui-sref="main.groupProfile">{{team.name}}</h3>
                     </div>
                     <div class="groupProfileContent">
                         <p>
                             {{team.description}}
-                            <div ng-repeat="member in team.members">
+                            <div ui-sref="main.studentProfile" ng-repeat="member in team.members">
                                 <p>{{member}}</p>
                             </div>
                         </p>

@@ -67,15 +67,27 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             templateUrl: 'partials/question.html',
             controller: 'QuestionController'
         }, groupProfile = {
-            name: 'groupProfile',
+            name: 'main.groupProfile',
             url: '/groupProfile/:assignmentpk',
-            templateUrl: 'partials/groupProfile.html',
-            controller: 'GroupProfileController'
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/GroupProfile.html',
+                    controller: 'GroupProfileController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
         }, studentProfile = {
-            name: 'studentProfile',
-            url: '/studentProfile/:assignmentpk',
-            templateUrl: 'partials/studentProfile.html',
-            controller: 'StudentProfileController'
+            name: 'main.studentProfile',
+            url: '/studentProfile',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/StudentProfile.html',
+                    controller: 'StudentProfileController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
         },register = {
             name: 'register',
             url: '/register',
@@ -154,6 +166,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(import_roster);
     main_state.state(add_assignment);
     main_state.state(add_group);
+    main_state.state(groupProfile);
+    main_state.state(studentProfile);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)
@@ -163,10 +177,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     var question_state = $stateProvider.state(question)
     question_state.state(add_question);
 
-    var groupProfile_state = $stateProvider.state(groupProfile);
-    //Add more later on
-    var studentProfile_state = $stateProvider.state(studentProfile);
-    //Add more later on
 
     $urlRouterProvider.otherwise('/login');
 

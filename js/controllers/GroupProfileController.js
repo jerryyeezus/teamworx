@@ -13,7 +13,7 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.selectStudent = function(member) {
             $cookieStore.put('member', member);
             console.log($scope.assignment_pk);
-            window.location.href = "#studentProfile/" + ass_service.getAssignmentpk();
+            window.location.href = "#studentProfile";
         }
     }]);
 
