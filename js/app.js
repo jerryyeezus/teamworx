@@ -92,13 +92,13 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        }, edit_professor_profile = {
-            name: 'portal.edit_professor_profile',
-            url: '/portal/edit_professor_profile',
+        }, edit_profile = {
+            name: 'portal.edit_profile',
+            url: '/portal/edit_profile',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
-                    templateUrl: 'partials/edit_professor_profile.html',
-                    controller: 'EditProfessorController'
+                    templateUrl: 'partials/edit_profile.html',
+                    controller: 'EditProfileController'
                 }).result.finally(function () {
                         $state.go('^');
                     });
@@ -160,7 +160,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
     var portal_state = $stateProvider.state(portal)
     portal_state.state(create_class);
-    portal_state.state(edit_professor_profile);
+    portal_state.state(edit_profile);
 
     var question_state = $stateProvider.state(question)
     question_state.state(add_question);
