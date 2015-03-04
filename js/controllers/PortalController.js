@@ -9,6 +9,7 @@ mainControllers.controller('PortalController',
                   $cookieStore, $modal, $window, toaster, portal_service) {
 
             $scope.user = Authentication.getAuthenticatedAccount();
+            $cookieStore.put('user_email',$scope.user.email);
 
             var which_url = $scope.user.user_type == 'STUDENT' ? 'student_courses/' : 'courses/';
 

@@ -68,7 +68,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             controller: 'QuestionController'
         }, groupProfile = {
             name: 'main.groupProfile',
-            url: '/groupProfile/:assignmentpk',
+            url: '/groupProfile/:teampk',
             templateUrl: 'partials/groupProfile.html',
             controller: 'GroupProfileController'
         }, studentProfile = {
@@ -136,7 +136,29 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        }, import_roster = {
+        }, answer_question = {
+            name: 'main.answer_question',
+            url: '/answer_question/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/answer_question.html',
+                    controller: 'AnswerQuestionController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        }, edit_group_profile = {
+            name: 'main.edit_group_profile',
+            url: '/edit_group_profile/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/edit_group_profile.html',
+                    controller: 'EditGroupProfileController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        },import_roster = {
             name: 'main.import_roster',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
@@ -158,6 +180,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(studentProfile);
     main_state.state(question);
     main_state.state(add_question);
+    main_state.state(answer_question);
+    main_state.state(edit_group_profile);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)

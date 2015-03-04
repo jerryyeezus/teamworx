@@ -46,9 +46,12 @@
 <h3>List of Questions to Form Team</h3>
 <div>
     <li ng-repeat="x in questions">
-        <a ng-show="user.user_type=='INSTRUCTOR'">Question {{x.value}}: {{x.text}}</a>
-        <input type="text" id="value" ng-model="myForm.value" ng-show="user.user_type=='STUDENT'" ng-minlength="0" ng-maxlength="20">
-        <a ng-show="user.user_type=='STUDENT'">Question {{x.value}}: {{x.text}}</a><br/>
+         {{x.value}} : {{x.text}}
     </li>
+</div>
 
+<div ng-show="user.user_type=='STUDENT'">
+    <li ng-repeat="x in answers">
+        {{x.value}} : {{x.text}}
+    </li>
 </div>

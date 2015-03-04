@@ -64,6 +64,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.updateQuestion();
         });
 
+        $scope.$on(question_service.dirty(), function () {
+            toaster.pop('success', 'Answer created!');
+            $scope.updateAnswer();
+        });
 
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
@@ -115,15 +119,31 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
         };
 
+        $scope.updateAnswer = function() {
+            $http.get(Authentication.server_url + 'answers/' + $stateParams.which_class).then(function (response) {
+                $scope.questions = response.data;
+            });
+        };
+
         $scope.hasProfile = function (student) {
             return student.profile_img != null;
         };
 
         $scope.selectTeam = function(team) {
+            console.log(team.members.length + 'line 123');
             $cookieStore.put('team', team);
-            console.log(ass_service.getAssignmentpk());
-            window.location.href = "#groupProfile/" + ass_service.getAssignmentpk();
+            group_service.setGroup(team);
+            console.log(group_service.getGroup().members.length + 'line 126');
         };
+
+        $scope.selectStudent = function(stud) {
+            $cookieStore.put('student', stud);
+        }
+
+        $scope.selectMember = function(member) {
+            $cookieStore.put('member', member);
+        }
+
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();

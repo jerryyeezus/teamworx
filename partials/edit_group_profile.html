@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h3>Edit Group Profile</h3>
+</div>
+<form>
+    <div class="modal-body">
+        <input type="text" id="name" ng-model="myForm.profile_name" ng-minlength="0" ng-maxlength="50"> Name <br/>
+        <input type="text" id="email" ng-model="myForm.profile_email" ng-minlength="0" ng-maxlength="30"> Email <br/>
+        <input type="text" id="biography" ng-model="myForm.biography" ng-minlength="0" ng-maxlength="500" textarea rows="4"> Bio <br/>
+        <input type="text" id="experience" ng-model="myForm.experience" ng-minlength="0" ng-maxlength="500" textarea rows="4"> Experience <br/>
+        <input type="text" id="skills" ng-model="myForm.skills" ng-minlength="0" ng-maxlength="500" textarea rows="4"> Skills <br/>
+        <input type="text" id="location" ng-model="myForm.location" ng-minlength="0" ng-maxlength="30"> Location <br/>
+        <input type="text" id="time_commitment" ng-model="myForm.time_commitment" ng-minlength="0" ng-maxlength="30"> Time Commitment <br/>
+        <input type="text" id="recommendation" ng-model="myForm.recommendation" ng-minlength="0" ng-maxlength="500" textarea rows="4"> Recommendation<br/>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-warning" type="submit" ng-click="submitTheForm(myForm)">Submit Changes</button>
+    </div>
+</form>

@@ -8,17 +8,22 @@
             <img src="img/no_group.jpg" id="GroupProfileSidebarImage">
         </div>
         <div class="container-fluid" id="pageGroupProfileHeaderMain">
-            <h1>Dummy Group</h1>
+            <h1>Group {{team.number}}</h1>
 
             <p>Class: {{course.course_dept_and_id}}</p>
 
             <p>Assignment: {{assignment.assignment_title}}</p>
         </div>
-        <button class="btn btn-lg btn-default" style="float:right; margin:5px;">Edit Group Profile</button></div>
+        <button class="btn btn-lg btn-default" ng-show="isOwner" ui-sref="main.edit_group_profile"
+                style="float:right; margin:5px;">Edit Group Profile</button></div>
+        <button class="btn btn-lg btn-default" ng-show="isOwner" ng-repeat="requester in requesters" ui-sref="main.edit_group_profile"
+            style="float:right; margin:5px;">Accept request {{requester}}</button></div>
     <hr/>
     <div class="container-fluid" id="pageGroupProfileBody">
-        <div class="container-fluid" id="pageGroupProfileBodySidebar">
-            <button class="btn btn-lg btn-info" style="margin: 0 auto;">Send Join Request</button>
+        <div class="container-fluid" ng-hide="user.user_type=='INSTRUCTOR'" id="pageGroupProfileBodySidebar">
+            <button class="btn btn-lg btn-info" ng-hide="isOwner" ng-click ="sendJoinRequest()" style="margin: 0 auto;">Send Join Request</button>
+            <button class="btn btn-lg btn-info" ng-show="isOwner" ng-repeat="requester in requesters" ng-click = "acceptRequest(requester)"
+                style="margin: 0 auto;">Accept request {{requester}}</button></div>
             <h3>Members</h3>
             <ul style="list-style-type: none; margin: 0px; padding: 0px;">
                 <div class="studentProfile">

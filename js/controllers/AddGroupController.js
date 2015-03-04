@@ -14,7 +14,8 @@ mainControllers.controller('AddGroupController',
                     description: $scope.myForm.team_description,
                     which_class: $scope.which_class,
                     which_assignment: $cookieStore.get('assignment_pk'),
-                    owner: "INSTRUCTOR|" + $scope.the_user.email
+                    members:[$scope.the_user.email],
+                    owner: "STUDENT|" + $scope.the_user.email
                 };
 
                 var responsePromise = $http.post(Authentication.server_url + 'add_team/', dataObject, {});
