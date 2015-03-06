@@ -12,6 +12,7 @@ myApp.factory('Authentication', function ($http, $cookies) {
         register: register,
         setAuthenticatedAccount: setAuthenticatedAccount,
         unauthenticate: unauthenticate,
+        updateAuthenticatedAccount: updateAuthenticatedAccount,
         server_url: server_url
     };
 
@@ -83,6 +84,33 @@ myApp.factory('Authentication', function ($http, $cookies) {
 
     function setAuthenticatedAccount(account) {
         $cookies.authenticatedAccount = JSON.stringify(account);
+    }
+
+    function updateAuthenticatedAccount(which_field, data) {
+        var cpy = $cookies.authenticatedAccount;
+        var account = JSON.parse(cpy);
+        switch (which_field) {
+            case 'bio':
+                account.bio = data;
+                $cookies.authenticatedAccount = JSON.stringify(account);
+                break;
+            case 'name':
+                account.name = data;
+                $cookies.authenticatedAccount = JSON.stringify(account);
+                break;
+            case 'linkedin':
+                account.linkedin = data;
+                $cookies.authenticatedAccount = JSON.stringify(account);
+                break;
+            case 'github':
+                account.github = data;
+                $cookies.authenticatedAccount = JSON.stringify(account);
+                break;
+            case 'skills_str':
+                account.skills_str = data;
+                $cookies.authenticatedAccount = JSON.stringify(account);
+                break;
+        }
     }
 
     function unauthenticate() {
