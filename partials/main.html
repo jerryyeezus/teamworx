@@ -34,7 +34,13 @@
                         </a>
                         </li>
                         <li>
-                            <a href ='#question/{{course.pk}}'> Update Question </a>
+                            <a ui-sref="main.question"> View Questions </a>
+                        </li>
+                        <li>
+                            <a ng-show="user.user_type=='STUDENT'" ui-sref="main.answer_question"> Answer Questions </a>
+                        </li>
+                        <li>
+                            <a ng-show="user.user_type=='INSTRUCTOR'" ui-sref="main.add_question"> Add Question </a>
                         </li>
                     </ul>
                 </li>
@@ -45,12 +51,12 @@
                     <ul class="dropdown-menu" role="menu">
                         <li ng-repeat="x in assignments">
                             <a style="cursor:pointer"
-                               ng-click="selectAssignment(x.assignment_number)">
+                               ng-click="selectAssignment(x.assignment_number, x.pk, x)">
                                 <p ng-class="{'checkedClass': is_current_assignment(x.assignment_number)}">Assignment
                                     {{x.assignment_number}}: {{x.assignment_title}}</p>
                             </a>
                         </li>
-                        <li><button class="btn btn-sm" data-toggle="modal" data-target="#myModal" ng-show="user.user_type=='INSTRUCTOR'" ui-sref="main.add_assignment"><b>+ New Assignment</b></button></li>
+                        <li><button class="btn btn-sm" ng-show="user.user_type=='INSTRUCTOR'" ui-sref="main.add_assignment"><b>+ New Assignment</b></button></li>
 
                     </ul>
                 </li>
@@ -70,7 +76,7 @@
 </nav>
 <!-- Navbar end -->
 
-<!--<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>-->
+<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
 
 <!-- If we're using the integrated Upload Roster Button (LN: 95-96)
 <div class="container-fluid" id="studentPanel" ng-controller="NavigationController"> -->
@@ -106,7 +112,7 @@
                     <div class="studentProfile">
                         <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)"/>
                         <!--<img src="img/no_profile.png" class="imgStudent">-->
-                        <a href="#student_profile/{{student.pk}}" class="student-main">{{student.name}}</a>
+                        <a ng-click="selectStudent()" ui-sref="main.studentProfile" class="student-main">{{student.name}}</a>
                         {{student.email}}
                     </div>
                 </li>
@@ -125,17 +131,16 @@
     <!--//TODO Peter: Assignments Panel-->
 </div>
 
-<div ui-view></div>
-
 <div class="container-fluid" id="groupPanel">
     <div class="groupPanelHeader">
         <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
-        <h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{which_assignment}}]</h3>
+        <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups [Assignment {{which_assignment}}]</h3>
         <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
-        <button ng-click="randomAssign()" ng-show="user.user_type=='INSTRUCTOR'" ng-show="assignments.length > 0" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
+        <button ng-show ="isUploaded  && assignments.length > 0 && user.user_type=='INSTRUCTOR'"
+                ng-click="randomAssign()" ng-show="user.user_type=='INSTRUCTOR'" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
     </div>
     <hr>
-    <div class="groupPanelContent">
+    <div class="groupPanelContent" ui-view>
 
         <ul style="list-style-type:none; padding:5px 5px 5px 5px">
             <li>
@@ -151,7 +156,7 @@
                 <div class="groupProfile">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"
-                            ng-click="addGroup()">
+                            ui-sref="main.add_group">
                         Create New Team
                     </button>
                 </div>
@@ -159,11 +164,14 @@
                 <!-- Currently not implemented -->
                 <div class="groupProfile" ng-repeat="team in teams">
                     <div class="groupProfileHeader">
-                        <h3>{{team.name}}</h3>
+                        <h3 ng-click="selectTeam(team)" ui-sref="main.groupProfile" >{{team.name}}</h3>
                     </div>
                     <div class="groupProfileContent">
                         <p>
                             {{team.description}}
+                            <div  ng-repeat="member in team.members">
+                                <a ng-click="selectMember(member)" ui-sref="main.studentProfile">{{member}}</a>
+                            </div>
                         </p>
                     </div>
                 </div>

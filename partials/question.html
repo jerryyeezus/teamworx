@@ -24,7 +24,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><button data-toggle="modal" data-target="#myModal" ng-show="user.user_type=='INSTRUCTOR'"  ng-click="addQuestion()"><b>Add Question</b></button></li>
+                        <button type="button" class="btn btn-primary btn-lg" ng-show="user.user_type=='INSTRUCTOR'" ui-sref="question.add_question"> Add Question </button>
                     </ul>
 
                 </li>
@@ -46,8 +46,12 @@
 <h3>List of Questions to Form Team</h3>
 <div>
     <li ng-repeat="x in questions">
-        <a ng-show="user.user_type=='INSTRUCTOR'">Question {{x.value}}: {{x.text}}</a>
-        <input type="text" id="value" ng-model="myForm.value" ng-show="user.user_type=='STUDENT'" ng-minlength="0" ng-maxlength="20">  <a>Question {{x.value}}: {{x.text}}</a><br/>
+         {{x.value}} : {{x.text}}
     </li>
+</div>
 
+<div ng-show="user.user_type=='STUDENT'">
+    <li ng-repeat="x in answers">
+        {{x.value}} : {{x.text}}
+    </li>
 </div>
