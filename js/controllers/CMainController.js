@@ -17,6 +17,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         group_service.init($scope);
         question_service.init($scope);
         $scope.isUploaded = false;
+        $scope.changeBackButton = false;
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
             $scope.students = response.data;
@@ -133,15 +134,17 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             console.log(team.members.length + 'line 123');
             $cookieStore.put('team', team);
             group_service.setGroup(team);
-            console.log(group_service.getGroup().members.length + 'line 126');
+            $scope.changeBackButton = true;
         };
 
         $scope.selectStudent = function(stud) {
             $cookieStore.put('student', stud);
+            $scope.changeBackButton = true;
         }
 
         $scope.selectMember = function(member) {
             $cookieStore.put('member', member);
+            $scope.changeBackButton = true;
         }
 
         /* Logout function */

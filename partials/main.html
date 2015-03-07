@@ -69,7 +69,8 @@
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
                 </li>
-                <li class=""><a href="#portal">Back</a></li>
+                <li class=""><a ng-hide ="changeBackButton" href="#portal">Back</a></li>
+                <li class=""><a ng-show ="changeBackButton" ui-sref="main">Back</a></li>
             </ul>
         </div>
     </div>
@@ -131,7 +132,7 @@
     <!--//TODO Peter: Assignments Panel-->
 </div>
 
-<div class="container-fluid" id="groupPanel">
+<div class="container-fluid" ui-view id="groupPanel">
     <div class="groupPanelHeader">
         <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
         <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups [Assignment {{which_assignment}}]</h3>
@@ -140,7 +141,7 @@
                 ng-click="randomAssign()" ng-show="user.user_type=='INSTRUCTOR'" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
     </div>
     <hr>
-    <div class="groupPanelContent" ui-view>
+    <div class="groupPanelContent">
 
         <ul style="list-style-type:none; padding:5px 5px 5px 5px">
             <li>
