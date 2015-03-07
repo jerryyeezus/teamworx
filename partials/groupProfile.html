@@ -22,17 +22,9 @@
     <div class="container-fluid" id="pageGroupProfileBody">
         <div class="container-fluid" ng-hide="user.user_type=='INSTRUCTOR'" id="pageGroupProfileBodySidebar">
             <button class="btn btn-lg btn-info" ng-hide="isOwner" ng-click ="sendJoinRequest()" style="margin: 0 auto;">Send Join Request</button>
-            <button class="btn btn-lg btn-info" ng-show="isOwner" ng-repeat="requester in requesters" ng-click = "acceptRequest(requester)"
+            <!--<button class="btn btn-lg btn-info" ng-show="isOwner" ng-repeat="requester in requesters" ng-click = "acceptRequest(requester)"-->
                 style="margin: 0 auto;">Accept request {{requester}}</button></div>
-            <h3>Members</h3>
-            <ul style="list-style-type: none; margin: 0px; padding: 0px;">
-                <div class="studentProfile">
-                    <img src="img/no_profile.png" class="imgStudent"/>
-                    <!--<img src="img/no_profile.png" class="imgStudent">-->
-                    <!--<a class="student-main" ng-click ="selectStudent(member)" ng-repeat="member in team.members">{{member}}</a>-->
-                    <a class="student-main" ng-repeat="member in team.members">{{member}} </br> </a>
-                </div>
-            </ul>
+
         </div>
         <div class="container-fluid" id="pageGroupProfileBodyMain">
             <h2 style="padding: 0; margin: 0;">Description</h2>
@@ -48,6 +40,15 @@
                     <li>Skill Type 1</li>
                 </ul>
             </div>
+            <h3>Members</h3>
+            <ul style="list-style-type: none; margin: 0px; padding: 0px;">
+                <div class="studentProfile">
+                    <img src="img/no_profile.png" class="imgStudent"/>
+                    <!--<img src="img/no_profile.png" class="imgStudent">-->
+                    <!--<a class="student-main" ng-click ="selectStudent(member)" ng-repeat="member in team.members">{{member}}</a>-->
+                    <a class="student-main" ng-repeat="member in team.members">{{member}} </br> </a>
+                </div>
+            </ul>
             <h2></h2>
         </div>
     </div>
