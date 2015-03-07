@@ -147,6 +147,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.changeBackButton = true;
         }
 
+        $scope.portalBack = function() {
+            $scope.changeBackButton = false;
+        }
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();

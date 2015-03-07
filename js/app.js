@@ -97,6 +97,17 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
+        }, delete_class = {
+            name: 'portal.delete_class',
+            url: '/portal/delete_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/delete_class.html',
+                    controller: 'DeleteCourseController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
         }, edit_profile = {
             name: 'portal.edit_profile',
             url: '/portal/edit_profile',
@@ -191,6 +202,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 
     var portal_state = $stateProvider.state(portal)
     portal_state.state(create_class);
+    portal_state.state(delete_class);
     portal_state.state(edit_profile);
 
     $urlRouterProvider.otherwise('/login');

@@ -41,6 +41,12 @@ mainControllers.controller('PortalController',
                 toaster.pop('success', 'Course has been added!');
             });
 
+
+            $scope.$on(portal_service.dirty(), function () {
+                $scope.course_list = portal_service.getCourses();
+                toaster.pop('success', 'Course has been deleted!');
+            });
+
             $scope.selectCourse = function (course) {
                 $cookieStore.put('course', course);
                 document.location.href = "#main/" + course.pk;
