@@ -10,28 +10,32 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.course = $cookieStore.get('course');
         $scope.team = $cookieStore.get('team');
         console.log($scope.team.pk + 'line 12');
-        $scope.requesters = ["peter@gatech.edu", "joe@gatech.edu"];
-        $scope.sendGroupRequest = function(requester) {
-            var dataObject = {
-                email: requester,
-                team_pk: $scope.team.pk
-            };
-            var responsePromise = $http.post(Authentication.server_url + 'group_request/', dataObject, {});
-            responsePromise.success(function () {
-            });
-            responsePromise.error(function (data) {
-                console.log(data);
-                console.log(dataObject);
-            });
-            toaster.pop('success', 'Successfully Requested');
+        $scope.requesters = $cookieStore.get('requesters');
+
+        $scope.sendJoinRequest = function() {
+
+            if ($scope.requesters.indexOf($cookieStore.get('user_email')) == -1) {
+                $scope.requesters.push($cookieStore.get('user_email'));
+            }
+            $cookieStore.put('requesters', $scope.requesters);
+
+            console.log($cookieStore.get('user_email'));
+            console.log($cookieStore.get('requesters')[0] + 'line 18 | GroupController');
+            toaster.pop('success', 'Successfully Request');
         };
 
         $scope.acceptRequest = function(requester) {
+            $scope.requesters = $cookieStore.get('requesters');
+            var index = $scope.requesters.indexOf(requester);
+            if (index > -1) {
+                $scope.requesters.splice(index,1);
+            }
             var dataObject = {
-                email: requester,
-                team_pk: $scope.team.pk
+                which_student: 'STUDENT|' + requester,
+                which_team : $scope.team.pk,
+                which_action :'add'
             };
-            var responsePromise = $http.post(Authentication.server_url + 'group_accept/', dataObject, {});
+            var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
             responsePromise.success(function () {
                 $scope.updateGroup();
             });
@@ -42,11 +46,8 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
             toaster.pop('success', 'Successfully Accepted');
         };
 
-        console.log($scope.team.members[$scope.team.members.length-1]);
-        console.log(('STUDENT|' + $cookieStore.get('user_email')));
-
-        if ($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1]
-            == ('STUDENT|' + $cookieStore.get('user_email')))
+        if ($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1].email
+            == $cookieStore.get('user_email'))
             $scope.isOwner = true
 
         else $scope.isOwner = false;
