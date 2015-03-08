@@ -165,7 +165,7 @@
                 <!-- Currently not implemented -->
                 <div class="groupProfile" ng-repeat="team in teams">
                     <div class="groupProfileHeader">
-                        <h3 ng-click="selectTeam(team)" ui-sref="main.groupProfile" >{{team.name}}</h3>
+                        <h3><a style="cursor:pointer;color: blue;" ng-click="selectTeam(team)" ui-sref="main.groupProfile" >{{team.name}}</a></h3>
                     </div>
                     <div class="groupProfileContent">
                         <p>
