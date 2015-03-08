@@ -23,7 +23,7 @@
                 style="float:right; margin:5px;">Edit Group Profile</button></div>
     <button class="btn btn-lg btn-info" ng-hide="isMember" ng-click ="sendJoinRequest()" style="margin: 0 auto;">Send Join Request</button>
     <button class="btn btn-lg btn-info" ng-show="isOwner" ng-repeat="requester in requesters" ng-click = "acceptRequest(requester)"
-            style="margin: 0 auto;">Accept request {{requester}}</button>
+            style="margin: 0 auto;">Accept request {{requester[0]}}</button>
     <hr/>
     <div class="container-fluid" id="pageGroupProfileBody">
         <div class="container-fluid" id="pageGroupProfileBodyMain">

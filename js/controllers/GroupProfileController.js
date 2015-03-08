@@ -10,28 +10,29 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.course = $cookieStore.get('course');
         $scope.team = $cookieStore.get('team');
         console.log($scope.team.pk + 'line 12');
+        //$cookieStore.put('requesters',[]);
         $scope.requesters = $cookieStore.get('requesters');
 
         $scope.sendJoinRequest = function() {
-
-            if ($scope.requesters.indexOf($cookieStore.get('user_email')) == -1) {
-                $scope.requesters.push($cookieStore.get('user_email'));
+            var newrequest;
+            newrequest = [$cookieStore.get('user_email'), $scope.team.pk];
+            if ($scope.requesters.indexOf(newrequest) == -1) {
+                $scope.requesters.push(newrequest);
             }
             $cookieStore.put('requesters', $scope.requesters);
-
-            console.log($cookieStore.get('user_email'));
-            console.log($cookieStore.get('requesters')[0] + 'line 18 | GroupController');
             toaster.pop('success', 'Successfully Request');
         };
 
         $scope.acceptRequest = function(requester) {
             $scope.requesters = $cookieStore.get('requesters');
             var index = $scope.requesters.indexOf(requester);
+            console.log(index + 'line 29');
+
             if (index > -1) {
                 $scope.requesters.splice(index,1);
             }
             var dataObject = {
-                which_student: 'STUDENT|' + requester,
+                which_student: 'STUDENT|' + requester[0],
                 which_team : $scope.team.pk,
                 which_action :'add'
             };
