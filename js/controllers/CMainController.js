@@ -24,7 +24,12 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             if ($scope.students.length > 0) {
                 $scope.isUploaded = true;
             }
+            for (var i = 0; i < response.data.length; i++) {
+                student_map[response.data[i].type_and_email] = i;
+            }
         });
+
+        var student_map = {};
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
             $scope.students = mass
@@ -38,12 +43,12 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             var responsePromise = $http.post(Authentication.server_url + 'generate_teams/', dataObject, {});
             responsePromise.success(function () {
                 $scope.updateGroup();
+                toaster.pop('success', 'Random Groups Created');
             });
             responsePromise.error(function (data) {
                 console.log(data);
                 console.log(dataObject);
             });
-            toaster.pop('success', 'Random Groups Created');
         };
 
         $scope.$on(ass_service.dirty(), function () {
@@ -81,6 +86,12 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
+                for (var i = 0; i < $scope.teams.length; i++) {
+                    for (var j = 0; j < $scope.teams.length; j++) {
+                        var member = $scope.teams[i].members[j];
+                        $scope.teams[i].members[j] = $scope.students[student_map[member]];
+                    }
+                }
             });
         });
 
@@ -109,18 +120,18 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
         };
 
-        $scope.updateAssignment = function() {
+        $scope.updateAssignment = function () {
             $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
                 $scope.assignments = response.data;
             });
         };
-        $scope.updateQuestion = function() {
+        $scope.updateQuestion = function () {
             $http.get(Authentication.server_url + 'questions/' + $stateParams.which_class).then(function (response) {
                 $scope.questions = response.data;
             });
         };
 
-        $scope.updateAnswer = function() {
+        $scope.updateAnswer = function () {
             $http.get(Authentication.server_url + 'answers/' + $stateParams.which_class).then(function (response) {
                 $scope.questions = response.data;
             });
@@ -130,24 +141,24 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             return student.profile_img != null;
         };
 
-        $scope.selectTeam = function(team) {
+        $scope.selectTeam = function (team) {
             console.log(team.members.length + 'line 123');
             $cookieStore.put('team', team);
             group_service.setGroup(team);
             $scope.changeBackButton = true;
         };
 
-        $scope.selectStudent = function(stud) {
+        $scope.selectStudent = function (stud) {
             $cookieStore.put('student', stud);
             $scope.changeBackButton = true;
         }
 
-        $scope.selectMember = function(member) {
+        $scope.selectMember = function (member) {
             $cookieStore.put('member', member);
             $scope.changeBackButton = true;
         }
 
-        $scope.portalBack = function() {
+        $scope.portalBack = function () {
             $scope.changeBackButton = false;
         }
         /* Logout function */

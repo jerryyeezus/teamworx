@@ -113,7 +113,11 @@
                     <div class="studentProfile">
                         <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)"/>
                         <!--<img src="img/no_profile.png" class="imgStudent">-->
-                        <a ng-click="selectStudent()" ui-sref="main.studentProfile" class="student-main">{{student.name}}</a>
+                        <br>
+                        <a ng-click="selectStudent()" ui-sref="main.studentProfile" class="student-main">
+                            {{student.name}}
+                        </a>
+                        <br>
                         {{student.email}}
                     </div>
                 </li>
@@ -165,15 +169,26 @@
                 <!-- Currently not implemented -->
                 <div class="groupProfile" ng-repeat="team in teams">
                     <div class="groupProfileHeader">
-                        <h3><a style="cursor:pointer;color: blue;" ng-click="selectTeam(team)" ui-sref="main.groupProfile" >{{team.name}}</a></h3>
+                        <h3>
+                            <a style="cursor:pointer;color: lightgoldenrodyellow;" ng-click="selectTeam(team)"
+                               ui-sref="main.groupProfile" >
+
+                            <span ng-hide="'Team ' + team.number == team.name">
+                            Team {{team.number}}: </span>
+                            {{team.name || 'Unnamed Team'}}</a></h3>
                     </div>
+
                     <div class="groupProfileContent">
-                        <p>
-                            {{team.description}}
+                        <!--<p>-->
+                            <!--{{team.description || "No"}}-->
+                        <!--</p>-->
+                        <span style="font-style: italic; font-size: large; text-decoration: underline">Members</span>
                             <div  ng-repeat="member in team.members">
-                                <a ng-click="selectMember(member)" ui-sref="main.studentProfile">{{member}}</a>
+                                <a style="color: white" ng-click="selectMember(member)" ui-sref="main.studentProfile">
+                                    {{member.name || member.split('|')[1]+'*'}}
+                                    <!--{{member}}-->
+                                </a>
                             </div>
-                        </p>
                     </div>
                 </div>
             </li>
