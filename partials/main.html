@@ -61,6 +61,15 @@
                     </ul>
                 </li>
 
+                <li class="dropdown" ng-show="user.user_type=='STUDENT'" id="groupMenu">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Group <span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a ng-click="showGroup()" ui-sref="main.groupProfile" > Group Profile </a></li>
+                        <li><a ui-sref = "main.add_member"> + Add Member </a></li>
+                        <li><a ui-sref = "main.delete_member"> - Delete Member </a></li>
+                    </ul>
+                </li>
                 <li class="dropdown" id="settingsMenu">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
                             class="caret"></span></a>

@@ -1,34 +1,34 @@
 
 <toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
 
-<div class="container-fluid" id="bgPageGroupProfile"></div>
+<!--<div class="container-fluid" id="bgPageGroupProfile"></div>-->
+
 <div class="container-fluid" id="pageGroupProfileFull">
     <div class="container-fluid" id="pageGroupProfileHeader">
+
         <div class="container-fluid" id="pageGroupProfileHeaderSidebar">
             <img src="img/no_group.jpg" id="GroupProfileSidebarImage">
         </div>
+
         <div class="container-fluid" id="pageGroupProfileHeaderMain">
             <h1>Group {{team.number}}</h1>
 
             <p>Class: {{course.course_dept_and_id}}</p>
 
             <p>Assignment: {{assignment.assignment_title}}</p>
+
         </div>
+
         <button class="btn btn-lg btn-default" ng-show="isOwner" ui-sref="main.edit_group_profile"
                 style="float:right; margin:5px;">Edit Group Profile</button></div>
-        <button class="btn btn-lg btn-default" ng-show="isOwner" ng-repeat="requester in requesters" ui-sref="main.edit_group_profile"
-            style="float:right; margin:5px;">Accept request {{requester}}</button></div>
+    <button class="btn btn-lg btn-info" ng-hide="isMember" ng-click ="sendJoinRequest()" style="margin: 0 auto;">Send Join Request</button>
+    <button class="btn btn-lg btn-info" ng-show="isOwner" ng-repeat="requester in requesters" ng-click = "acceptRequest(requester)"
+            style="margin: 0 auto;">Accept request {{requester}}</button>
     <hr/>
     <div class="container-fluid" id="pageGroupProfileBody">
-        <div class="container-fluid" ng-hide="user.user_type=='INSTRUCTOR'" id="pageGroupProfileBodySidebar">
-            <button class="btn btn-lg btn-info" ng-hide="isOwner" ng-click ="sendJoinRequest()" style="margin: 0 auto;">Send Join Request</button>
-            <!--<button class="btn btn-lg btn-info" ng-show="isOwner" ng-repeat="requester in requesters" ng-click = "acceptRequest(requester)"-->
-                style="margin: 0 auto;">Accept request {{requester}}</button></div>
-
-        </div>
         <div class="container-fluid" id="pageGroupProfileBodyMain">
-            <h2 style="padding: 0; margin: 0;">Description</h2>
 
+            <h2 style="padding: 0; margin: 0;">Description</h2>
             <div class="container-fluid" id="pageGroupProfileDescription">
                 <p>{{team.description}}</p>
             </div>
@@ -46,10 +46,11 @@
                     <img src="img/no_profile.png" class="imgStudent"/>
                     <!--<img src="img/no_profile.png" class="imgStudent">-->
                     <!--<a class="student-main" ng-click ="selectStudent(member)" ng-repeat="member in team.members">{{member}}</a>-->
-                    <a class="student-main" ng-repeat="member in team.members">{{member}} </br> </a>
+                    <a class="student-main" ui-sref ="main.studentProfile"
+                       ng-repeat="member in team.members" ng-click ="selectMember(member)">{{member.name}} </br> </a>
                 </div>
             </ul>
             <h2></h2>
         </div>
     </div>
-</div>
+    //</div>

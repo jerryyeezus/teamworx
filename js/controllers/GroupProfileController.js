@@ -9,7 +9,7 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
         $scope.team = $cookieStore.get('team');
-        console.log($scope.team.members.length + 'line 165');
+        console.log($scope.team.pk + 'line 12');
         $scope.requesters = ["peter@gatech.edu", "joe@gatech.edu"];
         $scope.sendGroupRequest = function(requester) {
             var dataObject = {
@@ -48,8 +48,21 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         if ($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1]
             == ('STUDENT|' + $cookieStore.get('user_email')))
             $scope.isOwner = true
+
         else $scope.isOwner = false;
 
+
+        $scope.isMember = false;
+        var i = 0;
+        for (; i < $scope.team.members.length; i++) {
+            if($cookieStore.get('user_email') == $scope.team.members[i].email) {
+                $scope.isMember = true;
+            }
+        }
+
+        $scope.selectMember = function(member) {
+            $cookieStore.put('member', member);
+        }
         $scope.updateGroup = function () {
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;

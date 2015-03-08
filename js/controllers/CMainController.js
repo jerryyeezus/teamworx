@@ -161,6 +161,27 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.portalBack = function () {
             $scope.changeBackButton = false;
         }
+
+        $scope.showGroup = function() {
+            $scope.changeBackButton = true;
+            var i = 0;
+            for (; i < $scope.teams.length;i ++) {
+                var j = 0;
+                if ($scope.teams[i].members.length > 0) {
+                    for (; j < $scope.teams[i].members.length; j++) {
+                        if ($cookieStore.get('user_email') == $scope.teams[i].members[j].email) {
+                            $cookieStore.put('user_team_pk', $scope.teams[i].pk);
+                            $cookieStore.put('team', $scope.teams[i]);
+                        }
+                    }
+                }
+            }
+            console.log($cookieStore.get('user_team_pk') + 'line 178');
+            console.log($cookieStore.get('team').pk + 'line 180');
+        }
+
+
+
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();

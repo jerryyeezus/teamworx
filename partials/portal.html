@@ -119,7 +119,7 @@
 
     <!-- Button trigger modal -->
     <p class="addCourseButton">
-        <button type="button" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
+        <button type="button" ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
             <!--<a ui-sref="portal.create_class">Add New Course</a>-->
             Add New Course
         </button>
