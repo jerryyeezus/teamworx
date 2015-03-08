@@ -211,6 +211,7 @@ a:active {
     min-height: 10%;
     height: auto;
     max-height: 80%;
+    margin-left: 20px;
     width: auto;
     border: 3px solid black;
     border-radius: 3px;
@@ -258,14 +259,14 @@ a:active {
     /*background-color: #cccccc;*/
     min-height: 170px;
 
-    height: auto;
-    max-height: 240px;
-    width: 32%;
-    background-color: #23527c;
+    /*height: auto;*/
+    /*height: 10px;*/
+    width: 29%;
+    background-color: slategray;
     opacity: 0.9;
     /*border: 3px solid black;*/
-    border-radius: 13px;
-    margin: 8px 8px 8px 8px;
+    border-radius: 8px;
+    margin: 8px 18px 18px 8px;
     padding: 5px 5px 5px 5px;
     float: left;
 }
@@ -275,8 +276,8 @@ a:active {
     height: auto;
     max-height: 80px;
     width: 96%;
-    margin: 5px 5px 5px 5px;
-    border: 3px solid black;
+    margin: -9px 0px -12px 3px;
+    /*border: 3px solid black;*/
     border-radius: 3px;
     display: flex;
 }

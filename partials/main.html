@@ -29,9 +29,9 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                        <a style="cursor:pointer" ng-show="user.user_type=='INSTRUCTOR'" ng-click="deleteCourse()">
-                            Delete Course
-                        </a>
+                            <a style="cursor:pointer" ng-show="user.user_type=='INSTRUCTOR'" ng-click="deleteCourse()">
+                                Delete Course
+                            </a>
                         </li>
                         <li>
                             <a ui-sref="main.question"> View Questions </a>
@@ -56,7 +56,10 @@
                                     {{x.assignment_number}}: {{x.assignment_title}}</p>
                             </a>
                         </li>
-                        <li><button class="btn btn-sm" ng-show="user.user_type=='INSTRUCTOR'" ui-sref="main.add_assignment"><b>+ New Assignment</b></button></li>
+                        <li>
+                            <button class="btn btn-sm" ng-show="user.user_type=='INSTRUCTOR'"
+                                    ui-sref="main.add_assignment"><b>+ New Assignment</b></button>
+                        </li>
 
                     </ul>
                 </li>
@@ -69,8 +72,8 @@
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
                 </li>
-                <li class=""><a ng-hide ="changeBackButton" href="#portal">Back</a></li>
-                <li class=""><a ng-show ="changeBackButton" ng-click ="portalBack()" ui-sref="main">Back</a></li>
+                <li class=""><a ng-hide="changeBackButton" href="#portal">Back</a></li>
+                <li class=""><a ng-show="changeBackButton" ng-click="portalBack()" ui-sref="main">Back</a></li>
             </ul>
         </div>
     </div>
@@ -139,12 +142,24 @@
 <div class="container-fluid" ui-view id="groupPanel">
     <div class="groupPanelHeader">
         <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
-        <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups [Assignment {{which_assignment}}]</h3>
+        <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups [Assignment
+            {{which_assignment}}]</h3>
+
         <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
-        <button ng-show ="isUploaded  && assignments.length > 0 && user.user_type=='INSTRUCTOR'"
-                ng-click="randomAssign()" ng-show="user.user_type=='INSTRUCTOR'" class="btn-primary" style="position:relative; top:auto;">Randomly Assign Groups</button>
+
+        <button ng-show="isUploaded  && assignments.length > 0 && user.user_type=='INSTRUCTOR'"
+                ng-click="randomAssign()" ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-primary btn-small"
+                style="position:relative; top:auto;">
+            Auto Group
+        </button>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+                ui-sref="main.add_group">
+            <span class="glyphicon glyphicon-plus"></span> Team
+        </button>
     </div>
-    <hr>
+    <br>
+
     <div class="groupPanelContent">
 
         <ul style="list-style-type:none; padding:5px 5px 5px 5px">
@@ -158,37 +173,38 @@
                 </div>
             </li>
             <li ng-show="assignments.length > 0">
-                <div class="groupProfile">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"
-                            ui-sref="main.add_group">
-                        Create New Team
-                    </button>
-                </div>
+                <!--<div class="groupProfile">-->
+                <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+                <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"-->
+                <!--ui-sref="main.add_group">-->
+                <!--Create New Team-->
+                <!--</button>-->
+                <!--</div>-->
 
                 <!-- Currently not implemented -->
                 <div class="groupProfile" ng-repeat="team in teams">
                     <div class="groupProfileHeader">
                         <h3>
                             <a style="cursor:pointer;color: lightgoldenrodyellow;" ng-click="selectTeam(team)"
-                               ui-sref="main.groupProfile" >
+                               ui-sref="main.groupProfile">
 
                             <span ng-hide="'Team ' + team.number == team.name">
                             Team {{team.number}}: </span>
-                            {{team.name || 'Unnamed Team'}}</a></h3>
+                                {{team.name || 'Unnamed Team'}}</a></h3>
                     </div>
 
                     <div class="groupProfileContent">
                         <!--<p>-->
-                            <!--{{team.description || "No"}}-->
+                        <!--{{team.description || "No"}}-->
                         <!--</p>-->
                         <span style="font-style: italic; font-size: large; text-decoration: underline">Members</span>
-                            <div  ng-repeat="member in team.members">
-                                <a style="color: white" ng-click="selectMember(member)" ui-sref="main.studentProfile">
-                                    {{member.name || member.split('|')[1]+'*'}}
-                                    <!--{{member}}-->
-                                </a>
-                            </div>
+
+                        <div ng-repeat="member in team.members">
+                            <a style="color: white" ng-click="selectMember(member)" ui-sref="main.studentProfile">
+                                {{member.name || member.split('|')[1]+'*'}}
+                                <!--{{member}}-->
+                            </a>
+                        </div>
                     </div>
                 </div>
             </li>
