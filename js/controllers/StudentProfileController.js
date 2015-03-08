@@ -8,6 +8,7 @@ mainControllers.controller('StudentProfileController', ['$http', '$stateParams',
         $scope.assignment = $cookieStore.get('assignment');
         $scope.team = $cookieStore.get('team');
         $scope.student = $cookieStore.get('student');
+        $scope.member = $cookieStore.get('member');
     }]);
 
 /**

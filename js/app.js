@@ -130,6 +130,28 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
+        },add_member = {
+            name: 'main.add_member',
+            url: '/add_member/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/add_member.html',
+                    controller: 'AddMemberController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        }, delete_member = {
+            name: 'main.delete_member',
+            url: '/delete_member/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/delete_member.html',
+                    controller: 'DeleteMemberController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
         },add_group = {
             name: 'main.add_group',
             url: '/add_group/:which_class',
@@ -198,6 +220,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(add_question);
     main_state.state(answer_question);
     main_state.state(edit_group_profile);
+    main_state.state(delete_member);
+    main_state.state(add_member);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)
