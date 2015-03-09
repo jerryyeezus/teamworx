@@ -86,22 +86,28 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
             toaster.pop('success', 'Accepted');
         };
 
-        console.log($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1].email + 'line 50');
-        console.log($cookieStore.get('user_email') + 'line 51');
-        if ($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1].email
-            == $cookieStore.get('user_email')) {
-            $scope.isOwner = true;
-            console.log($scope.isOwner + 'line 55');
-            } else {$scope.isOwner = false;}
+        //console.log($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1].email + 'line 50');
+        //console.log($cookieStore.get('user_email') + 'line 51');
+        //if ($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1].email
+        //    == $cookieStore.get('user_email')) {
+        //    $scope.isOwner = true;
+        //    console.log($scope.isOwner + 'line 55');
+        //    } else {$scope.isOwner = false;}
 
 
         $scope.isMember = false;
+        console.log($scope.team.members);
+        console.log('line 104');
+
         var i = 0;
         for (; i < $scope.team.members.length; i++) {
-            if($cookieStore.get('user_email') == $scope.team.members[i].email) {
+            if('STUDENT|' + $cookieStore.get('user_email') == $scope.team.members[i]) {
                 $scope.isMember = true;
+                console.log( $scope.isMember);
+                console.log('line 104');
             }
         }
+
         if ($scope.user.user_type == 'INSTRUCTOR') {
             $scope.isMember = true;
         }

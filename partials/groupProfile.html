@@ -27,8 +27,8 @@
     <hr/>
     <div class="container-fluid" id="pageGroupProfileBody">
         <div class="container-fluid" id="pageGroupProfileBodyMain">
-            <p>
-                Bio:
+            <h2>
+                Description
         <span e-form="bioBtnForm" style="color:darkslateblue; padding-right: 0.3em"
               onbeforesave="updateProfile('description', $data, user.user_type, user.email)" editable-text="team.description">
             {{ team.description || "Your team currently do not have a description." }}
@@ -36,11 +36,8 @@
                 <a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">
                     <img src="img/edit.png"/>
                 </a>
-            </p>
-            <h2 style="padding: 0; margin: 0;">Description</h2>
-            <div class="container-fluid" id="pageGroupProfileDescription">
-                <p>{{team.description}}</p>
-            </div>
+            </h2>
+
             <hr/>
             <h2 style="padding: 0; margin: 0;">Seeking Skills:</h2>
 
