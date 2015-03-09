@@ -191,7 +191,7 @@
                 <!--</div>-->
 
                 <!-- Currently not implemented -->
-                <div class="groupProfile" ng-repeat="team in teams">
+                <div class="groupProfile animate-show" ng-repeat="team in teams" ng-class="divClass(team)" ng-mouseleave="hoverOut(team)" ng-mouseenter="hoverIn(team)">
                     <div class="groupProfileHeader">
                         <h3>
                             <a style="cursor:pointer;color: lightgoldenrodyellow;" ng-click="selectTeam(team)"
@@ -209,7 +209,8 @@
                         <span style="font-style: italic; font-size: large; text-decoration: underline">Members</span>
 
                         <div ng-repeat="member in team.members">
-                            <a style="color: white" ng-click="selectMember(member)" ui-sref="main.studentProfile">
+                            <a style="color: white" ng-click="selectMember(member)" ui-sref="main.studentProfile"
+                               tooltip="ayyy lmao" tooltip-placement="right">
                                 {{member.name || member.split('|')[1]+'*'}}
                                 <!--{{member}}-->
                             </a>

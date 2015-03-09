@@ -95,12 +95,30 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
         });
 
+        this.hovered = undefined;
+
         $scope.deleteCourse = function () {
             alert('ayyyy lmao');
         };
 
         $scope.is_current_assignment = function (num) {
             return ass_service.getWhichAssignment() == num;
+        };
+
+        $scope.divClass = function(team) {
+            if (team == this.hovered) {
+                return 'groupProfileHover';
+            } else {
+                return 'groupProfile';
+            }
+        };
+
+        $scope.hoverIn = function (team) {
+            this.hovered = team;
+        };
+
+        $scope.hoverOut = function (team) {
+            this.hovered = undefined;
         };
 
         $scope.selectAssignment = function (id, pk, ass) {

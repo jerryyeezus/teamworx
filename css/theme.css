@@ -257,11 +257,11 @@ a:active {
 
 .groupProfile {
     /*background-color: #cccccc;*/
-    min-height: 170px;
+    height: 50%;
 
     /*height: auto;*/
     /*height: 10px;*/
-    width: 29%;
+    width: 30%;
     background-color: slategray;
     opacity: 0.9;
     /*border: 3px solid black;*/
@@ -269,6 +269,42 @@ a:active {
     margin: 8px 18px 18px 8px;
     padding: 5px 5px 5px 5px;
     float: left;
+}
+
+.groupProfileHover {
+    /*background-color: #cccccc;*/
+    /*min-height: 175px;*/
+    height: 50%;
+
+    /*height: auto;*/
+    /*height: 10px;*/
+    width: 30%;
+    background-color: darkolivegreen;
+    opacity: 1.0;
+    border: 6px solid #dcdcdc;
+    color: #000000;
+    cursor: pointer;
+    /*border: 3px solid black;*/
+    border-radius: 8px;
+    background: url(/teamworx/img/bg/bg_08.jpg) no-repeat 0 0 fixed;
+    margin: 2px 18px 18px 2px;
+    padding: 5px 5px 5px 5px;
+    float: left;
+}
+
+.animate-show {
+    -webkit-transition: all linear 0.1s;
+    transition: all linear 0.2s;
+    opacity: 1;
+}
+
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+    display: inline-block; !important;
+}
+
+.animate-show.ng-hide {
+    opacity: 0;
 }
 
 .groupProfileHeader {
@@ -283,9 +319,9 @@ a:active {
 }
 
 .groupProfileContent {
-    min-height: 70px;
-    height: auto;
-    max-height: 120px;
+    /*min-height: 70px;*/
+    height: 110px;
+    /*max-height: 120px;*/
     margin: 4px 4px 4px 4px;
 }
 
