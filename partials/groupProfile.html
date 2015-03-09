@@ -22,12 +22,21 @@
         <button class="btn btn-lg btn-default" ng-show="isOwner" ui-sref="main.edit_group_profile"
                 style="float:right; margin:5px;">Edit Group Profile</button></div>
     <button class="btn btn-lg btn-info" ng-hide="isMember" ng-click ="sendJoinRequest()" style="margin: 0 auto;">Send Join Request</button>
-    <button class="btn btn-lg btn-info" ng-show="isOwner" ng-repeat="requester in requesters" ng-click = "acceptRequest(requester)"
-            style="margin: 0 auto;">Accept request {{requester[0]}}</button>
+    <button class="btn btn-lg btn-info" ng-show="isMember" ng-repeat="req in requesters" ng-click = "acceptRequest(req)"
+            style="margin: 0 auto;">Accept request {{req.requester}}</button>
     <hr/>
     <div class="container-fluid" id="pageGroupProfileBody">
         <div class="container-fluid" id="pageGroupProfileBodyMain">
-
+            <p>
+                Bio:
+        <span e-form="bioBtnForm" style="color:darkslateblue; padding-right: 0.3em"
+              onbeforesave="updateProfile('description', $data, user.user_type, user.email)" editable-text="team.description">
+            {{ team.description || "Your team currently do not have a description." }}
+        </span>
+                <a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">
+                    <img src="img/edit.png"/>
+                </a>
+            </p>
             <h2 style="padding: 0; margin: 0;">Description</h2>
             <div class="container-fluid" id="pageGroupProfileDescription">
                 <p>{{team.description}}</p>

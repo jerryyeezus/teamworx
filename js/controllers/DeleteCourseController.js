@@ -32,13 +32,9 @@ mainControllers.controller('DeleteCourseController',
                     }
                 }
 
-                var dataObject = {
-                    pk: "2"
-                    //pk: $scope.pk
-                };
-
-                //var responsePromise = $http.delete(Authentication.server_url + 'add_courses/', dataObject);
-                var responsePromise = $http.delete(Authentication.server_url + 'add_courses/', dataObject);
+                var dataObject = {pk : $scope.pk};
+                console.log(dataObject);
+                var responsePromise = $http.put(Authentication.server_url + 'add_courses/', dataObject);
                 responsePromise.success(function () {
                     /* Get list of courses */
                     $scope.user = Authentication.getAuthenticatedAccount();
