@@ -37,23 +37,23 @@
 
     <!--Professor Profile-->
     <div class="professorProfileContent">
-        <p>
+        <h1>
             <img src="img/no_profile.png" class="imgProfessor"/>&nbsp;&nbsp;
         <span e-form="nameBtnForm" style="color:darkslateblue; padding-right: 0.3em"
               onbeforesave="updateProfile('name', $data, user.user_type, user.email)" editable-text="user.name">
-            {{ user.name || "empty" }}
+            <b>{{ user.name || "empty" }}</b>
         </span>
             <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible" style="cursor: pointer">
                 <!--Edit-->
                 <img src="img/edit.png"/>
             </a>
-        </p>
+        </h1>
 
 
 
         <p>
-            Bio:
-        <span e-form="bioBtnForm" style="color:darkslateblue; padding-right: 0.3em"
+            <b>Bio:</b>
+        <span e-form="bioBtnForm" style="color:darkslateblue; padding-right: 0.3em; font-weight: bold"
               onbeforesave="updateProfile('bio', $data, user.user_type, user.email)" editable-text="user.bio">
             {{ user.bio || "You currently do not have a bio." }}
         </span>
@@ -64,7 +64,7 @@
 
 
         <p>
-            Linkedin:
+            <b>Linkedin:</b>
         <span e-form="linkedinBtnForm" style="color:darkslateblue; padding-right: 0.3em"
               onbeforesave="updateProfile('linkedin', $data, user.user_type, user.email)" editable-text="user.linkedin">
             <a href="{{user.linkedin}}">{{ user.linkedin || "" }}</a>
@@ -76,7 +76,7 @@
         </p>
 
         <p>
-            Github:
+            <b>Github:</b>
         <span e-form="githubBtnForm" style="color:darkslateblue; padding-right: 0.3em"
               onbeforesave="updateProfile('github', $data, user.user_type, user.email)" editable-text="user.github">
             <a href="{{user.github}}">{{ user.github || "" }}</a>
@@ -87,7 +87,7 @@
         </p>
 
         <p>
-            Skills:
+            <b>Skills:</b>
         <span e-form="skillsBtnForm" style="color:darkslateblue; padding-right: 0.3em"
               onbeforesave="updateProfile('skills_str', $data, user.user_type, user.email)"
               editable-text="user.skills_str">
@@ -99,7 +99,7 @@
         </p>
 
         <p>
-            Contact: &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
+            <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
         </p>
     </div>
 
@@ -112,20 +112,20 @@
 
     <div class="courseListContent">
         <h1>My Courses:</h1>
-        <li ng-repeat="course in course_list" style="list-style-type: none">
-            <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
-                course.course_name}}</a></h3>
-            <h4>Instructor: {{ course.prof }}</h4>
-        </li>
+        <div class="innerCourseListContent">
+            <li ng-repeat="course in course_list" style="list-style-type: none">
+                <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
+                    course.course_name}}</a></h3>
+                <h4>Instructor: {{ course.prof }}</h4>
+            </li>
+        </div>
+        <p class="addCourseButton">
+            <button type="button" ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
+                Add New Course
+            </button>
+        </p>
     </div>
 
-    <!-- Button trigger modal -->
-    <p class="addCourseButton">
-        <button type="button" ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
-            <!--<a ui-sref="portal.create_class">Add New Course</a>-->
-            Add New Course
-        </button>
-    </p>
 </div>
 
 

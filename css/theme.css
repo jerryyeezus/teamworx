@@ -22,7 +22,10 @@ body {
     text-overflow: ellipsis;
     min-height: 70px;
     height: auto;
-    max-height: 300px;
+    max-height: 534px;
+    min-width: 300;
+    width: auto;
+    max-width: 300;
     margin: 4px 4px 4px 4px;
 }
 .wrapper {
@@ -390,8 +393,22 @@ a:active {
     color: #ffffff;
 }
 
+.innerCourseListContent {
+    background-color: #1e1e1b;
+    border-radius: 10px;
+    word-wrap: normal;
+    overflow: auto;
+    text-overflow: ellipsis;
+    width: 40vw;
+    min-height: 20px;
+    height: 55vh;
+    margin: 20px 4px 4px 0px;
+    padding: 1.0em 5px 5px 1.5em;
+    color: #ffffff;
+}
+
 .addCourseButton {
-    width: 44vw;
+    width: 41vw;
     float: right;
 }
 
@@ -405,7 +422,7 @@ a:active {
     border: 1px solid black;
     height: auto;
     max-height: 250px;
-    width: auto;
+    width: 200px;
     max-width: 250px;
     margin-right: 2px;
 }
