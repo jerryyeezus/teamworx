@@ -25,7 +25,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 $scope.isUploaded = true;
             }
             for (var i = 0; i < response.data.length; i++) {
-                student_map[response.data[i].user_type+'|'+response.data[i].email] = i;
+                student_map[response.data[i].user_type + '|' + response.data[i].email] = i;
             }
         });
 
@@ -37,6 +37,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         });
 
         $scope.randomAssign = function () {
+            $scope.teams = [];
             var dataObject = {
                 which_assignment: ass_service.getAssignmentpk()
             };
@@ -46,12 +47,13 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 toaster.pop('success', 'Random Groups Created');
             });
             responsePromise.error(function (data) {
-               
-               
+
+
             });
         };
 
         $scope.$on(ass_service.dirty(), function () {
+            $scope.teams = [];
             $scope.assignments = ass_service.getAssignments();
             $scope.which_assignment = ass_service.getWhichAssignment();
             $scope.assignment_pk = ass_service.getAssignmentpk();
@@ -105,7 +107,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             return ass_service.getWhichAssignment() == num;
         };
 
-        $scope.divClass = function(team) {
+        $scope.divClass = function (team) {
             if (team == this.hovered) {
                 return 'groupProfileHover';
             } else {
@@ -122,6 +124,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.selectAssignment = function (id, pk, ass) {
+            $scope.teams = [];
             ass_service.setWhichAssignment(id);
             $scope.which_assignment = id;
             ass_service.setAssignmentpk(pk);
@@ -132,18 +135,15 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.updateGroup = function () {
-           
+
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
-                $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
-                    $scope.teams = response.data;
-                    for (var i = 0; i < $scope.teams.length; i++) {
-                        for (var j = 0; j < $scope.teams[i].members.length; j++) {
-                            var member = $scope.teams[i].members[j];
-                            $scope.teams[i].members[j] = $scope.students[student_map[member]];
-                        }
+                for (var i = 0; i < $scope.teams.length; i++) {
+                    for (var j = 0; j < $scope.teams[i].members.length; j++) {
+                        var member = $scope.teams[i].members[j];
+                        $scope.teams[i].members[j] = $scope.students[student_map[member]];
                     }
-                });
+                }
             });
         };
 
@@ -169,7 +169,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.selectTeam = function (team) {
-           
+
             $cookieStore.put('team', team);
             group_service.setGroup(team);
             $scope.changeBackButton = true;
@@ -189,10 +189,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.changeBackButton = false;
         }
 
-        $scope.showGroup = function() {
+        $scope.showGroup = function () {
             $scope.changeBackButton = true;
             var i = 0;
-            for (; i < $scope.teams.length;i ++) {
+            for (; i < $scope.teams.length; i++) {
                 var j = 0;
                 if ($scope.teams[i].members.length > 0) {
                     for (; j < $scope.teams[i].members.length; j++) {
@@ -203,10 +203,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     }
                 }
             }
-           
-           
-        }
 
+
+        }
 
 
         /* Logout function */
