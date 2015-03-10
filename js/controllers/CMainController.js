@@ -46,8 +46,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 toaster.pop('success', 'Random Groups Created');
             });
             responsePromise.error(function (data) {
-                console.log(data);
-                console.log(dataObject);
+               
+               
             });
         };
 
@@ -132,9 +132,18 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.updateGroup = function () {
-            console.log(ass_service.getAssignmentpk());
+           
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
+                $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
+                    $scope.teams = response.data;
+                    for (var i = 0; i < $scope.teams.length; i++) {
+                        for (var j = 0; j < $scope.teams[i].members.length; j++) {
+                            var member = $scope.teams[i].members[j];
+                            $scope.teams[i].members[j] = $scope.students[student_map[member]];
+                        }
+                    }
+                });
             });
         };
 
@@ -160,7 +169,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.selectTeam = function (team) {
-            console.log(team.members.length + 'line 123');
+           
             $cookieStore.put('team', team);
             group_service.setGroup(team);
             $scope.changeBackButton = true;
@@ -194,8 +203,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     }
                 }
             }
-            console.log($cookieStore.get('user_team_pk') + 'line 178');
-            console.log($cookieStore.get('team').pk + 'line 180');
+           
+           
         }
 
 

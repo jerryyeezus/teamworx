@@ -36,7 +36,6 @@ mainControllers.controller('AddCourseController',
                 });
                 responsePromise.error(function (data, status, headers, config) {
                     alert("Submitting form failed!");
-                    console.log(dataObject);
                 });
                 $modalInstance.dismiss('cancel');
                 //$window.location.href = '#/portal';

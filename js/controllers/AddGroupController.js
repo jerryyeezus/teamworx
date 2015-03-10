@@ -25,7 +25,6 @@ mainControllers.controller('AddGroupController',
                 });
                 responsePromise.error(function () {
                     alert("Submitting form failed!");
-                    console.log(dataObject);
                 });
                 $modalInstance.dismiss('cancel');
             };

@@ -8,7 +8,7 @@ var myApp = angular.module('myApp', [
 ]);
 
 // flag
-var DEBUG = false;
+var DEBUG = true;
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
     server_url = 'http://localhost:8000/';
@@ -232,5 +232,21 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     $urlRouterProvider.otherwise('/login');
 
 }]);
+
+myApp.directive('customPopover', function () {
+    return {
+        restrict: 'A',
+            //template: '<span></span>',
+            link: function(scope, el, attrs) {
+            $(el).popover({
+                trigger: 'hover',
+                html: true,
+                title: attrs.popoverTitle,
+                content: attrs.popoverHtml,
+                placement: attrs.popoverPlacement
+            });
+        }
+    }
+});
 
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);

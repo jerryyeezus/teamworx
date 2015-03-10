@@ -68,9 +68,9 @@
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Group <span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a ng-click="showGroup()" ui-sref="main.groupProfile" > Group Profile </a></li>
-                        <li><a ui-sref = "main.add_member"> + Add Member </a></li>
-                        <li><a ui-sref = "main.delete_member"> - Delete Member </a></li>
+                        <li><a ng-click="showGroup()" ui-sref="main.groupProfile"> Group Profile </a></li>
+                        <li><a ui-sref="main.add_member"> + Add Member </a></li>
+                        <li><a ui-sref="main.delete_member"> - Delete Member </a></li>
                     </ul>
                 </li>
                 <li class="dropdown" id="settingsMenu">
@@ -191,15 +191,13 @@
                 <!--</div>-->
 
                 <!-- Currently not implemented -->
-                <div class="groupProfile animate-show" ng-repeat="team in teams" ng-class="divClass(team)" ng-mouseleave="hoverOut(team)" ng-mouseenter="hoverIn(team)">
+                <div class="groupProfile animate-show" ng-repeat="team in teams" ng-class="divClass(team)"
+                     ng-mouseleave="hoverOut(team)" ng-mouseenter="hoverIn(team)" ng-click="selectTeam(team)" ui-sref="main.groupProfile">
                     <div class="groupProfileHeader">
                         <h3>
-                            <a style="cursor:pointer;color: lightgoldenrodyellow;" ng-click="selectTeam(team)"
-                               ui-sref="main.groupProfile">
-
                             <span ng-hide="'Team ' + team.number == team.name">
                             Team {{team.number}}: </span>
-                                {{team.name || 'Unnamed Team'}}</a></h3>
+                                {{team.name || 'Unnamed Team'}}</h3>
                     </div>
 
                     <div class="groupProfileContent">
@@ -209,11 +207,24 @@
                         <span style="font-style: italic; font-size: large; text-decoration: underline">Members</span>
 
                         <div ng-repeat="member in team.members">
+                            <span custom-popover
+                                  popover-html="
+                                  <b>E-mail</b>:
+                                  {{member.email}}<br>
+                                  <b>Major: </b>: {{member.dept || 'Not specified'}}<br>
+                                  <b>Year: </b>: {{member.year || 'Not specified'}}<br>
+                                  <b>Skills</b>: {{member.skills_str || 'Not specified'}}"
+                                  popover-title="{{member.name}}"
+                                  popover-placement="bottom"
+                                  popover-label="label">
                             <a style="color: white" ng-click="selectMember(member)" ui-sref="main.studentProfile"
-                               tooltip="ayyy lmao" tooltip-placement="right">
+                                    >
+                                <!--mypopover data-html="true" data-original-title="dsafsa"-->
+                                <!--data-content="asdfsa">-->
                                 {{member.name || member.split('|')[1]+'*'}}
                                 <!--{{member}}-->
                             </a>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -221,4 +232,3 @@
         </ul>
     </div>
 </div>
-
