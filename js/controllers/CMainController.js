@@ -52,6 +52,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
         };
 
+        $scope.$on('ass_invalidate', function () {
+            $scope.teams = [];
+        });
+
         $scope.$on(ass_service.dirty(), function () {
             $scope.teams = [];
             $scope.assignments = ass_service.getAssignments();
@@ -124,7 +128,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.selectAssignment = function (id, pk, ass) {
-            $scope.teams = [];
             ass_service.setWhichAssignment(id);
             $scope.which_assignment = id;
             ass_service.setAssignmentpk(pk);
@@ -135,15 +138,19 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.updateGroup = function () {
-
+            $scope.teams = [];
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
+                console.log('ayyyyyyyy');
+                console.log($scope.teams.length);
                 for (var i = 0; i < $scope.teams.length; i++) {
                     for (var j = 0; j < $scope.teams[i].members.length; j++) {
                         var member = $scope.teams[i].members[j];
                         $scope.teams[i].members[j] = $scope.students[student_map[member]];
                     }
                 }
+                console.log('ayyyyyyyy');
+                console.log($scope.teams.length);
             });
         };
 

@@ -29,6 +29,7 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
         setAssignments: setAssignments,
         setAssignment: setAssignment,
         setWhichAssignment: setWhichAssignment,
+        assInvalidate: assInvalidate,
         setDirty: setDirty,
         dirty: dirty
     };
@@ -61,8 +62,6 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
         return assignments;
     }
     function getAssignmentpk() {
-        console.log(assignment_pk);
-
         return assignment_pk;
     }
     function setAssignmentpk(ass_pk) {
@@ -71,6 +70,10 @@ myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
     }
     function getWhichAssignment() {
         return which_assignment;
+    }
+
+    function assInvalidate() {
+        _scope.$emit('ass_invalidate');
     }
 
     function setAssignment(the_assignment) {

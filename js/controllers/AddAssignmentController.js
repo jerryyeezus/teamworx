@@ -13,6 +13,7 @@ mainControllers.controller('AddAssignmentController',
             };
 
             $scope.submit = function () {
+                ass_service.assInvalidate();
                 var dataObject = {
                     course_fk: $stateParams.which_class
                     , assignment_number: $scope.myForm.assignment_number
