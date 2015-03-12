@@ -29,7 +29,6 @@ myApp.factory('Authentication', function ($http, $cookies) {
     }
 
     function login(formData) {
-        console.log(server_url);
         return $http.post(server_url + 'login/', {
             email: formData.the_email, password: formData.password, user_type: formData.user_type
         }).then(loginSuccessFn, loginErrorFn);

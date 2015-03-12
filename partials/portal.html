@@ -91,7 +91,7 @@
         <span e-form="skillsBtnForm" style="color:darkslateblue; padding-right: 0.3em"
               onbeforesave="updateProfile('skills_str', $data, user.user_type, user.email)"
               editable-text="user.skills_str">
-            <a href="{{user.skills_str}}">{{ user.skills_str || "" }}</a>
+            {{ user.skills_str || "" }}
         </span>
             <a ng-click="skillsBtnForm.$show()" ng-hide="skillsBtnForm.$visible" style="cursor:pointer;">
                 <img src="img/edit.png"/>
