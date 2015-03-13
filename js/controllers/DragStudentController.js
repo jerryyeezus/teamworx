@@ -17,7 +17,7 @@ mainControllers.controller('DragStudentController',
             $scope.ok = function () {
 
                 var dataObject = {
-                    which_student: 'STUDENT|' + $scope.dragStudent.email,
+                    which_student:  $scope.dragStudent.user_type + '|' + $scope.dragStudent.email,
                     which_team : $scope.dragTeam.pk,
                     which_action :'remove'
                 };
@@ -31,7 +31,7 @@ mainControllers.controller('DragStudentController',
 
 
                 var dataObject = {
-                    which_student: 'STUDENT|' + $scope.dragStudent.email,
+                    which_student:  $scope.dragStudent.user_type + '|' + $scope.dragStudent.email,
                     which_team : $scope.dropTeam.pk,
                     which_action :'add'
                 };

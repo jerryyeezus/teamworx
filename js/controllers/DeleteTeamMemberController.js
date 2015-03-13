@@ -19,7 +19,7 @@ mainControllers.controller('DeleteTeamMemberController',
             $scope.ok = function () {
 
                 var dataObject = {
-                    which_student: 'STUDENT|' + $scope.dragStudent.email,
+                    which_student: $scope.dragStudent.user_type + '|' + $scope.dragStudent.email,
                     which_team : $scope.dragTeam.pk,
                     which_action :'remove'
                 };
