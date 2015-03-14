@@ -43,13 +43,13 @@
     </div>
 </nav>
 <!-- Navbar end -->
-<h2>List of Questions to Form Team </h2>
+<h2>Survey Questions </h2>
 
 <div ng-repeat="question in questions">
     <h3 style="cursor:pointer" data-drag="true"
         jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(question)'}"
-        data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-click="startEditing(question)"><span class="glyphicon glyphicon-pencil"> </span><a>
-        <b>{{question.text}}</b></a> </h3>
+        data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-click="startEditing(question)"><span class="glyphicon glyphicon-pencil"> </span>
+        <a class="text-muted"> {{question.text}}</a> </h3>
 </div>
 
 <div>
@@ -58,19 +58,17 @@
     </button>
 
     <div ng-show="shouldShowAdding()">
-        <h3> Adding </h3>
-        <input type="text" id="addText" ng-model="addFormText" ng-minlength="0" ng-maxlength="24">
-        <button class="btn btn-primary" ng-click="submitAddForm()">Add</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <input type="text" size= "50" class="text-success" id="addText" ng-model="addFormText" ng-minlength="0" ng-maxlength="24"></br>
+        <button class="btn btn-primary btn-lg" ng-click="submitAddForm()">Add</button>
+        <button class="btn btn-warning btn-lg" ng-click="cancel()">Cancel</button>
 
     </div>
 
     <div ng-show="shouldShowEditing()">
-        <h3> Editing </h3>
-        <input type="text"  id="editText" ng-model="editFormText" ng-minlength="0" ng-maxlength="24">
-        <button class="btn btn-primary" ng-click="submitEditForm()">Edit</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-danger" data-drop="true"
+        <input type="text"  size= "50" class="text-success" id="editText" ng-model="editFormText" ng-minlength="0" ng-maxlength="24"></br>
+        <button class="btn btn-primary btn-lg" ng-click="submitEditForm()">Edit</button>
+        <button class="btn btn-warning btn-lg" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-danger btn-lg" data-drop="true"
                 jqyoui-droppable="{beforeDrop: 'beforeDrop()'}">Delete</button>
     </div>
 
