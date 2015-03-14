@@ -9,7 +9,7 @@ var myApp = angular.module('myApp', [
 ]);
 
 // flag
-var DEBUG = true;
+var DEBUG = false;
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
     server_url = 'http://localhost:8000/';
@@ -72,6 +72,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/question/:which_class',
             templateUrl: 'partials/question.html',
             controller: 'QuestionController'
+        },view_request = {
+            name: 'main.view_request',
+            url: '/view_request/:which_assignment',
+            templateUrl: 'partials/view_request.html',
+            controller: 'ViewRequestController'
         }, groupProfile = {
             name: 'main.groupProfile',
             url: '/groupProfile/:teampk',
@@ -241,6 +246,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(add_member);
     main_state.state(drag_student);
     main_state.state(delete_team_member);
+    main_state.state(view_request);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)
