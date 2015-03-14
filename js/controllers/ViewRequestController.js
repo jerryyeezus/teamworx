@@ -14,7 +14,7 @@ mainControllers.controller('ViewRequestController', ['$http', '$stateParams', 'A
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
         $scope.team = $cookieStore.get('team');
-        console.log($scope.team.pk + 'line 12');
+
 
         $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
             $scope.requesters = response.data;
