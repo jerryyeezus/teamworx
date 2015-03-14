@@ -52,8 +52,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 toaster.pop('success', 'Random Groups Created');
             });
             responsePromise.error(function (data) {
-
-
             });
         };
 
@@ -225,9 +223,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     }
                 }
             }
-
-
-        }
+        };
 
         $scope.startCallback = function(event, ui, stu) {
             console.log('You started draggin: ');

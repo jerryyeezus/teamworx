@@ -196,7 +196,7 @@
                 <!--</div>-->
 
                 <!-- Currently not implemented -->
-                <div class="groupProfile animate-show" data-drop="true" ng-repeat="team in teams" ng-class="divClass(team)"
+                <div class="groupProfile" data-drop="true" ng-repeat="team in teams" ng-class="divClass(team)"
                      ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}" ng-mouseenter="hoverIn(team)"
                      ng-click="selectTeam(team)" ui-sref="main.groupProfile">
                     <div class="groupProfileHeader">
