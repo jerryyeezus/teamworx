@@ -274,6 +274,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
             return modalInstance.result;
         };
+
+        $scope.viewAssText = function() {
+
+        };
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();

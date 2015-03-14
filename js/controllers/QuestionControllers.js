@@ -18,20 +18,28 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
 
         $scope.showEditing = false;
         $scope.showAdding = false;
+        $scope.showCreateQuestionButton = true;
+
+        $scope.showCreateQuestion = function() {
+          return $scope.showCreateQuestionButton;
+        };
 
         $scope.startEditing = function (editQuestion) {
             $cookieStore.put('editQuestion', editQuestion);
             $scope.showEditing = true;
-            $scope.showAdding = false;
+            $scope.showAdding = false
+            $scope.showCreateQuestionButton = false;
         };
 
         $scope.startAdding = function() {
             $scope.showAdding = true;
             $scope.showEditing = false;
+            $scope.showCreateQuestionButton = false;
         };
 
         $scope.shouldShowEditing = function() {
             return  $scope.showEditing;
+            $scope.showCreateQuestion = false;
         };
 
         $scope.shouldShowAdding = function() {
@@ -111,6 +119,7 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
         $scope.cancel = function () {
             $scope.showEditing = false;
             $scope.showAdding = false;
+            $scope.showCreateQuestionButton = true;
         };
     }]);
 
