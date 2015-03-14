@@ -2,43 +2,31 @@
  * Created by thangnguyen on 3/2/15.
  */
 mainControllers.controller('AnswerQuestionController',
-    ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
-        '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'question_service',
-        function ($http, $location, Authentication, $scope, $rootScope, $cookieStore,
-                  $modal, $window, toaster, $modalInstance, $stateParams, question_service) {
+    ['$http', '$location', 'Authentication', '$scope', '$cookieStore',
+        '$window', 'toaster', '$stateParams', 'question_service',
+        function ($http, $location, Authentication, $scope, $cookieStore,
+                  $window, toaster, $stateParams, question_service) {
             $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
             $http.get(Authentication.server_url + 'questions/' + $stateParams.which_class).then(function (response) {
                 $scope.questions = response.data;
+                for (var i = 0; i < response.data.length; i++) {
+                    $scope.questions[i].answer = 0;
+                }
             });
 
             $http.get(Authentication.server_url + 'answers/' + $stateParams.which_class).then(function (response) {
                 $scope.answers = response.data;
             });
+            $scope.num_stars = 5;
 
-            $scope.value = $scope.answers.length + 1;
+            $scope.hoveringOver = function(value) {
+                $scope.overStar = value;
+                $scope.percent = 100 * (value / $scope.num_stars);
+            };
 
-            $scope.submitTheForm = function () {
-                var dataObject = {
-                    course_fk: $stateParams.which_class
-                    , value: $scope.value
-                    , text: $scope.myForm.text
-                };
-                console.log(dataObject);
-                var responsePromise = $http.post(Authentication.server_url + 'answers/', dataObject, {});
-                responsePromise.success(function () {
-                    question_service.pushQuestions(dataObject);
-                    question_service.setDirty();
-                });
-                responsePromise.error(function () {
-                    alert("Submitting form failed!");
-                    console.log(dataObject);
-                })
-                $modalInstance.dismiss('cancel');
+            $scope.submit = function(answers) {
+                console.log(answers);
             }
-            $scope.cancel = function () {
-                $modalInstance.dismiss('cancel');
-            }
-
         }
     ])
 ;

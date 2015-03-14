@@ -1,26 +1,26 @@
-<!doctype html>
-<html lang="en" ng-app="myApp">
-<head>
-    <meta charset="UTF-8">
-    <title>Angular Demo</title>
-    <script src="lib/angular/angular.min.js"></script>
-    <script src="lib/angular/angular-route.min.js"></script>
-    <script src="lib/angular/angular-animate.min.js"></script>
-    <script src="lib/angular/angular-cookies.min.js"></script>
-
-</head>
-<body>
 <div>
+    <h2>Survey</h2>
+
     <form>
-        <div class="modal-body">
-            Question {{value}} <input type="text" id="text" ng-model="myForm.text" ng-minlength="0" ng-maxlength="24"> <br/>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-            <button class="btn btn-primary" ng-click="submitTheForm(myForm)">Add</button>
+        <div class="qDiv" ng-repeat="question in questions">
+            <div class="qText">
+                {{question.text | capitalize}}
+            </div>
+            <br>
+            <div style="max-width: 200px; margin-left: auto; margin-right: auto">
+                <rating ng-model="question.answer"
+                        max="num_stars"
+                        state-on="'glyphicon glyphicon-star larger'"
+                        on-hover="hoveringOver(value)"
+                        on-leave="overStar = null"
+                        state-off="'glyphicon glyphicon-star-empty larger'">
+                </rating>
+
+            </div>
+
         </div>
 
+        <br>
+        <button ng-click="submit(questions)" class="btn btn-success btn-lg center-block">Submit</button>
     </form>
 </div>
-</body>
-</html>

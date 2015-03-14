@@ -7,13 +7,13 @@ mainControllers.controller('AddQuestionController',
         function ($http, $location, Authentication, $scope, $rootScope, $cookieStore,
                   $modal, $window, toaster, $modalInstance, $stateParams, question_service) {
             $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-            $http.get(Authentication.server_url + 'questions/' + $stateParams.which_class).then(function (response) {
+            $http.get(Authentication.server_url + 'questions/' + $stateParams.which_ass).then(function (response) {
                 $scope.questions = response.data;
             });
 
             $scope.submitTheForm = function () {
                 var dataObject = {
-                    course_fk: $stateParams.which_class
+                    ass_fk: $stateParams.which_ass
                     , value: $scope.questions.length + 1
                     , text: $scope.myForm.text
                 };
@@ -26,7 +26,7 @@ mainControllers.controller('AddQuestionController',
                 responsePromise.error(function () {
                     alert("Submitting form failed!");
                     console.log(dataObject);
-                })
+                });
                 $modalInstance.dismiss('cancel');
             }
             $scope.cancel = function () {

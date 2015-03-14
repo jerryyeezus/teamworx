@@ -201,6 +201,9 @@ a:active {
      */
 }
 
+.larger {
+    font-size: xx-large;
+}
 #groupPanel {
     /*min-height: 92%;*/
     max-height: 85%;
@@ -208,6 +211,7 @@ a:active {
     max-height: inherit;
     width: 77%;
     border: 3px solid black;
+    overflow: auto;
     border-radius: 3px;
     margin: 10px 10px 10px 10px;
     position: absolute;
@@ -310,6 +314,23 @@ a:active {
     float: left;
 }
 
+.qDiv {
+    background-color: gray;
+    opacity: 0.7;
+    padding: 20px 20px 20px 20px;
+    width: 400px;
+    min-height: 130px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.qText {
+    color: black;
+    font-size: large;
+}
+
 .animate-show {
     -webkit-transition: all linear 0.1s;
     transition: all linear 0.2s;
@@ -353,72 +374,108 @@ a:active {
 }
 
 /*THIS CODE IS FOR THE PROFESSOR PROFILE PAGE (PORTAL)*/
-.professorProfile {
-    background-color: black;
-    border: 1px solid black;
-    border-radius: 3px;
-    margin: 8px 8px 8px 8px;
-    padding: 5px 5px 5px 5px;
-    float: left;
-    width: 50%;
-    min-height: 164px;
-    height: auto;
-    max-height: 214px;
-    color: #ffffff;
-}
-
-.professorProfileHeader {
-    background-color: black;
-    border: 1px solid black;
-    border-radius: 3px;
-    display: flex;
-    color: #ffffff;
-}
-
 .professorProfileContent {
     background-color: black;
     border: 1px solid black;
-    border-radius: 15px;
+    border-radius: 3px;
     padding: 15px 5px 5px 15px;
     word-wrap: normal;
     /*overflow: auto;*/
     text-overflow: ellipsis;
-    width: 55vw;
-    min-height: 350px;
-    /*height: 900px;*/
-    margin: 0px 4px 4px 4px;
-    float: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    min-height: 500px;
+    height: auto;
+    max-height: 580px;
     opacity: 0.7;
     color: #ffffff;
+}
+
+.imgProfessor {
+    border: 1px solid black;
+    height: auto;
+    max-height: 250px;
+    width: 200px;
+    max-width: 250px;
+    margin-right: 2px;
+    float:left;
+    display:inline;
+}
+
+.professorNameContent{
+    float:left;
+    display:inline;
+    position: relative;
+    top: -20px;
+    left: 30px;
+}
+.professorBioContent{
+    border-radius: 10px;
+    word-wrap: normal;
+    overflow: auto;
+    text-overflow: ellipsis;
+    width: 700px;
+    min-height: 20px;
+    height: 55vh;
+    max-height: 150px;
+    padding: 1.0em 5px 5px 1.5em;
+    color: #ffffff;
+    position: relative;
+    top: -10px;
+    left: -18px;
+}
+
+.professorInfoContent{
+    border-radius: 10px;
+    word-wrap: normal;
+    overflow: auto;
+    text-overflow: ellipsis;
+    width: 230px;
+    min-height: 20px;
+    max-height: 310px;
+    margin-bottom: 20px;
+    padding: 1.0em 5px 5px 1.5em;
+    color: #ffffff;
+    position: relative;
+    float:left;
+    margin-right: 2px;
+    left: -18px;
+    display:inline;
 }
 
 .courseListContent {
     background-color: black;
     border: 1px solid black;
-    border-radius: 15px;
+    border-radius: 3px;
     word-wrap: normal;
     overflow: auto;
     text-overflow: ellipsis;
-    width: 43vw;
+    width: 683px;
     min-height: 70px;
-    height: 80vh;
-    margin: 70px 4px 4px 4px;
+    height: 320px;
+    max-height: 320px;
+    margin-top: 12px;
     opacity: 0.7;
-    padding: 1.0em 5px 5px 1.5em;
     color: #ffffff;
+    float:left;
+    display:inline;
 }
 
 .innerCourseListContent {
     background-color: #1e1e1b;
-    border-radius: 10px;
+    border-radius: 3px;
     word-wrap: normal;
     overflow: auto;
     text-overflow: ellipsis;
-    width: 40vw;
+    width: 100%;
     min-height: 20px;
-    height: 55vh;
-    margin: 20px 4px 4px 0px;
-    padding: 1.0em 5px 5px 1.5em;
+    height: 65%;
+    max-height: 65%;
+    margin: 10px 0px 4px 0px;
+    padding: 0px 5px 5px 1.5em;
     color: #ffffff;
 }
 
@@ -431,15 +488,6 @@ a:active {
     width: 50vw;
     margin: 0px 4px 4px 10px;
     float: left;
-}
-
-.imgProfessor {
-    border: 1px solid black;
-    height: auto;
-    max-height: 250px;
-    width: 200px;
-    max-width: 250px;
-    margin-right: 2px;
 }
 
 #bgPageGroupProfile {

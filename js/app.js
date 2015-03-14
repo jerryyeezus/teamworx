@@ -8,7 +8,7 @@ var myApp = angular.module('myApp', [
 ]);
 
 // flag
-var DEBUG = false;
+var DEBUG = true;
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
     server_url = 'http://localhost:8000/';
@@ -38,10 +38,10 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/login',
             templateUrl: 'partials/login.html',
             controller: 'CredentialsController',
-            onExit: ['$state', function($state) {
+            onExit: ['$state', function ($state) {
                 $(".wrapper").addClass("zout")
             }],
-            onEnter: ['$state', function($state) {
+            onEnter: ['$state', function ($state) {
                 $(".wrapper").removeClass("zout")
             }]
         },
@@ -50,7 +50,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/portal',
             templateUrl: 'partials/portal.html',
             controller: 'PortalController',
-            onEnter: ['$state', function($state) {
+            onEnter: ['$state', function ($state) {
                 $(".wrapper").addClass("zout")
             }]
         }, main = {
@@ -59,10 +59,10 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             templateUrl: 'partials/main.html',
             controller: 'CMainController',
             reloadOnSearch: false, // TODO not sure what this does but..
-            onExit: ['$state', function($state) {
+            onExit: ['$state', function ($state) {
                 $(".wrapper").removeClass("move")
             }],
-            onEnter: ['$state', function($state) {
+            onEnter: ['$state', function ($state) {
                 $(".wrapper").removeClass('zout');
                 $(".wrapper").addClass("move")
             }]
@@ -81,7 +81,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/studentProfile',
             templateUrl: 'partials/studentProfile.html',
             controller: 'StudentProfileController'
-        },register = {
+        }, register = {
             name: 'register',
             url: '/register',
             templateUrl: 'partials/register.html',
@@ -130,7 +130,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        },add_member = {
+        }, add_member = {
             name: 'main.add_member',
             url: '/add_member/:which_class',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
@@ -152,7 +152,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        },add_group = {
+        }, add_group = {
             name: 'main.add_group',
             url: '/add_group/:which_class',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
@@ -165,7 +165,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }]
         }, add_question = {
             name: 'main.add_question',
-            url: '/add_question/:which_class',
+            url: '/add_question/:which_ass',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
                     templateUrl: 'partials/add_question.html',
@@ -177,14 +177,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
         }, answer_question = {
             name: 'main.answer_question',
             url: '/answer_question/:which_class',
-            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-                $modal.open({
-                    templateUrl: 'partials/answer_question.html',
-                    controller: 'AnswerQuestionController'
-                }).result.finally(function () {
-                        $state.go('^');
-                    });
-            }]
+            templateUrl: 'partials/answer_question.html',
+            controller: 'AnswerQuestionController'
         }, edit_group_profile = {
             name: 'main.edit_group_profile',
             url: '/edit_group_profile/:which_class',
@@ -196,7 +190,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        },import_roster = {
+        }, import_roster = {
             name: 'main.import_roster',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
@@ -236,8 +230,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
 myApp.directive('customPopover', function () {
     return {
         restrict: 'A',
-            //template: '<span></span>',
-            link: function(scope, el, attrs) {
+        //template: '<span></span>',
+        link: function (scope, el, attrs) {
             $(el).popover({
                 trigger: 'hover',
                 html: true,
@@ -248,5 +242,14 @@ myApp.directive('customPopover', function () {
         }
     }
 });
+
+myApp.filter('capitalize', function () {
+    return function (input, all) {
+        return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }) : '';
+    }
+});
+
 
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);

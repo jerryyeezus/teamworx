@@ -6,9 +6,9 @@
 mainControllers.controller('CredentialsController', ['$location', '$scope', 'Authentication', function ($location, $scope, Authentication) {
     activate();
     $scope.formData = {
-        'the_email': 'you@gatech.edu',
+        'the_email': 'thang@gatech.edu',
         'password': 'pass',
-        'user_type': 'INSTRUCTOR'
+        'user_type': 'STUDENT'
     }
 
     $scope.clearData = function (which) {
