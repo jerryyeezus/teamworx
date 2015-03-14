@@ -8,7 +8,6 @@ mainControllers.controller('ViewAssignmentTextController',
                   $modal, $window, toaster, $modalInstance, $stateParams, ass_service) {
             $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
             $scope.assignment = $cookieStore.get('assignment');
-            var asdf = $scope.assignment;
             console.log($scope.assignment.assignment_text);
             $modalInstance.dismiss('cancel');
             //$scope.submit = function () {

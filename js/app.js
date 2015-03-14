@@ -215,7 +215,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }]
         },answer_question = {
             name: 'main.answer_question',
-            url: '/answer_question/:which_class',
+            url: '/answer_question/:which_ass',
             templateUrl: 'partials/answer_question.html',
             controller: 'AnswerQuestionController'
         }, edit_group_profile = {

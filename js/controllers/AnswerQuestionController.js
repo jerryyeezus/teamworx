@@ -7,14 +7,14 @@ mainControllers.controller('AnswerQuestionController',
         function ($http, $location, Authentication, $scope, $cookieStore,
                   $window, toaster, $stateParams, question_service) {
             $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-            $http.get(Authentication.server_url + 'questions/' + $stateParams.which_class).then(function (response) {
+            $http.get(Authentication.server_url + 'questions/' + $cookieStore.get('assignment').assignment_pk).then(function (response) {
                 $scope.questions = response.data;
                 for (var i = 0; i < response.data.length; i++) {
                     $scope.questions[i].answer = 0;
                 }
             });
 
-            $http.get(Authentication.server_url + 'answers/' + $stateParams.which_class).then(function (response) {
+            $http.get(Authentication.server_url + 'answers/' + $stateParams.which_ass).then(function (response) {
                 $scope.answers = response.data;
             });
             $scope.num_stars = 5;
