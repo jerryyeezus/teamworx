@@ -193,11 +193,22 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }]
         }, delete_team_member = {
             name: 'main.delete_team_member',
-            url: '/delete_team_member_service/:which_class',
+            url: '/delete_team_member/:which_class',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
                     templateUrl: 'partials/delete_team_member.html',
                     controller: 'DeleteTeamMemberController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        },view_assignment_text = {
+            name: 'main.view_assignment_text',
+            url: '/view_assignment_text:which_assignment',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/view_assignment_text.html',
+                    controller: 'ViewAssignmentTextController'
                 }).result.finally(function () {
                         $state.go('^');
                     });
@@ -247,6 +258,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(drag_student);
     main_state.state(delete_team_member);
     main_state.state(view_request);
+    main_state.state(view_assignment_text);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)

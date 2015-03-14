@@ -157,7 +157,7 @@
     <div class="groupPanelHeader">
         <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
         <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups [Assignment
-            {{which_assignment}}] <button class="btn btn-danger btn-small" ng-click="viewAssText()"> View Assignment Text</button></h3>
+            {{which_assignment}}] <button class="btn btn-danger btn-small" ui-sref="main.view_assignment_text"> View Assignment Text</button></h3>
 
         <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
 
