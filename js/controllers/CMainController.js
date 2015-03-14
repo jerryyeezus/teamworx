@@ -4,10 +4,10 @@
 
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
-    'question_service', 'drag_student_service', 'delete_team_member_service',
+    'question_service', 'drag_student_service', 'delete_team_member_service','add_question_service', 'edit_question_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
               $modal, $window, $fileUpload, toaster, ass_service, group_service, question_service, drag_student_service,
-              delete_team_member_service) {
+              delete_team_member_service, add_question_service, edit_question_service) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
@@ -20,6 +20,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         question_service.init($scope);
         drag_student_service.init($scope);
         delete_team_member_service.init($scope);
+        add_question_service.init($scope);
+        edit_question_service.init($scope);
 
         $scope.isUploaded = false;
         $scope.changeBackButton = false;
