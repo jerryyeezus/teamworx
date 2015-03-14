@@ -124,7 +124,7 @@
             </span>
             <!--<a ng-click="import()">Import students button</a>-->
             <ul style="list-style-type:none;">
-                <li data-drag="true" ng-repeat="student in students | filter: search.name"
+                <li data-drag="true" ng-repeat="student in students | filter: search.name | filter: search.skills_str"
                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                     <div class="studentProfile">
@@ -136,6 +136,8 @@
                         </a>
                         <br>
                         {{student.email}}
+                        <br>
+                        <!--{{student.skills_str}}-->
                     </div>
                 </li>
             </ul>
