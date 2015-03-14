@@ -83,7 +83,7 @@
                     </ul>
                 </li>
                 <li class="" data-drop="true" jqyoui-droppable="{beforeDrop: 'deleteDragMember()'}">
-                <a> Delete Member</a></li>
+                    <a> Delete Member</a></li>
                 <li class=""><a ng-hide="changeBackButton" href="#portal">Back</a></li>
                 <li class=""><a ng-show="changeBackButton" ng-click="portalBack()" ui-sref="main">Back</a></li>
             </ul>
@@ -159,8 +159,13 @@
     <div class="groupPanelHeader">
         <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
         <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups [Assignment
-            {{which_assignment}}]
-        <button class="btn btn-danger btn-small" popover-placement="right" popover="{{assignment.assignment_text}}"> View Assignment Text</button></h3>
+            {{which_assignment}}
+            <input type="image" src="img/gnome-searchtool.png" ui-sref="main.view_assignment_text">
+            ]
+        </h3>
+        <!--<button ->
+                <!--popover-placement="right" popover="{{assignment.assignment_text}}">-->
+        <!--</button>-->
         <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
 
         <button ng-show="isUploaded  && assignments.length > 0 && user.user_type=='INSTRUCTOR'"
@@ -199,7 +204,8 @@
 
                 <!-- Currently not implemented -->
                 <div class="groupProfile" data-drop="true" ng-repeat="team in teams" ng-class="divClass(team)"
-                     ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}" ng-mouseenter="hoverIn(team)"
+                     ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
+                     ng-mouseenter="hoverIn(team)"
                      ng-click="selectTeam(team)" ui-sref="main.groupProfile">
                     <div class="groupProfileHeader">
                         <h3>
