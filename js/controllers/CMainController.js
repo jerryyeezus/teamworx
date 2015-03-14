@@ -4,9 +4,10 @@
 
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
-    'question_service',
+    'question_service', 'drag_student_service', 'delete_team_member_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, $window, $fileUpload, toaster, ass_service, group_service, question_service) {
+              $modal, $window, $fileUpload, toaster, ass_service, group_service, question_service, drag_student_service,
+              delete_team_member_service) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
@@ -16,6 +17,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         ass_service.init($scope);
         group_service.init($scope);
         question_service.init($scope);
+        drag_student_service.init($scope);
+        delete_team_member_service.init($scope);
+
         $scope.isUploaded = false;
         $scope.changeBackButton = false;
 
@@ -63,6 +67,16 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.assignment_pk = ass_service.getAssignmentpk();
             toaster.pop('success', 'Assignment created!');
             $scope.updateAssignment();
+            $scope.updateGroup();
+        });
+
+        $scope.$on(drag_student_service.dirty(), function() {
+            toaster.pop('success', 'The student is dragged and dropped to the new group');
+            $scope.updateGroup();
+        });
+
+        $scope.$on(delete_team_member_service.dirty(), function() {
+            toaster.pop('success', 'The student is dragged and dropped to the new group');
             $scope.updateGroup();
         });
 
@@ -214,7 +228,52 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         }
 
+        $scope.startCallback = function(event, ui, stu) {
+            console.log('You started draggin: ');
+            $cookieStore.put('dragStudent', stu);
+            console.log(stu.email);
+            $scope.deleteMember = true;
+        };
 
+        $scope.startCallbackGroupProfile = function(event, ui, stu, dragTeam) {
+            console.log('You started draggin: ');
+            $cookieStore.put('dragStudent', stu);
+            $cookieStore.put('dragTeam', dragTeam);
+            console.log(stu.email);
+        };
+
+
+        $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
+            $scope.students = response.data;
+            if ($scope.students.length > 0) {
+                $scope.isUploaded = true;
+            };
+            for (var i = 0; i < response.data.length; i++) {
+                student_map[response.data[i].user_type + '|' + response.data[i].email] = i;
+            };
+
+
+            $scope.beforeDrop = function(event, ui, dropTeam) {
+                console.log($cookieStore.get('dragStudent').name);
+                $cookieStore.put('dropTeam', dropTeam);
+                console.log($cookieStore.get('dropTeam').name);
+                console.log('line 246');
+                var modalInstance = $modal.open({
+                    templateUrl: 'partials/drag_student.html',
+                    controller: 'DragStudentController'
+                });
+
+                return modalInstance.result;
+            };
+        });
+
+        $scope.deleteDragMember  = function() {
+            var modalInstance = $modal.open({
+                templateUrl: 'partials/delete_team_member.html',
+                controller: 'DeleteTeamMemberController'
+            });
+            return modalInstance.result;
+        };
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();

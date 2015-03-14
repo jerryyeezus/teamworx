@@ -4,7 +4,8 @@ var myApp = angular.module('myApp', [
     'ui.bootstrap',
     'toaster',
     'ui.router',
-    'xeditable'
+    'xeditable',
+    'ngDragDrop'
 ]);
 
 // flag
@@ -174,7 +175,29 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        }, answer_question = {
+        }, drag_student = {
+            name: 'main.drag_student',
+            url: '/drag_student/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/drag_student.html',
+                    controller: 'DragStudentController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        }, delete_team_member = {
+            name: 'main.delete_team_member',
+            url: '/delete_team_member_service/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/delete_team_member.html',
+                    controller: 'DeleteTeamMemberController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        },answer_question = {
             name: 'main.answer_question',
             url: '/answer_question/:which_class',
             templateUrl: 'partials/answer_question.html',
@@ -216,6 +239,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(edit_group_profile);
     main_state.state(delete_member);
     main_state.state(add_member);
+    main_state.state(drag_student);
+    main_state.state(delete_team_member);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)

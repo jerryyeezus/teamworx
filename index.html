@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TeamWorx - find a team</title>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -32,6 +36,8 @@
     <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
     <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
 
+    <script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+
     <script src="js/app.js"></script>
     <script src="js/controllers/AddAssignmentController.js"></script>
     <script src="js/controllers/AddMemberController.js"></script>
@@ -50,6 +56,8 @@
     <script src="js/controllers/EditGroupProfileController.js"></script>
     <script src="js/controllers/StudentProfileController.js"></script>
     <script src="js/controllers/QuestionControllers.js"></script>
+    <script src="js/controllers/DragStudentController.js"></script>
+    <script src="js/controllers/DeleteTeamMemberController.js"></script>
     <script src="js/controllers/UploadController.js"></script>
     <script src="js/services/AssService.js"></script>
     <script src="js/services/Authentication.js"></script>
@@ -57,6 +65,9 @@
     <script src="js/services/GroupService.js"></script>
     <script src="js/services/PortalService.js"></script>
     <script src="js/services/QuestionService.js"></script>
+    <script src="js/services/DragStudentService.js"></script>
+    <script src="js/services/DeleteTeamMemberService.js"></script>
+
 </head>
 <body>
 <div class="main" ui-view></div>

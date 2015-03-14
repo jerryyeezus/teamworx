@@ -152,12 +152,17 @@ a:active {
     color: black;
 }
 
+/*.studentProfileContent {*/
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
+    /*max-height: 76%;*/
+    /*border: 3px solid black;*/
+    /*border-radius: 3px;*/
+/*}*/
+
 .studentProfileContent {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    max-height: 76%;
-    border: 3px solid black;
-    border-radius: 3px;
+    float: left;
+    width: 20%;
 }
 
 .studentProfile {
@@ -229,17 +234,21 @@ a:active {
     max-height: 10%;
 }
 
-.groupPanelContent {
-    min-height: 10%;
-    height: auto;
-    max-height: 80%;
-    margin-left: 20px;
-    width: auto;
-    border: 3px solid black;
-    border-radius: 3px;
-    overflow: auto;
-}
+/*.groupPanelContent {*/
+    /*min-height: 10%;*/
+    /*height: auto;*/
+    /*max-height: 80%;*/
+    /*margin-left: 20px;*/
+    /*width: auto;*/
+    /*border: 3px solid black;*/
+    /*border-radius: 3px;*/
+    /*overflow: auto;*/
+/*}*/
 
+.groupPanelContent {
+    float: right;
+    width: 70%;
+}
 #coursePanel {
     min-height: 92%;
     height: auto;
