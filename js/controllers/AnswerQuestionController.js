@@ -3,22 +3,30 @@
  */
 mainControllers.controller('AnswerQuestionController',
     ['$http', '$location', 'Authentication', '$scope', '$cookieStore',
-        '$window', 'toaster', '$stateParams', 'question_service', 'ass_service',
+        '$window', 'toaster', '$stateParams', 'question_service', 'ass_service', '$state', 'answer_service',
         function ($http, $location, Authentication, $scope, $cookieStore,
-                  $window, toaster, $stateParams, question_service, ass_service) {
+                  $window, toaster, $stateParams, question_service, ass_service, $state, answer_service) {
             $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
             $scope.num_stars = 5;
 
-            $http.get(Authentication.server_url + 'questions/' + $cookieStore.get('assignment_pk')).then(function (response) {
-                $scope.questions = response.data;
-                for (var i = 0; i < response.data.length; i++) {
-                    $scope.questions[i].answer = 0; // TODO
-                }
-            });
+            $http.get(Authentication.server_url + 'questions/' + $cookieStore.get('assignment_pk'))
+                .then(function (response) {
+                    $scope.questions = response.data;
+                    var i = 0;
+                    for (; i < response.data.length; i++) {
+                        var tmp = response.data[i];
 
-            //$http.get(Authentication.server_url + 'answers/' + $cookieStore.get('assignment_pk')).then(function (response) {
-            //    $scope.answers = response.data;
-            //});
+                        // Nested request
+                        $http.get(Authentication.server_url + 'answer/' + response.data[i].pk + '/' + $scope.the_user)
+                            .then(function (answer_resp) {
+                                tmp.answer = answer_resp.data[0].value;
+                                tmp.weight = answer_resp.data[0].weight;
+                            });
+
+                        $scope.questions[i] = tmp;
+                    }
+                });
+
 
             $scope.hoveringOver = function (value) {
                 $scope.overStar = value;
@@ -26,7 +34,7 @@ mainControllers.controller('AnswerQuestionController',
             };
 
             $scope.submit = function (answers) {
-                var i = 0;
+                var i = 0, callbacks = 0;
                 for (; i < answers.length; i++) {
                     var dataObj = {
                         question_fk: answers[0].pk,
@@ -35,12 +43,15 @@ mainControllers.controller('AnswerQuestionController',
                         weight: 1 // TODO
                     };
 
-                    var promise = $http.post(Authentication.server_url + 'answer/', dataObj);
+                    var promise = $http.put(Authentication.server_url + 'answer/', dataObj);
                     promise.success(function () {
-                        // TODO toaster, go back to main screen
-                        alert('good. TODO service')
+                        callbacks++;
+                        if (callbacks >= answers.length) {
+                            answer_service.setDirty();
+                            $state.go('^');
+                        }
                     });
-                    promise.error(function(a,b,c,d) {
+                    promise.error(function (a, b, c, d) {
                         console.log(a)
                         console.log(b)
                         console.log(c)

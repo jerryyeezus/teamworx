@@ -5,9 +5,10 @@
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
     'question_service', 'drag_student_service', 'delete_team_member_service','add_question_service', 'edit_question_service',
+    'answer_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
               $modal, $window, $fileUpload, toaster, ass_service, group_service, question_service, drag_student_service,
-              delete_team_member_service, add_question_service, edit_question_service) {
+              delete_team_member_service, add_question_service, edit_question_service, answer_service) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
@@ -16,6 +17,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.my_pk = which_class;
         $scope.the_user = Authentication.getAuthenticatedAccount()['name'];
         ass_service.init($scope);
+        answer_service.init($scope);
         group_service.init($scope);
         question_service.init($scope);
         drag_student_service.init($scope);
@@ -59,6 +61,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.$on('ass_invalidate', function () {
             $scope.teams = [];
+        });
+
+        $scope.$on(answer_service.dirty(), function () {
+            toaster.pop('success', 'Answers successfully submitted!');
         });
 
         $scope.$on(ass_service.dirty(), function () {
