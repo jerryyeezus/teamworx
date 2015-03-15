@@ -4,18 +4,28 @@
     <form>
         <div class="qDiv" ng-repeat="question in questions">
             <div class="qText">
-                {{question.text | capitalize}}
+                <center>{{question.text | capitalize}}
             </div>
             <br>
-            <div style="max-width: 200px; margin-left: auto; margin-right: auto">
-                <rating ng-model="question.answer"
-                        max="num_stars"
-                        state-on="'glyphicon glyphicon-star larger'"
-                        on-hover="hoveringOver(value)"
-                        on-leave="overStar = null"
-                        state-off="'glyphicon glyphicon-star-empty larger'">
-                </rating>
 
+            <div style="max-width: 353px; margin-left: auto; margin-right: auto">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>{{question.lo | capitalize }}</h4>
+                    </div>
+                    <div class="col-md-6" style="color: palegoldenrod">
+                        <rating ng-model="question.answer"
+                                max="num_stars"
+                                state-on="'glyphicon glyphicon-star larger'"
+                                on-hover="hoveringOver(value)"
+                                on-leave="overStar = null"
+                                state-off="'glyphicon glyphicon-star-empty larger'">
+                        </rating>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>{{question.hi | capitalize}}</h4>
+                    </div>
+                </div>
             </div>
 
         </div>

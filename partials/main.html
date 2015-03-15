@@ -17,30 +17,25 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{the_user}}'s Profile
+                    <a href="#/portal" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <img src="img/no_profile.png" width="28px" height="24px" />
+                        <span style="padding-left: 0.3em">Profile</span>
                     </a>
                 </li>
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{course.course_name}}
+                        Course: {{course.course_name}}
                         <span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a style="cursor:pointer" ng-show="user.user_type=='INSTRUCTOR'" ng-click="deleteCourse()">
-                                Delete Course
-                            </a>
                         </li>
                         <li>
                             <a ui-sref="main.question"> View Questions </a>
                         </li>
                         <li>
-                            <a ng-show="user.user_type=='STUDENT'" ui-sref="main.answer_question"> Answer Questions </a>
-                        </li>
-                        <li>
-                            <a ng-show="user.user_type=='INSTRUCTOR'" ui-sref="main.add_question"> Add Question </a>
+                            <a ng-show="user.user_type=='STUDENT'" ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
                         </li>
                     </ul>
                 </li>
@@ -75,8 +70,9 @@
                     </ul>
                 </li>
                 <li class="dropdown" id="settingsMenu">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
-                            class="caret"></span></a>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
+                        <span
+                                class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="">Change Password</a></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
@@ -134,9 +130,6 @@
                         <a ng-click="selectStudent()" ui-sref="main.studentProfile" class="student-main">
                             {{student.name}}
                         </a>
-                        <br>
-                        {{student.email}}
-                        <br>
                         <!--{{student.skills_str}}-->
                     </div>
                 </li>
@@ -203,7 +196,8 @@
                 <!--</div>-->
 
                 <!-- Currently not implemented -->
-                <div class="groupProfile" data-drop="true" ng-repeat="team in teams" ng-class="divClass(team)"
+                <div class="animate-show groupProfile" data-drop="true" ng-repeat="team in teams"
+                     ng-class="divClass(team)"
                      ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
                      ng-mouseenter="hoverIn(team)"
                      ng-click="selectTeam(team)" ui-sref="main.groupProfile">

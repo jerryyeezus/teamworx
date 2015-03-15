@@ -31,6 +31,14 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
             $scope.showCreateQuestionButton = false;
         };
 
+        $scope.hoverIn = function() {
+            this.hoverEdit = true;
+        };
+
+        $scope.hoverOut = function() {
+            this.hoverEdit = false;
+        };
+
         $scope.startAdding = function() {
             $scope.showAdding = true;
             $scope.showEditing = false;
@@ -50,6 +58,8 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
             console.log('line 41 DO we get there');
             var dataObject = {
                 ass_fk: $cookieStore.get('assignment_pk'),
+                lo: $scope.addFormLo,
+                hi: $scope.addFormHi,
                 text: $scope.addFormText
             };
 
@@ -60,9 +70,11 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
                 add_question_service.setDirty();
             });
 
-            responsePromise.error(function () {
+            responsePromise.error(function (a, b) {
                 alert("Submitting form failed!");
                 console.log(dataObject);
+                console.log(a);
+                console.log(b);
             });
         };
 
