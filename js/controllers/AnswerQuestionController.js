@@ -14,16 +14,16 @@ mainControllers.controller('AnswerQuestionController',
                     $scope.questions = response.data;
                     var i = 0;
                     for (; i < response.data.length; i++) {
-                        var tmp = response.data[i];
-
-                        // Nested request
+                        var index = 0;
                         $http.get(Authentication.server_url + 'answer/' + response.data[i].pk + '/' + $scope.the_user)
                             .then(function (answer_resp) {
-                                tmp.answer = answer_resp.data[0].value;
-                                tmp.weight = answer_resp.data[0].weight;
+                                // CHeck if no answer
+                                if (answer_resp.data.length >= 1) {
+                                    $scope.questions[index].answer = answer_resp.data[0].value;
+                                    $scope.questions[index].weight = answer_resp.data[0].weight;
+                                    index++;
+                                }
                             });
-
-                        $scope.questions[i] = tmp;
                     }
                 });
 
@@ -37,7 +37,7 @@ mainControllers.controller('AnswerQuestionController',
                 var i = 0, callbacks = 0;
                 for (; i < answers.length; i++) {
                     var dataObj = {
-                        question_fk: answers[0].pk,
+                        question_fk: answers[i].pk,
                         user_fk: 'STUDENT|' + $scope.the_user,
                         value: answers[i].answer == undefined ? 0 : answers[i].answer,
                         weight: 1 // TODO
