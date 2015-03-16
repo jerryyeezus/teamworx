@@ -97,10 +97,27 @@
     <div class="container-fluid" id="studentClassRosterTitle">
         <h3 style="text-align:center;">Student Roster</h3>
     </div>
-    <div class="input-group" id="studentSearchBar">
-        <span class="input-group-addon" id="searchBarAddon">Search:</span>
-        <input ng-model="search.name" id="searchBarField">
-    </div>
+        <div class="input-group" id="studentSearchBar">
+            <span class="input-group-addon" id="searchBarAddon">Search:</span>
+            <input ng-model="search.name" id="searchBarField">
+        </div>
+        <div>
+            <button class="btn btn-primary btn-lg" ng-click="isCollapsed = !isCollapsed">Advanced</button>
+        </div>
+        <div collapse="isCollapsed" >
+            Skills
+            <input ng-model="search.skills_str" id="searchSkillsField">
+            Biography
+            <input ng-model="search.bio" id="searchBiographyField">
+            Interest
+            <input ng-model="search.interests_str" id="searchInterestsField">
+            Project Preference
+            <input ng-model="search.project_pref_str" id="searchProjectPreferenceField">
+            Minimum GPA
+            <input ng-model="search.minGPA" id="searchGPAField">
+            LFG
+            <input type="checkbox" ng-model="search.lfg">
+        </div>
     <div>
     </div>
     <div class="studentProfileContent">
@@ -120,9 +137,11 @@
             </span>
             <!--<a ng-click="import()">Import students button</a>-->
             <ul style="list-style-type:none;">
-                <li data-drag="true" ng-repeat="student in students | filter: search.name | filter: search.skills_str"
-                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
-                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
+                <!--ng-if="student.gpa > search.minGPA"-->
+                <li data-drag="true" ng-repeat="student in students | filter: search.name | filter: search.skills_str |
+                filter: search.bio | filter: search.interests_str | filter: search.project_pref_str | filter:search.lfg"
+                jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
+                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                     <div class="studentProfile">
                         <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)"/>
                         <!--<img src="img/no_profile.png" class="imgStudent">-->
@@ -196,7 +215,7 @@
                 <!--</div>-->
 
                 <!-- Currently not implemented -->
-                <div class="animate-show groupProfile" data-drop="true" ng-repeat="team in teams"
+                <div class="groupProfile" data-drop="true" ng-repeat="team in teams"
                      ng-class="divClass(team)"
                      ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
                      ng-mouseenter="hoverIn(team)"

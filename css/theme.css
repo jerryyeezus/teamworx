@@ -152,6 +152,31 @@ a:active {
     color: black;
 }
 
+#searchSkillsField {
+    width: 100%;
+    color: black;
+}
+
+#searchBiographyField {
+    width: 100%;
+    color: black;
+}
+
+#searchInterestsField {
+    width: 100%;
+    color: black;
+}
+
+#searchProjectPreferenceField {
+    width: 100%;
+    color: black;
+}
+
+#searchGPAField {
+    width: 100%;
+    color: black;
+}
+
 .studentProfileContent {
     overflow-y: scroll;
     overflow-x: hidden;
