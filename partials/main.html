@@ -36,7 +36,7 @@
                         </li>
                         <li>
                             <a ng-if="isStudent" ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
-                                Unlock Matches</a>
+                            Unlock Matches</a>
                         </li>
                     </ul>
                 </li>
@@ -179,20 +179,22 @@
                 <!--</button>-->
                 <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
 
-        <button ng-show="isUploaded  && assignments.length > 0 && isProfessor"
-                ng-click="randomAssign()" ng-if="isProfessor" class="btn btn-primary btn-small"
+                <button ng-show="isUploaded  && assignments.length > 0 && isProfessor"
+                        ng-click="randomAssign()" ng-if="isProfessor" class="btn btn-primary btn-small"
                         class="btn btn-primary btn-small"
                         style="position:relative; top:auto;">
                     Auto Group
                 </button>
 
-        <button type="button" ng-if="!haveGroup" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+                <button type="button" ng-if="!haveGroup" class="btn btn-primary" data-toggle="modal"
+                        data-target="#myModal"
                         ui-sref="main.add_group">
                     <span class="glyphicon glyphicon-plus"></span> Team
                 </button>
 
-        <button ng-if="isProfessor" class="btn btn-warning" data-drop="isProfessor" jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}">
+                <button ng-if="isProfessor" class="btn btn-warning" data-drop="isProfessor"
                         jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}">
+                    jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}">
                     <span class="glyphicon glyphicon-trash"></span> Delete
                 </button>
 
@@ -212,14 +214,15 @@
                         </div>
                     </li>
                     <li ng-show="assignments.length > 0">
-                <div class="groupProfile" data-drop="isProfessor" ng-repeat="team in teams"
+                        <div class="groupProfile" data-drop="isProfessor" ng-repeat="team in teams"
                              ng-class="divClass(team)"
                              ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
                              ng-mouseenter="hoverIn(team)"
                              ng-click="selectTeam(team)" ui-sref="main.groupProfile">
 
                             <div class="groupProfileHeader">
-                        <h3 data-drag="isProfessor" jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
+                                <h3 data-drag="isProfessor"
+                                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                             <span ng-hide="'Team ' + team.number == team.name">
@@ -256,7 +259,13 @@
                 </ul>
             </div>
         </tab>
-        <tab heading="My Group">Aww, you don't have any groups. <br>TODO finda  group now?</tab>
+        <tab heading="My Team" select="tabSelect('TEAM')">
+            <tabset class="tabs-right">
+                <tab heading="Team Overview">TODO put group profile here</tab>
+                <tab heading="Administration" select="tabSelect('TEAM.ADMIN')">TODO put group admin here</tab>
+                <tab heading="Pending Requests (2)">TODO requests</tab>
+            </tabset>
+        </tab>
 </div>
 
 </tabset>
