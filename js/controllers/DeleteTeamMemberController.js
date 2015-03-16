@@ -1,10 +1,4 @@
 /**
- * Created by thangnguyen on 3/13/15.
- */
-/**
- * Created by thangnguyen on 3/13/15.
- */
-/**
  * Created by thangnguyen on 3/11/15.
  */
 mainControllers.controller('DeleteTeamMemberController',
@@ -17,20 +11,39 @@ mainControllers.controller('DeleteTeamMemberController',
             $scope.course = $cookieStore.get('course');
 
             $scope.ok = function () {
-
-                var dataObject = {
-                    which_student: $scope.dragStudent.user_type + '|' + $scope.dragStudent.email,
-                    which_team : $scope.dragTeam.pk,
-                    which_action :'remove'
-                };
-                var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
+                if ($cookieStore.get('deleteMember')) {
+                    var dataObject = {
+                        which_student: $scope.dragStudent.user_type + '|' + $scope.dragStudent.email,
+                        which_team: $scope.dragTeam.pk,
+                        which_action: 'remove'
+                    };
+                    var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
                     responsePromise.success(function () {
-                    delete_team_member_service.setDirty();
-                });
-                responsePromise.error(function (data) {
-                    console.log(data);
-                    console.log(dataObject);
-                });
+                        delete_team_member_service.setDirty();
+                    });
+                    responsePromise.error(function (data) {
+                        console.log(data);
+                        console.log(dataObject);
+                    });
+                    ($cookieStore.put('deleteMember', false));
+                }
+
+                if ($cookieStore.get('deleteTeam')) {
+                    var dataObject = {
+                        which_team: $scope.dragTeam.pk,
+                        which_action: 'remove'
+                    };
+                    var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
+                    responsePromise.success(function () {
+                        delete_team_service.setDirty();
+                    });
+                    responsePromise.error(function (data) {
+                        console.log(data);
+                        console.log(dataObject);
+                    });
+                    ($cookieStore.put('deleteTeam', false));
+                }
+
 
                 $modalInstance.close();
                 $modalInstance.dismiss('cancel');

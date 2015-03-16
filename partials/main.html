@@ -78,8 +78,6 @@
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
                 </li>
-                <li class="" data-drop="true" jqyoui-droppable="{beforeDrop: 'deleteDragMember()'}">
-                    <a> Delete Member</a></li>
                 <li class=""><a ng-hide="changeBackButton" href="#portal">Back</a></li>
                 <li class=""><a ng-show="changeBackButton" ng-click="portalBack()" ui-sref="main">Back</a></li>
             </ul>
@@ -171,6 +169,7 @@
             <input type="image" src="img/gnome-searchtool.png" ui-sref="main.view_assignment_text">
             ]
         </h3>
+
         <!--<button ->
                 <!--popover-placement="right" popover="{{assignment.assignment_text}}">-->
         <!--</button>-->
@@ -186,6 +185,11 @@
                 ui-sref="main.add_group">
             <span class="glyphicon glyphicon-plus"></span> Team
         </button>
+
+        <button class="btn btn-danger" data-drop="true" jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}">
+            <span class="glyphicon glyphicon-trash"></span> Delete
+        </button>
+
     </div>
     <br>
 
@@ -216,7 +220,9 @@
                      ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
                      ng-mouseenter="hoverIn(team)"
                      ng-click="selectTeam(team)" ui-sref="main.groupProfile">
-                    <div class="groupProfileHeader">
+                    <div class="groupProfileHeader" data-drag="true"
+                         jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragGroup(team)'}"
+                         data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                         <h3>
                             <span ng-hide="'Team ' + team.number == team.name">
                             Team {{team.number}}: </span>
@@ -241,7 +247,7 @@
                                   popover-placement="right"
                                   popover-label="label">
                             <a style="color: white" data-drag="true"
-                               jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallbackGroupProfile(member, team)'}"
+                               jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragMemberInTeam(member, team)'}"
                                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
                                ng-click="selectMember(member)" ui-sref="main.studentProfile">
                                 <!--mypopover data-html="true" data-original-title="dsafsa"-->

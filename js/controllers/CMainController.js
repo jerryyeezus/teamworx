@@ -5,10 +5,10 @@
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
     'question_service', 'drag_student_service', 'delete_team_member_service','add_question_service', 'edit_question_service',
-    'answer_service',
+    'answer_service', 'delete_group_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
               $modal, $window, $fileUpload, toaster, ass_service, group_service, question_service, drag_student_service,
-              delete_team_member_service, add_question_service, edit_question_service, answer_service) {
+              delete_team_member_service, add_question_service, edit_question_service, answer_service, delete_group_service) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
@@ -24,6 +24,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         delete_team_member_service.init($scope);
         add_question_service.init($scope);
         edit_question_service.init($scope);
+        delete_group_service.init($scope);
 
         $scope.isUploaded = false;
         $scope.changeBackButton = false;
@@ -84,6 +85,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.$on(delete_team_member_service.dirty(), function() {
             toaster.pop('success', 'The student is dragged and dropped to the new group');
+            $scope.updateGroup();
+        });
+
+        $scope.$on(delete_group_service.dirty(), function() {
+            toaster.pop('success', 'Group Deleted');
             $scope.updateGroup();
         });
 
@@ -240,10 +246,15 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.deleteMember = true;
         };
 
-        $scope.startCallbackGroupProfile = function(event, ui, stu, dragTeam) {
+        $cookieStore.put('deleteMember', false);
+        $cookieStore.put('deleteTeam', false);
+
+        $scope.startDragMemberInTeam = function(event, ui, stu, dragTeam) {
             console.log('You started draggin: ');
             $cookieStore.put('dragStudent', stu);
             $cookieStore.put('dragTeam', dragTeam);
+            $cookieStore.put('deleteTeam', false);
+            $cookieStore.put('deleteMember', true);
             console.log(stu.email);
         };
 
@@ -270,9 +281,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
                 return modalInstance.result;
             };
+
         });
 
-        $scope.deleteDragMember  = function() {
+        $scope.deleteDragTeamOrMember  = function() {
             var modalInstance = $modal.open({
                 templateUrl: 'partials/delete_team_member.html',
                 controller: 'DeleteTeamMemberController'
@@ -283,6 +295,13 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.viewAssText = function() {
 
         };
+
+        $scope.startDragGroup = function(dragTeam) {
+            console.log('You started draggin: ');
+            $cookieStore.put('deleteTeam', true);
+            $cookieStore.put('deleteMember', false);
+            $cookieStore.put('dragTeam', dragTeam);
+        }
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();
