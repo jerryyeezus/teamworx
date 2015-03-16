@@ -107,6 +107,18 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.updateAnswer();
         });
 
+        $scope.tabSelect = function (which_tab) {
+            switch (which_tab) {
+                case 'TEAM':
+                    toaster.pop('alert', 'team tab selected');
+                    break;
+                case 'TEAM.ADMIN':
+                    toaster.pop('alert', 'team.admin tab selected');
+                    break;
+            }
+
+        };
+
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
             $scope.assignments = response.data;
