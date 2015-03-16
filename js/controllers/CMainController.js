@@ -79,12 +79,12 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         });
 
         $scope.$on(drag_student_service.dirty(), function() {
-            toaster.pop('success', 'The student is dragged and dropped to the new group');
+            toaster.pop('success', 'Student Dragged/Dropped');
             $scope.updateGroup();
         });
 
         $scope.$on(delete_team_member_service.dirty(), function() {
-            toaster.pop('success', 'The student is dragged and dropped to the new group');
+            toaster.pop('success', 'Student Removed');
             $scope.updateGroup();
         });
 
@@ -94,17 +94,17 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         });
 
         $scope.$on(group_service.dirty(), function () {
-            toaster.pop('success', 'Group created!');
+            toaster.pop('success', 'Group Created!');
             $scope.updateGroup();
         });
 
         $scope.$on(question_service.dirty(), function () {
-            toaster.pop('success', 'Question created!');
+            toaster.pop('success', 'Question Created!');
             $scope.updateQuestion();
         });
 
         $scope.$on(question_service.dirty(), function () {
-            toaster.pop('success', 'Answer created!');
+            toaster.pop('success', 'Answer Created!');
             $scope.updateAnswer();
         });
 
@@ -243,7 +243,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             console.log('You started draggin: ');
             $cookieStore.put('dragStudent', stu);
             console.log(stu.email);
-            $scope.deleteMember = true;
+            $cookieStore.put('deleteTeam', false);
+            $cookieStore.put('deleteMember', true);
+            //$scope.deleteMember = true;
         };
 
         $cookieStore.put('deleteMember', false);
@@ -274,12 +276,20 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 $cookieStore.put('dropTeam', dropTeam);
                 console.log($cookieStore.get('dropTeam').name);
                 console.log('line 246');
+                $cookieStore.put('sameTeam', false);
+                $cookieStore.get('dropTeam').members.forEach(function (mem) {
+                    if (mem.email == $cookieStore.get('dragStudent').email) {
+                        $cookieStore.put('sameTeam', true);
+                    }
+                });
+                console.log($cookieStore.get('sameTeam'));
+                console.log('It should return false');
                 var modalInstance = $modal.open({
                     templateUrl: 'partials/drag_student.html',
                     controller: 'DragStudentController'
                 });
-
                 return modalInstance.result;
+
             };
 
         });

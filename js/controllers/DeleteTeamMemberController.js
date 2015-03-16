@@ -4,10 +4,10 @@
 mainControllers.controller('DeleteTeamMemberController',
     ['$http', '$location', 'Authentication', '$scope',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'delete_team_member_service',
-        'delete_team_service',
+        'delete_group_service',
         function ($http, $location, Authentication, $scope,
                   $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance, delete_team_member_service,
-                  delete_team_service) {
+                  delete_group_service) {
             $scope.dragStudent = $cookieStore.get('dragStudent');
             $scope.dragTeam = $cookieStore.get('dragTeam');
             $scope.course = $cookieStore.get('course');
@@ -39,7 +39,7 @@ mainControllers.controller('DeleteTeamMemberController',
                     };
                     var responsePromise = $http.put(Authentication.server_url + 'team/', dataObject, {});
                     responsePromise.success(function () {
-                        delete_team_service.setDirty();
+                        delete_group_service.setDirty();
                     });
                     responsePromise.error(function (data) {
                         console.log(data);

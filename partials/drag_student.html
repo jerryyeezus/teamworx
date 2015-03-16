@@ -1,5 +1,6 @@
 <div class="modal-body">
-    <b>Are you sure that you want to add student {{dragStudent.name}} to Team {{dropTeam.number}}</b>
+    <b ng-if = sameTeam> {{dragStudent.name}} is already in Team {{dropTeam.number}}. Please drag/drop again </b>
+    <b ng-if = !sameTeam>Are you sure that you want to add student {{dragStudent.name}} to Team {{dropTeam.number}}</b>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">OK</button>
