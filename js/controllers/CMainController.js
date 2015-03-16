@@ -296,11 +296,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         };
 
-        $scope.startDragGroup = function(dragTeam) {
-            console.log('You started draggin: ');
+        $scope.startDragTeam = function(event, ui, dragGroup) {
             $cookieStore.put('deleteTeam', true);
             $cookieStore.put('deleteMember', false);
-            $cookieStore.put('dragTeam', dragTeam);
+            $cookieStore.put('dragTeam', dragGroup);
         }
         /* Logout function */
         $scope.logout = function () {

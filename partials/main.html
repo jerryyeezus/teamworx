@@ -215,18 +215,22 @@
                 <!--</div>-->
 
                 <!-- Currently not implemented -->
+
+                <!--ata-drag="true" jqyoui-draggable="{animate: true, placeholder: 'keep',-->
+                <!--onStart:'startDragTeam(team)'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">-->
                 <div class="groupProfile" data-drop="true" ng-repeat="team in teams"
                      ng-class="divClass(team)"
                      ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
                      ng-mouseenter="hoverIn(team)"
                      ng-click="selectTeam(team)" ui-sref="main.groupProfile">
-                    <div class="groupProfileHeader" data-drag="true"
-                         jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragGroup(team)'}"
-                         data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                        <h3>
+
+                    <div class="groupProfileHeader" >
+                        <h3 data-drag="true" jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
+                            data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                             <span ng-hide="'Team ' + team.number == team.name">
                             Team {{team.number}}: </span>
-                            {{team.name || 'Unnamed Team'}}</h3>
+                            {{team.name || 'Unnamed Team'}}
+                        </h3>
                     </div>
 
                     <div class="groupProfileContent">

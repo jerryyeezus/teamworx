@@ -1,5 +1,6 @@
 <div class="modal-body">
-    <b>Are you sure that you want to take {{dragStudent.name}} out of Team {{dragTeam.number}} ?</b>
+    <b ng-if="delMember" >Are you sure that you want to take {{dragStudent.name}} out of Team {{dragTeam.number}} ?</b>
+    <b ng-if="delTeam" >Are you sure that you want to delete Team {{dragTeam.number}} ?</b>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">OK</button>

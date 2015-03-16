@@ -10,7 +10,7 @@ myApp.factory('delete_group_service', ['$cookieStore', function($cookieStore) {
     };
 
     function dirty() {
-        return 'delete_team_dirty';
+        return 'delete_group_dirty';
     }
 
     function init(scope) {
