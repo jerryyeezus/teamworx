@@ -123,7 +123,15 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         var member = $scope.teams[i].members[j];
                         $scope.teams[i].members[j] = $scope.students[student_map[member]];
                     }
-                }
+                };
+                $scope.haveGroup = false;
+                $scope.teams.forEach(function (team) {
+                    team.members.forEach(function(mem) {
+                        if (mem.email == $scope.user.email) {
+                            $scope.haveGroup = true;
+                        };
+                    });
+                });
             });
         });
 
@@ -174,9 +182,16 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         var member = $scope.teams[i].members[j];
                         $scope.teams[i].members[j] = $scope.students[student_map[member]];
                     }
-                }
-                console.log('ayyyyyyyy');
-                console.log($scope.teams.length);
+                };
+
+                $scope.haveGroup = false;
+                $scope.teams.forEach(function (team) {
+                    team.members.forEach(function(mem) {
+                        if (mem.email == $scope.user.email) {
+                            $scope.haveGroup = true;
+                        };
+                    });
+                });
             });
         };
 
@@ -310,6 +325,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $cookieStore.put('deleteMember', false);
             $cookieStore.put('dragTeam', dragGroup);
         };
+
 
         /* Logout function */
         $scope.logout = function () {
