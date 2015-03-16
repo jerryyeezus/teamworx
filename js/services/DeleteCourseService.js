@@ -1,4 +1,4 @@
-myApp.factory('add_question_service', ['$cookieStore', function() {
+myApp.factory('delete_course_service', ['$cookieStore', function() {
     var _scope;
     return {
         init: init,
@@ -7,7 +7,7 @@ myApp.factory('add_question_service', ['$cookieStore', function() {
     };
 
     function dirty() {
-        return 'add_question_dirty';
+        return 'delete_course_dirty';
     };
 
     function init(scope) {

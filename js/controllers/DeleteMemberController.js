@@ -1,8 +1,3 @@
-
-/**
- * Created by yee on 3/1/15.
- */
-
 mainControllers.controller('DeleteMemberController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
         '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'ass_service',
@@ -33,13 +28,9 @@ mainControllers.controller('DeleteMemberController',
                 toaster.pop('success', 'Successfully Deleted');
             };
 
-            //if ($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1]
-            //    == ('STUDENT|' + $cookieStore.get('user_email')))
-            //    $scope.isOwner = true
-            //else $scope.isOwner = false;
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
-            }
+            };
             $scope.updateGroup = function () {
                 $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                     $scope.teams = response.data;

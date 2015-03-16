@@ -1,8 +1,3 @@
-/**
- * Created by yee on 3/1/15.
- */
-
-
 mainControllers.controller('AddCourseController',
     ['$http', '$location', 'Authentication', '$scope',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'portal_service',
@@ -30,19 +25,16 @@ mainControllers.controller('AddCourseController',
 
                         portal_service.setCourses(course_list);
                         portal_service.setDirty();
-                        //$rootScope.$broadcast('courseAdded', course_list);
                     });
 
                 });
-                responsePromise.error(function (data, status, headers, config) {
+                responsePromise.error(function () {
                     alert("Submitting form failed!");
                 });
                 $modalInstance.dismiss('cancel');
-                //$window.location.href = '#/portal';
             };
 
             $scope.cancel = function () {
-                //$window.location.href = '#/portal';
                 $modalInstance.dismiss('cancel');
             };
 

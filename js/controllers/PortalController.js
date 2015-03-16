@@ -1,12 +1,12 @@
-/**
- * Created by yee on 3/1/15.
- */
-
 mainControllers.controller('PortalController',
     ['$http', '$location', 'Authentication', '$scope',
-        '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', 'portal_service',
+        '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', 'portal_service', 'delete_course_service',
         function ($http, $location, Authentication, $scope, $rootScope,
-                  $cookieStore, $modal, $window, toaster, portal_service) {
+                  $cookieStore, $modal, $window, toaster, portal_service, delete_course_service) {
+
+            $scope.user = Authentication.getAuthenticatedAccount();
+            $scope.isProfessor = ($scope.user.user_type == 'INSTRUCTOR');
+            $scope.isStudent = ($scope.user.user_type == 'STUDENT');
 
             $scope.updateProfile = function (which_field, data, user_type, user_email) {
                 var dataObject = {};
@@ -35,6 +35,7 @@ mainControllers.controller('PortalController',
             });
 
             portal_service.init($scope);
+            delete_course_service.init($scope);
 
             $scope.$on(portal_service.dirty(), function () {
                 $scope.course_list = portal_service.getCourses();
@@ -42,7 +43,7 @@ mainControllers.controller('PortalController',
             });
 
 
-            $scope.$on(portal_service.dirty(), function () {
+            $scope.$on(delete_course_service.dirty(), function () {
                 $scope.course_list = portal_service.getCourses();
                 toaster.pop('success', 'Course has been deleted!');
             });
@@ -50,6 +51,18 @@ mainControllers.controller('PortalController',
             $scope.selectCourse = function (course) {
                 $cookieStore.put('course', course);
                 document.location.href = "#main/" + course.pk;
+            };
+
+            $scope.startDragCourse = function(event, ui, dragCourse) {
+                $cookieStore.put('dragCourse', dragCourse);
+            };
+
+            $scope.deleteCourse = function() {
+                var modalInstance = $modal.open({
+                    templateUrl: 'partials/delete_class.html',
+                    controller: 'DeleteCourseController'
+                });
+                return modalInstance.result;
             };
 
             /* Logout function */

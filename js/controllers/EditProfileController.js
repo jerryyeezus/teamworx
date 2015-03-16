@@ -1,8 +1,3 @@
-/**
- * Created by yee on 3/1/15.
- */
-
-
 mainControllers.controller('EditProfileController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance',
         function ($http, $location, Authentication, $scope, $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance) {

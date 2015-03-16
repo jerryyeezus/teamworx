@@ -1,6 +1,3 @@
-/**
- * Created by thangnguyen on 3/2/15.
- */
 mainControllers.controller('GroupProfileController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
@@ -9,8 +6,7 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
         $scope.team = $cookieStore.get('team');
-        console.log($scope.team.pk + 'line 12');
-
+        $scope.isLFM = $scope.team.lfm;
 
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
             var dataObject = {};
@@ -29,12 +25,9 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
             $scope.requesters = response.data;
         });
 
-
         $scope.sendJoinRequest = function() {
 
             var dataObject = {};
-
-
             dataObject['team'] = $scope.team.pk;
             dataObject['requester'] = 'STUDENT|' + $scope.user.email;
             console.log(dataObject);
@@ -86,30 +79,16 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
             toaster.pop('success', 'Accepted');
         };
 
-        //console.log($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1].email + 'line 50');
-        //console.log($cookieStore.get('user_email') + 'line 51');
-        //if ($cookieStore.get('team').members[$cookieStore.get('team').members.length - 1].email
-        //    == $cookieStore.get('user_email')) {
-        //    $scope.isOwner = true;
-        //    console.log($scope.isOwner + 'line 55');
-        //    } else {$scope.isOwner = false;}
-
-
         $scope.isMember = false;
-        console.log($scope.team.members);
-        console.log('line 104');
 
-        var i = 0;
-        for (; i < $scope.team.members.length; i++) {
-            if('STUDENT|' + $cookieStore.get('user_email') == $scope.team.members[i]) {
+        $scope.team.members.forEach(function (mem) {
+            if (mem.email == $scope.user.email) {
                 $scope.isMember = true;
-                console.log( $scope.isMember);
-                console.log('line 104');
             }
-        }
+        });
 
         if ($scope.user.user_type == 'INSTRUCTOR') {
-            $scope.isMember = true;
+            $scope.isMember = false;
         }
 
         $scope.selectMember = function(member) {
@@ -120,5 +99,14 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
                 $scope.teams = response.data;
             });
         };
+
+        $scope.hoverIn = function() {
+            this.hoverEdit = true;
+        };
+
+        $scope.hoverOut = function() {
+            this.hoverEdit = false;
+        };
+
     }]);
 

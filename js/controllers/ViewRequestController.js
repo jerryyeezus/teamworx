@@ -1,7 +1,4 @@
 /**
- * Created by thangnguyen on 3/14/15.
- */
-/**
  * Created by thangnguyen on 3/2/15.
  */
 mainControllers.controller('ViewRequestController', ['$http', '$stateParams', 'Authentication',

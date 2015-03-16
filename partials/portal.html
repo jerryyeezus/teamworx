@@ -1,5 +1,4 @@
-```1<!-- Navbar Begin -->
-<nav class="navbar navbar-inverse navbar-fixed-top" ng-hide="isActive('/login')" ng-controller="NavigationController">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -23,7 +22,6 @@
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a ui-sref="portal.delete_class" ng-show="user.user_type=='INSTRUCTOR'">Delete a Course</a></li>
                         <li><a href="">Change Password</a></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
@@ -60,9 +58,10 @@
                     <img src="img/edit.png"/>
                 </a>
             </div>
+
         </div>
 
-        <div class="professorInfoContent">
+        <div class="professorInfoContent" ng-if="isProfessor">
             <p>
                 <b>Linkedin:</b>
             <span e-form="linkedinBtnForm" style="color:darkslateblue; padding-right: 0.3em; word-wrap: break-word"
@@ -103,47 +102,34 @@
             </p>
         </div>
 
+        <div class="professorInfoContent" ng-if="isProfessor">
+            <p>
+                <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
+            </p>
+        </div>
         <div class="courseListContent">
             <h2 style="margin-top: -5px">My Courses:</h2>
             <div class="innerCourseListContent">
-                <li ng-repeat="course in course_list" style="list-style-type: none">
+                <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="isProfessor"
+                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
+                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                     <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
                         course.course_name}}</a></h3>
                     <h4>Instructor: {{ course.prof }}</h4>
                 </li>
             </div>
             <p class="addCourseButton" style="float: left; margin-top: 5px">
-                <button type="button" ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
+                <button type="button" ng-if="isProfessor" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
                     Add New Course
                 </button>
+
+                <button ng-if ="isProfessor" class="btn btn-warning btn-lg" data-drop="isProfessor" jqyoui-droppable="{beforeDrop: 'deleteCourse()'}">
+                    <span class="glyphicon glyphicon-trash"></span> Delete Course
+                </button>
             </p>
+
         </div>
     </div>
-
-    <!--<p class="editProfileButton">-->
-    <!--<button type="button" class="btn btn-primary btn-lg" ui-sref="portal.edit_profile">-->
-    <!--Edit Profile-->
-    <!--</button>-->
-    <!--</p>-->
-
-<!--
-    <div class="courseListContent">
-        <h1>My Courses:</h1>
-        <div class="innerCourseListContent">
-            <li ng-repeat="course in course_list" style="list-style-type: none">
-                <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
-                    course.course_name}}</a></h3>
-                <h4>Instructor: {{ course.prof }}</h4>
-            </li>
-        </div>
-        <p class="addCourseButton">
-            <button type="button" ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
-                Add New Course
-            </button>
-        </p>
-    </div>-->
-
 </div>
 
-<span data-drag="true" jqyoui-draggable>So you think you can drag</span>
 <div ui-view></div>

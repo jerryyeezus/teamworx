@@ -1,7 +1,3 @@
-/**
- * Created by thangnguyen on 3/3/15.
- */
-
 mainControllers.controller('EditGroupProfileController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance',
         function ($http, $location, Authentication, $scope, $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance) {

@@ -1,16 +1,15 @@
 <!doctype html>
 <div>
     <h2>List of Requests</h2>
-<div style="width: 50%; float:left">
+    <div style="width: 50%; float:left">
 
-<button class="btn btn-lg btn-info" ng-repeat="req in requesters" ng-click = "acceptRequest(req)"
-        style="margin: 0 auto;">Accept request {{req.requester}}</button>
-</div>
-<div style="width: 50%; float:right">
+        <button class="btn btn-lg btn-info" ng-repeat="req in requesters" ng-click = "acceptRequest(req)"
+            style="margin: 0 auto;">Accept request {{req.requester}}</button>
+    </div>
+    <div style="width: 50%; float:right">
 
-<button class="btn btn-lg btn-info" ng-repeat="req in requesters" ng-click = "denyJoinRequest(req)"
-        style="margin: 0 auto;">Deny request {{req.requester}}</button>
-</div>
-
+        <button class="btn btn-lg btn-info" ng-repeat="req in requesters" ng-click = "denyJoinRequest(req)"
+            style="margin: 0 auto;">Deny request {{req.requester}}</button>
+    </div>
 </div>
 </html>

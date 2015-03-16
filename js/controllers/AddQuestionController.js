@@ -1,6 +1,3 @@
-/**
- * Created by thangnguyen on 3/2/15.
- */
 mainControllers.controller('AddQuestionController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
         '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'question_service',

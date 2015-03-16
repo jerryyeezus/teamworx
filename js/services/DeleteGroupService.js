@@ -1,7 +1,4 @@
-/**
- * Created by thangnguyen on 3/13/15.
- */
-myApp.factory('delete_group_service', ['$cookieStore', function($cookieStore) {
+myApp.factory('delete_group_service', ['$cookieStore', function() {
     var _scope;
     return {
         init: init,
@@ -11,14 +8,13 @@ myApp.factory('delete_group_service', ['$cookieStore', function($cookieStore) {
 
     function dirty() {
         return 'delete_group_dirty';
-    }
+    };
 
     function init(scope) {
         _scope = scope;
-    }
+    };
 
     function setDirty() {
         _scope.$emit(dirty());
-    }
-
-}])
+    };
+}]);

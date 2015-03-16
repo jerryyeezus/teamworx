@@ -55,7 +55,6 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
         };
 
         $scope.submitAddForm = function () {
-            console.log('line 41 DO we get there');
             var dataObject = {
                 ass_fk: $cookieStore.get('assignment_pk'),
                 lo: $scope.addFormLo,
@@ -105,7 +104,6 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
 
 
         $scope.startCallback = function(event, ui, ques) {
-            console.log('You started draggin: ');
             $cookieStore.put('dragQuestion', ques);
         };
 

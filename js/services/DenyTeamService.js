@@ -1,16 +1,4 @@
-/**
- * Created by thangnguyen on 3/13/15.
- */
-/**
- * Created by thangnguyen on 3/13/15.
- */
-/**
- * Created by thangnguyen on 3/13/15.
- */
-/**
- * Created by thangnguyen on 3/13/15.
- */
-myApp.factory('deny_team_service', ['$cookieStore', function($cookieStore) {
+myApp.factory('deny_team_service', ['$cookieStore', function() {
     var _scope;
     return {
         init: init,

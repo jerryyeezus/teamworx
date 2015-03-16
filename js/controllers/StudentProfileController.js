@@ -10,7 +10,3 @@ mainControllers.controller('StudentProfileController', ['$http', '$stateParams',
         $scope.student = $cookieStore.get('student');
         $scope.member = $cookieStore.get('member');
     }]);
-
-/**
- * Created by thangnguyen on 3/2/15.
- */

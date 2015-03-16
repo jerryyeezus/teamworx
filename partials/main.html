@@ -1,5 +1,4 @@
-<!-- Navbar Begin -->
-<nav class="navbar navbar-inverse navbar-fixed-top" ng-hide="isActive('/login')" ng-controller="NavigationController">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand"><img id="logo" src="img/team_logo.png"></a>
@@ -36,7 +35,7 @@
                             <a ui-sref="main.question"> View Questions </a>
                         </li>
                         <li>
-                            <a ng-show="user.user_type=='STUDENT'" ui-sref="main.answer_question"> Answer Questions to
+                            <a ng-if="isStudent" ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
                                 Unlock Matches</a>
                         </li>
                     </ul>
@@ -54,14 +53,14 @@
                             </a>
                         </li>
                         <li>
-                            <button class="btn btn-sm" ng-show="user.user_type=='INSTRUCTOR'"
+                            <button class="btn btn-sm" ng-if="isProfessor"
                                     ui-sref="main.add_assignment"><b>+ New Assignment</b></button>
                         </li>
 
                     </ul>
                 </li>
 
-                <li class="dropdown" ng-show="user.user_type=='STUDENT'" id="groupMenu">
+                <li class="dropdown" ng-if="isStudent" id="groupMenu">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Group <span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -135,7 +134,7 @@
             </span>
             <!--ng-if ="student.lfg[assignment.pk] == search.lfg"-->
             <ul style="list-style-type:none;">
-                <li data-drag="true" ng-repeat="student in students | filter: search"
+                <li data-drag="isProfessor" ng-repeat="student in students | filter: search"
                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                     <div class="studentProfile">
@@ -145,7 +144,6 @@
                         <a ng-click="selectStudent()" ui-sref="main.studentProfile" class="student-main">
                             {{student.name}}
                         </a>
-                        <!--{{student.skills_str}}-->
                     </div>
                 </li>
             </ul>
@@ -181,19 +179,19 @@
                 <!--</button>-->
                 <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
 
-                <button ng-show="isUploaded  && assignments.length > 0 && user.user_type=='INSTRUCTOR'"
-                        ng-click="randomAssign()" ng-show="user.user_type=='INSTRUCTOR'"
+        <button ng-show="isUploaded  && assignments.length > 0 && isProfessor"
+                ng-click="randomAssign()" ng-if="isProfessor" class="btn btn-primary btn-small"
                         class="btn btn-primary btn-small"
                         style="position:relative; top:auto;">
                     Auto Group
                 </button>
 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+        <button type="button" ng-if="!haveGroup" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
                         ui-sref="main.add_group">
                     <span class="glyphicon glyphicon-plus"></span> Team
                 </button>
 
-                <button class="btn btn-warning" data-drop="true"
+        <button ng-if="isProfessor" class="btn btn-warning" data-drop="isProfessor" jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}">
                         jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}">
                     <span class="glyphicon glyphicon-trash"></span> Delete
                 </button>
@@ -214,26 +212,14 @@
                         </div>
                     </li>
                     <li ng-show="assignments.length > 0">
-                        <!--<div class="groupProfile">-->
-                        <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
-                        <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"-->
-                        <!--ui-sref="main.add_group">-->
-                        <!--Create New Team-->
-                        <!--</button>-->
-                        <!--</div>-->
-
-                        <!-- Currently not implemented -->
-
-                        <!--ata-drag="true" jqyoui-draggable="{animate: true, placeholder: 'keep',-->
-                        <!--onStart:'startDragTeam(team)'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">-->
-                        <div class="groupProfile" data-drop="true" ng-repeat="team in teams"
+                <div class="groupProfile" data-drop="isProfessor" ng-repeat="team in teams"
                              ng-class="divClass(team)"
                              ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
                              ng-mouseenter="hoverIn(team)"
                              ng-click="selectTeam(team)" ui-sref="main.groupProfile">
 
                             <div class="groupProfileHeader">
-                                <h3 data-drag="true"
+                        <h3 data-drag="isProfessor" jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                             <span ng-hide="'Team ' + team.number == team.name">
@@ -243,9 +229,6 @@
                             </div>
 
                             <div class="groupProfileContent">
-                                <!--<p>-->
-                                <!--{{team.description || "No"}}-->
-                                <!--</p>-->
                                 <span style="font-style: italic; font-size: large; text-decoration: underline">Members</span>
 
                                 <div ng-repeat="member in team.members">
@@ -259,14 +242,11 @@
                                   popover-title="{{member.name}}"
                                   popover-placement="right"
                                   popover-label="label">
-                            <a style="color: white" data-drag="true"
+                            <a style="color: white" data-drag="isProfessor"
                                jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragMemberInTeam(member, team)'}"
                                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
                                ng-click="selectMember(member)" ui-sref="main.studentProfile">
-                                <!--mypopover data-html="true" data-original-title="dsafsa"-->
-                                <!--data-content="asdfsa">-->
                                 {{member.name || member.split('|')[1]+'*'}}
-                                <!--{{member}}-->
                             </a>
                             </span>
                                 </div>

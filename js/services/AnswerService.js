@@ -1,11 +1,4 @@
-/**
- * Created by yee on 3/15/15.
- */
-/**
- * Created by yee on 3/1/15.
- */
-
-myApp.factory('answer_service', ['$cookieStore', function($cookieStore) {
+myApp.factory('answer_service', ['$cookieStore', function() {
     var _scope;
     return {
         init: init,

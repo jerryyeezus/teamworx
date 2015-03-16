@@ -1,5 +1,4 @@
-
-myApp.factory('edit_question_service', ['$cookieStore', function($cookieStore) {
+myApp.factory('edit_question_service', ['$cookieStore', function() {
     var _scope;
     return {
         init: init,

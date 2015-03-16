@@ -1,7 +1,3 @@
-/**
- * Created by yee on 3/1/15.
- */
-
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
     'question_service', 'drag_student_service', 'delete_team_member_service','add_question_service', 'edit_question_service',
@@ -12,6 +8,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
+        $scope.isProfessor = ($scope.user.user_type == 'INSTRUCTOR');
+        $scope.isStudent = ($scope.user.user_type == 'STUDENT');
         $scope.assignment = $cookieStore.get('assignment');
         var which_class = $stateParams.which_class;
         $scope.my_pk = which_class;
@@ -28,6 +26,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.isUploaded = false;
         $scope.changeBackButton = false;
+        $scope.isCollapsed = true;
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
             $scope.students = response.data;
@@ -124,7 +123,15 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         var member = $scope.teams[i].members[j];
                         $scope.teams[i].members[j] = $scope.students[student_map[member]];
                     }
-                }
+                };
+                $scope.haveGroup = false;
+                $scope.teams.forEach(function (team) {
+                    team.members.forEach(function(mem) {
+                        if (mem.email == $scope.user.email) {
+                            $scope.haveGroup = true;
+                        };
+                    });
+                });
             });
         });
 
@@ -175,9 +182,16 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         var member = $scope.teams[i].members[j];
                         $scope.teams[i].members[j] = $scope.students[student_map[member]];
                     }
-                }
-                console.log('ayyyyyyyy');
-                console.log($scope.teams.length);
+                };
+
+                $scope.haveGroup = false;
+                $scope.teams.forEach(function (team) {
+                    team.members.forEach(function(mem) {
+                        if (mem.email == $scope.user.email) {
+                            $scope.haveGroup = true;
+                        };
+                    });
+                });
             });
         };
 
@@ -310,7 +324,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $cookieStore.put('deleteTeam', true);
             $cookieStore.put('deleteMember', false);
             $cookieStore.put('dragTeam', dragGroup);
-        }
+        };
+
+
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();

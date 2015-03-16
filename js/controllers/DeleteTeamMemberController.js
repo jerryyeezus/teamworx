@@ -1,6 +1,3 @@
-/**
- * Created by thangnguyen on 3/11/15.
- */
 mainControllers.controller('DeleteTeamMemberController',
     ['$http', '$location', 'Authentication', '$scope',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'delete_team_member_service',
@@ -46,7 +43,7 @@ mainControllers.controller('DeleteTeamMemberController',
                         console.log(dataObject);
                     });
                     ($cookieStore.put('deleteTeam', false));
-                }
+                };
 
 
                 $modalInstance.close();
