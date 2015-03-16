@@ -1,6 +1,3 @@
-/**
- * Created by thangnguyen on 3/2/15.
- */
 mainControllers.controller('GroupProfileController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
@@ -9,6 +6,7 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
         $scope.team = $cookieStore.get('team');
+        $scope.isLFM = $scope.team.lfm;
 
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
             var dataObject = {};

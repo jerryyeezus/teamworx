@@ -26,6 +26,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.isUploaded = false;
         $scope.changeBackButton = false;
+        $scope.isCollapsed = true;
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
             $scope.students = response.data;
