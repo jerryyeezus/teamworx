@@ -60,9 +60,10 @@
                     <img src="img/edit.png"/>
                 </a>
             </div>
+
         </div>
 
-        <div class="professorInfoContent">
+        <div class="professorInfoContent" ng-show="user.user_type !='INSTRUCTOR'">
             <p>
                 <b>Linkedin:</b>
             <span e-form="linkedinBtnForm" style="color:darkslateblue; padding-right: 0.3em; word-wrap: break-word"
@@ -103,6 +104,11 @@
             </p>
         </div>
 
+        <div class="professorInfoContent" ng-show="user.user_type =='INSTRUCTOR'">
+            <p>
+                <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
+            </p>
+        </div>
         <div class="courseListContent">
             <h2 style="margin-top: -5px">My Courses:</h2>
             <div class="innerCourseListContent">
@@ -123,6 +129,7 @@
                     <span class="glyphicon glyphicon-trash"></span> Delete Course
                 </button>
             </p>
+
         </div>
     </div>
 
