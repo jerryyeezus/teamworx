@@ -500,7 +500,8 @@ a:active {
     border: 1px solid black;
     border-radius: 3px;
     word-wrap: normal;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     text-overflow: ellipsis;
     width: 683px;
     min-height: 70px;
@@ -517,14 +518,14 @@ a:active {
     background-color: #1e1e1b;
     border-radius: 3px;
     word-wrap: normal;
-    overflow: auto;
+
     text-overflow: ellipsis;
     width: 100%;
     min-height: 20px;
     height: 65%;
     max-height: 65%;
     margin: 10px 0px 4px 0px;
-    padding: 0px 5px 5px 1.5em;
+    padding: 3px 5px 5px 1.5em;
     color: #ffffff;
 }
 
