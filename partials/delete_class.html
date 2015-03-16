@@ -1,23 +1,8 @@
-<div class="modal-header">
-    <h3>Deleting a New Course</h3>
+<div class="modal-body">
+Are you sure that you want to delete course {{deleteCourse.course_dept_and_id}}
+
 </div>
-<form>
-    <div class="modal-body">
-        <label>
-            Course Department
-        </label>
-        <input class="form-control" type="text" id="course_dept"
-               ng-model="myForm.course_dept" ng-minlength="0" ng-maxlength="20" placeholder="AE, CS, ECE, etc...">
-        <label>
-            Course Number
-        </label>
-        <input class="form-control" type="text" id="course_id" ng-model="myForm.course_id"
-               ng-minlength="0" ng-maxlength="20" placeholder="1332">
-
-    </div>
-
-    <div class="modal-footer">
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-warning" type="submit" ng-click="submitTheForm(myForm)"> Delete </button>
-    </div>
-</form>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

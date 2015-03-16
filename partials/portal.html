@@ -106,7 +106,9 @@
         <div class="courseListContent">
             <h2 style="margin-top: -5px">My Courses:</h2>
             <div class="innerCourseListContent">
-                <li ng-repeat="course in course_list" style="list-style-type: none">
+                <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="true"
+                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
+                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                     <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
                         course.course_name}}</a></h3>
                     <h4>Instructor: {{ course.prof }}</h4>
@@ -115,6 +117,10 @@
             <p class="addCourseButton" style="float: left; margin-top: 5px">
                 <button type="button" ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
                     Add New Course
+                </button>
+
+                <button class="btn btn-warning btn-lg" data-drop="true" jqyoui-droppable="{beforeDrop: 'deleteCourse()'}">
+                    <span class="glyphicon glyphicon-trash"></span> Delete Course
                 </button>
             </p>
         </div>
@@ -145,5 +151,4 @@
 
 </div>
 
-<span data-drag="true" jqyoui-draggable>So you think you can drag</span>
 <div ui-view></div>

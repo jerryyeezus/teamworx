@@ -12,27 +12,17 @@
 mainControllers.controller('DeleteCourseController',
     ['$http', '$location', 'Authentication', '$scope',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'portal_service',
+        'delete_course_service',
         function ($http, $location, Authentication, $scope,
-                  $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance, portal_service) {
+                  $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance, portal_service, delete_course_service) {
 
             $scope.the_user = Authentication.getAuthenticatedAccount();
             $scope.user = Authentication.getAuthenticatedAccount();
-            $scope.pk = 2;
+            $scope.deleteCourse = $cookieStore.get('dragCourse');
 
-            $scope.submitTheForm = function (formData) {
-                $http.get(Authentication.server_url + 'courses/'+ $scope.user.email).then(function (response) {
-                    var course_list = response.data;
-                    $scope.course_list = course_list;
-                });
+            $scope.ok = function () {
 
-                var course;
-                for (course in $scope.course_list) {
-                    if (course.course_dept_and_id == (formData.course_dept + ' ' + formData.course_id)) {
-                        $scope.pk = course.pk;
-                    }
-                }
-
-                var dataObject = {pk : $scope.pk};
+                var dataObject = {pk : $scope.deleteCourse.pk};
                 console.log(dataObject);
                 var responsePromise = $http.put(Authentication.server_url + 'add_courses/', dataObject);
                 responsePromise.success(function () {
@@ -43,24 +33,19 @@ mainControllers.controller('DeleteCourseController',
                         course_list.forEach(function (course) {
                             course.prof = course.course_professor.split("|")[1];
                         });
-
                         portal_service.setCourses(course_list);
-                        portal_service.setDirty();
-                        //$rootScope.$broadcast('courseAdded', course_list);
+                        delete_course_service.setDirty();
                     });
 
                 });
-                responsePromise.error(function (data, status, headers, config) {
+                responsePromise.error(function () {
                     alert("Submitting form failed!");
                     console.log(dataObject);
                 });
+                $modalInstance.close();
                 $modalInstance.dismiss('cancel');
-                //$window.location.href = '#/portal';
             };
-
             $scope.cancel = function () {
-                //$window.location.href = '#/portal';
                 $modalInstance.dismiss('cancel');
             };
-
         }]);
