@@ -23,7 +23,6 @@
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a ui-sref="portal.delete_class" ng-show="user.user_type=='INSTRUCTOR'">Delete a Course</a></li>
                         <li><a href="">Change Password</a></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
@@ -112,7 +111,7 @@
         <div class="courseListContent">
             <h2 style="margin-top: -5px">My Courses:</h2>
             <div class="innerCourseListContent">
-                <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="true"
+                <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="user.user_type=='INSTRUCTOR'"
                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                     <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
@@ -125,37 +124,13 @@
                     Add New Course
                 </button>
 
-                <button class="btn btn-warning btn-lg" data-drop="true" jqyoui-droppable="{beforeDrop: 'deleteCourse()'}">
+                <button ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-warning btn-lg" data-drop="user.user_type=='INSTRUCTOR'" jqyoui-droppable="{beforeDrop: 'deleteCourse()'}">
                     <span class="glyphicon glyphicon-trash"></span> Delete Course
                 </button>
             </p>
 
         </div>
     </div>
-
-    <!--<p class="editProfileButton">-->
-    <!--<button type="button" class="btn btn-primary btn-lg" ui-sref="portal.edit_profile">-->
-    <!--Edit Profile-->
-    <!--</button>-->
-    <!--</p>-->
-
-<!--
-    <div class="courseListContent">
-        <h1>My Courses:</h1>
-        <div class="innerCourseListContent">
-            <li ng-repeat="course in course_list" style="list-style-type: none">
-                <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
-                    course.course_name}}</a></h3>
-                <h4>Instructor: {{ course.prof }}</h4>
-            </li>
-        </div>
-        <p class="addCourseButton">
-            <button type="button" ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
-                Add New Course
-            </button>
-        </p>
-    </div>-->
-
 </div>
 
 <div ui-view></div>
