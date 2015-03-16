@@ -1,8 +1,5 @@
 
 <toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
-
-<!--<div class="container-fluid" id="bgPageGroupProfile"></div>-->
-
 <div class="container-fluid" id="pageGroupProfileFull">
     <div class="container-fluid" id="pageGroupProfileHeader">
 
@@ -47,9 +44,6 @@
             <h3>Members</h3>
             <ul style="list-style-type: none; margin: 0px; padding: 0px;">
                 <div class="studentProfile">
-                    <!--<img src="img/no_profile.png" class="imgStudent"/>-->
-                    <!--<img src="img/no_profile.png" class="imgStudent">-->
-                    <!--<a class="student-main" ng-click ="selectStudent(member)" ng-repeat="member in team.members">{{member}}</a>-->
                     <a class="student-main" ui-sref ="main.studentProfile"
                        ng-repeat="member in team.members" ng-click ="selectMember(member)">{{member.name}} </br> </a>
                 </div>

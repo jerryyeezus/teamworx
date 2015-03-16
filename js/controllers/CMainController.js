@@ -8,6 +8,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
+        $scope.isProfessor = ($scope.user.user_type == 'INSTRUCTOR');
+        $scope.isStudent = ($scope.user.user_type == 'STUDENT');
         $scope.assignment = $cookieStore.get('assignment');
         var which_class = $stateParams.which_class;
         $scope.my_pk = which_class;
@@ -307,6 +309,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $cookieStore.put('deleteMember', false);
             $cookieStore.put('dragTeam', dragGroup);
         };
+
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();

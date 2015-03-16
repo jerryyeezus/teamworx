@@ -1,5 +1,4 @@
-```1<!-- Navbar Begin -->
-<nav class="navbar navbar-inverse navbar-fixed-top" ng-hide="isActive('/login')" ng-controller="NavigationController">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -62,7 +61,7 @@
 
         </div>
 
-        <div class="professorInfoContent" ng-show="user.user_type !='INSTRUCTOR'">
+        <div class="professorInfoContent" ng-if="isProfessor">
             <p>
                 <b>Linkedin:</b>
             <span e-form="linkedinBtnForm" style="color:darkslateblue; padding-right: 0.3em; word-wrap: break-word"
@@ -103,7 +102,7 @@
             </p>
         </div>
 
-        <div class="professorInfoContent" ng-show="user.user_type =='INSTRUCTOR'">
+        <div class="professorInfoContent" ng-if="isProfessor">
             <p>
                 <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
             </p>
@@ -111,7 +110,7 @@
         <div class="courseListContent">
             <h2 style="margin-top: -5px">My Courses:</h2>
             <div class="innerCourseListContent">
-                <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="user.user_type=='INSTRUCTOR'"
+                <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="isProfessor"
                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                     <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
@@ -120,11 +119,11 @@
                 </li>
             </div>
             <p class="addCourseButton" style="float: left; margin-top: 5px">
-                <button type="button" ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
+                <button type="button" ng-if="isProfessor" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
                     Add New Course
                 </button>
 
-                <button ng-show="user.user_type=='INSTRUCTOR'" class="btn btn-warning btn-lg" data-drop="user.user_type=='INSTRUCTOR'" jqyoui-droppable="{beforeDrop: 'deleteCourse()'}">
+                <button ng-if ="isProfessor" class="btn btn-warning btn-lg" data-drop="isProfessor" jqyoui-droppable="{beforeDrop: 'deleteCourse()'}">
                     <span class="glyphicon glyphicon-trash"></span> Delete Course
                 </button>
             </p>

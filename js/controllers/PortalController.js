@@ -4,6 +4,10 @@ mainControllers.controller('PortalController',
         function ($http, $location, Authentication, $scope, $rootScope,
                   $cookieStore, $modal, $window, toaster, portal_service, delete_course_service) {
 
+            $scope.user = Authentication.getAuthenticatedAccount();
+            $scope.isProfessor = ($scope.user.user_type == 'INSTRUCTOR');
+            $scope.isStudent = ($scope.user.user_type == 'STUDENT');
+
             $scope.updateProfile = function (which_field, data, user_type, user_email) {
                 var dataObject = {};
                 dataObject['which_field'] = which_field;
