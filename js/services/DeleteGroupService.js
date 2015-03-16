@@ -1,7 +1,7 @@
 /**
  * Created by thangnguyen on 3/13/15.
  */
-myApp.factory('delete_team_service', ['$cookieStore', function($cookieStore) {
+myApp.factory('delete_group_service', ['$cookieStore', function($cookieStore) {
     var _scope;
     return {
         init: init,
