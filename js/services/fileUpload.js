@@ -1,6 +1,3 @@
-/**
- * Created by yee on 3/1/15.
- */
 myApp.service('fileUpload', ['$http', '$rootScope', 'Authentication', function ($http, $rootScope, Authentication) {
     this.uploadFileToUrl = function (file, uploadUrl, pk, rootScope) {
         var fd = new FormData();
@@ -18,5 +15,5 @@ myApp.service('fileUpload', ['$http', '$rootScope', 'Authentication', function (
             .error(function () {
                 rootScope.$broadcast('rosterUpdated', {'success': 'error'});
             });
-    }
+    };
 }]);

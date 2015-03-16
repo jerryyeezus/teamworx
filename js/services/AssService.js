@@ -1,13 +1,8 @@
-/**
- * Created by yee on 3/1/15.
- */
-
 myApp.factory('ass_service', ['$cookieStore', function($cookieStore) {
     var assignments = [];
 
     var assignment = [];
 
-    // the assignment number (NOT pk)
     var which_assignment = -1;
 
     var assignment_pk = -1;

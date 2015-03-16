@@ -1,14 +1,3 @@
-/**
- * Created by thangnguyen on 3/6/15.
- */
-/**
- * Created by thangnguyen on 3/5/15.
- */
-/**
- * Created by yee on 3/1/15.
- */
-
-
 mainControllers.controller('DeleteCourseController',
     ['$http', '$location', 'Authentication', '$scope',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'portal_service',

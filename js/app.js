@@ -169,17 +169,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        }, add_question = {
-            name: 'main.add_question',
-            url: '/add_question/:which_ass',
-            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-                $modal.open({
-                    templateUrl: 'partials/add_question.html',
-                    controller: 'AddQuestionController'
-                }).result.finally(function () {
-                        $state.go('^');
-                    });
-            }]
         }, drag_student = {
             name: 'main.drag_student',
             url: '/drag_student/:which_class',
@@ -250,7 +239,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(groupProfile);
     main_state.state(studentProfile);
     main_state.state(question);
-    main_state.state(add_question);
     main_state.state(answer_question);
     main_state.state(edit_group_profile);
     main_state.state(delete_member);

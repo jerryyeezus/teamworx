@@ -1,7 +1,3 @@
-/**
- * Created by yee on 3/1/15.
- */
-
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
     'question_service', 'drag_student_service', 'delete_team_member_service','add_question_service', 'edit_question_service',
@@ -310,7 +306,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $cookieStore.put('deleteTeam', true);
             $cookieStore.put('deleteMember', false);
             $cookieStore.put('dragTeam', dragGroup);
-        }
+        };
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();

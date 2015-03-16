@@ -143,7 +143,6 @@
                         <a ng-click="selectStudent()" ui-sref="main.studentProfile" class="student-main">
                             {{student.name}}
                         </a>
-                        <!--{{student.skills_str}}-->
                     </div>
                 </li>
             </ul>
@@ -206,18 +205,6 @@
                 </div>
             </li>
             <li ng-show="assignments.length > 0">
-                <!--<div class="groupProfile">-->
-                <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
-                <!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"-->
-                <!--ui-sref="main.add_group">-->
-                <!--Create New Team-->
-                <!--</button>-->
-                <!--</div>-->
-
-                <!-- Currently not implemented -->
-
-                <!--ata-drag="true" jqyoui-draggable="{animate: true, placeholder: 'keep',-->
-                <!--onStart:'startDragTeam(team)'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">-->
                 <div class="groupProfile" data-drop="true" ng-repeat="team in teams"
                      ng-class="divClass(team)"
                      ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
@@ -234,9 +221,6 @@
                     </div>
 
                     <div class="groupProfileContent">
-                        <!--<p>-->
-                        <!--{{team.description || "No"}}-->
-                        <!--</p>-->
                         <span style="font-style: italic; font-size: large; text-decoration: underline">Members</span>
 
                         <div ng-repeat="member in team.members">
@@ -254,10 +238,7 @@
                                jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragMemberInTeam(member, team)'}"
                                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
                                ng-click="selectMember(member)" ui-sref="main.studentProfile">
-                                <!--mypopover data-html="true" data-original-title="dsafsa"-->
-                                <!--data-content="asdfsa">-->
                                 {{member.name || member.split('|')[1]+'*'}}
-                                <!--{{member}}-->
                             </a>
                             </span>
                         </div>

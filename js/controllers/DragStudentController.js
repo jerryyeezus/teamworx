@@ -1,9 +1,3 @@
-/**
- * Created by thangnguyen on 3/13/15.
- */
-/**
- * Created by thangnguyen on 3/11/15.
- */
 mainControllers.controller('DragStudentController',
     ['$http', '$location', 'Authentication', '$scope',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'drag_student_service',

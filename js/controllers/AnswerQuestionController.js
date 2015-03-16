@@ -1,6 +1,3 @@
-/**
- * Created by thangnguyen on 3/2/15.
- */
 mainControllers.controller('AnswerQuestionController',
     ['$http', '$location', 'Authentication', '$scope', '$cookieStore',
         '$window', 'toaster', '$stateParams', 'question_service', 'ass_service', '$state', 'answer_service',

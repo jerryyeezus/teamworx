@@ -2,7 +2,6 @@
  *
  * Created by yee on 3/1/15.
  */
-
 mainControllers.controller('UploadController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
         '$modal', '$window', 'toaster', '$modalInstance', 'fileUpload',

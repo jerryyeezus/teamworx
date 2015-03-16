@@ -1,7 +1,3 @@
-/**
- * Created by yee on 3/1/15.
- */
-
 myApp.factory('Authentication', function ($http, $cookies) {
 
     return {
@@ -22,11 +18,11 @@ myApp.factory('Authentication', function ($http, $cookies) {
         }
 
         return JSON.parse($cookies.authenticatedAccount);
-    }
+    };
 
     function isAuthenticated() {
         return !!$cookies.authenticatedAccount;
-    }
+    };
 
     function login(formData) {
         console.log(server_url);
@@ -43,7 +39,7 @@ myApp.factory('Authentication', function ($http, $cookies) {
         function loginErrorFn(data, status, headers, config) {
             alert('Error: Couldn\'t log in');
         }
-    }
+    };
 
     function logout() {
         return $http.post(server_url + 'logout/')
@@ -58,7 +54,7 @@ myApp.factory('Authentication', function ($http, $cookies) {
         function logoutErrorFn(data, status, headers, config) {
             alert('Epic failure!');
         }
-    }
+    };
 
     function register(formData2) {
         console.log(formData2);
@@ -80,11 +76,11 @@ myApp.factory('Authentication', function ($http, $cookies) {
             alert('Register failed!\nError: ' + data['data']['status']);
             console.log(data['data']['message']);
         }
-    }
+    };
 
     function setAuthenticatedAccount(account) {
         $cookies.authenticatedAccount = JSON.stringify(account);
-    }
+    };
 
     function updateAuthenticatedAccount(which_field, data) {
         var cpy = $cookies.authenticatedAccount;
@@ -111,9 +107,9 @@ myApp.factory('Authentication', function ($http, $cookies) {
                 $cookies.authenticatedAccount = JSON.stringify(account);
                 break;
         }
-    }
+    };
 
     function unauthenticate() {
         delete $cookies.authenticatedAccount;
-    }
+    };
 });

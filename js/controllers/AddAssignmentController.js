@@ -1,7 +1,3 @@
-/**
- * Created by yee on 3/1/15.
- */
-
 mainControllers.controller('AddAssignmentController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
         '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'ass_service',
@@ -22,12 +18,12 @@ mainControllers.controller('AddAssignmentController',
                 };
 
                 var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
-                responsePromise.success(function (dataFromServer, status, headers, config) {
+                responsePromise.success(function (dataFromServer) {
                     ass_service.pushAssignment(dataObject);
                     ass_service.setAssignmentpk(dataFromServer.pk);
                     ass_service.setDirty();
                 });
-                responsePromise.error(function (data, status, headers, config) {
+                responsePromise.error(function () {
                     alert('bad')
                 });
                 $modalInstance.dismiss('cancel');

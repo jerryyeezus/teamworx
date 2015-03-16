@@ -1,7 +1,3 @@
-/**
- * Created by yee on 3/1/15.
- */
-
 mainControllers.controller('PortalController',
     ['$http', '$location', 'Authentication', '$scope',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', 'portal_service', 'delete_course_service',

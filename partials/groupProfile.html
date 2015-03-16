@@ -25,14 +25,14 @@
     <hr/>
     <div class="container-fluid" id="pageGroupProfileBody">
         <div class="container-fluid" id="pageGroupProfileBodyMain">
-            <h2>
+            <h2 ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                 Description
         <span e-form="bioBtnForm" style="color:darkslateblue; padding-right: 0.3em"
               onbeforesave="updateProfile('description', $data, user.user_type, user.email)" editable-text="team.description">
             {{ team.description || "Your team currently do not have a description." }}
         </span>
                 <a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">
-                    <img src="img/edit.png"/>
+                    <span ng-show="hoverEdit" class="animate-show glyphicon glyphicon-pencil"></span>
                 </a>
             </h2>
 
@@ -41,13 +41,13 @@
 
             <div class="container-fluid" id="pageGroupProfileSkillsSeeking">
                 <ul style="list-style-type: circle">
-                    <li>Skill Type 1</li>
+                    <li></li>
                 </ul>
             </div>
             <h3>Members</h3>
             <ul style="list-style-type: none; margin: 0px; padding: 0px;">
                 <div class="studentProfile">
-                    <img src="img/no_profile.png" class="imgStudent"/>
+                    <!--<img src="img/no_profile.png" class="imgStudent"/>-->
                     <!--<img src="img/no_profile.png" class="imgStudent">-->
                     <!--<a class="student-main" ng-click ="selectStudent(member)" ng-repeat="member in team.members">{{member}}</a>-->
                     <a class="student-main" ui-sref ="main.studentProfile"

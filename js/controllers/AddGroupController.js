@@ -1,7 +1,3 @@
-/**
- *
- * Created by yee on 3/1/15.
- */
 mainControllers.controller('AddGroupController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
         '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'group_service',
