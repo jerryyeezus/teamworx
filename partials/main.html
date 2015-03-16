@@ -113,8 +113,6 @@
             <input ng-model="search.interests_str" id="searchInterestsField">
             Project Preference
             <input ng-model="search.project_pref_str" id="searchProjectPreferenceField">
-            Minimum GPA
-            <input ng-model="search.minGPA" id="searchGPAField">
             LFG
             <input type="checkbox" ng-model="search.lfg">
         </div>
@@ -135,11 +133,9 @@
             + Import CSV
         </button>
             </span>
-            <!--<a ng-click="import()">Import students button</a>-->
+            <!--ng-if ="student.lfg[assignment.pk] == search.lfg"-->
             <ul style="list-style-type:none;">
-                <!--ng-if="student.gpa > search.minGPA"-->
-                <li data-drag="true" ng-repeat="student in students | filter: search.name | filter: search.skills_str |
-                filter: search.bio | filter: search.interests_str | filter: search.project_pref_str | filter:search.lfg"
+                <li data-drag="true" ng-repeat="student in students | filter: search"
                 jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
                 data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                     <div class="studentProfile">
