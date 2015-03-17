@@ -14,7 +14,7 @@
 
         </div>
     </div>
-    <button class="btn btn-lg btn-info" ng-hide="isMember || isRequest" ng-click ="sendJoinRequest()"
+    <button class="btn btn-lg btn-info" ng-if="!isMember && !isRequest" ng-click ="sendJoinRequest()"
             style="margin: 0 auto;">Send Join Request</button>
     <div class="container-fluid" id="pageGroupProfileBody">
         <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
@@ -28,6 +28,7 @@
             </h2>
             <hr/>
             <h2>Members</h2>
+            <div class="MemberListContent">
             <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                 <div class="studentProfile">
                     <a class="student-main" ui-sref ="main.studentProfile"
@@ -36,6 +37,7 @@
                         {{member.name}} </br> </a>
                 </div>
             </ul>
+            </div>
             <h2></h2>
         </div>
     </div>

@@ -277,13 +277,31 @@
                 </div>
                 <div class="container-fluid" id="pageGroupProfileBody">
                     <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
-                        <h2 style=" text-align:left;">
-                            Description: {{ team.description}}
+                        <h2>
+                            Description:
+                            <span e-form="descriptionBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
+                            onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
+                            editable-text="team.description">
+                            {{ team.description || "Your team currently do not have a description." }}
+                            </span>
+                            <a ng-click="descriptionBtnForm.$show()" ng-hide="descriptionBtnForm.$visible" style="cursor: pointer">
+                                <span class="animate-show glyphicon glyphicon-pencil"></span>
+                            </a>
+
+                        </h2>
                         </h2>
 
                         <hr/>
                         <h2>
-                            Seeking Skills: {{ team.description}}
+                            Seeking Skills:
+                            <span e-form="seekSkillBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
+                            onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
+                            editable-text="team.description">
+                            {{ team.description || "Your team currently do not have a description." }}
+                            </span>
+                            <a ng-click="seekSkillBtnForm.$show()" ng-hide="seekSkillBtnForm.$visible" style="cursor: pointer">
+                                <span class="animate-show glyphicon glyphicon-pencil"></span>
+                            </a>
                         </h2>
                         <hr/>
                         <h2>Members</h2>
@@ -295,15 +313,36 @@
                                     {{member.name}} </br> </a>
                             </div>
                         </ul>
-                        <h2></h2>
+                        <hr/>
+
+                        <h2>List of Requesters</h2>
+                        <div class="requesterListContent">
+                            <div class="studentProfile">
+                                <a class="student-main" ui-sref ="main.studentProfile"
+                                   ng-repeat="member in requestersList" ng-click ="selectMember(member)">
+                                    <img src="img/no_profile.png" class="imgStudent"/>
+                                    {{member.requester}} </br> </a>
+                            </div>
+                        </div>
+
+                        <p class="addCourseButton" style="float: left; margin-top: 5px">
+                            <button type="button" ng-if="isStudent" class="btn btn-primary btn-lg" ui-sref="">
+                                <span class="glyphicon glyphicon-plus"></span> Add Member
+                            </button>
+
+                            <button ng-if ="isStudent" class="btn btn-warning btn-lg" data-drop="isStudent"
+                                    jqyoui-droppable="{beforeDrop: 'deleteMember()'}">
+                                <span class="glyphicon glyphicon-trash"></span> Delete Member
+                            </button>
+                        </p>
                     </div>
                 </div>
             </div>
 
             <tabset class="tabs-right">
                 <tab heading="Team Overview"></tab>
-                <tab heading="Administration" select="tabSelect('TEAM.ADMIN')">TODO put group admin here</tab>
-                <tab heading="Pending Requests (2)">TODO requests</tab>
+                <tab heading="Administration" select="tabSelect('TEAM.ADMIN')"></tab>
+                <tab heading="Pending Requests (2)"></tab>
             </tabset>
         </tab>
 </div>
