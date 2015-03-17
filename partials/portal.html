@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
+    <div class="container" style="left:0px; position: absolute;">
+        <div class="navbar-header leftAlign">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -38,16 +38,16 @@
     <div class="professorProfileContent">
         <img src="img/no_profile.png" class="imgProfessor"/>&nbsp;&nbsp;
         <div class="professorNameContent">
-        <h1>
+            <h1>
         <span e-form="nameBtnForm" style="color:#ea9256; padding-right: 0.3em"
               onbeforesave="updateProfile('name', $data, user.user_type, user.email)" editable-text="user.name">
             <b>{{ user.name || "empty" }}</b>
         </span>
-            <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible" style="cursor: pointer">
-                <!--Edit-->
-                <img src="img/edit.png"/>
-            </a>
-        </h1>
+                <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible" style="cursor: pointer">
+                    <!--Edit-->
+                    <img src="img/edit.png"/>
+                </a>
+            </h1>
             <div class="professorBioContent">
                 <b>Bio:</b>
             <span e-form="bioBtnForm" style="color:#ea9256; padding-right: 0.3em; font-weight: bold"
@@ -100,6 +100,7 @@
             <p>
                 <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
             </p>
+
         </div>
 
         <div class="professorInfoContent" ng-if="isProfessor">
@@ -107,6 +108,7 @@
                 <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
             </p>
         </div>
+
         <div class="courseListContent">
             <h2 style="margin-top: -5px">My Courses:</h2>
             <div class="innerCourseListContent">
