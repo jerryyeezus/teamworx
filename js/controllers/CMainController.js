@@ -164,11 +164,16 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
                     $scope.students = response.data;
                 });
+                $scope.isInterested = false;
                 if ($scope.haveGroup) {
                     $scope.requestersList = [];
+                    $scope.requestersEmailList = [];
                     $scope.currentStudents = $scope.students;
                     $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
                         $scope.requestersEmailList = response.data;
+                        if ($scope.requestersEmailList.length > 0) {
+                            $scope.isInterested = true;
+                        };
                         $scope.requestersEmailList.forEach(function (req) {
                             $scope.currentStudents.forEach(function (student) {
                                 if (req.requester == student.user_type + '|' + student.email) {
@@ -245,11 +250,15 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         };
                     });
                 });
+                $scope.isInterested = false;
                 if ($scope.haveGroup) {
                     $scope.requestersList = [];
                     $scope.currentStudents = $scope.students;
                     $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
                         $scope.requestersEmailList = response.data;
+                        if ($scope.requestersEmailList.length > 0) {
+                            $scope.isInterested = true;
+                        };
                         $scope.requestersEmailList.forEach(function (req) {
                             $scope.currentStudents.forEach(function (student) {
                                 if (req.requester == student.user_type + '|' + student.email) {
@@ -437,6 +446,35 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             return modalInstance.result;
         };
 
+        $scope.enableLFG = function() {
+            var dataObject = {};
+            dataObject['ass_pk'] = $scope.assignment.pk;
+            dataObject['user']= $scope.user.user_type + '|' +$scope.user.email;
+            dataObject['value'] = true;
+            var responsePromise = $http.put(Authentication.server_url + 'add_lfg', dataObject, {});
+            responsePromise.success(function () {
+                toaster.pop('success', 'Enable LFG');
+            });
+            responsePromise.error(function (data) {
+                console.log(data);
+                console.log(dataObject);
+            });
+        };
+
+        $scope.disableLFG = function() {
+            var dataObject = {};
+            dataObject['ass_pk'] = $scope.assignment.pk;
+            dataObject['user']= $scope.user.user_type + '|' +$scope.user.email;
+            dataObject['value'] = false;
+            var responsePromise = $http.put(Authentication.server_url + 'add_lfg', dataObject, {});
+            responsePromise.success(function () {
+                toaster.pop('success', 'Disable LFG');
+            });
+            responsePromise.error(function (data) {
+                console.log(data);
+                console.log(dataObject);
+            });
+        };
 
         /* Logout function */
         $scope.logout = function () {

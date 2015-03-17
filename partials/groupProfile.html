@@ -15,31 +15,31 @@
         </div>
     </div>
     <!--ng-if="!isMember && !isRequest && !isProfessor"-->
-    <button class="btn btn-lg btn-info"  ng-click ="sendJoinRequest()"
+    <button class="btn btn-lg btn-info btn-lg"  ng-click ="sendJoinRequest()"
             style="margin: 0 auto;">Send Join Request</button>
     <div class="container-fluid" id="pageGroupProfileBody">
         <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
-            <h2 style=" text-align:left;">
+            <h3 style=" text-align:left;">
                 Description: {{ team.description}}
-            </h2>
+            </h3>
 
             <hr/>
-            <h2>
+            <h3>
                 Seeking Skills: {{ team.description}}
-            </h2>
+            </h3>
             <hr/>
-            <h2>Members</h2>
+            <h3>Members</h3>
             <div class="MemberListContent">
-            <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                <div class="studentProfile">
-                    <a class="student-main" ui-sref ="main.studentProfile"
-                       ng-repeat="member in team.members" ng-click ="selectMember(member)">
-                        <img src="img/no_profile.png" class="imgStudent"/>
-                        {{member.name}} </br> </a>
-                </div>
-            </ul>
+                <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                    <div class="studentProfile">
+                        <a class="student-main" ui-sref ="main.studentProfile"
+                           ng-repeat="member in team.members" ng-click ="selectMember(member)">
+                            <img src="img/no_profile.png" class="imgStudent"/>
+                            {{member.name}} </br> </a>
+                    </div>
+                </ul>
             </div>
-            <h2></h2>
+
         </div>
     </div>
 </div>
