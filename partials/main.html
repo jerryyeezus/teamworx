@@ -308,7 +308,7 @@
                         <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                             <div class="studentProfile">
                                 <a class="student-main" ui-sref ="main.studentProfile"
-                                   ng-repeat="member in team.members" ng-click ="selectMember(member)" data-drag="isOwner"
+                                   ng-repeat="member in team.members" ng-click ="selectMember(member)" data-drag="true"
                                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveMember(member)'}"
                                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                                     <img src="img/no_profile.png" class="imgStudent"/>
@@ -322,7 +322,7 @@
                             <div class="studentProfile">
                                 <a class="student-main" ui-sref ="main.studentProfile"
                                    ng-repeat="member in requestersList" ng-click ="selectMember(member)"
-                                   data-drag="isOwner"
+                                   data-drag="true"
                                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveRequester(member)'}"
                                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                                     <img src="img/no_profile.png" class="imgStudent"/>
@@ -331,12 +331,12 @@
                         </div>
 
                         <p class="addMemberButton" style="float: left; margin-top: 5px">
-                            <button type="button" ng-if="isOwner" class="btn btn-primary btn-lg"
+                            <button type="button" ng-if="true" class="btn btn-primary btn-lg"
                                     data-drop="true" jqyoui-droppable="{beforeDrop: 'acceptRequester()'}">
                                 <span class="glyphicon glyphicon-plus"></span> Add Member
                             </button>
 
-                            <button ng-if ="isOwner" class="btn btn-warning btn-lg" data-drop="true"
+                            <button ng-if ="true" class="btn btn-warning btn-lg" data-drop="true"
                                     jqyoui-droppable="{beforeDrop: 'denyRequester()'}">
                                 <span class="glyphicon glyphicon-trash"></span> Delete Member
                             </button>

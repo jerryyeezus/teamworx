@@ -9,7 +9,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
-        $scope.isProfessor = ($scope.user.user_type == 'INSTRUCTOR');
+        //$scope.isProfessor = ($scope.user.user_type == 'INSTRUCTOR');
+        $scope.isProfessor = true;
         $scope.isStudent = ($scope.user.user_type == 'STUDENT');
         $scope.assignment = $cookieStore.get('assignment');
         var which_class = $stateParams.which_class;
@@ -163,26 +164,24 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
                     $scope.students = response.data;
                 });
-
-                $scope.requestersList = [];
-                $scope.currentStudents = $scope.students;
-                $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
-                    $scope.requestersEmailList = response.data;
-                    $scope.requestersEmailList.forEach(function (req) {
-                        $scope.currentStudents.forEach(function(student) {
-                            if (req.requester == student.user_type +'|' + student.email) {
-                                if($scope.requestersList.indexOf(student) < 0)
-                                {
-                                    $scope.requestersList.push(student);
-                                    console.log('Do we ever get here');
-                                    console.log(student.email);
-                                }
-                            };
+                if ($scope.haveGroup) {
+                    $scope.requestersList = [];
+                    $scope.currentStudents = $scope.students;
+                    $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
+                        $scope.requestersEmailList = response.data;
+                        $scope.requestersEmailList.forEach(function (req) {
+                            $scope.currentStudents.forEach(function (student) {
+                                if (req.requester == student.user_type + '|' + student.email) {
+                                    if ($scope.requestersList.indexOf(student) < 0) {
+                                        $scope.requestersList.push(student);
+                                        console.log('Do we ever get here');
+                                        console.log(student.email);
+                                    };
+                                };
+                            });
                         });
                     });
-                });
-
-
+                };
             });
         });
 
@@ -246,24 +245,25 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         };
                     });
                 });
-
-                $scope.requestersList = [];
-                $scope.currentStudents = $scope.students;
-                $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
-                    $scope.requestersEmailList = response.data;
-                    $scope.requestersEmailList.forEach(function (req) {
-                        $scope.currentStudents.forEach(function(student) {
-                            if (req.requester == student.user_type +'|' + student.email) {
-                                if($scope.requestersList.indexOf(student) < 0)
-                                {
-                                    $scope.requestersList.push(student);
-                                    console.log('Do we ever get here');
-                                    console.log(student.email);
+                if ($scope.haveGroup) {
+                    $scope.requestersList = [];
+                    $scope.currentStudents = $scope.students;
+                    $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
+                        $scope.requestersEmailList = response.data;
+                        $scope.requestersEmailList.forEach(function (req) {
+                            $scope.currentStudents.forEach(function (student) {
+                                if (req.requester == student.user_type + '|' + student.email) {
+                                    if ($scope.requestersList.indexOf(student) < 0) {
+                                        $scope.requestersList.push(student);
+                                        console.log('Do we ever get here');
+                                        console.log(student.email);
+                                    }
                                 }
-                            };
+                                ;
+                            });
                         });
                     });
-                });
+                };
 
             });
         };
@@ -328,11 +328,21 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.startCallback = function(event, ui, stu) {
             console.log('You started draggin: ');
-            $cookieStore.put('dragStudent', stu);
+            $cookieStore.put('dragStudent', stu)
+            $cookieStore.put('haveGroup', false);
+            $scope.teams.forEach(function (team) {
+                team.members.forEach(function(mem) {
+                    if (mem.email == $cookieStore.get('dragStudent').email) {
+                        $cookieStore.put('haveGroup', true);
+                        $cookieStore.put('dragTeam', team);
+                    };
+                });
+            });
+
+
             console.log(stu.email);
             $cookieStore.put('deleteTeam', false);
             $cookieStore.put('deleteMember', true);
-            //$scope.deleteMember = true;
         };
 
         $cookieStore.put('deleteMember', false);

@@ -16,5 +16,5 @@ myApp.factory('delete_requester_service', ['$cookieStore', function($cookieStore
 
     function setDirty() {
         _scope.$emit(dirty());
-    };
+    }
 }]);
