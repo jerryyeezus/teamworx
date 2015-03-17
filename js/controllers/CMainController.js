@@ -45,7 +45,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         var student_map = {};
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
-            $scope.students = mass
+            $scope.students = mass;
             toaster.pop('success', 'Roster uploaded');
         });
 
