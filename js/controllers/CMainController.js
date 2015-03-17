@@ -142,6 +142,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         if (mem.email == $scope.user.email) {
                             $scope.haveGroup = true;
                             $cookieStore.put('myTeam', team);
+                            $scope.team = $cookieStore.get('myTeam');
                         };
                     });
                 });

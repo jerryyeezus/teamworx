@@ -163,7 +163,6 @@
 
 <div class="container-fluid" ui-view id="groupPanel">
     <tabset>
-
         <tab heading="Course Overview">
             <div class="groupPanelHeader">
                 <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
@@ -260,6 +259,60 @@
             </div>
         </tab>
         <tab heading="My Team" ng-if="isStudent && haveGroup" select="tabSelect('TEAM')">
+            <toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
+            <div class="container-fluid" id="pageGroupProfileFull">
+                <div class="container-fluid" id="pageGroupProfileHeader">
+
+                    <div class="container-fluid" id="pageGroupProfileHeaderSidebar">
+                        <img src="img/no_group.jpg" id="GroupProfileSidebarImage">
+                    </div>
+
+                    <div class="container-fluid" id="pageGroupProfileHeaderMain">
+                        <h1>Group {{team.number}}</h1>
+
+                        <p>Class: {{course.course_dept_and_id}}</p>
+
+                        <p>Assignment: {{assignment.assignment_number}}</p>
+
+                    </div>
+
+                    <hr/>
+
+                    <div class="container-fluid" id="pageGroupProfileBody">
+                        <div class="container-fluid" id="pageGroupProfileBodyMain">
+                            <h2 class = "myEditable" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                Description:
+                    <span e-form="bioBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
+                          onbeforesave="updateProfile('description', $data, user.user_type, user.email)" editable-text="team.description">
+                        {{ team.description || "Your team currently do not have a description." }}
+                    </span>
+                                <a ng-click="desBtnForm.$show()" ng-hide="desBtnForm.$visible" style="cursor: pointer">
+                                    <span ng-show="hoverEdit" class="animate-show glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </h2>
+
+                            <hr/>
+                            <h2 class="myEditable" style="padding: 0; margin: 0;" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                Seeking Skills:
+                                <span e-form="seekBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
+                                      onbeforesave="updateProfile('description', $data, user.user_type, user.email)" editable-text="team.description">
+                                {{ team.description || "Your team currently do not look for a new member" }}
+                                 </span>
+                                <a ng-click="seekBtnForm.$show()" ng-hide="seekBtnForm.$visible" style="cursor: pointer">
+                                    <div class="container-fluid" id="pageGroupProfileSkillsSeeking">
+                                        <span ng-show="hoverEdit" class="animate-show glyphicon glyphicon-pencil"></span>
+                                    </div>
+                            <hr/>
+                            <h3>Members</h3>
+                            <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                <div class="studentProfile">
+                                    <a class="student-main" ui-sref ="main.studentProfile"
+                                       ng-repeat="member in team.members" ng-click ="selectMember(member)">{{member.name}} </br> </a>
+                                </div>
+                            </ul>
+                    </div>
+                </div>
+
             <tabset class="tabs-right">
                 <tab heading="Team Overview">TODO put group profile here</tab>
                 <tab heading="Administration" select="tabSelect('TEAM.ADMIN')">TODO put group admin here</tab>

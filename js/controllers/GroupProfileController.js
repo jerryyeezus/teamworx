@@ -21,8 +21,16 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
             Authentication.updateAuthenticatedAccount(which_field, data);
         };
 
+        $scope.isRequest = false;
         $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
             $scope.requesters = response.data;
+            $scope.requesters.forEach( function(req) {
+              if ($scope.user.user_type + '|' + $scope.user.email == req.requester) {
+                  $scope.isRequest = true;
+              };
+              console.log($scope.isRequest);
+              console.log('do we ever get here');
+            });
         });
 
         $scope.sendJoinRequest = function() {

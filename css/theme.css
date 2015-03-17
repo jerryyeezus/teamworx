@@ -742,5 +742,5 @@ a:active {
     padding: 15px 10px 10px 10px;
     background: #000000;
     float: left;
-    position: relative;
+    position: absolute;
 }

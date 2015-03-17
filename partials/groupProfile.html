@@ -1,4 +1,3 @@
-
 <toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
 <div class="container-fluid" id="pageGroupProfileFull">
     <div class="container-fluid" id="pageGroupProfileHeader">
@@ -6,51 +5,35 @@
         <div class="container-fluid" id="pageGroupProfileHeaderSidebar">
             <img src="img/no_group.jpg" id="GroupProfileSidebarImage">
         </div>
-
         <div class="container-fluid" id="pageGroupProfileHeaderMain">
             <h1>Group {{team.number}}</h1>
 
-            <p>Class: {{course.course_dept_and_id}}</p>
+            <h4>Class: {{course.course_dept_and_id}}</h4>
 
-            <p>Assignment: {{assignment.assignment_number}}</p>
+            <h4>Assignment: {{assignment.assignment_number}}</h4>
 
         </div>
-
-        <!--<button class="btn btn-lg btn-default" ng-show="isOwner" ui-sref="main.edit_group_profile"-->
-                <!--style="float:right; margin:5px;">Edit Group Profile</button></div>-->
-    <button class="btn btn-lg btn-info" ng-hide="isMember && isLFM" ng-click ="sendJoinRequest()" style="margin: 0 auto;">Send Join Request</button>
-    <hr/>
+    </div>
+    <button class="btn btn-lg btn-info" ng-hide="isMember || isRequest" ng-click ="sendJoinRequest()"
+            style="margin: 0 auto;">Send Join Request</button>
     <div class="container-fluid" id="pageGroupProfileBody">
-        <div class="container-fluid" id="pageGroupProfileBodyMain">
-            <h2 class = "myEditable" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                Description:
-                    <span e-form="bioBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
-                          onbeforesave="updateProfile('description', $data, user.user_type, user.email)" editable-text="team.description">
-                        {{ team.description || "Your team currently do not have a description." }}
-                    </span>
-                <a ng-click="desBtnForm.$show()" ng-hide="desBtnForm.$visible" style="cursor: pointer">
-                    <span ng-show="hoverEdit" class="animate-show glyphicon glyphicon-pencil"></span>
-                </a>
+        <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
+            <h2 style=" text-align:left;">
+                Description: {{ team.description}}
             </h2>
 
             <hr/>
-            <h2 class="myEditable" style="padding: 0; margin: 0;" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                Seeking Skills:
-                    <span e-form="seekBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
-                      onbeforesave="updateProfile('description', $data, user.user_type, user.email)" editable-text="team.description">
-                    {{ team.description || "Your team currently do not look for a new member" }}
-                     </span>
-                <a ng-click="seekBtnForm.$show()" ng-hide="seekBtnForm.$visible" style="cursor: pointer">
-            <div class="container-fluid" id="pageGroupProfileSkillsSeeking">
-                <span ng-show="hoverEdit" class="animate-show glyphicon glyphicon-pencil"></span>
-            </div>
+            <h2>
+                Seeking Skills: {{ team.description}}
             </h2>
             <hr/>
-            <h3>Members</h3>
+            <h2>Members</h2>
             <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                 <div class="studentProfile">
                     <a class="student-main" ui-sref ="main.studentProfile"
-                       ng-repeat="member in team.members" ng-click ="selectMember(member)">{{member.name}} </br> </a>
+                       ng-repeat="member in team.members" ng-click ="selectMember(member)">
+                        <img src="img/no_profile.png" class="imgStudent"/>
+                        {{member.name}} </br> </a>
                 </div>
             </ul>
             <h2></h2>
