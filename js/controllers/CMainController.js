@@ -1,10 +1,11 @@
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
     'question_service', 'drag_student_service', 'delete_team_member_service','add_question_service', 'edit_question_service',
-    'answer_service', 'delete_group_service',
+    'answer_service', 'delete_group_service', 'add_requester_service','delete_requester_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
               $modal, $window, $fileUpload, toaster, ass_service, group_service, question_service, drag_student_service,
-              delete_team_member_service, add_question_service, edit_question_service, answer_service, delete_group_service) {
+              delete_team_member_service, add_question_service, edit_question_service, answer_service, delete_group_service,
+              add_requester_service, delete_requester_service) {
 
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
@@ -23,6 +24,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         add_question_service.init($scope);
         edit_question_service.init($scope);
         delete_group_service.init($scope);
+        add_requester_service.init($scope);
+        delete_requester_service.init($scope);
 
         $scope.isUploaded = false;
         $scope.changeBackButton = false;
@@ -87,6 +90,16 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.updateGroup();
         });
 
+        $scope.$on(add_requester_service.dirty(), function() {
+            toaster.pop('success', 'Member Added');
+            $scope.updateGroup();
+        });
+
+        $scope.$on(delete_requester_service.dirty(), function() {
+            toaster.pop('success', 'Member Denied');
+            $scope.updateGroup();
+        });
+
         $scope.$on(delete_group_service.dirty(), function() {
             toaster.pop('success', 'Group Deleted');
             $scope.updateGroup();
@@ -143,13 +156,33 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                             $scope.haveGroup = true;
                             $cookieStore.put('myTeam', team);
                             $scope.team = $cookieStore.get('myTeam');
-                            $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
-                                $scope.requestersList = response.data;
-                            });
-                            console.log('Do we ever get here');
                         };
                     });
                 });
+
+                $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
+                    $scope.students = response.data;
+                });
+
+                $scope.requestersList = [];
+                $scope.currentStudents = $scope.students;
+                $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
+                    $scope.requestersEmailList = response.data;
+                    $scope.requestersEmailList.forEach(function (req) {
+                        $scope.currentStudents.forEach(function(student) {
+                            if (req.requester == student.user_type +'|' + student.email) {
+                                if($scope.requestersList.indexOf(student) < 0)
+                                {
+                                    $scope.requestersList.push(student);
+                                    console.log('Do we ever get here');
+                                    console.log(student.email);
+                                }
+                            };
+                        });
+                    });
+                });
+
+
             });
         });
 
@@ -208,16 +241,30 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         if (mem.email == $scope.user.email) {
                             $scope.haveGroup = true;
                             $cookieStore.put('myTeam', team);
-
-                            $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
-                                $scope.requestersList = response.data;
-                            });
-
+                            $scope.team = $cookieStore.get('myTeam');
                             console.log('Do we ever get here');
                         };
                     });
-
                 });
+
+                $scope.requestersList = [];
+                $scope.currentStudents = $scope.students;
+                $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
+                    $scope.requestersEmailList = response.data;
+                    $scope.requestersEmailList.forEach(function (req) {
+                        $scope.currentStudents.forEach(function(student) {
+                            if (req.requester == student.user_type +'|' + student.email) {
+                                if($scope.requestersList.indexOf(student) < 0)
+                                {
+                                    $scope.requestersList.push(student);
+                                    console.log('Do we ever get here');
+                                    console.log(student.email);
+                                }
+                            };
+                        });
+                    });
+                });
+
             });
         };
 
@@ -351,6 +398,35 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $cookieStore.put('deleteMember', false);
             $cookieStore.put('dragTeam', dragGroup);
         };
+
+        $scope.isOwner = true;
+
+        $scope.addRemoveMember = function(event, ui, mem) {
+            $cookieStore.put('deleteMember', mem);
+            $cookieStore.put('delMem', true);
+        };
+
+        $scope.addRemoveRequester = function(event, ui, mem) {
+            $cookieStore.put('currentRequester', mem);
+            $cookieStore.put('deleteRequester', true);
+        };
+
+        $scope.acceptRequester = function() {
+            var modalInstance = $modal.open({
+                templateUrl: 'partials/add_requester.html',
+                controller: 'AddRequesterController'
+            });
+            return modalInstance.result;
+        };
+
+        $scope.denyRequester = function() {
+            var modalInstance = $modal.open({
+                templateUrl: 'partials/delete_requester.html',
+                controller: 'DeleteRequesterController'
+            });
+            return modalInstance.result;
+        };
+
 
         /* Logout function */
         $scope.logout = function () {

@@ -138,7 +138,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }]
         }, add_member = {
             name: 'main.add_member',
-            url: '/add_member/:which_class',
+            url: '/add_member/:which_assignment',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
                     templateUrl: 'partials/add_member.html',
@@ -149,7 +149,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }]
         }, delete_member = {
             name: 'main.delete_member',
-            url: '/delete_member/:which_class',
+            url: '/delete_member/:which_assignment',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
                     templateUrl: 'partials/delete_member.html',
@@ -160,7 +160,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }]
         }, add_group = {
             name: 'main.add_group',
-            url: '/add_group/:which_class',
+            url: '/add_group/:which_assignment',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
                     templateUrl: 'partials/add_group.html',
@@ -171,11 +171,22 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }]
         }, drag_student = {
             name: 'main.drag_student',
-            url: '/drag_student/:which_class',
+            url: '/drag_student/:which_assignment',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
                     templateUrl: 'partials/drag_student.html',
                     controller: 'DragStudentController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        }, add_requester = {
+            name: 'main.add_requester',
+            url: '/add_requester/:which_assignment',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/add_requester.html',
+                    controller: 'AddRequesterController'
                 }).result.finally(function () {
                         $state.go('^');
                     });
@@ -191,7 +202,18 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        },view_assignment_text = {
+        }, delete_requester = {
+            name: 'main.delete_requester',
+            url: '/delete_requester/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/delete_requester.html',
+                    controller: 'DeleteRequesterController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        }, view_assignment_text = {
             name: 'main.view_assignment_text',
             url: '/view_assignment_text:which_assignment',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
@@ -247,6 +269,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(delete_team_member);
     main_state.state(view_request);
     main_state.state(view_assignment_text);
+    main_state.state(add_requester);
+    main_state.state(delete_requester);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)

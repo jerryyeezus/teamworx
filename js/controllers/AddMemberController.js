@@ -18,22 +18,15 @@ mainControllers.controller('AddMemberController',
                 };
                 var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
                 responsePromise.success(function () {
-                    $scope.updateGroup();
                 });
                 responsePromise.error(function (data) {
                     console.log(data);
                     console.log(dataObject);
                 });
                 $modalInstance.dismiss('cancel');
-                toaster.pop('success', 'Successfully Added');
 
             };
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
-            };
-            $scope.updateGroup = function () {
-                $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
-                    $scope.teams = response.data;
-                });
             };
         }]);

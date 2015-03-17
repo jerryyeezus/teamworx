@@ -76,15 +76,11 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
             console.log(dataObject1);
             var responsePromise = $http.put(Authentication.server_url + 'add_request/', dataObject1);
             responsePromise.success(function () {
-                $scope.updateGroup();
-
             });
-            responsePromise.error(function (data, status, headers, config) {
+            responsePromise.error(function () {
                 alert("Submitting form failed!");
                 console.log(dataObject);
             });
-
-            toaster.pop('success', 'Accepted');
         };
 
         $scope.isMember = false;

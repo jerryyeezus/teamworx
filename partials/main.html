@@ -285,7 +285,7 @@
                             {{ team.description || "Your team currently do not have a description." }}
                             </span>
                             <a ng-click="descriptionBtnForm.$show()" ng-hide="descriptionBtnForm.$visible" style="cursor: pointer">
-                                <span class="animate-show glyphicon glyphicon-pencil"></span>
+                                <span ng-if="isOwner" class="animate-show glyphicon glyphicon-pencil"></span>
                             </a>
 
                         </h2>
@@ -300,7 +300,7 @@
                             {{ team.description || "Your team currently do not have a description." }}
                             </span>
                             <a ng-click="seekSkillBtnForm.$show()" ng-hide="seekSkillBtnForm.$visible" style="cursor: pointer">
-                                <span class="animate-show glyphicon glyphicon-pencil"></span>
+                                <span ng-if="isOwner" class="animate-show glyphicon glyphicon-pencil"></span>
                             </a>
                         </h2>
                         <hr/>
@@ -308,7 +308,9 @@
                         <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                             <div class="studentProfile">
                                 <a class="student-main" ui-sref ="main.studentProfile"
-                                   ng-repeat="member in team.members" ng-click ="selectMember(member)">
+                                   ng-repeat="member in team.members" ng-click ="selectMember(member)" data-drag="isOwner"
+                                   jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveMember(member)'}"
+                                   data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                                     <img src="img/no_profile.png" class="imgStudent"/>
                                     {{member.name}} </br> </a>
                             </div>
@@ -319,19 +321,23 @@
                         <div class="requesterListContent">
                             <div class="studentProfile">
                                 <a class="student-main" ui-sref ="main.studentProfile"
-                                   ng-repeat="member in requestersList" ng-click ="selectMember(member)">
+                                   ng-repeat="member in requestersList" ng-click ="selectMember(member)"
+                                   data-drag="isOwner"
+                                   jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveRequester(member)'}"
+                                   data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                                     <img src="img/no_profile.png" class="imgStudent"/>
-                                    {{member.requester}} </br> </a>
+                                    {{member.name}} </br> </a>
                             </div>
                         </div>
 
-                        <p class="addCourseButton" style="float: left; margin-top: 5px">
-                            <button type="button" ng-if="isStudent" class="btn btn-primary btn-lg" ui-sref="">
+                        <p class="addMemberButton" style="float: left; margin-top: 5px">
+                            <button type="button" ng-if="isOwner" class="btn btn-primary btn-lg"
+                                    data-drop="true" jqyoui-droppable="{beforeDrop: 'acceptRequester()'}">
                                 <span class="glyphicon glyphicon-plus"></span> Add Member
                             </button>
 
-                            <button ng-if ="isStudent" class="btn btn-warning btn-lg" data-drop="isStudent"
-                                    jqyoui-droppable="{beforeDrop: 'deleteMember()'}">
+                            <button ng-if ="isOwner" class="btn btn-warning btn-lg" data-drop="true"
+                                    jqyoui-droppable="{beforeDrop: 'denyRequester()'}">
                                 <span class="glyphicon glyphicon-trash"></span> Delete Member
                             </button>
                         </p>
