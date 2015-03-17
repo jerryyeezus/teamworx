@@ -141,6 +141,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     team.members.forEach(function(mem) {
                         if (mem.email == $scope.user.email) {
                             $scope.haveGroup = true;
+                            $cookieStore.put('myTeam', team);
                         };
                     });
                 });
@@ -201,8 +202,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     team.members.forEach(function(mem) {
                         if (mem.email == $scope.user.email) {
                             $scope.haveGroup = true;
+                            $cookieStore.put('myTeam', team);
                         };
                     });
+
                 });
             });
         };

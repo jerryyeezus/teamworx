@@ -164,10 +164,6 @@
 <div class="container-fluid" ui-view id="groupPanel">
     <tabset>
 
-        <button type="button" ng-if="!haveGroup" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
-                ui-sref="main.add_group">
-            <span class="glyphicon glyphicon-plus"></span> Team
-        </button>
         <tab heading="Course Overview">
             <div class="groupPanelHeader">
                 <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
@@ -198,8 +194,8 @@
 
                 <button ng-if="isProfessor" class="btn btn-warning" data-drop="isProfessor"
                         jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}"
-                    jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}">
-                    <span class="glyphicon glyphicon-trash"></span> Delete
+                        jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}">
+                       <span class="glyphicon glyphicon-trash"></span> Delete
                 </button>
 
             </div>
@@ -263,7 +259,7 @@
                 </ul>
             </div>
         </tab>
-        <tab heading="My Team" select="tabSelect('TEAM')">
+        <tab heading="My Team" ng-if="isStudent && haveGroup" select="tabSelect('TEAM')">
             <tabset class="tabs-right">
                 <tab heading="Team Overview">TODO put group profile here</tab>
                 <tab heading="Administration" select="tabSelect('TEAM.ADMIN')">TODO put group admin here</tab>
