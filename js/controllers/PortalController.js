@@ -7,6 +7,7 @@ mainControllers.controller('PortalController',
             $scope.user = Authentication.getAuthenticatedAccount();
             $scope.isProfessor = ($scope.user.user_type == 'INSTRUCTOR');
             $scope.isStudent = ($scope.user.user_type == 'STUDENT');
+
             $scope.updateProfile = function (which_field, data, user_type, user_email) {
                 var dataObject = {};
                 dataObject['which_field'] = which_field;

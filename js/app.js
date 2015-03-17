@@ -5,7 +5,7 @@ var myApp = angular.module('myApp', [
     'toaster',
     'ui.router',
     'xeditable',
-    'ngDragDrop',
+    'ngDragDrop'
 ]);
 
 // flag
