@@ -449,9 +449,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.enableLFG = function() {
             var dataObject = {};
             dataObject['ass_pk'] = $scope.assignment.pk;
-            dataObject['user']= $scope.user.user_type + '|' +$scope.user.email;
-            dataObject['value'] = true;
-            var responsePromise = $http.put(Authentication.server_url + 'add_lfg', dataObject, {});
+            dataObject['user_fk']= $scope.user.user_type + '|' +$scope.user.email;
+
+            var responsePromise = $http.post(Authentication.server_url + 'add_lfg/', dataObject, {});
             responsePromise.success(function () {
                 toaster.pop('success', 'Enable LFG');
             });
@@ -464,9 +464,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.disableLFG = function() {
             var dataObject = {};
             dataObject['ass_pk'] = $scope.assignment.pk;
-            dataObject['user']= $scope.user.user_type + '|' +$scope.user.email;
-            dataObject['value'] = false;
-            var responsePromise = $http.put(Authentication.server_url + 'add_lfg', dataObject, {});
+            dataObject['user_fk']= $scope.user.user_type + '|' +$scope.user.email;
+            var responsePromise = $http.put(Authentication.server_url + 'add_lfg/', dataObject, {});
             responsePromise.success(function () {
                 toaster.pop('success', 'Disable LFG');
             });

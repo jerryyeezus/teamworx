@@ -335,8 +335,8 @@
                             </div>
                         </div>
 
-                        <p ng-if="isInterested" class="addMemberButton" style="float: left; margin-top: 5px">
-                            <button type="button" ng-if="true" class="btn btn-primary btn-lg"
+                        <p class="addMemberButton" style="float: left; margin-top: 5px">
+                            <button type="button" ng-if="true && isInterested" class="btn btn-primary btn-lg"
                                     data-drop="true" jqyoui-droppable="{beforeDrop: 'acceptRequester()'}">
                                 <span class="glyphicon glyphicon-plus"></span> Add Member
                             </button>
