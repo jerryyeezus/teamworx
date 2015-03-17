@@ -15,7 +15,7 @@ mainControllers.controller('DeleteRequesterController',
             $scope.delMember = $cookieStore.get('deleteMember');
             $scope.delRequester = $cookieStore.get('deleteRequester');
 
-            $scope.ok = function () {
+            $scope.ok = function (myForm) {
 
                 if ($cookieStore.get('deleteRequester')) {
                     $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
@@ -36,7 +36,19 @@ mainControllers.controller('DeleteRequesterController',
                             console.log(dataObject);
                         });
                     });
+
                     ($cookieStore.put('deleteRequester', false));
+                    var dataObject = {};
+                    dataObject['message'] = myForm.delMemNotificaiton;
+                    dataObject['from_user'] = $scope.user.user_type + '|' +$scope.user.email;
+                    dataObject['to_user'] = $scope.req.user_type + '|' + $scope.user.email;
+                    var responsePromise = $http.post(Authentication.server_url + 'notifications', dataObject, {});
+                    responsePromise.success( function() {
+                        delete_team_member_service.setDirty();
+                    })
+                    responsePromise.error(function() {
+                        console.log(dataObject);
+                    })
                 };
 
 
@@ -55,10 +67,19 @@ mainControllers.controller('DeleteRequesterController',
                         console.log(dataObject);
                     });
                     ($cookieStore.put('delMem', false));
+
+                    var dataObject = {};
+                    dataObject['message'] = myForm.delMemNotificaiton;
+                    dataObject['from_user'] = $scope.user.user_type + '|' +$scope.user.email;
+                    dataObject['to_user'] = $scope.deleteMember.user_type + '|' + $scope.deleteMember.email;
+                    var responsePromise = $http.post(Authentication.server_url + 'notifications', dataObject, {});
+                    responsePromise.success( function() {
+                        delete_team_member_service.setDirty();
+                    })
+                    responsePromise.error(function() {
+                        console.log(dataObject);
+                    })
                 };
-
-
-
 
                 $modalInstance.close();
                 $modalInstance.dismiss('cancel');
