@@ -143,6 +143,10 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                             $scope.haveGroup = true;
                             $cookieStore.put('myTeam', team);
                             $scope.team = $cookieStore.get('myTeam');
+                            $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
+                                $scope.requestersList = response.data;
+                            });
+                            console.log('Do we ever get here');
                         };
                     });
                 });
@@ -204,6 +208,12 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         if (mem.email == $scope.user.email) {
                             $scope.haveGroup = true;
                             $cookieStore.put('myTeam', team);
+
+                            $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
+                                $scope.requestersList = response.data;
+                            });
+
+                            console.log('Do we ever get here');
                         };
                     });
 
@@ -341,7 +351,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $cookieStore.put('deleteMember', false);
             $cookieStore.put('dragTeam', dragGroup);
         };
-
 
         /* Logout function */
         $scope.logout = function () {
