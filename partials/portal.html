@@ -1,8 +1,5 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container" style="left:0px; position: absolute;">
-        <div class="navbar-header">
-            <a class="navbar-brand"><img id="logo" src="img/team_logo.png"></a>
-        </div>
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
@@ -16,346 +13,123 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#/portal" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-expanded="false">
-                        <img src="img/no_profile.png" width="28px" height="24px"/>
-                        <span style="padding-left: 0.3em">Profile</span>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{user.name}}'s Profile
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        Course: {{course.course_name}}
-                        <span class="caret"></span>
-                    </a>
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                        </li>
-                        <li>
-                            <a ui-sref="main.question"> View Questions </a>
-                        </li>
-                        <li>
-                            <a ng-if="isStudent" ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
-                            Unlock Matches</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        Assignments<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li ng-repeat="x in assignments">
-                            <a style="cursor:pointer"
-                               ng-click="selectAssignment(x.assignment_number, x.pk, x)">
-                                <p ng-class="{'checkedClass': is_current_assignment(x.assignment_number)}">Assignment
-                                    {{x.assignment_number}}: {{x.assignment_title}}</p>
-                            </a>
-                        </li>
-                        <li>
-                            <button class="btn btn-sm" ng-if="isProfessor"
-                                    ui-sref="main.add_assignment"><b>+ New Assignment</b></button>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li class="dropdown" ng-if="isStudent" id="groupMenu">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Group <span
-                            class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a ng-click="showGroup()" ui-sref="main.groupProfile"> Group Profile </a></li>
-                        <li><a ui-sref="main.add_member"> + Add Member </a></li>
-                        <li><a ui-sref="main.delete_member"> - Delete Member </a></li>
-                        <li><a ui-sref="main.view_request"> View Request </a></li>
-                    </ul>
-                </li>
                 <li class="dropdown" id="settingsMenu">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
-                        <span
-                                class="caret"></span></a>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings<span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="">Change Password</a></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
                 </li>
-                <li class=""><a ng-hide="changeBackButton" href="#portal">Back</a></li>
-                <li class=""><a ng-show="changeBackButton" ng-click="portalBack()" ui-sref="main">Back</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <!-- Navbar end -->
 
-<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
+<div style="padding: 0.0em;">
 
-<!-- If we're using the integrated Upload Roster Button (LN: 95-96)
-<div class="container-fluid" id="studentPanel" ng-controller="NavigationController"> -->
-
-<div class="container-fluid" id="studentPanel">
-    <div class="container-fluid" id="studentClassRosterTitle">
-        <h3 style="text-align:center;">Student Roster</h3>
-    </div>
-    <div class="input-group" id="studentSearchBar">
-        <span class="input-group-addon" id="searchBarAddon">Search:</span>
-        <input ng-model="search.name" id="searchBarField">
-    </div>
-    <div>
-        <button class="btn btn-primary btn-lg" ng-click="isCollapsed = !isCollapsed">Advanced</button>
-    </div>
-    <div collapse="isCollapsed">
-        Skills
-        <input ng-model="search.skills_str" id="searchSkillsField">
-        Biography
-        <input ng-model="search.bio" id="searchBiographyField">
-        Interest
-        <input ng-model="search.interests_str" id="searchInterestsField">
-        Project Preference
-        <input ng-model="search.project_pref_str" id="searchProjectPreferenceField">
-        LFG
-        <input type="checkbox" ng-model="search.lfg">
-    </div>
-    <div>
-    </div>
-    <div class="studentProfileContent">
-        <div>
-            <span ng-show="!students.length">
-                No students yet.
-                <br>
-                <br>
-
-                Import a CSV file to populate your course.
-                <br>
-                <br>
-        <!--import roster button-->
-        <button type="button" class="btn btn-primary" ui-sref="main.import_roster">
-            + Import CSV
-        </button>
+    <!--Professor Profile-->
+    <div class="professorProfileContent">
+        <img src="img/no_profile.png" class="imgProfessor"/>&nbsp;&nbsp;
+        <div class="professorNameContent">
+        <h1>
+        <span e-form="nameBtnForm" style="color:#ea9256; padding-right: 0.3em"
+              onbeforesave="updateProfile('name', $data, user.user_type, user.email)" editable-text="user.name">
+            <b>{{ user.name || "empty" }}</b>
+        </span>
+            <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible" style="cursor: pointer">
+                <!--Edit-->
+                <img src="img/edit.png"/>
+            </a>
+        </h1>
+            <div class="professorBioContent">
+                <b>Bio:</b>
+            <span e-form="bioBtnForm" style="color:#ea9256; padding-right: 0.3em; font-weight: bold"
+                  onbeforesave="updateProfile('bio', $data, user.user_type, user.email)" editable-text="user.bio">
+                {{ user.bio || "You currently do not have a bio." }}
             </span>
-            <!--ng-if ="student.lfg[assignment.pk] == search.lfg"-->
-            <ul style="list-style-type:none;">
-                <li data-drag="isProfessor" ng-repeat="student in students | filter: search"
-                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
+                <a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">
+                    <img src="img/edit.png"/>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="professorInfoContent" ng-if="isProfessor">
+            <p>
+                <b>Linkedin:</b>
+            <span e-form="linkedinBtnForm" style="color:darkslateblue; padding-right: 0.3em; word-wrap: break-word"
+                  onbeforesave="updateProfile('linkedin', $data, user.user_type, user.email)" editable-text="user.linkedin">
+                <a href="{{user.linkedin}}">{{ user.linkedin || "" }}</a>
+            </span>
+                <a ng-click="linkedinBtnForm.$show()" style="cursor: pointer"
+                   ng-hide="linkedinBtnForm.$visible">
+                    <img src="img/edit.png"/>
+                </a>
+            </p>
+
+            <p>
+                <b>Github:</b>
+            <span e-form="githubBtnForm" style="color:darkslateblue; padding-right: 0.3em"
+                  onbeforesave="updateProfile('github', $data, user.user_type, user.email)" editable-text="user.github">
+                <a href="{{user.github}}">{{ user.github || "" }}</a>
+            </span>
+                <a ng-click="githubBtnForm.$show()" ng-hide="githubBtnForm.$visible" style="cursor:pointer;">
+                    <img src="img/edit.png"/>
+                </a>
+            </p>
+
+            <p>
+                <b>Skills:</b>
+            <span e-form="skillsBtnForm" style="color:darkslateblue; padding-right: 0.3em"
+                  onbeforesave="updateProfile('skills_str', $data, user.user_type, user.email)"
+                  editable-text="user.skills_str">
+            {{ user.skills_str || "" }}
+            </span>
+                <a ng-click="skillsBtnForm.$show()" ng-hide="skillsBtnForm.$visible" style="cursor:pointer;">
+                    <img src="img/edit.png"/>
+                </a>
+            </p>
+
+            <p>
+                <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
+            </p>
+        </div>
+
+        <div class="professorInfoContent" ng-if="isProfessor">
+            <p>
+                <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
+            </p>
+        </div>
+        <div class="courseListContent">
+            <h2 style="margin-top: -5px">My Courses:</h2>
+            <div class="innerCourseListContent">
+                <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="isProfessor"
+                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                    <div class="studentProfile">
-                        <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)"/>
-                        <!--<img src="img/no_profile.png" class="imgStudent">-->
-                        <br>
-                        <a ng-click="selectStudent()" ui-sref="main.studentProfile" class="student-main">
-                            {{student.name}}
-                        </a>
-                    </div>
+                    <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
+                        course.course_name}}</a></h3>
+                    <h4>Instructor: {{ course.prof }}</h4>
                 </li>
-            </ul>
+            </div>
+            <p class="addCourseButton" style="float: left; margin-top: 5px">
+                <button type="button" ng-if="isProfessor" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
+                    Add New Course
+                </button>
+
+                <button ng-if ="isProfessor" class="btn btn-warning btn-lg" data-drop="isProfessor" jqyoui-droppable="{beforeDrop: 'deleteCourse()'}">
+                    <span class="glyphicon glyphicon-trash"></span> Delete Course
+                </button>
+            </p>
+
         </div>
     </div>
-    <!-- An integrated upload button
-    <button type="button" class="btn button-primary btn-lg" ng-click=foo()>Upload a Student Roster</button> -->
 </div>
 
-<div class="container-fluid" id="courseInfoPanel">
-    <!--//TODO Peter: Course Information Panel-->
-</div>
-
-<div class="container-fluid" id="assignmentsPanel">
-    <!--//TODO Peter: Assignments Panel-->
-</div>
-
-<div class="container-fluid" ui-view id="groupPanel">
-    <tabset>
-        <tab heading="Course Overview">
-            <div class="groupPanelHeader">
-                <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
-                <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups
-                    [Assignment
-                    {{which_assignment}}
-                    <input type="image" src="img/gnome-searchtool.png" ui-sref="main.view_assignment_text">
-                    ]
-                </h3>
-
-                <!--<button ->
-                        <!--popover-placement="right" popover="{{assignment.assignment_text}}">-->
-                <!--</button>-->
-                <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
-
-                <button ng-show="isUploaded  && assignments.length > 0 && isProfessor"
-                        ng-click="randomAssign()" ng-if="isProfessor" class="btn btn-primary btn-small"
-                        style="position:relative; top:auto;">
-                    Auto Group
-                </button>
-
-                <button type="button" ng-if="!haveGroup" class="btn btn-primary" data-toggle="modal"
-                        data-target="#myModal"
-                        ui-sref="main.add_group">
-                    <span class="glyphicon glyphicon-plus"></span> Team
-                </button>
-
-                <button ng-if="isProfessor" class="btn btn-warning" data-drop="isProfessor"
-                        jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}"
-                        jqyoui-droppable="{beforeDrop: 'deleteDragTeamOrMember()'}">
-                    <span class="glyphicon glyphicon-trash"></span> Delete
-                </button>
-
-                <p style="position:absolute; top:108px; right: 145px;">LFG</p>
-                <button type="button" class="btn btn-primary btn-small" style="position:absolute; top:auto; right:70px"
-                        ng-click="enableLFG()"> Enable</button>
-                <button type="button" class="btn btn-warning btn-small" style="position:absolute; top:auto; right:0px"
-                        ng-click="disableLFG()"> Disable</button>
-
-            </div>
-            <br>
-
-            <div class="groupPanelContent">
-
-                <ul style="list-style-type:none; padding:5px 5px 5px 5px">
-                    <li>
-                        <div class="groupProfile" ng-hide="assignments.length > 0">
-                            <!-- Button trigger modal -->
-                            <p>
-                                There are no assignments for this course. <br><br>
-                                You must create at least 1 assignment to assign teams.
-                            </p>
-                        </div>
-                    </li>
-                    <li ng-show="assignments.length > 0">
-                        <div class="groupProfile" data-drop="isProfessor" ng-repeat="team in teams"
-                             ng-class="divClass(team)"
-                             ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
-                             ng-mouseenter="hoverIn(team)"
-                             ng-click="selectTeam(team)" ui-sref="main.groupProfile">
-
-                            <div class="groupProfileHeader">
-                                <h3 data-drag="isProfessor"
-                                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
-                                    jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
-                                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                            <span ng-hide="'Team ' + team.number == team.name">
-                            Team {{team.number}}: </span>
-                                    {{team.name || 'Unnamed Team'}}
-                                </h3>
-                            </div>
-
-                            <div class="groupProfileContent">
-                                <span style="font-style: italic; font-size: large; text-decoration: underline">Members</span>
-
-                                <div ng-repeat="member in team.members">
-                            <span custom-popover
-                                  popover-html="
-                                  <b>E-mail</b>:
-                                  {{member.email}}<br>
-                                  <b>Major: </b>: {{member.dept || 'Not specified'}}<br>
-                                  <b>Year: </b>: {{member.year || 'Not specified'}}<br>
-                                  <b>Skills</b>: {{member.skills_str || 'Not specified'}}"
-                                  popover-title="{{member.name}}"
-                                  popover-placement="right"
-                                  popover-label="label">
-                            <a style="color: white" data-drag="isProfessor"
-                               jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragMemberInTeam(member, team)'}"
-                               data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
-                               ng-click="selectMember(member)" ui-sref="main.studentProfile">
-                                {{member.name || member.split('|')[1]+'*'}}
-                            </a>
-                            </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </tab>
-        <tab heading="My Team" ng-if="isStudent && haveGroup" select="tabSelect('TEAM')">
-            <toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
-            <div class="container-fluid" id="pageGroupProfileFull">
-                <div class="container-fluid" id="pageGroupProfileHeader">
-
-                    <div class="container-fluid" id="pageGroupProfileHeaderSidebar">
-                        <img src="img/no_group.jpg" id="GroupProfileSidebarImage">
-                    </div>
-                    <div class="container-fluid" id="pageGroupProfileHeaderMain">
-                        <h1>Group {{team.number}}</h1>
-
-                        <h4>Class: {{course.course_dept_and_id}}</h4>
-
-                        <h4>Assignment: {{assignment.assignment_number}}</h4>
-
-                    </div>
-                </div>
-                <div class="container-fluid" id="pageGroupProfileBody">
-                    <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
-                        <h3>
-                            Description:
-                            <span e-form="descriptionBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
-                                  onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
-                                  editable-text="team.description">
-                            {{ team.description || "Your team currently do not have a description." }}
-                            </span>
-                            <a ng-click="descriptionBtnForm.$show()" ng-hide="descriptionBtnForm.$visible" style="cursor: pointer">
-                                <span ng-if="isOwner" class="animate-show glyphicon glyphicon-pencil"></span>
-                            </a>
-
-                            </h2>
-                        </h3>
-
-                        <hr/>
-                        <h3>
-                            Seeking Skills:
-                            <span e-form="seekSkillBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
-                                  onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
-                                  editable-text="team.description">
-                            {{ team.description || "Your team currently do not have a description." }}
-                            </span>
-                            <a ng-click="seekSkillBtnForm.$show()" ng-hide="seekSkillBtnForm.$visible" style="cursor: pointer">
-                                <span ng-if="isOwner" class="animate-show glyphicon glyphicon-pencil"></span>
-                            </a>
-                        </h3>
-                        <hr/>
-                        <h3>Members</h3>
-                        <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                            <div class="studentProfile">
-                                <a class="student-main" ui-sref ="main.studentProfile"
-                                   ng-repeat="member in team.members" ng-click ="selectMember(member)" data-drag="true"
-                                   jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveMember(member)'}"
-                                   data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                                    <img src="img/no_profile.png" class="imgStudent"/>
-                                    {{member.name}} </br> </a>
-                            </div>
-                        </ul>
-                        <hr/>
-
-                        <h3 ng-if="isInterested">List of Requesters</h3>
-                        <div ng-if="isInterested" class="requesterListContent">
-                            <div class="studentProfile">
-                                <a class="student-main" ui-sref ="main.studentProfile"
-                                   ng-repeat="member in requestersList" ng-click ="selectMember(member)"
-                                   data-drag="true"
-                                   jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveRequester(member)'}"
-                                   data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                                    <img src="img/no_profile.png" class="imgStudent"/>
-                                    {{member.name}} </br> </a>
-                            </div>
-                        </div>
-
-                        <p class="addMemberButton" style="float: left; margin-top: 5px">
-                            <button type="button" ng-if="true && isInterested" class="btn btn-primary btn-lg"
-                                    data-drop="true" jqyoui-droppable="{beforeDrop: 'acceptRequester()'}">
-                                <span class="glyphicon glyphicon-plus"></span> Add Member
-                            </button>
-
-                            <button ng-if ="true" class="btn btn-warning btn-lg" data-drop="true"
-                                    jqyoui-droppable="{beforeDrop: 'denyRequester()'}">
-                                <span class="glyphicon glyphicon-trash"></span> Delete Member
-                            </button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <tabset class="tabs-right">
-                <tab heading="Team Overview"></tab>
-                <tab heading="Administration" select="tabSelect('TEAM.ADMIN')"></tab>
-                <tab heading="Pending Requests (2)"></tab>
-            </tabset>
-        </tab>
-</div>
-
-</tabset>
+<div ui-view></div>

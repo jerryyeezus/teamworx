@@ -1,16 +1,9 @@
 <div class="modal-body">
-    <b ng-if="delMember" >Are you sure that you want to take {{deleteMember.name}} out of Team {{team.number}} ? </br>
-        Reason </br>
-        <textarea style="position: absolute; width: 90%; height: 30%; left: 10px;" ng-model="myForm.delMemNotification"> </textarea>
-    </b>
-
-    <b ng-if="delRequester" >Are you sure that you want to deny {{requester.name}}? </br>
-        Reason </br>
-        <textarea style="position: absolute; width: 90%; height: 30%; left: 10px;" ng-model="myForm.delReqNotification"></textarea>
-    </b>
+    <b ng-if="delMember" >Are you sure that you want to take {{deleteMember.name}} out of Team {{team.number}} ?</b>
+    <b ng-if="delRequester" >Are you sure that you want to deny {{requester.name}}?</b>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok(myForm)">OK</button>
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>
 </div>

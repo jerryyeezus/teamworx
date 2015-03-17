@@ -45,7 +45,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         var student_map = {};
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
-            $scope.students = mass;
+            $scope.students = mass
             toaster.pop('success', 'Roster uploaded');
         });
 
@@ -164,16 +164,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
                     $scope.students = response.data;
                 });
-                $scope.isInterested = false;
                 if ($scope.haveGroup) {
                     $scope.requestersList = [];
-                    $scope.requestersEmailList = [];
                     $scope.currentStudents = $scope.students;
                     $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
                         $scope.requestersEmailList = response.data;
-                        if ($scope.requestersEmailList.length > 0) {
-                            $scope.isInterested = true;
-                        };
                         $scope.requestersEmailList.forEach(function (req) {
                             $scope.currentStudents.forEach(function (student) {
                                 if (req.requester == student.user_type + '|' + student.email) {
@@ -250,15 +245,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         };
                     });
                 });
-                $scope.isInterested = false;
                 if ($scope.haveGroup) {
                     $scope.requestersList = [];
                     $scope.currentStudents = $scope.students;
                     $http.get(Authentication.server_url + 'requests/' + $scope.team.pk).then(function (response) {
                         $scope.requestersEmailList = response.data;
-                        if ($scope.requestersEmailList.length > 0) {
-                            $scope.isInterested = true;
-                        };
                         $scope.requestersEmailList.forEach(function (req) {
                             $scope.currentStudents.forEach(function (student) {
                                 if (req.requester == student.user_type + '|' + student.email) {
@@ -446,34 +437,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             return modalInstance.result;
         };
 
-        $scope.enableLFG = function() {
-            var dataObject = {};
-            dataObject['ass_pk'] = $scope.assignment.pk;
-            dataObject['user_fk']= $scope.user.user_type + '|' +$scope.user.email;
-
-            var responsePromise = $http.post(Authentication.server_url + 'add_lfg/', dataObject, {});
-            responsePromise.success(function () {
-                toaster.pop('success', 'Enable LFG');
-            });
-            responsePromise.error(function (data) {
-                console.log(data);
-                console.log(dataObject);
-            });
-        };
-
-        $scope.disableLFG = function() {
-            var dataObject = {};
-            dataObject['ass_pk'] = $scope.assignment.pk;
-            dataObject['user_fk']= $scope.user.user_type + '|' +$scope.user.email;
-            var responsePromise = $http.put(Authentication.server_url + 'add_lfg/', dataObject, {});
-            responsePromise.success(function () {
-                toaster.pop('success', 'Disable LFG');
-            });
-            responsePromise.error(function (data) {
-                console.log(data);
-                console.log(dataObject);
-            });
-        };
 
         /* Logout function */
         $scope.logout = function () {
