@@ -11,10 +11,10 @@ mainControllers.controller('DeleteRequesterController',
             $scope.requester = $cookieStore.get('currentRequester');
             $scope.deleteMember = $cookieStore.get('deleteMember');
             $scope.team = $cookieStore.get('myTeam');
-
+            $scope.user = Authentication.getAuthenticatedAccount();
             $scope.delMember = $cookieStore.get('deleteMember');
             $scope.delRequester = $cookieStore.get('deleteRequester');
-
+            $scope.myForm = {};
             $scope.ok = function (myForm) {
 
                 if ($cookieStore.get('deleteRequester')) {
@@ -39,10 +39,10 @@ mainControllers.controller('DeleteRequesterController',
 
                     ($cookieStore.put('deleteRequester', false));
                     var dataObject = {};
-                    dataObject['message'] = myForm.delMemNotificaiton;
+                    dataObject['message'] = $scope.myForm.delReq;
                     dataObject['from_user'] = $scope.user.user_type + '|' +$scope.user.email;
-                    dataObject['to_user'] = $scope.req.user_type + '|' + $scope.user.email;
-                    var responsePromise = $http.post(Authentication.server_url + 'notifications', dataObject, {});
+                    dataObject['to_user'] = $scope.requester.user_type + '|' + $scope.requester.email;
+                    var responsePromise = $http.post(Authentication.server_url + 'notifications/', dataObject, {});
                     responsePromise.success( function() {
                         delete_team_member_service.setDirty();
                     })
@@ -69,10 +69,10 @@ mainControllers.controller('DeleteRequesterController',
                     ($cookieStore.put('delMem', false));
 
                     var dataObject = {};
-                    dataObject['message'] = myForm.delMemNotificaiton;
+                    dataObject['message'] = $scope.myForm.delMem;
                     dataObject['from_user'] = $scope.user.user_type + '|' +$scope.user.email;
                     dataObject['to_user'] = $scope.deleteMember.user_type + '|' + $scope.deleteMember.email;
-                    var responsePromise = $http.post(Authentication.server_url + 'notifications', dataObject, {});
+                    var responsePromise = $http.post(Authentication.server_url + 'notifications/', dataObject, {});
                     responsePromise.success( function() {
                         delete_team_member_service.setDirty();
                     })

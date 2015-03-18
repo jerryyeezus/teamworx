@@ -448,30 +448,60 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.enableLFG = function() {
             var dataObject = {};
-            dataObject['ass_pk'] = $scope.assignment.pk;
-            dataObject['user_fk']= $scope.user.user_type + '|' +$scope.user.email;
+            $scope.lfg = [];
+            $scope.isLFG = true;
+            $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
+                $scope.lfgList = response.data;
+                $scope.lfgList.forEach(function(lfg) {
+                    if(lfg.user_fk == $scope.user.user_type + '|' + $scope.user.email) {
+                        $scope.lfg = lfg;
+                        $scope.isLFG = false;
+                        toaster.pop('Enable LFG');
+                    };
+                });
+                if ($scope.isLFG) {
+                    dataObject['ass_fk'] = $scope.assignment.pk;
+                    dataObject['user_fk'] = $scope.user.user_type + '|' + $scope.user.email;
 
-            var responsePromise = $http.post(Authentication.server_url + 'add_lfg/', dataObject, {});
-            responsePromise.success(function () {
-                toaster.pop('success', 'Enable LFG');
-            });
-            responsePromise.error(function (data) {
-                console.log(data);
-                console.log(dataObject);
+                    var responsePromise = $http.post(Authentication.server_url + 'add_lfg/', dataObject, {});
+                    responsePromise.success(function () {
+                        alert('Enable LFG');
+                        toaster.pop('success', 'Enable LFG');
+                    });
+                    responsePromise.error(function (data) {
+                        console.log(data);
+                        console.log(dataObject);
+                    });
+                };
             });
         };
 
         $scope.disableLFG = function() {
             var dataObject = {};
-            dataObject['ass_pk'] = $scope.assignment.pk;
-            dataObject['user_fk']= $scope.user.user_type + '|' +$scope.user.email;
-            var responsePromise = $http.put(Authentication.server_url + 'add_lfg/', dataObject, {});
-            responsePromise.success(function () {
-                toaster.pop('success', 'Disable LFG');
-            });
-            responsePromise.error(function (data) {
-                console.log(data);
-                console.log(dataObject);
+            $scope.lfg = [];
+            $scope.isLFG = false;
+            $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
+                $scope.lfgList = response.data;
+                $scope.lfgList.forEach(function(lfg) {
+                    if(lfg.user_fk == $scope.user.user_type + '|' + $scope.user.email) {
+                        $scope.lfg = lfg;
+                        $scope.isLFG = true;
+                    };
+                });
+                if ($scope.isLFG) {
+                    dataObject['pk'] = $scope.lfg.pk;
+
+                    var responsePromise = $http.put(Authentication.server_url + 'put_lfg/', dataObject, {});
+                    responsePromise.success(function () {
+                        alert('Disable LFG');
+                        toaster.pop('success', 'Disable LFG');
+                    });
+                    responsePromise.error(function (data) {
+                        console.log(data);
+                        console.log(dataObject);
+                    });
+                    $scope.isLFG = false;
+                };
             });
         };
 
@@ -480,5 +510,4 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             Authentication.logout();
         };
     }
-])
-;
+]);
