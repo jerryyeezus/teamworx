@@ -11,21 +11,22 @@
             <h4>Class: {{course.course_dept_and_id}}</h4>
 
             <h4>Assignment: {{assignment.assignment_number}}</h4>
-
         </div>
+
     </div>
+
+
     <!--ng-if="!isMember && !isRequest && !isProfessor"-->
     <button class="btn btn-lg btn-info"  ng-click ="sendJoinRequest()"
             style="margin: 0 auto;">Send Join Request</button>
     <div class="container-fluid" id="pageGroupProfileBody">
         <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
             <h2 style=" text-align:left;">
-                Description: {{ team.description}}
+                Description: {{team.description}}
             </h2>
-
             <hr/>
             <h2>
-                Seeking Skills: {{ team.description}}
+                Seeking Skills: {{team.description}}
             </h2>
             <hr/>
             <h2>Members</h2>

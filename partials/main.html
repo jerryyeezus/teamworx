@@ -70,6 +70,14 @@
                         <!--<li><a ui-sref="main.view_request"> View Request </a></li>-->
                     <!--</ul>-->
                 <!--</li>-->
+
+                <li class="dropdown" ng-if="isStudent">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+                            ui-sref="main.view_notification"> Notification <span
+                    class="caret"></span></a>
+                </li>
+
+
                 <li class="dropdown" id="settingsMenu">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
                         <span
@@ -136,12 +144,12 @@
             <ul style="list-style-type:none;">
                 <li data-drag="isProfessor" ng-repeat="student in students | filter: search"
                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
-                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
+                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-click="selectStudent(student)"
+                    ui-sref="main.studentProfile">
                     <div class="studentProfile">
-                        <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)"/>
-                        <!--<img src="img/no_profile.png" class="imgStudent">-->
+                        <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)">
                         <br>
-                        <a ng-click="selectStudent()" ui-sref="main.studentProfile" class="student-main">
+                        <a class="student-main">
                             {{student.name}}
                         </a>
                     </div>
@@ -224,7 +232,7 @@
                              ng-mouseenter="hoverIn(team)"
                              ng-click="selectTeam(team)" ui-sref="main.groupProfile">
 
-                            <div class="groupProfileHeader">
+                            <div class="groupProfileHeader" ng-click="selectTeam(team)" ui-sref="main.groupProfile">
                                 <h3 data-drag="isProfessor"
                                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
@@ -236,7 +244,8 @@
                             </div>
 
                             <div class="groupProfileContent">
-                                <span style="font-style: italic; font-size: large; text-decoration: underline">Members</span>
+                                <span style="font-style: italic; font-size: large; text-decoration: underline"
+                                      ng-click="selectTeam(team)" ui-sref="main.groupProfile">Members</span>
 
                                 <div ng-repeat="member in team.members">
                             <span custom-popover
@@ -280,14 +289,21 @@
 
                     </div>
                 </div>
+
                 <div class="container-fluid" id="pageGroupProfileBody">
                     <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
+                        <p>LFG
+                            <button type="button" class="btn btn-primary btn-small" style="position:relative;left: auto"
+                                    ng-click="enableLFM()"> On</button>
+                            <button type="button" class="btn btn-warning btn-small" style="position:relative; left: auto"
+                                    ng-click="disableLFM()"> Off</button>
+                        </p>
                         <h3>
                             Description:
                             <span e-form="descriptionBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
                                   onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
                                   editable-text="team.description">
-                            {{ team.description || "Your team currently do not have a description." }}
+                            {{team.description || "Your team currently do not have a description." }}
                             </span>
                             <a ng-click="descriptionBtnForm.$show()" ng-hide="descriptionBtnForm.$visible" style="cursor: pointer">
                                 <span ng-if="isOwner" class="animate-show glyphicon glyphicon-pencil"></span>

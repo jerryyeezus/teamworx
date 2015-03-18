@@ -112,5 +112,18 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
             this.hoverEdit = false;
         };
 
+        $scope.updateProfile = function (which_field, data, user_type, user_email) {
+            var dataObject = {};
+            dataObject['which_field'] = which_field;
+            dataObject['which_team'] =$scope.team.pk;
+            dataObject['which_action'] = 'update';
+            dataObject['field_value'] = data;
+            dataObject['which_student'] = user_type + '|' + user_email;
+            console.log(dataObject);
+            console.log('line 23');
+            $http.put(Authentication.server_url + 'add_team/', dataObject, {});
+            Authentication.updateAuthenticatedAccount(which_field, data);
+        };
+
     }]);
 

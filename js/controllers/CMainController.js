@@ -307,6 +307,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.selectStudent = function (stud) {
             $cookieStore.put('student', stud);
+            $cookieStore.put('member', stud);
             $scope.changeBackButton = true;
         }
 
@@ -503,6 +504,40 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     $scope.isLFG = false;
                 };
             });
+        };
+
+        $scope.enableLFM = function() {
+            var dataObject = {};
+            dataObject['which_field'] = 'lfm';
+            dataObject['which_team'] = $scope.team.pk;
+            dataObject['which_action'] = 'update';
+            dataObject['field_value'] = true;
+            dataObject['which_student'] = $scope.user.user_type + '|' + $scope.user.email;
+            var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
+            responsePromise.success(function () {
+            });
+            responsePromise.error(function (data) {
+                console.log(data);
+                console.log(dataObject);
+            });
+            toaster.pop('success', 'Enable LFM');
+        };
+
+        $scope.disableLFM = function() {
+            var dataObject = {};
+            dataObject['which_field'] = 'lfm';
+            dataObject['which_team'] = $scope.team.pk;
+            dataObject['which_action'] = 'update';
+            dataObject['field_value'] = false;
+            dataObject['which_student'] = $scope.user.user_type + '|' + $scope.user.email;
+            var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
+            responsePromise.success(function () {
+            });
+            responsePromise.error(function (data) {
+                console.log(data);
+                console.log(dataObject);
+            });
+            toaster.pop('success', 'Disable LFM');
         };
 
         /* Logout function */

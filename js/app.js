@@ -215,7 +215,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }]
         }, view_assignment_text = {
             name: 'main.view_assignment_text',
-            url: '/view_assignment_text:which_assignment',
+            url: '/view_assignment_text/:which_assignment',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
                     templateUrl: 'partials/view_assignment_text.html',
@@ -224,7 +224,19 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        },answer_question = {
+        },view_notification = {
+            name: 'main.view_notification',
+            url: '/view_notification/:which_class',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/view_notification.html',
+                    controller: 'ViewNotificationController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
+        },
+        answer_question = {
             name: 'main.answer_question',
             url: '/answer_question/:which_ass',
             templateUrl: 'partials/answer_question.html',
@@ -271,6 +283,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(view_assignment_text);
     main_state.state(add_requester);
     main_state.state(delete_requester);
+    main_state.state(view_notification);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)
