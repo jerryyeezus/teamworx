@@ -1,0 +1,55 @@
+<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
+<div class="container-fluid">
+        <div align="left" class="container-fluid">
+            <p><h3>LFM</h3>
+                <button type="button" class="btn btn-primary btn-small" style="position:relative;left: auto"
+                        ng-click="enableLFM()"> On</button>
+                <button type="button" class="btn btn-warning btn-small" style="position:relative; left: auto"
+                        ng-click="disableLFM()"> Off</button>
+            </p>
+            <h3>
+                Description:
+                            <span e-form="descriptionBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
+                                  onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
+                                  editable-text="team.description">
+                            {{team.description || "Your team currently do not have a description." }}
+                            </span>
+                <a ng-click="descriptionBtnForm.$show()" ng-hide="descriptionBtnForm.$visible" style="cursor: pointer">
+                    <span ng-if="isOwner" class="animate-show glyphicon glyphicon-pencil"></span>
+                </a>
+
+                </h2>
+            </h3>
+
+            <hr/>
+            <h3>
+                Seeking Skills:
+                            <span e-form="seekSkillBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
+                                  onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
+                                  editable-text="team.description">
+                            {{ team.description || "Your team currently do not have a description." }}
+                            </span>
+                <a ng-click="seekSkillBtnForm.$show()" ng-hide="seekSkillBtnForm.$visible" style="cursor: pointer">
+                    <span ng-if="isOwner" class="animate-show glyphicon glyphicon-pencil"></span>
+                </a>
+            </h3>
+            <hr/>
+            <h3>Members</h3>
+            <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                <div class="studentProfile">
+                    <a class="student-main" ui-sref ="main.studentProfile"
+                       ng-repeat="member in team.members" ng-click ="selectMember(member)" data-drag="true"
+                       jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveMember(member)'}"
+                       data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
+                        <img src="img/no_profile.png" class="imgStudent"/>
+                        {{member.name}} </br> </a>
+                </div>
+            </ul>
+            <hr/>
+            <button ng-if ="true" class="btn btn-warning btn-lg" data-drop="true"
+                    jqyoui-droppable="{beforeDrop: 'denyRequester()'}">
+                <span class="glyphicon glyphicon-trash"></span> Delete Member
+            </button>
+        <hr/>
+    </div>
+</div>

@@ -87,6 +87,26 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/studentProfile',
             templateUrl: 'partials/studentProfile.html',
             controller: 'StudentProfileController'
+        }, team_overview = {
+            name: 'main.team_overview',
+            url: '/team_overview/:which_assignment',
+            templateUrl: 'partials/team_overview.html',
+            controller: 'TeamOverviewController'
+        }, admin = {
+            name: 'main.admin',
+            url: '/admin/:which_assignment',
+            templateUrl: 'partials/admin.html',
+            controller: 'AdminController'
+        },  pending_request = {
+            name: 'main.pending_request',
+            url: '/pending_request/:which_assignment',
+            templateUrl: 'partials/pending_request.html',
+            controller: 'PendingRequestController'
+        }, course_overview = {
+            name: 'main.course_overview',
+            url: '/course_overview/:which_assignment',
+            templateUrl: 'partials/course_overview.html',
+            controller: 'CourseOverviewController'
         }, register = {
             name: 'register',
             url: '/register',
@@ -204,7 +224,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             }]
         }, delete_requester = {
             name: 'main.delete_requester',
-            url: '/delete_requester/:which_class',
+            url: '/delete_requester/:which_assignment',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
                 $modal.open({
                     templateUrl: 'partials/delete_requester.html',
@@ -284,6 +304,10 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(add_requester);
     main_state.state(delete_requester);
     main_state.state(view_notification);
+    main_state.state(pending_request);
+    main_state.state(team_overview);
+    main_state.state(admin);
+    main_state.state(course_overview);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)
