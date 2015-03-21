@@ -1,10 +1,8 @@
 mainControllers.controller('DeleteRequesterController',
     ['$http', '$location', 'Authentication', '$scope',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'delete_team_member_service',
-        'delete_requester_service',
         function ($http, $location, Authentication, $scope,
-                  $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance, delete_team_member_service,
-                  delete_group_service, delete_requester_service) {
+                  $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance, delete_team_member_service) {
             $scope.requester = $cookieStore.get('currentRequester');
             $scope.deleteMember = $cookieStore.get('deleteMember');
             $scope.team = $cookieStore.get('myTeam');

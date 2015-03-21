@@ -1,13 +1,11 @@
 mainControllers.controller('CourseOverviewController', ['$http', '$stateParams', 'Authentication',
-    '$scope', '$rootScope', '$cookieStore', '$modal', 'toaster',
+    '$scope', '$rootScope', '$cookieStore', '$modal',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, toaster) {
+              $modal) {
         $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
         $scope.assignment = $cookieStore.get('assignment');
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
-
-
 
         var which_class = $scope.course.pk;
         var student_map = {};
@@ -75,6 +73,7 @@ mainControllers.controller('CourseOverviewController', ['$http', '$stateParams',
 
         $scope.startDragMemberInTeam = function(event, ui, stu, dragTeam) {
             console.log('You started draggin: ');
+            $cookieStore.put('dragStudentRoster', false);
             $cookieStore.put('dragStudent', stu);
             $cookieStore.put('dragTeam', dragTeam);
             $cookieStore.put('deleteTeam', false);
@@ -133,6 +132,4 @@ mainControllers.controller('CourseOverviewController', ['$http', '$stateParams',
             $cookieStore.put('deleteMember', false);
             $cookieStore.put('dragTeam', dragGroup);
         };
-
-
     }]);

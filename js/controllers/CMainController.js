@@ -35,13 +35,42 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         /* Get list of assignments */
         $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
             $scope.assignments = response.data;
-            $scope.assignment = $scope.assignments[$scope.assignments.length - 1];
-            $scope.assignment = $cookieStore.get('assignment');
-                // Index of assignment in assignments array
+            if ($scope.assignments.length > 0) {
+                $scope.assignment = $scope.assignments[$scope.assignments.length - 1];
+            };
+
+            if($cookieStore.get('assignment') != undefined) {
+                $scope.assignment = $cookieStore.get('assignment');
+            };
+
+            // Index of assignment in assignments array
             ass_service.setAssignments(response.data);
             ass_service.setWhichAssignment($scope.assignments.length);
             ass_service.setAssignmentpk($scope.assignments[ass_service.getWhichAssignment() - 1].pk);
             $scope.which_assignment = ass_service.getWhichAssignment();
+
+            $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
+                $scope.students = response.data;
+                if ($scope.students.length > 0) {
+                    $scope.isUploaded = true;
+                }
+                for (var i = 0; i < response.data.length; i++) {
+                    student_map[response.data[i].user_type + '|' + response.data[i].email] = i;
+                }
+
+                $scope.students.forEach(function(student) {
+                    student['lfg'] = false;
+                    $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
+                        $scope.lfgList = response.data;
+                        $scope.lfgList.forEach(function(lfg) {
+                            if(lfg.user_fk == student.user_type + '|' + student.email) {
+                                student['lfg'] = true;
+                            };
+                        });
+                    });
+                });
+            });
+
 
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
@@ -62,24 +91,26 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     });
                 });
 
+                if ($scope.assignments.length > 0) {
+                    $scope.assignment = $scope.assignments[$scope.assignments.length - 1];
+                };
+
+                if($cookieStore.get('assignment') != undefined) {
+                    $scope.assignment = $cookieStore.get('assignment');
+                };
+
                 $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
                     $scope.students = response.data;
                     $scope.students.forEach(function(student) {
-                        console.log(student);
-                        console.log('is this an array or an object');
                         student['lfg'] = false;
-                        //student.push({lfg: false});
                         $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
                             $scope.lfgList = response.data;
                             $scope.lfgList.forEach(function(lfg) {
                                 if(lfg.user_fk == student.user_type + '|' + student.email) {
-                                    //student.push({lfg:true});
                                     student['lfg'] = true;
                                 };
                             });
                         });
-                        console.log(student);
-                        console.log('do we have lfg now');
                     });
                 });
                 $scope.isInterested = false;
@@ -97,8 +128,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                                 if (req.requester == student.user_type + '|' + student.email) {
                                     if ($scope.requestersList.indexOf(student) < 0) {
                                         $scope.requestersList.push(student);
-                                        console.log('Do we ever get here');
-                                        console.log(student.email);
                                     };
                                 };
                             });
@@ -109,33 +138,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         });
 
 
-        $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
-            $scope.students = response.data;
-            if ($scope.students.length > 0) {
-                $scope.isUploaded = true;
-            }
-            for (var i = 0; i < response.data.length; i++) {
-                student_map[response.data[i].user_type + '|' + response.data[i].email] = i;
-            }
 
-            $scope.students.forEach(function(student) {
-                console.log(student);
-                console.log('is this an array or an object');
-                student['lfg'] = false;
-                //student.push({lfg: false});
-                $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
-                    $scope.lfgList = response.data;
-                    $scope.lfgList.forEach(function(lfg) {
-                        if(lfg.user_fk == student.user_type + '|' + student.email) {
-                            //student.push({lfg:true});
-                            student['lfg'] = true;
-                        };
-                    });
-                });
-                console.log(student);
-                console.log('do we have lfg now');
-            });
-        });
 
 
         $rootScope.$on('rosterUpdated', function (event, mass) {
@@ -276,8 +279,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.teams = [];
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;
-                console.log('ayyyyyyyy');
-                console.log($scope.teams.length);
                 for (var i = 0; i < $scope.teams.length; i++) {
                     for (var j = 0; j < $scope.teams[i].members.length; j++) {
                         var member = $scope.teams[i].members[j];
@@ -292,7 +293,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                             $scope.haveGroup = true;
                             $cookieStore.put('myTeam', team);
                             $scope.team = $cookieStore.get('myTeam');
-                            console.log('Do we ever get here');
                         };
                     });
                 });
@@ -310,11 +310,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                                 if (req.requester == student.user_type + '|' + student.email) {
                                     if ($scope.requestersList.indexOf(student) < 0) {
                                         $scope.requestersList.push(student);
-                                        console.log('Do we ever get here');
-                                        console.log(student.email);
-                                    }
-                                }
-                                ;
+                                    };
+                                };
                             });
                         });
                     });
@@ -323,9 +320,29 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
         };
 
+        $scope.updateAssignment = function () {
+            $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
+                $scope.assignments = response.data;
+            });
+        };
+        $scope.updateQuestion = function () {
+            $http.get(Authentication.server_url + 'questions/' + $stateParams.which_class).then(function (response) {
+                $scope.questions = response.data;
+            });
+        };
+
+        $scope.updateAnswer = function () {
+            $http.get(Authentication.server_url + 'answers/' + $stateParams.which_class).then(function (response) {
+                $scope.questions = response.data;
+            });
+        };
+
         $scope.startCallback = function(event, ui, stu) {
             console.log('You started draggin: ');
-            $cookieStore.put('dragStudent', stu)
+            $cookieStore.put('dragStudentRoster', true);
+            $cookieStore.put('dragStudent', stu);
+            $cookieStore.put('deleteMember', false);
+            $cookieStore.put('deleteTeam', false);
             $cookieStore.put('haveGroup', false);
             $scope.teams.forEach(function (team) {
                 team.members.forEach(function(mem) {
@@ -335,10 +352,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     };
                 });
             });
-
-            console.log(stu.email);
-            $cookieStore.put('deleteTeam', false);
-            $cookieStore.put('deleteMember', true);
         };
 
 
