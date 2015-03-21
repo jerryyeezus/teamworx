@@ -1,7 +1,8 @@
 mainControllers.controller('GroupProfileController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service',
+    'group_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, $window, $fileUpload, toaster, ass_service) {
+              $modal, $window, $fileUpload, toaster, ass_service, group_service) {
         $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
@@ -124,6 +125,9 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
             $http.put(Authentication.server_url + 'add_team/', dataObject, {});
             Authentication.updateAuthenticatedAccount(which_field, data);
         };
+
+        $scope.myInterval = 1000;
+        $scope.cycle = true;
 
     }]);
 

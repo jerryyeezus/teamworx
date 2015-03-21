@@ -30,11 +30,12 @@
         <span class="glyphicon glyphicon-trash"></span> Delete
     </button>
 
-    <p style="position:absolute; top:108px; right: 145px;">LFG</p>
-    <button type="button" class="btn btn-primary btn-small" style="position:absolute; top:auto; right:70px"
+    <p ng-if="isStudent" style="position:absolute; top:100px; right: 145px;">LFG
+    <button type="button" class="btn btn-primary btn-small" style="position:relative; left:auto"
             ng-click="enableLFG()"> Enable</button>
-    <button type="button" class="btn btn-warning btn-small" style="position:absolute; top:auto; right:0px"
+    <button type="button" class="btn btn-warning btn-small" style="position:relative; left :auto"
             ng-click="disableLFG()"> Disable</button>
+    </p>
 
 </div>
 <br>

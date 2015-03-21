@@ -1,6 +1,3 @@
-/**
- * Created by thangnguyen on 3/17/15.
- */
 mainControllers.controller('DeleteRequesterController',
     ['$http', '$location', 'Authentication', '$scope',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'delete_team_member_service',
@@ -30,7 +27,7 @@ mainControllers.controller('DeleteRequesterController',
                         console.log(dataObject1);
                         var responsePromise = $http.put(Authentication.server_url + 'add_request/', dataObject1);
                         responsePromise.success(function () {
-                            delete_team_member_service.setDirty();
+                            //delete_team_member_service.setDirty();
                         });
                         responsePromise.error(function () {
                             console.log(dataObject);
@@ -60,7 +57,7 @@ mainControllers.controller('DeleteRequesterController',
                     };
                     var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
                     responsePromise.success(function () {
-                        delete_team_member_service.setDirty();
+                        //delete_team_member_service.setDirty();
                     });
                     responsePromise.error(function (data) {
                         console.log(data);

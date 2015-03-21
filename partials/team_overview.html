@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <div class="container-fluid" style="width:25%; float:left;">
-        <img src="img/no_group.jpg" id="GroupProfileSidebarImage">
+        <img src="img/no_group.jpg" style="width:100%; height: auto">
     </div>
     <div class="container-fluid" style="width:50%; float:left; text-align:left;">
         <h1>Group {{team.number}}</h1>
@@ -32,6 +32,16 @@
             </ul>
         </div>
 
+        <div>
+            <carousel interval="myInterval">
+                <slide ng-repeat="member in team.members">
+                    <img src="img/no_group.jpg" class="carouselImgStudent"/>
+                    <div class="carousel-caption">
+                        <p>{{member.name}}</p>
+                    </div>
+                </slide>
+            </carousel>
+        </div>
     </div>
 </div>
 </tab>

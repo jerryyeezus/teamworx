@@ -6,6 +6,10 @@ mainControllers.controller('CourseOverviewController', ['$http', '$stateParams',
         $scope.assignment = $cookieStore.get('assignment');
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
+
+
+
+        var which_class = $scope.course.pk;
         var student_map = {};
 
         $scope.updateAssignment = function () {
@@ -66,26 +70,6 @@ mainControllers.controller('CourseOverviewController', ['$http', '$stateParams',
                 }
             }
         };
-
-        $scope.startCallback = function(event, ui, stu) {
-            console.log('You started draggin: ');
-            $cookieStore.put('dragStudent', stu)
-            $cookieStore.put('haveGroup', false);
-            $scope.teams.forEach(function (team) {
-                team.members.forEach(function(mem) {
-                    if (mem.email == $cookieStore.get('dragStudent').email) {
-                        $cookieStore.put('haveGroup', true);
-                        $cookieStore.put('dragTeam', team);
-                    };
-                });
-            });
-
-
-            console.log(stu.email);
-            $cookieStore.put('deleteTeam', false);
-            $cookieStore.put('deleteMember', true);
-        };
-
         $cookieStore.put('deleteMember', false);
         $cookieStore.put('deleteTeam', false);
 
@@ -150,62 +134,5 @@ mainControllers.controller('CourseOverviewController', ['$http', '$stateParams',
             $cookieStore.put('dragTeam', dragGroup);
         };
 
-        $scope.isOwner = true;
-        $scope.enableLFG = function() {
-            var dataObject = {};
-            $scope.lfg = [];
-            $scope.isLFG = true;
-            $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
-                $scope.lfgList = response.data;
-                $scope.lfgList.forEach(function(lfg) {
-                    if(lfg.user_fk == $scope.user.user_type + '|' + $scope.user.email) {
-                        $scope.lfg = lfg;
-                        $scope.isLFG = false;
-                        toaster.pop('Enable LFG');
-                    };
-                });
-                if ($scope.isLFG) {
-                    dataObject['ass_fk'] = $scope.assignment.pk;
-                    dataObject['user_fk'] = $scope.user.user_type + '|' + $scope.user.email;
-
-                    var responsePromise = $http.post(Authentication.server_url + 'add_lfg/', dataObject, {});
-                    responsePromise.success(function () {
-                        toaster.pop('success', 'Enable LFG');
-                    });
-                    responsePromise.error(function (data) {
-                        console.log(data);
-                        console.log(dataObject);
-                    });
-                };
-            });
-        };
-
-        $scope.disableLFG = function() {
-            var dataObject = {};
-            $scope.lfg = [];
-            $scope.isLFG = false;
-            $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
-                $scope.lfgList = response.data;
-                $scope.lfgList.forEach(function(lfg) {
-                    if(lfg.user_fk == $scope.user.user_type + '|' + $scope.user.email) {
-                        $scope.lfg = lfg;
-                        $scope.isLFG = true;
-                    };
-                });
-                if ($scope.isLFG) {
-                    dataObject['pk'] = $scope.lfg.pk;
-
-                    var responsePromise = $http.put(Authentication.server_url + 'put_lfg/', dataObject, {});
-                    responsePromise.success(function () {
-                        toaster.pop('success', 'Disable LFG');
-                    });
-                    responsePromise.error(function (data) {
-                        console.log(data);
-                        console.log(dataObject);
-                    });
-                    $scope.isLFG = false;
-                };
-            });
-        };
 
     }]);

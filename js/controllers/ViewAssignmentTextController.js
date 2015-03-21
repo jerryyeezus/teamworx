@@ -1,6 +1,3 @@
-/**
- * Created by thangnguyen on 3/14/15.
- */
 mainControllers.controller('ViewAssignmentTextController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
         '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'ass_service',

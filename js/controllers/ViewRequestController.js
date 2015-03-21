@@ -1,6 +1,3 @@
-/**
- * Created by thangnguyen on 3/2/15.
- */
 mainControllers.controller('ViewRequestController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service',
     'accept_team_service', 'request_team_service', 'deny_team_service',

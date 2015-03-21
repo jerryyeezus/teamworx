@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TeamWorx - find a team</title>
 
+    <link href="bower_components/angularjs-toaster/toaster.css" rel="stylesheet" />
+
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 
@@ -16,7 +18,7 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="lib/angular/ui-bootstrap-tpls-0.12.0.min.js"></script>
 
-
+    <script src="https://code.angularjs.org/1.2.0/angular-animate.min.js" ></script>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"/>
 
     <link href="./css/bootstrap.css" rel="stylesheet">
@@ -29,6 +31,7 @@
     <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
 
     <script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+    <script src="bower_components/bootstrap/js/carousel.js"></script>
 
     <script src="js/app.js"></script>
     <script src="js/controllers/AddAssignmentController.js"></script>
@@ -83,7 +86,7 @@
 </head>
 <body>
 <div class="main" ui-view></div>
-<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 3000, 'position-class': 'toast-bottom-center'}"></toaster-container>
 <div class="wrapper"></div>
 </body>
 </html>

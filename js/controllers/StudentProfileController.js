@@ -1,7 +1,6 @@
 mainControllers.controller('StudentProfileController', ['$http', '$stateParams', 'Authentication',
-    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster',
-    function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, $window, $fileUpload, toaster) {
+    '$scope', '$rootScope', '$cookieStore',
+    function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore) {
         $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');

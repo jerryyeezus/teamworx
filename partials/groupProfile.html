@@ -31,16 +31,26 @@
             <hr/>
             <h2>Members</h2>
             <div class="MemberListContent">
-            <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                <div class="studentProfile">
-                    <a class="student-main" ui-sref ="main.studentProfile"
-                       ng-repeat="member in team.members" ng-click ="selectMember(member)">
-                        <img src="img/no_profile.png" class="imgStudent"/>
-                        {{member.name}} </br> </a>
-                </div>
-            </ul>
+                <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                    <div class="studentProfile">
+                        <a class="student-main" ui-sref ="main.studentProfile"
+                           ng-repeat="member in team.members" ng-click ="selectMember(member)">
+                            <img src="img/no_profile.png" class="imgStudent"/>
+                            {{member.name}} </br> </a>
+                    </div>
+                </ul>
             </div>
-            <h2></h2>
+            <div style="position:relative;">
+                <carousel interval="myInterval">
+                    <slide ng-repeat="member in team.members" active="member.active">
+                        <img src="img/no_group.jpg" class="carouselImgStudent"/>
+                        <div class="carousel-caption">
+                            <p>{{member.name}}</p>
+                        </div>
+                    </slide>
+                </carousel>
+            </div>
+
         </div>
     </div>
 </div>

@@ -22,6 +22,7 @@
                         <span style="padding-left: 0.3em">Profile</span>
                     </a>
                 </li>
+
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         Course: {{course.course_name}}
@@ -29,14 +30,14 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li>
+                        <li ng-if="isStudent">
+                            <a ui-sref="main.view_notification"> Notification </a>
                         </li>
                         <li>
                             <a ui-sref="main.question"> View Questions </a>
                         </li>
                         <li>
                             <a ng-if="isStudent" ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
-                            <!--Unlock Matches</a>-->
                         </li>
                     </ul>
                 </li>
@@ -60,13 +61,6 @@
                     </ul>
                 </li>
 
-                <li class="dropdown" ng-if="isStudent">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
-                            ui-sref="main.view_notification"> Notification <span
-                    class="caret"></span></a>
-                </li>
-
-
                 <li class="dropdown" id="settingsMenu">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
                         <span
@@ -76,15 +70,13 @@
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
                 </li>
-                <li class=""><a ng-hide="changeBackButton" href="#portal">Back</a></li>
-                <li class=""><a ng-show="changeBackButton" ng-click="portalBack()" ui-sref="main">Back</a></li>
+                <!--<li class=""><a ng-hide="changeBackButton" href="#portal">Back</a></li>-->
+                <!--<li class=""><a ng-show="changeBackButton" ng-click="portalBack()" ui-sref="main">Back</a></li>-->
             </ul>
         </div>
     </div>
 </nav>
 <!-- Navbar end -->
-
-<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
 
 <!-- If we're using the integrated Upload Roster Button (LN: 95-96)
 <div class="container-fluid" id="studentPanel" ng-controller="NavigationController"> -->
@@ -150,13 +142,13 @@
     <button type="button" class="btn button-primary btn-lg" ng-click=foo()>Upload a Student Roster</button> -->
 </div>
 
-<div class="container-fluid" id="courseInfoPanel">
-    <!--//TODO Peter: Course Information Panel-->
-</div>
+<!--<div class="container-fluid" id="courseInfoPanel">-->
+    <!--&lt;!&ndash;//TODO Peter: Course Information Panel&ndash;&gt;-->
+<!--</div>-->
 
-<div class="container-fluid" id="assignmentsPanel">
-    <!--//TODO Peter: Assignments Panel-->
-</div>
+<!--<div class="container-fluid" id="assignmentsPanel">-->
+    <!--&lt;!&ndash;//TODO Peter: Assignments Panel&ndash;&gt;-->
+<!--</div>-->
 
 <div class="container-fluid" id="groupPanel">
     <tabset class="tabs-">
