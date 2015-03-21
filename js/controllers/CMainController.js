@@ -64,6 +64,23 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
                 $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
                     $scope.students = response.data;
+                    $scope.students.forEach(function(student) {
+                        console.log(student);
+                        console.log('is this an array or an object');
+                        student['lfg'] = false;
+                        //student.push({lfg: false});
+                        $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
+                            $scope.lfgList = response.data;
+                            $scope.lfgList.forEach(function(lfg) {
+                                if(lfg.user_fk == student.user_type + '|' + student.email) {
+                                    //student.push({lfg:true});
+                                    student['lfg'] = true;
+                                };
+                            });
+                        });
+                        console.log(student);
+                        console.log('do we have lfg now');
+                    });
                 });
                 $scope.isInterested = false;
                 if ($scope.haveGroup) {
@@ -102,15 +119,21 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             }
 
             $scope.students.forEach(function(student) {
-                student.push({lfg: false});
+                console.log(student);
+                console.log('is this an array or an object');
+                student['lfg'] = false;
+                //student.push({lfg: false});
                 $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
                     $scope.lfgList = response.data;
                     $scope.lfgList.forEach(function(lfg) {
                         if(lfg.user_fk == student.user_type + '|' + student.email) {
-                            student.push({lfg:true});
+                            //student.push({lfg:true});
+                            student['lfg'] = true;
                         };
                     });
                 });
+                console.log(student);
+                console.log('do we have lfg now');
             });
         });
 
