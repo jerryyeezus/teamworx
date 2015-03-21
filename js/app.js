@@ -79,7 +79,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             controller: 'ViewRequestController'
         }, groupProfile = {
             name: 'main.groupProfile',
-            url: '/groupProfile/:teampk',
+            url: '/groupProfile/:team_pk',
             templateUrl: 'partials/groupProfile.html',
             controller: 'GroupProfileController'
         }, studentProfile = {
@@ -97,7 +97,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/admin/:which_assignment',
             templateUrl: 'partials/admin.html',
             controller: 'AdminController'
-        },  pending_request = {
+        }, pending_request = {
             name: 'main.pending_request',
             url: '/pending_request/:which_assignment',
             templateUrl: 'partials/pending_request.html',
@@ -244,7 +244,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        },view_notification = {
+        }, view_notification = {
             name: 'main.view_notification',
             url: '/view_notification/:which_class',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
@@ -255,8 +255,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        },
-        answer_question = {
+        }, answer_question = {
             name: 'main.answer_question',
             url: '/answer_question/:which_ass',
             templateUrl: 'partials/answer_question.html',

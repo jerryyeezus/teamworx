@@ -14,11 +14,12 @@
     </div>
 
 
-    <!--ng-if="!isMember && !isRequest && !isProfessor"-->
+
 
     <div class="container-fluid" id="pageGroupProfileBody">
-        <button class="btn btn-lg btn-info"  ng-click ="sendJoinRequest()"
-                style="margin: 0 auto;">Send Join Request</button>
+        <button  ng-if="!isMember && !isRequest && !isProfessor"
+             class="btn btn-lg btn-info"  ng-click ="sendJoinRequest()"
+             style="margin: 0 auto;">Send Join Request</button>
 
         <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
             <h2 style=" text-align:left;">

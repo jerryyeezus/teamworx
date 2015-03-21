@@ -281,6 +281,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.current_member = stud;
         };
 
+        $scope.current_student = $cookieStore.get('current_student');
+        $scope.current_member = $cookieStore.get('current_member');
+
         $scope.selectMember = function (member) {
             $cookieStore.put('current_member', member);
         };

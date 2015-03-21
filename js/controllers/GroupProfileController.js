@@ -8,7 +8,7 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.course = $cookieStore.get('course');
         $scope.team = $cookieStore.get('team');
         $scope.isLFM = $scope.team.lfm;
-
+        var team_pk = $scope.team.pk;
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
             var dataObject = {};
             dataObject['which_field'] = which_field;
@@ -29,8 +29,6 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
               if ($scope.user.user_type + '|' + $scope.user.email == req.requester) {
                   $scope.isRequest = true;
               };
-              console.log($scope.isRequest);
-              console.log('do we ever get here');
             });
         });
 
