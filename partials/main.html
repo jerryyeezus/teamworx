@@ -33,11 +33,11 @@
                         <li ng-if="isStudent">
                             <a ui-sref="main.view_notification"> Notification </a>
                         </li>
-                        <li>
+                        <li ng-if="isProfessor">
                             <a ui-sref="main.question"> View Questions </a>
                         </li>
-                        <li>
-                            <a ng-if="isStudent" ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
+                        <li ng-if="isStudent">
+                            <a ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
                         </li>
                     </ul>
                 </li>
@@ -125,8 +125,8 @@
             <ul style="list-style-type:none;">
                 <li data-drag="isProfessor" ng-repeat="student in students | filter: search"
                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
-                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-click="selectStudent(student)"
-                    ui-sref="main.studentProfile">
+                    data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
+                    class="container-fluid" ng-click="selectStudent(student)" ui-sref="main.studentProfile">
                     <div class="studentProfile">
                         <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)">
                         <br>
@@ -165,5 +165,5 @@
             </tabset>
         </tab>
     </tabset>
-    <div ui-view><div>
+    <div ui-view></div>
 </div>

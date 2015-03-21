@@ -6,6 +6,12 @@ mainControllers.controller('StudentProfileController', ['$http', '$stateParams',
         $scope.course = $cookieStore.get('course');
         $scope.assignment = $cookieStore.get('assignment');
         $scope.team = $cookieStore.get('team');
-        $scope.student = $cookieStore.get('student');
-        $scope.member = $cookieStore.get('member');
+        $scope.current_student = $cookieStore.get('current_student');
+        $scope.current_member = $cookieStore.get('current_member');
+        $scope.selectStudent = function (stud) {
+            $cookieStore.put('current_student', stud);
+            $scope.current_student = stud;
+            $cookieStore.put('current_member', stud);
+            $scope.current_member = stud;
+        };
     }]);

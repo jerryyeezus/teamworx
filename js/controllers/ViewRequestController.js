@@ -25,7 +25,6 @@ mainControllers.controller('ViewRequestController', ['$http', '$stateParams', 'A
 
             dataObject['team'] = $scope.team.pk;
             dataObject['requester'] = 'STUDENT|' + $scope.user.email;
-            console.log(dataObject);
 
             var responsePromise = $http.post(Authentication.server_url + 'add_request/', dataObject, {});
             responsePromise.success(function () {
@@ -64,8 +63,7 @@ mainControllers.controller('ViewRequestController', ['$http', '$stateParams', 'A
                 $scope.updateGroup();
 
             });
-            responsePromise.error(function (data, status, headers, config) {
-                alert("Submitting form failed!");
+            responsePromise.error(function () {
                 console.log(dataObject);
             });
         };
@@ -78,8 +76,6 @@ mainControllers.controller('ViewRequestController', ['$http', '$stateParams', 'A
         for (; i < $scope.team.members.length; i++) {
             if('STUDENT|' + $cookieStore.get('user_email') == $scope.team.members[i]) {
                 $scope.isMember = true;
-                console.log( $scope.isMember);
-                console.log('line 104');
             }
         }
 

@@ -10,12 +10,9 @@ mainControllers.controller('ViewNotificationController',
         $scope.allNotifications = [];
         $http.get(Authentication.server_url + 'notifications/').then(function(response) {
             $scope.allNotifications = response;
-            console.log($scope.allNotifications);
-            console.log('can we get here');
             $scope.allNotifications.data.forEach(function (notification) {
                 if (notification.to_user == $scope.user.user_type + '|' + $scope.user.email) {
                         $scope.notificationList.push(notification);
-                        console.log($scope.notificationList);
                 };
             });
         });

@@ -81,15 +81,19 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     }
                 };
                 $scope.haveGroup = false;
-                $scope.teams.forEach(function (team) {
-                    team.members.forEach(function(mem) {
-                        if (mem.email == $scope.user.email) {
-                            $scope.haveGroup = true;
-                            $cookieStore.put('myTeam', team);
-                            $scope.team = $cookieStore.get('myTeam');
+                if ($scope.teams.length > 0) {
+                    $scope.teams.forEach(function (team) {
+                        if (team.members.length > 0) {
+                            team.members.forEach(function (mem) {
+                                if (mem != undefined && mem.email == $scope.user.email) {
+                                    $scope.haveGroup = true;
+                                    $cookieStore.put('myTeam', team);
+                                    $scope.team = $cookieStore.get('myTeam');
+                                };
+                            });
                         };
                     });
-                });
+                };
 
                 if ($scope.assignments.length > 0) {
                     $scope.assignment = $scope.assignments[$scope.assignments.length - 1];
@@ -265,6 +269,24 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             this.hovered = undefined;
         };
 
+        $scope.selectTeam = function (team) {
+
+            $cookieStore.put('team', team);
+            group_service.setGroup(team);
+            $scope.changeBackButton = true;
+        };
+
+        $scope.selectStudent = function (stud) {
+            $cookieStore.put('current_student', stud);
+            $scope.current_student = stud;
+            $cookieStore.put('current_member', stud);
+            $scope.current_member = stud;
+        };
+
+        $scope.selectMember = function (member) {
+            $cookieStore.put('member', member);
+        };
+
         $scope.selectAssignment = function (id, pk, ass) {
             ass_service.setWhichAssignment(id);
             $scope.which_assignment = id;
@@ -288,13 +310,15 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
                 $scope.haveGroup = false;
                 $scope.teams.forEach(function (team) {
-                    team.members.forEach(function(mem) {
-                        if (mem.email == $scope.user.email) {
-                            $scope.haveGroup = true;
-                            $cookieStore.put('myTeam', team);
-                            $scope.team = $cookieStore.get('myTeam');
-                        };
-                    });
+                    if (team.members.length > 0) {
+                        team.members.forEach(function (mem) {
+                            if (mem != undefined && mem.email == $scope.user.email) {
+                                $scope.haveGroup = true;
+                                $cookieStore.put('myTeam', team);
+                                $scope.team = $cookieStore.get('myTeam');
+                            };
+                        });
+                    };
                 });
                 $scope.isInterested = false;
                 if ($scope.haveGroup) {

@@ -1,7 +1,7 @@
 mainControllers.controller('CourseOverviewController', ['$http', '$stateParams', 'Authentication',
-    '$scope', '$rootScope', '$cookieStore', '$modal',
+    '$scope', '$rootScope', '$cookieStore', '$modal', 'group_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal) {
+              $modal, group_service) {
         $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
         $scope.assignment = $cookieStore.get('assignment');
         $scope.user = Authentication.getAuthenticatedAccount();
@@ -31,23 +31,12 @@ mainControllers.controller('CourseOverviewController', ['$http', '$stateParams',
             return student.profile_img != null;
         };
 
-        $scope.selectTeam = function (team) {
-
-            $cookieStore.put('team', team);
-            group_service.setGroup(team);
-            $scope.changeBackButton = true;
-        };
-
         $scope.selectStudent = function (stud) {
             $cookieStore.put('student', stud);
             $cookieStore.put('member', stud);
             $scope.changeBackButton = true;
-        }
+        };
 
-        $scope.selectMember = function (member) {
-            $cookieStore.put('member', member);
-            $scope.changeBackButton = true;
-        }
 
         $scope.portalBack = function () {
             $scope.changeBackButton = false;
