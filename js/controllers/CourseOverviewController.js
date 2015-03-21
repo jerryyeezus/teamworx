@@ -32,11 +32,14 @@ mainControllers.controller('CourseOverviewController', ['$http', '$stateParams',
         };
 
         $scope.selectStudent = function (stud) {
-            $cookieStore.put('student', stud);
-            $cookieStore.put('member', stud);
+            $cookieStore.put('current_student', stud);
+            $cookieStore.put('current_member', stud);
             $scope.changeBackButton = true;
         };
 
+        $scope.selectMember = function (member) {
+            $cookieStore.put('current_member', member);
+        };
 
         $scope.portalBack = function () {
             $scope.changeBackButton = false;

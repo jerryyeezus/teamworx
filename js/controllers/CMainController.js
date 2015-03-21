@@ -270,10 +270,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.selectTeam = function (team) {
-
             $cookieStore.put('team', team);
             group_service.setGroup(team);
-            $scope.changeBackButton = true;
         };
 
         $scope.selectStudent = function (stud) {
@@ -284,7 +282,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.selectMember = function (member) {
-            $cookieStore.put('member', member);
+            $cookieStore.put('current_member', member);
         };
 
         $scope.selectAssignment = function (id, pk, ass) {
