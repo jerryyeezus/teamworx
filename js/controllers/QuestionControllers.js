@@ -1,8 +1,3 @@
-/**
- *
- * Created by yee on 3/1/15.
- */
-
 mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster',
     'add_question_service', 'edit_question_service',

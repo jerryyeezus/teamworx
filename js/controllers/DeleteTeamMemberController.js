@@ -10,41 +10,44 @@ mainControllers.controller('DeleteTeamMemberController',
             $scope.course = $cookieStore.get('course');
             $scope.delMember = $cookieStore.get('deleteMember');
             $scope.delTeam = $cookieStore.get('deleteTeam');
+            $scope.dragStudentRoster = $cookieStore.get('dragStudentRoster');
 
             $scope.ok = function () {
-                if ($cookieStore.get('deleteMember')) {
-                    var dataObject = {
-                        which_student: $scope.dragStudent.user_type + '|' + $scope.dragStudent.email,
-                        which_team: $scope.dragTeam.pk,
-                        which_action: 'remove'
-                    };
-                    var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
-                    responsePromise.success(function () {
-                        delete_team_member_service.setDirty();
-                    });
-                    responsePromise.error(function (data) {
-                        console.log(data);
-                        console.log(dataObject);
-                    });
-                    ($cookieStore.put('deleteMember', false));
+                if(!$scope.dragStudentRoster) {
+                    if ($cookieStore.get('deleteMember')) {
+                        var dataObject = {
+                            which_student: $scope.dragStudent.user_type + '|' + $scope.dragStudent.email,
+                            which_team: $scope.dragTeam.pk,
+                            which_action: 'remove'
+                        };
+                        var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
+                        responsePromise.success(function () {
+                            delete_team_member_service.setDirty();
+                        });
+                        responsePromise.error(function (data) {
+                            console.log(data);
+                            console.log(dataObject);
+                        });
+                        ($cookieStore.put('deleteMember', false));
+                    }
+
+                    if ($cookieStore.get('deleteTeam')) {
+                        var dataObject = {
+                            which_team: $scope.dragTeam.pk,
+                            which_action: 'remove'
+                        };
+                        var responsePromise = $http.put(Authentication.server_url + 'team/', dataObject, {});
+                        responsePromise.success(function () {
+                            delete_group_service.setDirty();
+                        });
+                        responsePromise.error(function (data) {
+                            console.log(data);
+                            console.log(dataObject);
+                        });
+                        ($cookieStore.put('deleteTeam', false));
+                    }
+                    ;
                 }
-
-                if ($cookieStore.get('deleteTeam')) {
-                    var dataObject = {
-                        which_team: $scope.dragTeam.pk,
-                        which_action: 'remove'
-                    };
-                    var responsePromise = $http.put(Authentication.server_url + 'team/', dataObject, {});
-                    responsePromise.success(function () {
-                        delete_group_service.setDirty();
-                    });
-                    responsePromise.error(function (data) {
-                        console.log(data);
-                        console.log(dataObject);
-                    });
-                    ($cookieStore.put('deleteTeam', false));
-                };
-
 
                 $modalInstance.close();
                 $modalInstance.dismiss('cancel');

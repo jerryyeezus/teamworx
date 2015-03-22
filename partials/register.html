@@ -4,19 +4,21 @@
             <h1>Register:</h1>
             <label>Name:</label>
             <input ng-model="formData2.the_name" placeholder="Your full name" autofocus><br>
-
+            </br>
             <label>Email:</label>
             <input ng-model="formData2.the_email" placeholder="E-mail" autofocus><br>
-
+            </br>
             <label>Type:</label>
             <input type="radio" ng-model="formData2.user_type" name="user_type" value="STUDENT"> Student
             <input type="radio" ng-model="formData2.user_type" name="user_type" value="INSTRUCTOR">Instructor
             <br>
-
+            </br>
             <label>Choose Password:</label>
             <input type="password" ng-model="formData2.password" placeholder="password" autofocus>
             <input type="password" ng-model="formData2.confirm_password" placeholder="confirm password" autofocus>
-            <input type="submit"/>
+            </br>
+            </br>
+            <input class="btn btn-lg btn-primary btn-block" type="submit"/>
         </form>
     </div>
 </section>

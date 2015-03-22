@@ -203,6 +203,12 @@ a:active {
     float: left;
 }
 
+.carouselImgStudent {
+    margin:auto;
+    height: 300px;
+    width: 300px;
+}
+
 .studentUploadRoster {
     max-width: inherit;
     border: 3px solid black;

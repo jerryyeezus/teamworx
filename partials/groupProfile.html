@@ -1,7 +1,6 @@
 <toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
 <div class="container-fluid" id="pageGroupProfileFull">
     <div class="container-fluid" id="pageGroupProfileHeader">
-
         <div class="container-fluid" id="pageGroupProfileHeaderSidebar">
             <img src="img/no_group.jpg" id="GroupProfileSidebarImage">
         </div>
@@ -12,14 +11,16 @@
 
             <h4>Assignment: {{assignment.assignment_number}}</h4>
         </div>
-
     </div>
 
 
-    <!--ng-if="!isMember && !isRequest && !isProfessor"-->
-    <button class="btn btn-lg btn-info"  ng-click ="sendJoinRequest()"
-            style="margin: 0 auto;">Send Join Request</button>
+
+
     <div class="container-fluid" id="pageGroupProfileBody">
+        <button  ng-if="!isMember && !isRequest && !isProfessor"
+             class="btn btn-lg btn-info"  ng-click ="sendJoinRequest()"
+             style="margin: 0 auto;">Send Join Request</button>
+
         <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
             <h2 style=" text-align:left;">
                 Description: {{team.description}}
@@ -31,16 +32,26 @@
             <hr/>
             <h2>Members</h2>
             <div class="MemberListContent">
-            <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                <div class="studentProfile">
-                    <a class="student-main" ui-sref ="main.studentProfile"
-                       ng-repeat="member in team.members" ng-click ="selectMember(member)">
-                        <img src="img/no_profile.png" class="imgStudent"/>
-                        {{member.name}} </br> </a>
-                </div>
-            </ul>
+                <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                    <div class="studentProfile">
+                        <a class="student-main" ui-sref ="main.studentProfile"
+                           ng-repeat="member in team.members" ng-click ="selectMember(member)">
+                            <img src="img/no_profile.png" class="imgStudent"/>
+                            {{member.name}} </br> </a>
+                    </div>
+                </ul>
             </div>
-            <h2></h2>
+            <div style="position:relative;">
+                <carousel interval="myInterval">
+                    <slide ng-repeat="member in team.members" active="member.active">
+                        <img src="img/no_group.jpg" class="carouselImgStudent"/>
+                        <div class="carousel-caption">
+                            <p>{{member.name}}</p>
+                        </div>
+                    </slide>
+                </carousel>
+            </div>
+
         </div>
     </div>
 </div>

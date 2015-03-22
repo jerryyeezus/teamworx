@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <h3 ng-if="isInterested">List of Requesters</h3>
+    <div ng-if="isInterested" class="requesterListContent">
+        <div class="studentProfile">
+            <a class="student-main" ui-sref ="main.studentProfile"
+               ng-repeat="member in requestersList" ng-click ="selectMember(member)"
+               data-drag="true"
+               jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveRequester(member)'}"
+               data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
+                <img src="img/no_profile.png" class="imgStudent"/>
+                {{member.name}} </br> </a>
+        </div>
+    </div>
+
+    <p class="addMemberButton" style="float: left; margin-top: 5px">
+        <button type="button" ng-if="true && isInterested" class="btn btn-primary btn-lg"
+                data-drop="true" jqyoui-droppable="{beforeDrop: 'acceptRequester()'}">
+            <span class="glyphicon glyphicon-plus"></span> Add Member
+        </button>
+
+        <button ng-if ="true && isInterested" class="btn btn-warning btn-lg" data-drop="true"
+                jqyoui-droppable="{beforeDrop: 'denyRequester()'}">
+            <span class="glyphicon glyphicon-trash"></span> Delete Requester
+        </button>
+    </p>
+</div>

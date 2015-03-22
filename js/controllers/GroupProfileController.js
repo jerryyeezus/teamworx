@@ -1,13 +1,14 @@
 mainControllers.controller('GroupProfileController', ['$http', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service',
+    'group_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, $window, $fileUpload, toaster, ass_service) {
+              $modal, $window, $fileUpload, toaster, ass_service, group_service) {
         $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
         $scope.team = $cookieStore.get('team');
         $scope.isLFM = $scope.team.lfm;
-
+        var team_pk = $scope.team.pk;
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
             var dataObject = {};
             dataObject['which_field'] = which_field;
@@ -28,8 +29,6 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
               if ($scope.user.user_type + '|' + $scope.user.email == req.requester) {
                   $scope.isRequest = true;
               };
-              console.log($scope.isRequest);
-              console.log('do we ever get here');
             });
         });
 
@@ -124,6 +123,9 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
             $http.put(Authentication.server_url + 'add_team/', dataObject, {});
             Authentication.updateAuthenticatedAccount(which_field, data);
         };
+
+        $scope.myInterval = 1000;
+        $scope.cycle = true;
 
     }]);
 

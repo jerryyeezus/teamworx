@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TeamWorx - find a team</title>
 
+
+
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 
@@ -19,6 +21,8 @@
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"/>
 
+
+
     <link href="./css/bootstrap.css" rel="stylesheet">
     <script src="lib/jquery.min.js"></script>
     <script src="lib/jquery-ui.min.js"></script>
@@ -29,6 +33,9 @@
     <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
 
     <script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+    <script src="bower_components/bootstrap/js/carousel.js"></script>
+
+    <link href="bower_components/angularjs-toaster/toaster.css" rel="stylesheet" />
 
     <script src="js/app.js"></script>
     <script src="js/controllers/AddAssignmentController.js"></script>
@@ -55,6 +62,11 @@
     <script src="js/controllers/DeleteRequesterController.js"></script>
     <script src="js/controllers/AddRequesterController.js"></script>
     <script src="js/controllers/ViewNotificationController.js"></script>
+    <script src ="js/controllers/PendingRequestController.js"></script>
+    <script src ="js/controllers/AdminController.js"></script>
+    <script src ="js/controllers/TeamOverviewController.js"></script>
+    <script src ="js/controllers/CourseOverviewController.js"></script>
+
 
     <script src="js/services/AssService.js"></script>
     <script src="js/services/AnswerService.js"></script>
@@ -78,7 +90,7 @@
 </head>
 <body>
 <div class="main" ui-view></div>
-<toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 3000, 'position-class': 'toast-bottom-center'}"></toaster-container>
 <div class="wrapper"></div>
 </body>
 </html>

@@ -1,0 +1,46 @@
+<div class="container-fluid">
+
+    <div class="container-fluid" style="width:25%; float:left;">
+        <img src="img/no_group.jpg" style="width:100%; height: auto">
+    </div>
+    <div class="container-fluid" style="width:50%; float:left; text-align:left;">
+        <h1>Group {{team.number}}</h1>
+
+        <h4>Class: {{course.course_dept_and_id}}</h4>
+
+        <h4>Assignment: {{assignment.assignment_number}}</h4>
+        </br></br></br></br></br></br>
+        <!--ng-if="!isMember && !isRequest && !isProfessor"-->
+        <h2>
+            Description: {{team.description}}
+        </h2>
+        <hr/>
+        <h2>
+            Seeking Skills: {{team.description}}
+        </h2>
+        <hr/>
+        <h2>Members</h2>
+        <div class="MemberListContent">
+            <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                <div class="studentProfile">
+                    <a class="student-main" ui-sref ="main.studentProfile"
+                       ng-repeat="member in team.members" ng-click ="selectMember(member)">
+                        <img src="img/no_profile.png" class="imgStudent"/>
+                        {{member.name}} </br> </a>
+                </div>
+            </ul>
+        </div>
+
+        <div  style="position:relative;">
+            <carousel interval="myInterval">
+                <slide ng-repeat="member in team.members">
+                    <img src="img/no_group.jpg" class="carouselImgStudent"/>
+                    <div class="carousel-caption">
+                        <p>{{member.name}}</p>
+                    </div>
+                </slide>
+            </carousel>
+        </div>
+    </div>
+</div>
+</tab>

@@ -1,8 +1,10 @@
-<div>
-    <p>Notification</p>
-    </hr>
-    <div ng-repeat="notification in notificationList">
-        From: {{notification.from_user}} </br>
+<div class="modal-header">
+    <h4><b>Notifications</b></h4>
+</div>
+
+<div classs="modal-body">
+    <div ng-repeat="notification in notificationList" class="container-fluid">
+        <h4><i> From: {{notification.from_user.split("|")[1]}} </i> </h4> </br>
         {{notification.message}}
         </hr>
     </div>

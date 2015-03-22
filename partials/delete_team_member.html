@@ -1,4 +1,5 @@
 <div class="modal-body">
+    <b ng-if="dragStudentRoster"> You are not allowed to delete students from roster </b>
     <b ng-if="delMember" >Are you sure that you want to take {{dragStudent.name}} out of Team {{dragTeam.number}} ?</b>
     <b ng-if="delTeam" >Are you sure that you want to delete Team {{dragTeam.number}} ?</b>
 </div>
