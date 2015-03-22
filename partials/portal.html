@@ -62,8 +62,20 @@
 
             <div class="professorInfoContent" ng-if="isStudent">
                 <p>
+                    <b>Skills:</b>
+                <span e-form="skillsBtnForm" style="color:#ea9256; padding-right: 0.3em; font-weight: bold"
+                      onbeforesave="updateProfile('skills_str', $data, user.user_type, user.email)"
+                      editable-text="user.skills_str">
+                {{ user.skills_str || "" }}
+                </span>
+                    <a ng-click="skillsBtnForm.$show()" ng-hide="skillsBtnForm.$visible" style="cursor:pointer;">
+                        <img src="img/edit.png"/>
+                    </a>
+                </p>
+
+                <p>
                     <b>Linkedin:</b>
-                <span e-form="linkedinBtnForm" style="color:darkslateblue; padding-right: 0.3em; word-wrap: break-word"
+                <span e-form="linkedinBtnForm" style="color:#ea9256; padding-right: 0.3em; font-weight: bold; word-wrap: break-word"
                       onbeforesave="updateProfile('linkedin', $data, user.user_type, user.email)" editable-text="user.linkedin">
                     <a href="{{user.linkedin}}">{{ user.linkedin || "" }}</a>
                 </span>
@@ -75,23 +87,12 @@
 
                 <p>
                     <b>Github:</b>
-                <span e-form="githubBtnForm" style="color:darkslateblue; padding-right: 0.3em"
-                      onbeforesave="updateProfile('github', $data, user.user_type, user.email)" editable-text="user.github">
+                <span e-form="githubBtnForm" style="color:#ea9256; padding-right: 0.3em; font-weight: bold; word-wrap: break-word"
+                      onbeforesave="updateProfile('github', $data, user.user_type, user.email)"
+                      editable-text="user.github">
                     <a href="{{user.github}}">{{ user.github || "" }}</a>
                 </span>
                     <a ng-click="githubBtnForm.$show()" ng-hide="githubBtnForm.$visible" style="cursor:pointer;">
-                        <img src="img/edit.png"/>
-                    </a>
-                </p>
-
-                <p>
-                    <b>Skills:</b>
-                <span e-form="skillsBtnForm" style="color:darkslateblue; padding-right: 0.3em"
-                      onbeforesave="updateProfile('skills_str', $data, user.user_type, user.email)"
-                      editable-text="user.skills_str">
-                {{ user.skills_str || "" }}
-                </span>
-                    <a ng-click="skillsBtnForm.$show()" ng-hide="skillsBtnForm.$visible" style="cursor:pointer;">
                         <img src="img/edit.png"/>
                     </a>
                 </p>
