@@ -240,6 +240,7 @@
                             <span ng-hide="'Team ' + team.number == team.name">
                             Team {{team.number}}: </span>
                                     {{team.name || 'Unnamed Team'}}
+                                    {{team.description}}
                                 </h3>
                             </div>
 
@@ -262,7 +263,8 @@
                                jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragMemberInTeam(member, team)'}"
                                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
                                ng-click="selectMember(member)" ui-sref="main.studentProfile">
-                                <img src="img/no_profile.png" class="imgStudent" style="float: left; margin-right: 10px; margin-top: 10px">
+                                <img src="img/no_profile.png" class="imgStudent" style="max-height: 46px; max-width: 46px;
+                                                                                    margin-right: 10px; margin-top: 10px">
                             </a>
                             </span>
                                 </div>

@@ -188,9 +188,9 @@ a:active {
 .studentProfile {
     /*background-color: #dddddd;*/
     max-width: inherit;
-    border: 3px solid black;
+    border: 1px solid #9e90a9;
     border-radius: 3px;
-    margin: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 0px;
     padding: 5px 5px 5px 5px;
 }
 
@@ -200,6 +200,7 @@ a:active {
     width: auto;
     max-width: 48px;
     border: 1px solid black;
+    float: left;
 }
 
 .studentUploadRoster {
@@ -315,7 +316,7 @@ a:active {
     /*height: auto;*/
     /*height: 10px;*/
     width: 30%;
-    background-color: brown;
+    background-color: grey;
     opacity: 0.9;
     /*border: 3px solid black;*/
     border-radius: 8px;
