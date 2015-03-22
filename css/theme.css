@@ -521,18 +521,18 @@ a:active {
     background-color: black;
     border: 1px solid black;
     border-radius: 3px;
-    padding: 15px 5px 5px 15px;
+    padding: 15px 15px 15px 15px;
     word-wrap: normal;
-    /*overflow: auto;*/
+    overflow: auto;
     text-overflow: ellipsis;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
-    margin-top: 50px;
+    width: 70vw;
+    margin-top: 70px;
     margin-bottom: 10px;
     min-height: 500px;
     height: auto;
-    max-height: 580px;
+    max-height: 87vh;
     opacity: 0.7;
     color: #ffffff;
 }
@@ -541,7 +541,7 @@ a:active {
     border: 1px solid black;
     height: auto;
     max-height: 250px;
-    width: 200px;
+    width: 15vw;
     max-width: 250px;
     margin-right: 2px;
     float:left;
@@ -568,67 +568,58 @@ a:active {
     float:left;
     display:inline;
     position: relative;
-    top: -20px;
-    left: 0px;
+    left: 15px;
+    width: 51vw;
 }
+/*not used*/
 .professorImageContent{
     float:left;
     display:inline;
     position: relative;
-    top:  30px;
-    left: 30px;
 }
 .professorBioContent{
     border-radius: 10px;
     word-wrap: normal;
     overflow: auto;
     text-overflow: ellipsis;
-    width: 700px;
+    width: 100vh;
     min-height: 20px;
     height: 55vh;
     max-height: 150px;
-    padding: 1.0em 5px 5px 1.5em;
+
     color: #ffffff;
     position: relative;
-    top: -10px;
-    left: -18px;
+
+    left: 10px;
 }
 
 .professorInfoContent{
-    border-radius: 10px;
     word-wrap: normal;
     overflow: auto;
     text-overflow: ellipsis;
-    width: 230px;
+    width: 21vw;
     min-height: 20px;
     max-height: 310px;
-    margin-bottom: 20px;
-    padding: 1.0em 5px 5px 1.5em;
+    margin-top: 15px;
     color: #ffffff;
     position: relative;
     float:left;
     margin-right: 2px;
-    left: -18px;
-    display:inline;
+
 }
 
 .courseListContent {
-    background-color: black;
-    border: 1px solid black;
-    border-radius: 3px;
     word-wrap: normal;
     overflow-y: auto;
     overflow-x: hidden;
     text-overflow: ellipsis;
-    width: 683px;
+    width: 46vw;
     min-height: 70px;
     height: 320px;
-    max-height: 320px;
-    margin-top: 12px;
-    opacity: 0.7;
+    max-height: 310px;
+    margin-top: 15px;
     color: #ffffff;
     float:left;
-    display:inline;
 }
 
 .innerCourseListContent {
