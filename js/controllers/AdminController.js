@@ -2,10 +2,10 @@ mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authent
     '$scope', '$rootScope', '$cookieStore', '$modal', 'toaster',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
               $modal, toaster) {
-        $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-        $scope.assignment = $cookieStore.get('assignment');
-        $scope.user = Authentication.getAuthenticatedAccount();
-        $scope.course = $cookieStore.get('course');
+        //$scope.the_user = Authentication.getAuthenticatedAccount()['email'];
+        //$scope.assignment = $cookieStore.get('assignment');
+        //$scope.user = Authentication.getAuthenticatedAccount();
+        //$scope.course = $cookieStore.get('course');
 
 
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
@@ -62,18 +62,4 @@ mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authent
             });
             toaster.pop('success', 'Disable LFM');
         };
-
-        $scope.addRemoveMember = function(event, ui, mem) {
-            $cookieStore.put('deleteMember', mem);
-            $cookieStore.put('delMem', true);
-        };
-
-        $scope.denyRequester = function() {
-            var modalInstance = $modal.open({
-                templateUrl: 'partials/delete_requester.html',
-                controller: 'DeleteRequesterController'
-            });
-            return modalInstance.result;
-        };
-
     }]);

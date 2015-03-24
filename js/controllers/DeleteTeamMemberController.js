@@ -5,16 +5,19 @@ mainControllers.controller('DeleteTeamMemberController',
         function ($http, $location, Authentication, $scope,
                   $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance, delete_team_member_service,
                   delete_group_service) {
-            $scope.dragStudent = $cookieStore.get('dragStudent');
-            $scope.dragTeam = $cookieStore.get('dragTeam');
+
             $scope.course = $cookieStore.get('course');
-            $scope.delMember = $cookieStore.get('deleteMember');
-            $scope.delTeam = $cookieStore.get('deleteTeam');
-            $scope.dragStudentRoster = $cookieStore.get('dragStudentRoster');
+            $scope.dragStudent = delete_team_member_service.getDragStudent();
+            $scope.dragTeam = delete_team_member_service.getDragTeam();
+            $scope.delMemberFlag = delete_team_member_service.getDelMemberFlag();
+            $scope.delTeamFlag = delete_team_member_service.getDelTeamFlag();
+            $scope.dragStudentRosterFlag = delete_team_member_service.getDragStudentRosterFlag();
+
+            console.log($scope.delMemberFlag);
 
             $scope.ok = function () {
-                if(!$scope.dragStudentRoster) {
-                    if ($cookieStore.get('deleteMember')) {
+                if(!$scope.dragStudentRosterFlag) {
+                    if ($scope.delMemberFlag) {
                         var dataObject = {
                             which_student: $scope.dragStudent.user_type + '|' + $scope.dragStudent.email,
                             which_team: $scope.dragTeam.pk,
@@ -28,10 +31,11 @@ mainControllers.controller('DeleteTeamMemberController',
                             console.log(data);
                             console.log(dataObject);
                         });
-                        ($cookieStore.put('deleteMember', false));
+
+                        delete_team_member_service.setDelMemberFlag(false);
                     }
 
-                    if ($cookieStore.get('deleteTeam')) {
+                    if ($scope.delTeamFlag) {
                         var dataObject = {
                             which_team: $scope.dragTeam.pk,
                             which_action: 'remove'
@@ -44,10 +48,9 @@ mainControllers.controller('DeleteTeamMemberController',
                             console.log(data);
                             console.log(dataObject);
                         });
-                        ($cookieStore.put('deleteTeam', false));
-                    }
-                    ;
-                }
+                        delete_team_member_service.setDelTeamFlag(false);
+                    };
+                };
 
                 $modalInstance.close();
                 $modalInstance.dismiss('cancel');

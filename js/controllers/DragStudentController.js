@@ -3,14 +3,18 @@ mainControllers.controller('DragStudentController',
         '$rootScope', '$cookieStore', '$modal', '$window', 'toaster', '$modalInstance', 'drag_student_service',
         function ($http, $location, Authentication, $scope,
                   $rootScope, $cookieStore, $modal, $window, toaster, $modalInstance, drag_student_service) {
-            $scope.dragStudent = $cookieStore.get('dragStudent');
-            $scope.dropTeam = $cookieStore.get('dropTeam');
-            $scope.dragTeam = $cookieStore.get('dragTeam');
+
+
+
+            $scope.dragStudent = drag_student_service.getDragStudent();
+            $scope.dropTeam = drag_student_service.getDropTeam();
+            $scope.dragTeam = drag_student_service.getDragTeam();
+            $scope.sameTeamFlag = drag_student_service.getSameTeamFlag();
             $scope.course = $cookieStore.get('course');
-            $scope.sameTeam = $cookieStore.get('sameTeam');
+
 
             $scope.ok = function () {
-                if (!$scope.sameTeam) {
+                if (!$scope.sameTeamFlag) {
                     var dataObject = {
                         which_student: $scope.dragStudent.user_type + '|' + $scope.dragStudent.email,
                         which_team: $scope.dragTeam.pk,

@@ -120,6 +120,8 @@
                     <h4>Instructor: {{ course.prof }}</h4>
                 </li>
             </div>
+        </div>
+        <div>
             <p class="addCourseButton" style="float: left; margin-top: 5px">
                 <button type="button" ng-if="isProfessor" class="btn btn-primary btn-lg" ui-sref="portal.create_class">
                     Add New Course
@@ -129,7 +131,6 @@
                     <span class="glyphicon glyphicon-trash"></span> Delete Course
                 </button>
             </p>
-
         </div>
     </div>
 </div>

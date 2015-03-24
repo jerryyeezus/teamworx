@@ -102,11 +102,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/pending_request/:which_assignment',
             templateUrl: 'partials/pending_request.html',
             controller: 'PendingRequestController'
-        }, course_overview = {
-            name: 'main.course_overview',
-            url: '/course_overview/:which_assignment',
-            templateUrl: 'partials/course_overview.html',
-            controller: 'CourseOverviewController'
         }, register = {
             name: 'register',
             url: '/register',
@@ -306,7 +301,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(pending_request);
     main_state.state(team_overview);
     main_state.state(admin);
-    main_state.state(course_overview);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)
