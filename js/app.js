@@ -140,6 +140,17 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
+        }, add_project = {
+            name: 'main.add_project',
+            url: '/add_assignment/:which_assignment',
+            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
+                $modal.open({
+                    templateUrl: 'partials/add_project.html',
+                    controller: 'AddProjectController'
+                }).result.finally(function () {
+                        $state.go('^');
+                    });
+            }]
         }, add_group = {
             name: 'main.add_group',
             url: '/add_group/:which_assignment',
@@ -254,6 +265,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(pending_request);
     main_state.state(team_overview);
     main_state.state(admin);
+    main_state.state(add_project)
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)

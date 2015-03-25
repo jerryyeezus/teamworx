@@ -6,6 +6,4 @@ mainControllers.controller('TeamOverviewController', ['$http', '$stateParams', '
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
         $scope.myInterval = 1000;
-        $scope.cycle = true;
-
     }]);

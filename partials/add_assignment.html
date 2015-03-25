@@ -1,13 +1,17 @@
 <div class="modal-header">
-    <h3>Create a New Assignment</h3>
+    <label class="label-success" style="width: 100%; height: 100%; color: white">
+        <h3><p class="text-center">Creating a New Assignment</p></h3></label>
 </div>
 <div>
     <form>
         <div class="modal-body">
-            <input type="text" disabled id="assignment_number" ng-model="myForm.assignment_number" ng-minlength="0" ng-maxlength="20" readonly>
+            <input type="text" disabled id="assignment_number" ng-model="myForm.assignment_number" ng-minlength="0"
+                   ng-maxlength="20" readonly>
             Assignment Number <br/>
-            <input type="text" id="assignment_title" ng-model="myForm.assignment_title" ng-minlength="0" ng-maxlength="20"> Assignment Title<br/>
-            <input type="text" id="assignment_text" ng-model="myForm.assignment_text" ng-minlength="0" ng-maxlength="20"> Assignment Text <br/>
+            <input type="text" id="assignment_title" ng-model="myForm.assignment_title" ng-minlength="0"
+                   ng-maxlength="20"> Assignment Title<br/>
+            <input type="text" id="assignment_text" ng-model="myForm.assignment_text" ng-minlength="0"
+                   ng-maxlength="20"> Assignment Text <br/>
         </div>
 
         <div class="modal-footer">

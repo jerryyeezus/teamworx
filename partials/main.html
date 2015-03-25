@@ -9,7 +9,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand"><img id="logo" src="img/teamworx_logo_short.png" style="width: 8vw; height: auto; margin-top: -10px"></a>
+            <a class="navbar-brand"><img id="logo" src="img/teamworx_logo_short.png" style="width: 8vw; height: auto;
+             margin-top: -10px"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -35,7 +36,8 @@
                             <a ng-click="showUIViewContent()" ui-sref="main.question"> View Questions </a>
                         </li>
                         <li ng-if="isStudent">
-                            <a ng-click="showUIViewContent()" ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
+                            <a ng-click="showUIViewContent()" ui-sref="main.answer_question">
+                                Answer Questions to Unlock Matches</a>
                         </li>
                     </ul>
                 </li>
@@ -150,7 +152,8 @@
         <tab heading="Course Overview" ng-click="showCourseContent()">
             <!--<tab heading="Course Overview" ui-sref="main.course_overview">-->
             <div class="groupPanelHeader" ng-if="showCourseReview">
-                <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment {{assignments[which_assignment].assignment_number}}]</h3>-->
+                <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment
+                 {{assignments[which_assignment].assignment_number}}]</h3>-->
                 <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups
                     [Assignment
                     {{which_assignment}}
@@ -162,6 +165,12 @@
                         <!--popover-placement="right" popover="{{assignment.assignment_text}}">-->
                 <!--</button>-->
                 <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
+
+                <button ng-show="isUploaded  && assignments.length > 0 && isProfessor"
+                        ui-sref="main.add_project" ng-if="isProfessor" class="btn btn-success btn-small"
+                        style="position:relative; top:auto;">
+                    Add Project
+                </button>
 
                 <button ng-show="isUploaded  && assignments.length > 0 && isProfessor"
                         ng-click="randomAssign()" ng-if="isProfessor" class="btn btn-primary btn-small"
@@ -251,7 +260,8 @@
                 </ul>
             </div>
         </tab>
-        <tab heading="My Team" ng-if="isStudent && haveGroupFlag" select="tabSelect('TEAM')" ui-sref="main.team_overview"
+        <tab heading="My Team" ng-if="isStudent && haveGroupFlag" select="tabSelect('TEAM')"
+             ui-sref="main.team_overview"
                 ng-click="showUIViewContent()">
             <tabset class="tabs-right">
                 <tab heading="Team Overview" ui-sref="main.team_overview">

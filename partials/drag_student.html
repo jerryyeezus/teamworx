@@ -1,6 +1,10 @@
+<div class="modal-header">
+    <label class="label-success" style="width: 100%; height: 100%; color: white">
+        <h3><p class="text-center">Confirmation</p></h3></label>
+</div>
 <div class="modal-body">
     <b ng-if = sameTeamFlag> {{dragStudent.name}} is already in Team {{dropTeam.number}}. Please drag/drop again </b>
-    <b ng-if = !sameTeamFlag>Are you sure that you want to add student {{dragStudent.name}} to Team {{dropTeam.number}}</b>
+    <b ng-if = !sameTeamFlag>Do you want to add student {{dragStudent.name}} to Team {{dropTeam.number}}?</b>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">OK</button>

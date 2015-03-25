@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <label class="label-success" style="width: 100%; height: 100%; color: white">
+        <h3><p class="text-center">Creating a New Project</p></h3></label>
+</div>
+<div>
+    <form>
+        <div class="modal-body">
+            <input type="text" disabled id="project_number" ng-model="myForm.project_number" ng-minlength="0"
+                   ng-maxlength="20" readonly>
+            Project Number <br/>
+            <input type="text" id="project_title" ng-model="myForm.project_title" ng-minlength="0"
+                   ng-maxlength="20"> Project Title<br/>
+            <input type="text" id="project_text" ng-model="myForm.project_text" ng-minlength="0"
+                   ng-maxlength="20"> Project Text <br/>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-primary" ng-click="submit()">Go</button>
+        </div>
+    </form>
+</div>

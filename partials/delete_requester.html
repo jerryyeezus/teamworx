@@ -1,11 +1,15 @@
+<div class="modal-header">
+    <label class="label-success" style="width: 100%; height: 100%; color: white">
+        <h3><p class="text-center">Confirmation</p></h3></label>
+</div>
 <div class="modal-body">
-    <b ng-if="delMemberFlag" >Are you sure that you want to take {{requester.name}} out of Team {{team.number}} ? </br>
+    <b ng-if="delMemberFlag" >Do you want to take {{requester.name}} out of Team {{team.number}}? </br>
         Reason </br>
         <input style="position: absolute; width: 90%; height: 30%; left: 10px;" id ="delMem" ng-model="myForm.delMem"
                ng-minlength="0" ng-maxlength="500"> </input>
     </b>
 
-    <b ng-if="deleteRequesterFlag"> Are you sure that you want to deny {{requester.name}}? </br>
+    <b ng-if="deleteRequesterFlag"> Do you want to deny {{requester.name}}? </br>
         Reason </br>
         <input style="position: absolute; width: 90%; height: 30%; left: 10px;" id="delReq" ng-model="myForm.delReq"
                ng-minlength="0" ng-maxlength="500"> </input>
