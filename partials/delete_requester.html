@@ -1,11 +1,11 @@
 <div class="modal-body">
-    <b ng-if="delMember" >Are you sure that you want to take {{deleteMember.name}} out of Team {{team.number}} ? </br>
+    <b ng-if="delMemberFlag" >Are you sure that you want to take {{requester.name}} out of Team {{team.number}} ? </br>
         Reason </br>
         <input style="position: absolute; width: 90%; height: 30%; left: 10px;" id ="delMem" ng-model="myForm.delMem"
                ng-minlength="0" ng-maxlength="500"> </input>
     </b>
 
-    <b ng-if="delRequester"> Are you sure that you want to deny {{requester.name}}? </br>
+    <b ng-if="deleteRequesterFlag"> Are you sure that you want to deny {{requester.name}}? </br>
         Reason </br>
         <input style="position: absolute; width: 90%; height: 30%; left: 10px;" id="delReq" ng-model="myForm.delReq"
                ng-minlength="0" ng-maxlength="500"> </input>

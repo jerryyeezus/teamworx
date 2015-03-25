@@ -22,7 +22,7 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
         $scope.startEditing = function (editQuestion) {
             $cookieStore.put('editQuestion', editQuestion);
             $scope.showEditing = true;
-            $scope.showAdding = false
+            $scope.showAdding = false;
             $scope.showCreateQuestionButton = false;
         };
 

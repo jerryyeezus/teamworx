@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <h3 ng-if="isInterested">List of Requesters</h3>
-    <div ng-if="isInterested" class="requesterListContent">
+    <div ng-if="isInterested" class="requesterListContent" style="width:70%">
         <div class="studentProfile">
-            <a class="student-main" ui-sref ="main.studentProfile"
+            <a class="container-fluid" ui-sref ="main.studentProfile"
                ng-repeat="member in requestersList" ng-click ="selectMember(member)"
                data-drag="true"
                jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveRequester(member)'}"

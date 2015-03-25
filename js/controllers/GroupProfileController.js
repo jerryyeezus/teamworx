@@ -6,7 +6,7 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
-        $scope.team = $cookieStore.get('team');
+        $scope.team = group_service.getGroup();
         $scope.isLFM = $scope.team.lfm;
         var team_pk = $scope.team.pk;
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
@@ -92,11 +92,13 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
 
         if ($scope.user.user_type == 'INSTRUCTOR') {
             $scope.isMember = false;
-        }
+        };
 
         $scope.selectMember = function(member) {
-            $cookieStore.put('member', member);
-        }
+            $scope.member = member;
+            //$cookieStore.put('member', member);
+        };
+
         $scope.updateGroup = function () {
             $http.get(Authentication.server_url + 'teams/' + ass_service.getAssignmentpk()).then(function (response) {
                 $scope.teams = response.data;

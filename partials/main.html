@@ -29,13 +29,13 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li ng-if="isStudent">
-                            <a ui-sref="main.view_notification"> Notification </a>
+                            <a ng-click="showUIViewContent()" ui-sref="main.view_notification"> Notification </a>
                         </li>
                         <li ng-if="isProfessor">
-                            <a ui-sref="main.question"> View Questions </a>
+                            <a ng-click="showUIViewContent()" ui-sref="main.question"> View Questions </a>
                         </li>
                         <li ng-if="isStudent">
-                            <a ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
+                            <a ng-click="showUIViewContent()" ui-sref="main.answer_question"> Answer Questions to Unlock Matches</a>
                         </li>
                     </ul>
                 </li>
@@ -61,8 +61,7 @@
 
                 <li class="dropdown" id="settingsMenu">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
-                        <span
-                                class="caret"></span></a>
+                        <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="">Change Password</a></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
@@ -130,7 +129,7 @@
                             {{student.name}}
                         </a>
                     </div>
-                </li>
+                </li> </br>
             </ul>
         </div>
     </div>
@@ -223,27 +222,28 @@
                             </div>
 
                             <div class="groupProfileContent">
-                    <span style="font-style: italic; font-size: large; text-decoration: underline"
-                          ng-click="selectTeam(team)" ui-sref="main.groupProfile">Members</span>
-
+                                <span style="font-style: italic; font-size: large; text-decoration: underline"
+                                      ng-click="selectTeam(team)" ui-sref="main.groupProfile">Members</span>
                                 <div ng-repeat="member in team.members">
-                        <span custom-popover
-                              popover-html="
-                              <b>E-mail</b>:
-                              {{member.email}}<br>
-                              <b>Major: </b>: {{member.dept || 'Not specified'}}<br>
-                              <b>Year: </b>: {{member.year || 'Not specified'}}<br>
-                              <b>Skills</b>: {{member.skills_str || 'Not specified'}}"
-                              popover-title="{{member.name}}"
-                              popover-placement="right"
-                              popover-label="label">
-                        <a style="color: white" data-drag="isProfessor"
-                           jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragMemberInTeam(member, team)'}"
-                           data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
-                           ng-click="selectMember(member)" ui-sref="main.studentProfile">
-                            <img src="img/no_profile.png" class="imgStudent" style="float: left; margin-right: 10px; margin-top: 10px">
-                        </a> </br> </br></br> </br>
-                        </span>
+                                    <span custom-popover
+                                        popover-html="
+                                        <b>E-mail</b>:
+                                        {{member.email}}<br>
+                                        <b>Major: </b>: {{member.dept || 'Not specified'}}<br>
+                                        <b>Year: </b>: {{member.year || 'Not specified'}}<br>
+                                        <b>Skills</b>: {{member.skills_str || 'Not specified'}}"
+                                        popover-title="{{member.name}}"
+                                        popover-placement="right"
+                                        popover-label="label">
+                                        <a class="container-fluid" style="color: white" data-drag="isProfessor"
+                                           jqyoui-draggable="{animate: true, placeholder: 'keep',
+                                           onStart:'startDragMemberInTeam(member, team)'}"
+                                           data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
+                                           ng-click="selectMember(member)" ui-sref="main.studentProfile">
+                                           <img src="img/no_profile.png" class="imgStudent"
+                                           style="float: left; margin-right: 10px; margin-top: 10px">
+                                        </a>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -251,7 +251,7 @@
                 </ul>
             </div>
         </tab>
-        <tab heading="My Team" ng-if="isStudent && haveGroup" select="tabSelect('TEAM')" ui-sref="main.team_overview"
+        <tab heading="My Team" ng-if="isStudent && haveGroupFlag" select="tabSelect('TEAM')" ui-sref="main.team_overview"
                 ng-click="showUIViewContent()">
             <tabset class="tabs-right">
                 <tab heading="Team Overview" ui-sref="main.team_overview">

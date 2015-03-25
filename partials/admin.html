@@ -37,9 +37,9 @@
             <h3>Members</h3>
             <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                 <div class="studentProfile">
-                    <a class="student-main" ui-sref ="main.studentProfile"
+                    <a class="container-fluid" ui-sref ="main.studentProfile"
                        ng-repeat="member in team.members" ng-click ="selectMember(member)" data-drag="true"
-                       jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'addRemoveMember(member)'}"
+                       jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'removeMember(member)'}"
                        data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                         <img src="img/no_profile.png" class="imgStudent"/>
                         {{member.name}} </br> </a>

@@ -1,11 +1,12 @@
 mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authentication',
-    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service', 'group_service',
-    'question_service', 'drag_student_service', 'delete_team_member_service','add_question_service', 'edit_question_service',
-    'answer_service', 'delete_group_service', 'add_requester_service','delete_requester_service',
+    '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service',
+    'group_service', 'drag_student_service', 'delete_team_member_service','add_question_service',
+    'edit_question_service', 'answer_service', 'delete_group_service', 'add_requester_service',
+    'delete_requester_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
-              $modal, $window, $fileUpload, toaster, ass_service, group_service, question_service, drag_student_service,
-              delete_team_member_service, add_question_service, edit_question_service, answer_service, delete_group_service,
-              add_requester_service, delete_requester_service) {
+              $modal, $window, $fileUpload, toaster, ass_service, group_service, drag_student_service,
+              delete_team_member_service, add_question_service, edit_question_service, answer_service,
+              delete_group_service, add_requester_service, delete_requester_service) {
 
         //User and course information from login page and portal
         $scope.course = $cookieStore.get('course');
@@ -20,7 +21,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         ass_service.init($scope);
         answer_service.init($scope);
         group_service.init($scope);
-        question_service.init($scope);
         drag_student_service.init($scope);
         delete_team_member_service.init($scope);
         add_question_service.init($scope);
@@ -49,7 +49,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.$on(edit_question_service.dirty(), function () {
             toaster.pop('success', 'Question Edited');
-        });
+        })
+
         $scope.$on(ass_service.dirty(), function () {
             $scope.teams = [];
             $scope.assignments = ass_service.getAssignments();
@@ -90,23 +91,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.updateGroup();
         });
 
-        //$scope.$on(question_service.dirty(), function () {
-        //    toaster.pop('success', 'Question Created!');
-        //    $scope.updateQuestion();
-        //});
-        //
-        //$scope.$on(question_service.dirty(), function () {
-        //    toaster.pop('success', 'Answer Created!');
-        //    $scope.updateAnswer();
-        //});
-
-
         //Instant variables
         $scope.isUploaded = false;
-        $scope.changeBackButton = false;
         $scope.isCollapsed = true;
         $scope.showCourseReview = true;
-        $scope.showUIView = true;
+        $scope.showUIView = false;
         $scope.students = [];
         var student_map = {};
 
@@ -117,10 +106,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                 $scope.assignment = $scope.assignments[$scope.assignments.length - 1];
             };
 
-            if($cookieStore.get('assignment') != undefined) {
-                $scope.assignment = $cookieStore.get('assignment');
-            };
-
+            $scope.assignment = ass_service.getAssignment();
             // Index of assignment in assignments array
             ass_service.setAssignments(response.data);
             ass_service.setWhichAssignment($scope.assignments.length);
@@ -165,8 +151,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                             team.members.forEach(function (mem) {
                                 if (mem != undefined && mem.email == $scope.user.email) {
                                     $scope.haveGroupFlag = true;
-                                    $cookieStore.put('myTeam', team);
-                                    $scope.team = $cookieStore.get('myTeam');
+                                    $scope.myTeam = team;
+                                    $scope.team = $scope.myTeam;
                                 };
                             });
                         };
@@ -175,17 +161,17 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
                 if ($scope.assignments.length > 0) {
                     $scope.assignment = $scope.assignments[$scope.assignments.length - 1];
+                    ass_service.setAssignment($scope.assignment);
                 };
 
-                if($cookieStore.get('assignment') != undefined) {
-                    $scope.assignment = $cookieStore.get('assignment');
-                };
+                $scope.assignment = ass_service.getAssignment();
 
                 $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
                     $scope.students = response.data;
                     $scope.students.forEach(function(student) {
                         student['lfg'] = false;
-                        $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
+                        $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response)
+                        {
                             $scope.lfgList = response.data;
                             $scope.lfgList.forEach(function(lfg) {
                                 if(lfg.user_fk == student.user_type + '|' + student.email) {
@@ -286,7 +272,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         //Select team in course overview
         $scope.selectTeam = function (team) {
             $scope.showUIViewContent();
-            $cookieStore.put('team', team);
+            $scope.team = team;
             group_service.setGroup(team);
         };
 
@@ -323,8 +309,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         team.members.forEach(function (mem) {
                             if (mem != undefined && mem.email == $scope.user.email) {
                                 $scope.haveGroupFlag = true;
-                                $cookieStore.put('myTeam', team);
-                                $scope.team = $cookieStore.get('myTeam');
+                                $scope.myTeam = team;
+                                $scope.team = $scope.myTeam;
                             };
                         });
                     };
@@ -353,7 +339,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             });
         };
 
-        //Update Assignemnt after adding/removing new assignment
+        //Update Assignment after adding a new assignment
         $scope.updateAssignment = function () {
             $http.get(Authentication.server_url + 'assignments/' + which_class).then(function (response) {
                 $scope.assignments = response.data;
@@ -399,7 +385,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             var dataObject = {};
             $scope.lfg = [];
             $scope.isLFG = true;
-            $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
+            $http.get(Authentication.server_url + 'add_lfg/' + ass_service.getAssignment().pk).then(function(response) {
                 $scope.lfgList = response.data;
                 $scope.lfgList.forEach(function(lfg) {
                     if(lfg.user_fk == $scope.user.user_type + '|' + $scope.user.email) {
@@ -429,7 +415,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             var dataObject = {};
             $scope.lfg = [];
             $scope.isLFG = false;
-            $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
+            $http.get(Authentication.server_url + 'add_lfg/' + ass_service.getAssignment().pk).then(function(response) {
                 $scope.lfgList = response.data;
                 $scope.lfgList.forEach(function(lfg) {
                     if(lfg.user_fk == $scope.user.user_type + '|' + $scope.user.email) {
@@ -473,6 +459,8 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             }
         };
 
+
+        //Drag and Drop Team Member in Course Overview
         $scope.delMemberFlag = false;
         $scope.delTeamFlag = false;
 
@@ -483,7 +471,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.delTeamFlag = false;
             $scope.delMemberFlag = true;
         };
-
 
         $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
             $scope.students = response.data;
@@ -535,11 +522,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         };
 
-        $scope.startDragTeam = function(event, ui, dragTeam) {
-            $scope.delTeamFlag = true;
-            $scope.delMemberFlag = false;
-            $scope.dragTeam = dragTeam;
-        };
+        //$scope.startDragTeam = function(event, ui, dragTeam) {
+        //    $scope.delTeamFlag = true;
+        //    $scope.delMemberFlag = false;
+        //    $scope.dragTeam = dragTeam;
+        //};
 
         $scope.addRemoveMember = function(event, ui, mem) {
             $scope.deleteMember = mem;
@@ -554,26 +541,23 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             return modalInstance.result;
         };
 
-
-        $scope.startDragTeam = function(event, ui, dragGroup) {
-            $scope.delTeamFlag = true;
-            $scope.delMeberFlag = false;
-            $scope.dragTeam = dragGroup;
-        };
-
-        $scope.isOwner = true;
-
-        $scope.addRemoveMember = function(event, ui, mem) {
-            $scope.deleteMember = mem;
-            $scope.delMemFlag = true;
+        $scope.removeMember = function(event, ui, mem) {
+            $scope.currentRequester = mem;
+            $scope.delMemberFlag = true;
+            $scope.deleteRequesterFlag = false;
         };
 
         $scope.addRemoveRequester = function(event, ui, mem) {
             $scope.currentRequester = mem;
             $scope.deleteRequesterFlag = true;
+            $scope.delMemberFlag = false;
         };
 
         $scope.acceptRequester = function() {
+            add_requester_service.setCurrentRequester($scope.currentRequester);
+            add_requester_service.setDeleteRequesterFlag($scope.deleteRequesterFlag);
+            add_requester_service.setMyTeam($scope.myTeam);
+
             var modalInstance = $modal.open({
                 templateUrl: 'partials/add_requester.html',
                 controller: 'AddRequesterController'
@@ -582,6 +566,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         };
 
         $scope.denyRequester = function() {
+            delete_requester_service.setCurrentRequester($scope.currentRequester);
+            delete_requester_service.setDelMemberFlag($scope.delMemberFlag);
+            delete_requester_service.setDeleteRequesterFlag($scope.deleteRequesterFlag);
+            delete_requester_service.setMyTeam($scope.myTeam);
+
             var modalInstance = $modal.open({
                 templateUrl: 'partials/delete_requester.html',
                 controller: 'DeleteRequesterController'

@@ -1,4 +1,4 @@
-myApp.factory('delete_team_member_service', ['$cookieStore', function($cookieStore) {
+myApp.factory('delete_team_member_service', ['$cookieStore', function() {
     var _scope;
     var dragStudent = {};
     var dragTeam = {};

@@ -1,19 +1,19 @@
 <section class="credentials">
     <div>
         <form class="genericPanel" ng-submit="register(formData2)">
+            <img src="img/teamworx_logo2.png" class="loginLogo"/>
             <h1>Register:</h1>
-            <label>Name:</label>
+            <label>Name:</label> </br>
             <input ng-model="formData2.the_name" placeholder="Your full name" autofocus><br>
             </br>
-            <label>Email:</label>
+            <label>Email:</label> </br>
             <input ng-model="formData2.the_email" placeholder="E-mail" autofocus><br>
-            </br>
             <label>Type:</label>
             <input type="radio" ng-model="formData2.user_type" name="user_type" value="STUDENT"> Student
             <input type="radio" ng-model="formData2.user_type" name="user_type" value="INSTRUCTOR">Instructor
             <br>
             </br>
-            <label>Choose Password:</label>
+            <label>Choose Password:</label></br>
             <input type="password" ng-model="formData2.password" placeholder="password" autofocus>
             <input type="password" ng-model="formData2.confirm_password" placeholder="confirm password" autofocus>
             </br>

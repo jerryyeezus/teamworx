@@ -1,4 +1,4 @@
-myApp.factory('accept_team_service', ['$cookieStore', function($cookieStore) {
+myApp.factory('accept_team_service', ['$cookieStore', function() {
     var _scope;
     return {
         init: init,

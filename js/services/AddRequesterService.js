@@ -1,9 +1,18 @@
-myApp.factory('add_requester_service', ['$cookieStore', function($cookieStore) {
+myApp.factory('add_requester_service', ['$cookieStore', function() {
     var _scope;
+    var currentRequester = {};
+    var deleteRequesterFlag = false;
+    var myTeam = {};
     return {
         init: init,
         setDirty: setDirty,
-        dirty: dirty
+        dirty: dirty,
+        setCurrentRequester: setCurrentRequester,
+        getCurrentRequester: getCurrentRequester,
+        setDeleteRequesterFlag: setDeleteRequesterFlag,
+        getDeleteRequesterFlag: getDeleteRequesterFlag,
+        setMyTeam : setMyTeam,
+        getMyTeam : getMyTeam
     };
 
     function dirty() {
@@ -17,4 +26,27 @@ myApp.factory('add_requester_service', ['$cookieStore', function($cookieStore) {
     function setDirty() {
         _scope.$emit(dirty());
     };
+
+    function setCurrentRequester(req) {
+        currentRequester = req;
+    };
+    function getCurrentRequester() {
+        return currentRequester;
+    }
+
+    function getDeleteRequesterFlag() {
+        return deleteRequesterFlag;
+    };
+
+    function setDeleteRequesterFlag(flag) {
+        deleteRequesterFlag = flag;
+    };
+
+    function getMyTeam() {
+        return myTeam;
+    };
+
+    function setMyTeam(team) {
+        myTeam = team;
+    }
 }]);

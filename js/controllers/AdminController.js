@@ -2,12 +2,7 @@ mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authent
     '$scope', '$rootScope', '$cookieStore', '$modal', 'toaster',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
               $modal, toaster) {
-        //$scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-        //$scope.assignment = $cookieStore.get('assignment');
-        //$scope.user = Authentication.getAuthenticatedAccount();
-        //$scope.course = $cookieStore.get('course');
-
-
+        
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
             var dataObject = {};
             dataObject['which_field'] = which_field;
