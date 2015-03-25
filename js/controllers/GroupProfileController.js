@@ -8,7 +8,7 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.course = $cookieStore.get('course');
         $scope.team = group_service.getGroup();
         $scope.isLFM = $scope.team.lfm;
-        var team_pk = $scope.team.pk;
+
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
             var dataObject = {};
             dataObject['which_field'] = which_field;
@@ -96,7 +96,6 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
 
         $scope.selectMember = function(member) {
             $scope.member = member;
-            //$cookieStore.put('member', member);
         };
 
         $scope.updateGroup = function () {

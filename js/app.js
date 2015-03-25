@@ -129,17 +129,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                         $state.go('^');
                     });
             }]
-        }, edit_profile = {
-            name: 'portal.edit_profile',
-            url: '/portal/edit_profile',
-            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-                $modal.open({
-                    templateUrl: 'partials/edit_profile.html',
-                    controller: 'EditProfileController'
-                }).result.finally(function () {
-                        $state.go('^');
-                    });
-            }]
         }, add_assignment = {
             name: 'main.add_assignment',
             url: '/add_assignment/:which_class',
@@ -147,28 +136,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
                 $modal.open({
                     templateUrl: 'partials/add_assignment.html',
                     controller: 'AddAssignmentController'
-                }).result.finally(function () {
-                        $state.go('^');
-                    });
-            }]
-        }, add_member = {
-            name: 'main.add_member',
-            url: '/add_member/:which_assignment',
-            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-                $modal.open({
-                    templateUrl: 'partials/add_member.html',
-                    controller: 'AddMemberController'
-                }).result.finally(function () {
-                        $state.go('^');
-                    });
-            }]
-        }, delete_member = {
-            name: 'main.delete_member',
-            url: '/delete_member/:which_assignment',
-            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-                $modal.open({
-                    templateUrl: 'partials/delete_member.html',
-                    controller: 'DeleteMemberController'
                 }).result.finally(function () {
                         $state.go('^');
                     });
@@ -255,17 +222,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/answer_question/:which_ass',
             templateUrl: 'partials/answer_question.html',
             controller: 'AnswerQuestionController'
-        }, edit_group_profile = {
-            name: 'main.edit_group_profile',
-            url: '/edit_group_profile/:which_class',
-            onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-                $modal.open({
-                    templateUrl: 'partials/edit_group_profile.html',
-                    controller: 'EditGroupProfileController'
-                }).result.finally(function () {
-                        $state.go('^');
-                    });
-            }]
         }, import_roster = {
             name: 'main.import_roster',
             onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
@@ -288,9 +244,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(studentProfile);
     main_state.state(question);
     main_state.state(answer_question);
-    main_state.state(edit_group_profile);
-    main_state.state(delete_member);
-    main_state.state(add_member);
     main_state.state(drag_student);
     main_state.state(delete_team_member);
     main_state.state(view_request);
@@ -306,7 +259,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     var portal_state = $stateProvider.state(portal)
     portal_state.state(create_class);
     portal_state.state(delete_class);
-    portal_state.state(edit_profile);
 
     $urlRouterProvider.otherwise('/login');
 
