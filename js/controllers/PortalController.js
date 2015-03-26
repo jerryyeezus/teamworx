@@ -65,6 +65,45 @@ mainControllers.controller('PortalController',
                 return modalInstance.result;
             };
 
+            $scope.hoverInName = function() {
+                $scope.hoverEditName = true;
+            };
+
+            $scope.hoverOutName = function() {
+                $scope.hoverEditName = false;
+            };
+
+            $scope.hoverInBio = function() {
+                $scope.hoverEditBio = true;
+            };
+
+            $scope.hoverOutBio = function() {
+                $scope.hoverEditBio = false;
+            };
+
+            $scope.hoverInSkills = function() {
+                $scope.hoverEditSkills = true;
+            };
+
+            $scope.hoverOutSkills = function() {
+                $scope.hoverEditSkills = false;
+            };
+
+            $scope.hoverInGithub = function() {
+                $scope.hoverEditGithub = true;
+            };
+
+            $scope.hoverOutGithub = function() {
+                $scope.hoverEditGithub = false;
+            };
+            $scope.hoverInLinkedin = function() {
+                $scope.hoverEditLinkedin = true;
+            };
+
+            $scope.hoverOutLinkedin = function() {
+                $scope.hoverEditLinkedin = false;
+            };
+
             /* Logout function */
             $scope.logout = function () {
                 Authentication.logout();

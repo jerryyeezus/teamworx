@@ -1,27 +1,27 @@
 mainControllers.controller('AddProjectController',
     ['$http', '$location', 'Authentication', '$scope', '$rootScope', '$cookieStore',
-        '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'ass_service',
+        '$modal', '$window', 'toaster', '$modalInstance', '$stateParams', 'ass_service', 'add_project_service',
         function ($http, $location, Authentication, $scope, $rootScope, $cookieStore,
-                  $modal, $window, toaster, $modalInstance, $stateParams, ass_service) {
+                  $modal, $window, toaster, $modalInstance, $stateParams, ass_service, add_project_service) {
             $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
-            $scope.myForm = {
-                'assignment_number': $cookieStore.get('assignments').length + 1
-            };
+            $http.get(Authentication.server_url + 'add_project' + ass_service.getAssignment.pk).success(function(response) {
+                $scope.projects = response;
+                $scope.myForm = {
+                    'project_number': $scope.projects.length + 1
+                };
+            });
 
             $scope.submit = function () {
-                ass_service.assInvalidate();
-                var dataObject = {
-                    course_fk: $stateParams.which_class
-                    , assignment_number: $scope.myForm.assignment_number
-                    , assignment_title: $scope.myForm.assignment_title
-                    , assignment_text: $scope.myForm.assignment_text
-                };
+                var dataObject = {};
+                dataObject['ass_fk'] = ass_service.getAssignment.pk;
+                dataObject['project_number'] = $scope.myForm.project_number;
+                dataObject['project_title'] = $scope.myForm.project_title;
+                dataObject['project_text'] = $scope.myForm.project_text;
 
-                var responsePromise = $http.post(Authentication.server_url + 'add_assignment/', dataObject, {});
-                responsePromise.success(function (dataFromServer) {
-                    ass_service.pushAssignment(dataObject);
-                    ass_service.setAssignmentpk(dataFromServer.pk);
-                    ass_service.setDirty();
+
+                var responsePromise = $http.post(Authentication.server_url + 'add_project/', dataObject, {});
+                responsePromise.success(function () {
+                    add_project_service.setDirty();
                 });
                 responsePromise.error(function () {
                     alert('bad')
@@ -31,5 +31,5 @@ mainControllers.controller('AddProjectController',
 
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
-            }
+            };
         }]);

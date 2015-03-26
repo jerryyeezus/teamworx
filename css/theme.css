@@ -567,7 +567,7 @@ a:active {
 }
 
 .myEditable {
-    width: 23em;
+    width: 100%;
     padding: 1px 4px 8px 15px;
 }
 
@@ -624,7 +624,7 @@ background-color: #1e1e1b;
     overflow-y: auto;
     overflow-x: hidden;
     text-overflow: ellipsis;
-    width: 46vw;
+    width: 100%;
     min-height: 70px;
     height: 320px;
     max-height: 310px;
