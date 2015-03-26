@@ -34,9 +34,8 @@
      <div class="professorProfileContent" style="width: 90%">
          <tabset class="tabs-">
              <tab heading="My Courses">
-                 <div class="courseListContent">
-                     <!--<h2 style="color:#ea9256; padding-right: 0.3em">My Courses:</h2>-->
-                     <div class="container-fluid" style="width: 100%">
+                 <div class="innerCourseListContent">
+                     <div style="width: 100%">
                          <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="isProfessor"
                              jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
                              data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
@@ -46,13 +45,13 @@
                          </li>
                      </div>
                  </div>
-                 <p class="addCourseButton" style="vertical-align: top;
-                          display: inline-block; float: left">
-                     <button type="button" ng-if="isProfessor"  class="btn btn-primary btn-lg" ui-sref="portal.create_class">
+                 <p class="addCourseButton">
+                     <button style="top: auto; left: auto;" type="button" ng-if="isProfessor"  class="btn btn-primary btn-lg" ui-sref="portal.create_class">
                          <span class="glyphicon glyphicon-plus"></span> Add Course
                      </button>
 
-                     <button ng-if ="isProfessor" class="btn btn-warning btn-lg" data-drop="isProfessor"
+                     <button style="top: auto; left: auto"
+                             ng-if ="isProfessor" class="btn btn-warning btn-lg" data-drop="isProfessor"
                              jqyoui-droppable="{beforeDrop: 'deleteCourse()'}"
                              style="position: absolute; left: auto">
                          <span class="glyphicon glyphicon-trash"></span> Delete Course
