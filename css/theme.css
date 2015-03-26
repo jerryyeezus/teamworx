@@ -536,10 +536,13 @@ a:active {
     text-overflow: ellipsis;
     margin-left: auto;
     margin-right: auto;
-    width: 950px;
+    min-width: 950px;
+    width: 70vw;
     margin-top: 70px;
     margin-bottom: 10px;
+    min-height: 580px;
     height: 580px;
+    max-height: 580px;
     opacity: 0.7;
     color: #ffffff;
 }
@@ -572,12 +575,13 @@ a:active {
 }
 
 .professorNameContent{
-background-color: #1e1e1b;
     float:left;
     display:inline;
     position: relative;
     left: 15px;
-    width: 51vw;
+    width: 76%;
+    height: auto;
+    max-height: 250px;
 }
 /*not used*/
 .professorImageContent{
@@ -586,31 +590,26 @@ background-color: #1e1e1b;
     position: relative;
 }
 .professorBioContent{
-background-color: #1e1e1b;
     border-radius: 10px;
     word-wrap: normal;
     overflow: auto;
     text-overflow: auto;
-    width: 100vh;
-    min-height: 20px;
-    height: 55vh;
+    width: 100%;
+    min-height: 150px;
     max-height: 150px;
-
     color: #ffffff;
     position: relative;
-
-    left: 10px;
+    left: 0px;
 }
 
 .professorInfoContent{
-background-color: #1e1e1b;
     word-wrap: normal;
     overflow: auto;
     text-overflow: ellipsis;
-    width: 21vw;
+    width: 33%;
     min-height: 20px;
     max-height: 310px;
-    margin-top: 15px;
+
     color: #ffffff;
     position: relative;
     float:left;
@@ -619,16 +618,14 @@ background-color: #1e1e1b;
 }
 
 .courseListContent {
-background-color: #1e1e1b;
     word-wrap: normal;
     overflow-y: auto;
     overflow-x: hidden;
     text-overflow: ellipsis;
-    width: 100%;
+    width: 65%;
     min-height: 70px;
-    height: 320px;
     max-height: 310px;
-    margin-top: 15px;
+    margin-left: 15px;
     color: #ffffff;
     float:left;
 }
