@@ -33,33 +33,6 @@
 
      <div class="professorProfileContent" style="width: 90%">
          <tabset class="tabs-">
-             <tab heading="My Courses">
-                 <div class="innerCourseListContent">
-                     <div style="width: 100%">
-                         <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="isProfessor"
-                             jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
-                             data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                             <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
-                                 course.course_name}}</a></h3>
-                             <h4>Instructor: {{ course.prof }}</h4>
-                         </li>
-                     </div>
-                 </div>
-                 <p class="addCourseButton">
-                     <button style="top: auto; left: auto;" type="button" ng-if="isProfessor"  class="btn btn-primary btn-lg" ui-sref="portal.create_class">
-                         <span class="glyphicon glyphicon-plus"></span> Add Course
-                     </button>
-
-                     <button style="top: auto; left: auto"
-                             ng-if ="isProfessor" class="btn btn-warning btn-lg" data-drop="isProfessor"
-                             jqyoui-droppable="{beforeDrop: 'deleteCourse()'}"
-                             style="position: absolute; left: auto">
-                         <span class="glyphicon glyphicon-trash"></span> Delete Course
-                     </button>
-                 </p>
-             </tab>
-
-
              <tab heading="My Profile">
                  <div class="container-fluid" ng-if="isProfessor">
                      <div class="container-fluid">
@@ -194,6 +167,32 @@
                         <hr/>
                     </div>
                 </div>
+             </tab>
+
+             <tab heading="My Courses">
+                 <div class="innerCourseListContent">
+                     <div style="width: 100%">
+                         <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="isProfessor"
+                             jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
+                             data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
+                             <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
+                                 course.course_name}}</a></h3>
+                             <h4>Instructor: {{ course.prof }}</h4>
+                         </li>
+                     </div>
+                 </div>
+                 <p class="addCourseButton">
+                     <button style="top: auto; left: auto;" type="button" ng-if="isProfessor"  class="btn btn-primary btn-lg" ui-sref="portal.create_class">
+                         <span class="glyphicon glyphicon-plus"></span> Add Course
+                     </button>
+
+                     <button style="top: auto; left: auto"
+                             ng-if ="isProfessor" class="btn btn-warning btn-lg" data-drop="isProfessor"
+                             jqyoui-droppable="{beforeDrop: 'deleteCourse()'}"
+                             style="position: absolute; left: auto">
+                         <span class="glyphicon glyphicon-trash"></span> Delete Course
+                     </button>
+                 </p>
              </tab>
         </tabset>
     </div>
