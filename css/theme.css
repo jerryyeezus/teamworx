@@ -191,18 +191,18 @@ a:active {
 .studentProfileContent {
     overflow-y: scroll;
     overflow-x: hidden;
-    max-height: 76%;
+    max-height: 73%;
     border: 3px solid black;
     border-radius: 3px;
+    padding: 10px 10px 0px 0px;
 }
 
 .studentProfile {
-    /*background-color: #dddddd;*/
     max-width: inherit;
-    border: 1px solid #9e90a9;
+    height: 55px;
     border-radius: 3px;
-    margin: 5px 5px 5px 0px;
-    padding: 5px 5px 5px 5px;
+
+
 }
 
 .imgStudent {
@@ -212,6 +212,7 @@ a:active {
     max-width: 48px;
     border: 1px solid black;
     float: left;
+    margin-right: 5px;
 }
 
 .carouselImgStudent {
@@ -275,7 +276,7 @@ a:active {
 .groupPanelContent {
     min-height: 10%;
     height: auto;
-    max-height: 400px;
+    max-height: 375px;
     margin-left: 20px;
     width: auto;
     border: 3px solid black;

@@ -86,7 +86,7 @@
         <span class="input-group-addon" id="searchBarAddon">Search:</span>
         <input ng-model="search.name" id="searchBarField">
     </div>
-    <div>
+    <div style="margin-left: 3px; margin-bottom: 10px">
         <button class="btn btn-primary btn-lg" ng-click="isCollapsed = !isCollapsed">Advanced</button>
     </div>
     <div collapse="isCollapsed">
@@ -119,7 +119,7 @@
         </button>
             </span>
             <!--ng-if ="student.lfg[assignment.pk] == search.lfg"-->
-            <ul style="list-style-type:none;">
+            <ul style="list-style-type:none; padding: 0px">
                 <li data-drag="isProfessor" ng-repeat="student in students | filter: search"
                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
@@ -131,6 +131,7 @@
                             {{student.name}}
                         </a>
                     </div>
+                    <hr>
                 </li> </br>
             </ul>
         </div>
