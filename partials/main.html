@@ -154,11 +154,11 @@
             <div class="groupPanelHeader" ng-if="showCourseReview">
                 <!--<h3 ng-show="assignments.length > 0" style="position:relative; top:auto;">Groups [Assignment
                  {{assignments[which_assignment].assignment_number}}]</h3>-->
-                <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">Groups
-                    [Assignment
-                    {{which_assignment}}
+                <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">
+                    Assignment {{which_assignment}}: {{assignment.assignment_title}}
                     <input type="image" src="img/gnome-searchtool.png" ui-sref="main.view_assignment_text">
-                    ]
+                    <hr/>
+
                 </h3>
 
                 <!--<button ->
@@ -166,22 +166,22 @@
                 <!--</button>-->
                 <h3 ng-hide="assignments.length > 0" style="position:relative; top:auto;">No Assignment selected.</h3>
 
-                <button ng-show="isUploaded  && assignments.length > 0 && isProfessor"
-                        ui-sref="main.add_project" ng-if="isProfessor" class="btn btn-success btn-small"
-                        style="position:relative; top:auto;">
-                    Add Project
+                <button type="button" ng-if="!haveGroup" class="btn btn-primary" data-toggle="modal"
+                        data-target="#myModal"
+                        ui-sref="main.add_group">
+                    <span class="glyphicon glyphicon-plus"></span> Team
                 </button>
 
                 <button ng-show="isUploaded  && assignments.length > 0 && isProfessor"
                         ng-click="randomAssign()" ng-if="isProfessor" class="btn btn-primary btn-small"
                         style="position:relative; top:auto;">
-                    Auto Group
+                    Auto Generate Teams
                 </button>
 
-                <button type="button" ng-if="!haveGroup" class="btn btn-primary" data-toggle="modal"
-                        data-target="#myModal"
-                        ui-sref="main.add_group">
-                    <span class="glyphicon glyphicon-plus"></span> Team
+                <button ng-show="isUploaded  && assignments.length > 0 && isProfessor"
+                        ui-sref="main.add_project" ng-if="isProfessor" class="btn btn-success btn-small"
+                        style="position:relative; top:auto;">
+                    Add Project
                 </button>
 
                 <button ng-if="isProfessor" class="btn btn-warning" data-drop="isProfessor"
@@ -219,20 +219,24 @@
                              ng-mouseenter="hoverIn(team)"
                              ng-click="selectTeam(team)" ui-sref="main.groupProfile">
 
-                            <div class="groupProfileHeader" ng-click="selectTeam(team)" ui-sref="main.groupProfile">
-                                <h3 data-drag="isProfessor"
+                            <img src="img/no_group.jpg" style="width: auto; height: 110px; float: left; margin: 5px 5px 5px 5px">
+                            <div class="groupProfileHeader" ng-click="selectTeam(team)" ui-sref="main.groupProfile" style="float: left">
+                                <h2 data-drag="isProfessor"
                                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                     jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                            <span ng-hide="'Team ' + team.number == team.name">
-                            Team {{team.number}}: </span>
+                                    <span ng-hide="'Team ' + team.number == team.name">
+                                    Team {{team.number}}: </span>
                                     {{team.name || 'Unnamed Team'}}
-                                </h3>
+                                </h2>
+                                <p>Team description needs to go here but I can't figure out how to access it so this text is filler.
+                                    Team description needs to go here but I can't figure out how to access it so this text is filler.</p>
                             </div>
 
                             <div class="groupProfileContent">
-                                <span style="font-style: italic; font-size: large; text-decoration: underline"
-                                      ng-click="selectTeam(team)" ui-sref="main.groupProfile">Members</span>
+                                <h3>
+                                    Members
+                                </h3>
                                 <div ng-repeat="member in team.members">
                                     <span custom-popover
                                         popover-html="
@@ -242,15 +246,15 @@
                                         <b>Year: </b>: {{member.year || 'Not specified'}}<br>
                                         <b>Skills</b>: {{member.skills_str || 'Not specified'}}"
                                         popover-title="{{member.name}}"
-                                        popover-placement="right"
+                                        popover-placement="top"
                                         popover-label="label">
-                                        <a class="container-fluid" style="color: white" data-drag="isProfessor"
+                                        <a style="color: white" data-drag="isProfessor"
                                            jqyoui-draggable="{animate: true, placeholder: 'keep',
                                            onStart:'startDragMemberInTeam(member, team)'}"
                                            data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
                                            ng-click="selectMember(member)" ui-sref="main.studentProfile">
                                            <img src="img/no_profile.png" class="imgStudent"
-                                           style="float: left; margin-right: 10px; margin-top: 10px">
+                                           style="float: right; margin-right: 10px; margin-top: 10px; max-width: 50px; max-height: 50px; text-align: right">
                                         </a>
                                     </span>
                                 </div>
