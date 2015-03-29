@@ -213,6 +213,7 @@ a:active {
     border: 1px solid black;
     float: left;
     margin-right: 5px;
+    border-radius: 50%;
 }
 
 .carouselImgStudent {
@@ -564,6 +565,7 @@ a:active {
     margin-top: 15px;
     float:left;
     display:inline;
+    border-radius: 50%;
 }
 
 .navbar {
