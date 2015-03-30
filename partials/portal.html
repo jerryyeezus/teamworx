@@ -45,7 +45,7 @@
                                 </span>
                                  <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible" style="cursor: pointer">
                                      <b style="color:#ea9256;">{{ user.name || "empty" }}</b>
-                                     <img  ng-show="hoverEditName" src="img/edit.png"/>
+                                     <span ng-show="hoverEditName" class="animate-show glyphicon glyphicon-pencil"></span>
                                  </a>
                              </h1>
                              <div style="position: relative; top: auto; right: 75px">
@@ -70,8 +70,8 @@
                                   editable-text="user.bio">
                             </span>
                                  <a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">
-                                     <b style="color:#ea9256; right: 5px">{{ user.bio || "You currently do not have a bio." }}</b>
-                                     <img  ng-show="hoverEditBio" src="img/edit.png">
+                                     <b style="right: 5px">{{ user.bio || "You currently do not have a bio." }}</b>
+                                     <span ng-show="hoverEditBio" class="animate-show glyphicon glyphicon-pencil"></span>
                                  </a>
                              </p>
                          </div>
@@ -91,7 +91,7 @@
                                 </span>
                                 <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible" style="cursor: pointer">
                                     <b style="color:#ea9256;">{{ user.name || "empty" }}</b>
-                                    <img  ng-show="hoverEditName" src="img/edit.png"/>
+                                    <span ng-show="hoverEditName" class="animate-show glyphicon glyphicon-pencil"></span>
                                 </a>
                             </h1>
                             <div style="position: relative; top: auto; right: 75px">
@@ -116,8 +116,8 @@
                                   editable-text="user.bio">
                             </span>
                             <a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">
-                                <b style="color:#ea9256; right: 5px">{{ user.bio || "You currently do not have a bio." }}</b>
-                                    <img  ng-show="hoverEditBio" src="img/edit.png">
+                                <b style="right: 5px">{{ user.bio || "You currently do not have a bio." }}</b>
+                                <span ng-show="hoverEditBio" class="animate-show glyphicon glyphicon-pencil"></span>
                             </a>
                             </p>
                         </div>
@@ -131,8 +131,8 @@
                                   editable-text="user.skills_str">
                             </span>
                             <a ng-click="skillsBtnForm.$show()" ng-hide="skillsBtnForm.$visible" style="cursor:pointer;">
-                                <b style="color:#ea9256; width: 100%">{{ user.skills_str || "" }}</b>
-                                <img ng-show="hoverEditSkills" src="img/edit.png"/>
+                                <b style="width: 100%">{{ user.skills_str || "" }}</b>
+                                <span ng-show="hoverEditSkills" class="animate-show glyphicon glyphicon-pencil"></span>
                             </a>
 
                         </div>
@@ -147,8 +147,8 @@
                             </span>
                             <a ng-click="linkedinBtnForm.$show()" style="cursor: pointer"
                                ng-hide="linkedinBtnForm.$visible">
-                                <b style="color:#ea9256;">{{ user.linkedin || "" }}</b>
-                                <img ng-show="hoverEditLinkedin" src="img/edit.png"/>
+                                <b style="">{{ user.linkedin || "" }}</b>
+                                <span ng-show="hoverEditLinkedin" class="animate-show glyphicon glyphicon-pencil"></span>
                             </a>
                         </div>
                         <hr/>
@@ -160,8 +160,8 @@
                                   editable-text="user.github">
                             </span>
                             <a ng-click="githubBtnForm.$show()" ng-hide="githubBtnForm.$visible" style="cursor:pointer;">
-                                <b style="color:#ea9256;">{{ user.github || "" }}</b>
-                                <img ng-show="hoverEditGithub" src="img/edit.png"/>
+                                <b style="">{{ user.github || "" }}</b>
+                                <span ng-show="hoverEditGithub" class="animate-show glyphicon glyphicon-pencil"></span>
                             </a>
                         </div>
                         <hr/>
