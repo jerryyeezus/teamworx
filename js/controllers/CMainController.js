@@ -2,11 +2,11 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
     '$scope', '$rootScope', '$cookieStore', '$modal', '$window', 'fileUpload', 'toaster', 'ass_service',
     'group_service', 'drag_student_service', 'delete_team_member_service','add_question_service',
     'edit_question_service', 'answer_service', 'delete_group_service', 'add_requester_service',
-    'delete_requester_service',
+    'delete_requester_service', 'add_project_service',
     function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
               $modal, $window, $fileUpload, toaster, ass_service, group_service, drag_student_service,
               delete_team_member_service, add_question_service, edit_question_service, answer_service,
-              delete_group_service, add_requester_service, delete_requester_service) {
+              delete_group_service, add_requester_service, delete_requester_service, add_project_service) {
 
         //User and course information from login page and portal
         $scope.course = $cookieStore.get('course');
@@ -28,6 +28,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         delete_group_service.init($scope);
         add_requester_service.init($scope);
         delete_requester_service.init($scope);
+        add_project_service.init($scope);
 
         //Switch controllers, pop toasters and update view
         $rootScope.$on('rosterUpdated', function (event, mass) {
@@ -40,7 +41,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         });
 
         $scope.$on(answer_service.dirty(), function () {
-            toaster.pop('success', 'Answers successfully submitted!');
+            toaster.pop('success', 'Answers submitted!');
         });
 
         $scope.$on(add_question_service.dirty(), function () {
@@ -49,7 +50,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $scope.$on(edit_question_service.dirty(), function () {
             toaster.pop('success', 'Question Edited');
-        })
+        });
 
         $scope.$on(ass_service.dirty(), function () {
             $scope.teams = [];
@@ -61,6 +62,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.updateGroup();
         });
 
+        $scope.$on(add_project_service.dirty(), function() {
+           toaster.pop('success', 'Project created');
+        });
         $scope.$on(drag_student_service.dirty(), function() {
             toaster.pop('success', 'Student Moved');
             $scope.updateGroup();

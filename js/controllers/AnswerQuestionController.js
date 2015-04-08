@@ -1,8 +1,9 @@
 mainControllers.controller('AnswerQuestionController',
     ['$http', '$location', 'Authentication', '$scope', '$cookieStore',
-        '$window', 'toaster', '$stateParams', 'question_service', 'ass_service', '$state', 'answer_service',
+        '$window', 'toaster', '$stateParams', 'ass_service', '$state', 'answer_service',
+        '$window', 'toaster', '$stateParams', 'ass_service', '$state', 'answer_service',
         function ($http, $location, Authentication, $scope, $cookieStore,
-                  $window, toaster, $stateParams, question_service, ass_service, $state, answer_service) {
+                  $window, toaster, $stateParams, ass_service, $state, answer_service) {
             $scope.the_user = Authentication.getAuthenticatedAccount()['email'];
             $scope.num_stars = 5;
 

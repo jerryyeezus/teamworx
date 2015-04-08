@@ -199,7 +199,7 @@ a:active {
 
 .studentProfile {
     max-width: inherit;
-    height: 55px;
+    /*height: 55px;*/
     border-radius: 3px;
 
 
