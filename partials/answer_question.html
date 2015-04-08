@@ -2,6 +2,35 @@
     <h2>Survey</h2>
 
     <form>
+        <div class="qDiv" ng-repeat="project in projects">
+            <div class="qText">
+                How do you prefer {{project.name | capitalize}}?
+            </div>
+            <br>
+
+            <div style="max-width: 353px; margin-left: auto; margin-right: auto">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>1</h4>
+                    </div>
+                    <div class="col-md-6" style="color: navy">
+                        <rating ng-model="question.answer"
+                                max="num_stars"
+                                state-on="'glyphicon glyphicon-star larger'"
+                                on-hover="hoveringOver(value)"
+                                on-leave="overStar = null"
+                                state-off="'glyphicon glyphicon-star-empty larger'">
+                        </rating>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>5</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
         <div class="qDiv" ng-repeat="question in questions">
             <div class="qText">
                 {{question.text | capitalize}}
@@ -31,6 +60,6 @@
         </div>
 
         <br>
-        <button ng-click="submit(questions)" class="btn btn-success btn-lg center-block">Submit</button>
+        <button ng-click="submit(questions, projects)" class="btn btn-success btn-lg center-block">Submit</button>
     </form>
 </div>
