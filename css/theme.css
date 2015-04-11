@@ -544,8 +544,8 @@ a:active {
     text-overflow: ellipsis;
     margin-left: auto;
     margin-right: auto;
-    min-width: 950px;
-    width: 90vw;
+    min-width: 800px;
+    width: 70vw;
     margin-top: 70px;
     margin-bottom: 10px;
     min-height: 580px;
