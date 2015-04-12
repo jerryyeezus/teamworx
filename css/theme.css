@@ -544,13 +544,12 @@ a:active {
     text-overflow: ellipsis;
     margin-left: auto;
     margin-right: auto;
-    min-width: 950px;
+    min-width: 800px;
     width: 70vw;
     margin-top: 70px;
     margin-bottom: 10px;
     min-height: 580px;
-    height: 580px;
-    max-height: 580px;
+    height: 80vh;
     opacity: 0.7;
     color: #ffffff;
 }

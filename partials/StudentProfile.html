@@ -1,11 +1,15 @@
 <div class="container-fluid">
     <div class="container-fluid" style="width:25%; float:left;">
-        <img src="img/no_group.jpg" style="width:100%; height: auto">
+        <img src="img/no_group.jpg" style="width:100%; height: auto; border-radius: 50%">
     </div>
     <div class="container-fluid" style="width:50%; float:left; text-align:left;">
         <h1>{{current_member.name}}</h1>
+        <div>
+            <a href= {{current_member.linkedin}} target="_blank"><img id="linkedin_logo" src="img/linkedin_logo.png" style="width: 30px; height: 30px;
+            margin-top: 10px; position: relative; top: auto;"></a>
+            <a href= {{current_member.github}} target="_blank"><img id="github_logo" src="img/github_logo.png" style="width: 30px; height: 30px;
+            margin-top: 10px; position: relative; top: auto;"></a>
+        </div>
         <h3>Biography : {{current_member.bio}}</h3>
-        <h3>Linkedin: {{current_member.linkedin}}</h3>
-        <h3>Github: {{current_member.github}} </h3>
     </div>
 </div>
