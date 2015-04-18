@@ -17,8 +17,6 @@ Thang Nguyen
 
 Joe Murphy
 
-Peter Kerckhof
-
 #### Site Overview
 
 In order to access the site, you must launch index.html, which brings you to the login page. The login information should already be available

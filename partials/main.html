@@ -88,18 +88,14 @@
             <input ng-model="search.name" id="searchBarField">
         </div>
         <div style="margin-left: 3px; margin-bottom: 10px">
-            <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">Advanced</button>
+            <button class="btn btn-primary btn-small" ng-click="isCollapsed = !isCollapsed">Advanced</button>
         </div>
         <div collapse="isCollapsed">
             Skills
             <input ng-model="search.skills_str" id="searchSkillsField">
-            Biography
-            <input ng-model="search.bio" id="searchBiographyField">
-            Interest
-            <input ng-model="search.interests_str" id="searchInterestsField">
-            Project Preference
-            <input ng-model="search.project_pref_str" id="searchProjectPreferenceField">
-            LFG
+            <!--Project Preference-->
+            <!--<input ng-model="search.project_pref_str" id="searchProjectPreferenceField">-->
+            Looking for group
             <input type="checkbox" ng-model="search.lfg">
         </div>
         <div>
@@ -131,7 +127,7 @@
                                 <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)"
                                         style="margin-left: -10px">
                                 <br>
-                                <a class="student-main">
+                                <a class="student-main" style="cursor: pointer">
                                     {{student.name}}
                                 </a>
                             </div>
@@ -163,7 +159,6 @@
                     <h3 ng-show="assignments.length > 0" ui-sref="main" style="position:relative; top:auto;">
                         Assignment {{which_assignment}}: {{assignment.assignment_title}}
                         <input type="image" src="img/gnome-searchtool.png" ui-sref="main.view_assignment_text">
-                        <hr/>
 
                     </h3>
 
