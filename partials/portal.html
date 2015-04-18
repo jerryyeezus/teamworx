@@ -28,130 +28,151 @@
 <!-- Navbar end -->
 
 
-
 <div style="padding: 0.0em;">
 
-     <div class="professorProfileContent">
-         <tabset class="tabs-">
-             <tab heading="My Profile">
-                 <div class="container-fluid" ng-if="isProfessor">
-                     <div class="container-fluid">
-                         <div style="width: 60%; float: right">
-                             <br/><br/><br/><br/><br/><br/><br/>
-                             <h1 class="myEditable" ng-mouseover="hoverInName()" ng-mouseleave="hoverOutName()"
-                                 style="position: relative; top: auto; right: 90px">
-                                <span e-form="nameBtnForm" style="color:#ea9256;"
-                                      onbeforesave="updateProfile('name', $data, user.user_type, user.email)" editable-text="user.name">
-                                </span>
-                                 <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible" style="cursor: pointer">
-                                     <b style="color:#ea9256;">{{ user.name || "empty" }}</b>
-                                     <span ng-show="hoverEditName" class="animate-show glyphicon glyphicon-pencil"></span>
-                                 </a>
-                             </h1>
-                             <div style="position: relative; top: auto; right: 75px">
-                                 <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
-                             </div>
-                         </div>
-
-                         <div  class="container-fluid" style="width: 40%; float: left">
-                             <img style ="width: 100%" src="img/no_profile.png" class="imgProfessor">
-                         </div>
-                     </div>
-
-
-                     <div class="container-fluid"  style="height: 80%; width: 100%; vertical-align: top;
-                          display: inline-block; padding-right: 0.3em">
-                         <hr/>
-                         <div class="myEditable" ng-mouseover="hoverInBio()" ng-mouseleave="hoverOutBio()">
-                             <p>
-                                 <b>Biography</b>
-                            <span e-form="bioBtnForm" style="color:#ea9256; padding-right: 0.3em; font-weight: bold"
-                                  onbeforesave="updateProfile('bio', $data, user.user_type, user.email)"
-                                  editable-text="user.bio">
-                            </span>
-                                 <a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">
-                                     <b style="right: 5px">{{ user.bio || "You currently do not have a bio." }}</b>
-                                     <span ng-show="hoverEditBio" class="animate-show glyphicon glyphicon-pencil"></span>
-                                 </a>
-                             </p>
-                         </div>
-                         <hr/>
-                     </div>
-                 </div>
-                 </hr>
-
-                <div class="container-fluid" style="height: 20%; width : 100%; float: left;" ng-if="isStudent">
+    <div class="professorProfileContent">
+        <tabset class="tabs-">
+            <tab heading="My Profile">
+                <div class="container-fluid" ng-if="isProfessor">
                     <div class="container-fluid">
                         <div style="width: 60%; float: right">
                             <br/><br/><br/><br/><br/><br/><br/>
+
                             <h1 class="myEditable" ng-mouseover="hoverInName()" ng-mouseleave="hoverOutName()"
-                                    style="position: relative; top: auto; right: 90px">
+                                style="position: relative; top: auto; right: 90px">
                                 <span e-form="nameBtnForm" style="color:#ea9256;"
-                                      onbeforesave="updateProfile('name', $data, user.user_type, user.email)" editable-text="user.name">
+                                      onbeforesave="updateProfile('name', $data, user.user_type, user.email)"
+                                      editable-text="user.name">
                                 </span>
-                                <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible" style="cursor: pointer">
+                                <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible"
+                                   style="cursor: pointer">
                                     <b style="color:#ea9256;">{{ user.name || "empty" }}</b>
-                                    <span ng-show="hoverEditName" class="animate-show glyphicon glyphicon-pencil"></span>
+                                    <span ng-show="hoverEditName"
+                                          class="animate-show glyphicon glyphicon-pencil"></span>
                                 </a>
                             </h1>
+
                             <div style="position: relative; top: auto; right: 75px">
                                 <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
                             </div>
                         </div>
 
-                        <div  class="container-fluid" style="width: 40%; float: left">
-                            <img style ="width: 100%" src="img/no_profile.png" class="imgProfessor">
+                        <div class="container-fluid" style="width: 40%; float: left">
+                            <img style="width: 100%" src="img/no_profile.png" class="imgProfessor">
                         </div>
                     </div>
 
 
-                    <div class="container-fluid"  style="height: 80%; width: 100%; vertical-align: top;
+                    <!--<div class="container-fluid"  style="height: 80%; width: 100%; vertical-align: top;-->
+                    <!--display: inline-block; padding-right: 0.3em">-->
+                    <!--<hr/>-->
+                    <!--<div class="myEditable" ng-mouseover="hoverInBio()" ng-mouseleave="hoverOutBio()">-->
+                    <!--<p>-->
+                    <!--<b>Biography</b>-->
+                    <!--<span e-form="bioBtnForm" style="color:#ea9256; padding-right: 0.3em; font-weight: bold"-->
+                    <!--onbeforesave="updateProfile('bio', $data, user.user_type, user.email)"-->
+                    <!--editable-text="user.bio">-->
+                    <!--</span>-->
+                    <!--<a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">-->
+                    <!--<b style="right: 5px">{{ user.bio || "You currently do not have a bio." }}</b>-->
+                    <!--<span ng-show="hoverEditBio" class="animate-show glyphicon glyphicon-pencil"></span>-->
+                    <!--</a>-->
+                    <!--</p>-->
+                    <!--</div>-->
+                    <!--<hr/>-->
+                    <!--</div>-->
+                </div>
+                </hr>
+
+                <div class="container-fluid" style="height: 20%; width : 100%; float: left;" ng-if="isStudent">
+                    <div class="container-fluid">
+                        <div style="width: 60%; float: right">
+                            <br/><br/><br/><br/><br/><br/><br/>
+
+                            <h1 class="myEditable" ng-mouseover="hoverInName()" ng-mouseleave="hoverOutName()"
+                                style="position: relative; top: auto; right: 90px">
+                                <span e-form="nameBtnForm" style="color:#ea9256;"
+                                      onbeforesave="updateProfile('name', $data, user.user_type, user.email)"
+                                      editable-text="user.name">
+                                </span>
+                                <a ng-click="nameBtnForm.$show()" ng-hide="nameBtnForm.$visible"
+                                   style="cursor: pointer">
+                                    <b style="color:#ea9256;">{{ user.name || "empty" }}</b>
+                                    <span ng-show="hoverEditName"
+                                          class="animate-show glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </h1>
+
+                            <div style="position: relative; top: auto; right: 75px">
+                                <b>Contact:</b> &nbsp;&nbsp;<a href="mailto:{{user.email}}">{{user.email}}</a>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid" style="width: 40%; float: left">
+                            <img style="width: 100%" src="img/no_profile.png" class="imgProfessor">
+                        </div>
+                    </div>
+
+
+                    <div class="container-fluid" style="height: 80%; width: 100%; vertical-align: top;
                           display: inline-block; color:white; padding-right: 0.3em">
                         <hr/>
                         <div class="myEditable" ng-mouseover="hoverInBio()" ng-mouseleave="hoverOutBio()">
                             <p>
-                            <b>Biography:</b>
+                                <b>Biography:</b>
                             <span e-form="bioBtnForm" style="color:#ea9256; padding-right: 0.3em; font-weight: bold"
                                   onbeforesave="updateProfile('bio', $data, user.user_type, user.email)"
                                   editable-text="user.bio">
                             </span>
-                            <a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">
-                                <b style="right: 5px">{{ user.bio || "You currently do not have a bio." }}</b>
-                                <span ng-show="hoverEditBio" class="animate-show glyphicon glyphicon-pencil"></span>
-                            </a>
+                                <a ng-click="bioBtnForm.$show()" ng-hide="bioBtnForm.$visible" style="cursor: pointer">
+                                    <b style="color: #555; right: 5px" ng-if="!user.bio">Not set</b>
+                                    <b ng-if="user.bio">{{user.bio}}</b>
+                                    <span ng-show="hoverEditBio" class="animate-show glyphicon glyphicon-pencil"></span>
+                                </a>
                             </p>
                         </div>
-                        <br/>
-                        <div class="myEditable" ng-mouseover="hoverInSkills()" ng-mouseleave="hoverOutSkills()">
-                            <b>Skills:</b>
 
+                        <div class="myEditable" ng-mouseover="hoverInSkills()" ng-mouseleave="hoverOutSkills()">
+                            <p>
+                                <b>Skills:</b>
                             <span e-form="skillsBtnForm" style="color:#ea9256; padding-right: 0.3em;
                                   font-weight: bold"
                                   onbeforesave="updateProfile('skills_str', $data, user.user_type, user.email)"
                                   editable-text="user.skills_str">
                             </span>
-                            <a ng-click="skillsBtnForm.$show()" ng-hide="skillsBtnForm.$visible" style="cursor:pointer;">
-                                <b style="width: 100%">{{ user.skills_str || "" }}</b>
-                                <span ng-show="hoverEditSkills" class="animate-show glyphicon glyphicon-pencil"></span>
-                            </a>
-
+                                <a ng-click="skillsBtnForm.$show()" ng-hide="skillsBtnForm.$visible"
+                                   style="cursor:pointer;">
+                                    <b ng-if="user.skills_str">
+                                        {{ user.skills_str}}</b>
+                                    <b ng-if="!user.skills_str" style="color: #555; opacity: 0.9; width: 100%">
+                                        Enter some skills...</b>
+                                    <span ng-show="hoverEditSkills"
+                                          class="animate-show glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <span ng-show="hoverEditSkills" style="color: #555; font-size: x-small"><br>Example: Java, C++, Pascal...</span>
+                            </p>
                         </div>
-                        <br/>
 
                         <div class="myEditable" ng-mouseover="hoverInLinkedin()" ng-mouseleave="hoverOutLinkedin()">
-                            <b>Linkedin:</b>
+                            <p>
+                                <b>Linkedin:</b>
                             <span e-form="linkedinBtnForm" style="color:#ea9256; padding-right: 0.3em;
                                 font-weight: bold; word-wrap: break-word"
-                                onbeforesave="updateProfile('linkedin', $data, user.user_type, user.email)"
-                                editable-text="user.linkedin">
+                                  onbeforesave="updateProfile('linkedin', $data, user.user_type, user.email)"
+                                  editable-text="user.linkedin">
                             </span>
-                            <a ng-click="linkedinBtnForm.$show()" style="cursor: pointer"
-                               ng-hide="linkedinBtnForm.$visible">
-                                <b style="">{{ user.linkedin || "" }}</b>
-                                <span ng-show="hoverEditLinkedin" class="animate-show glyphicon glyphicon-pencil"></span>
-                            </a>
+                                <a ng-click="linkedinBtnForm.$show()" style="cursor: pointer"
+                                   ng-hide="linkedinBtnForm.$visible">
+                                    <b ng-if="!user.linkedin" style="color: #555; opacity: 0.9; width: 100%">
+                                        Not set</b>
+                                    <b ng-if="user.linkedin">
+                                        {{ user.linkedin }}</b>
+                                <span ng-show="hoverEditLinkedin"
+                                      class="animate-show glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </p>
                         </div>
-                        <br/>
+
                         <div class="myEditable" ng-mouseover="hoverInGithub()" ng-mouseleave="hoverOutGithub()">
                             <b>Github:</b>
                             <span e-form="githubBtnForm" style="color:#ea9256; padding-right: 0.3em;
@@ -159,40 +180,49 @@
                                   onbeforesave="updateProfile('github', $data, user.user_type, user.email)"
                                   editable-text="user.github">
                             </span>
-                            <a ng-click="githubBtnForm.$show()" ng-hide="githubBtnForm.$visible" style="cursor:pointer;">
-                                <b style="">{{ user.github || "" }}</b>
-                                <span ng-show="hoverEditGithub" class="animate-show glyphicon glyphicon-pencil"></span>
+                            <a ng-click="githubBtnForm.$show()" ng-hide="githubBtnForm.$visible"
+                               style="cursor:pointer;">
+                                <b ng-if="!user.github" style="color: #555; opacity: 0.9; width: 100%">
+                                    Not set
+                                </b>
+                                <b ng-if="user.github">
+                                    {{user.github}}
+                                </b>
+                                    <span ng-show="hoverEditGithub"
+                                          class="animate-show glyphicon glyphicon-pencil"></span>
                             </a>
                         </div>
                     </div>
                 </div>
-             </tab>
+            </tab>
 
-             <tab heading="My Courses">
-                 <div class="innerCourseListContent">
-                     <div style="width: 100%">
-                         <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="isProfessor"
-                             jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
-                             data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                             <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{ course.course_dept_and_id}}: {{
-                                 course.course_name}}</a></h3>
-                             <h4>Instructor: {{ course.prof }}</h4>
-                         </li>
-                     </div>
-                 </div>
-                 <p class="addCourseButton">
-                     <button style="top: auto; left: auto;" type="button" ng-if="isProfessor"  class="btn btn-primary btn-lg" ui-sref="portal.create_class">
-                         <span class="glyphicon glyphicon-plus"></span> Add Course
-                     </button>
+            <tab heading="My Courses">
+                <div class="innerCourseListContent">
+                    <div style="width: 100%">
+                        <li ng-repeat="course in course_list" style="list-style-type: none" data-drag="isProfessor"
+                            jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startDragCourse(course)'}"
+                            data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
+                            <h3><a style="cursor:pointer" ng-click="selectCourse(course)">{{
+                                course.course_dept_and_id}}: {{
+                                course.course_name}}</a></h3>
+                            <h4>Instructor: {{ course.prof }}</h4>
+                        </li>
+                    </div>
+                </div>
+                <p class="addCourseButton">
+                    <button style="top: auto; left: auto;" type="button" ng-if="isProfessor"
+                            class="btn btn-primary btn-lg" ui-sref="portal.create_class">
+                        <span class="glyphicon glyphicon-plus"></span> Add Course
+                    </button>
 
-                     <button style="top: auto; left: auto"
-                             ng-if ="isProfessor" class="btn btn-warning btn-lg" data-drop="isProfessor"
-                             jqyoui-droppable="{beforeDrop: 'deleteCourse()'}"
-                             style="position: absolute; left: auto">
-                         <span class="glyphicon glyphicon-trash"></span> Delete Course
-                     </button>
-                 </p>
-             </tab>
+                    <button style="top: auto; left: auto"
+                            ng-if="isProfessor" class="btn btn-warning btn-lg" data-drop="isProfessor"
+                            jqyoui-droppable="{beforeDrop: 'deleteCourse()'}"
+                            style="position: absolute; left: auto">
+                        <span class="glyphicon glyphicon-trash"></span> Delete Course
+                    </button>
+                </p>
+            </tab>
         </tabset>
     </div>
 </div>
