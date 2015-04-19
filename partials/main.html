@@ -17,7 +17,7 @@
                 <li class="dropdown">
                     <a href="#/portal" class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-expanded="false">
-                        <img src="img/no_profile.png" width="28px" height="24px"/>
+                        <img src="img/no_profile.png" width="28px" height="24px" style="border-radius: 50%"/>
                         <span style="padding-left: 0.3em">Profile</span>
                     </a>
                 </li>
@@ -191,7 +191,7 @@
                         <span class="glyphicon glyphicon-trash"></span> Delete
                     </button>
 
-                    <p ng-if="isStudent" style="position:absolute; top:145px; right: 145px;">LFG
+                    <p ng-if="isStudent" style="position:absolute; top:115px; right: 16px;">LFG
                         <button type="button" class="btn btn-primary btn-small" style="position:relative; left:auto"
                                 ng-click="enableLFG()"> Enable</button>
                         <button type="button" class="btn btn-warning btn-small" style="position:relative; left :auto"
@@ -222,18 +222,19 @@
 
                                 <img src="img/no_group.jpg" style="width: auto; height: 110px; float: left; margin: 5px 5px 5px 5px">
                                 <div class="groupProfileHeader" ng-click="selectTeam(team)" ui-sref="main.groupProfile" style="float: left">
-                                    <h2 data-drag="isProfessor"
+                                    <h3 data-drag="isProfessor"
                                         jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                         jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                         data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
                                         <span ng-hide="'Team ' + team.number == team.name">
                                         Team {{team.number}}: </span>
                                         {{team.name || 'Unnamed Team'}}
-                                    </h2>
-                                    <h3> Description: {{team.description}}</h3>
-                                    <h3>
-                                        Members
                                     </h3>
+                                    <p style="font-style: italic"> Description: Description: Description:Description:Description:Description:
+                                        Description:Description:Description:Description:Description:Description:Description:Description:
+                                        Description:Description:Description:Description:Description:Description:Description:Description:{{team.description}}</p>
+                                </div>
+                                <div class="groupProfileMembers" style="float: left">
                                     <div ng-repeat="member in team.members">
                                         <span custom-popover
                                               popover-html="
