@@ -237,9 +237,8 @@
                                         Team {{team.number}}: </span>
                                         {{team.name}}
                                     </h3>
-                                    <!--<p style="font-style: italic"> Description: Description: Description:Description:Description:Description:-->
-                                    <!--Description:Description:Description:Description:Description:Description:Description:Description:-->
-                                    <!--Description:Description:Description:Description:Description:Description:Description:Description:{{team.description}}</p>-->
+                                    <p style="font-style: italic;">
+                                    {{team.description | limitTo: 24 || "This is what the description would look like if they had entered one in."}}</p>
                                 </div>
                                 <div class="groupProfileMembers" style="float: left">
                                     <div ng-repeat="member in team.members">
@@ -262,7 +261,7 @@
 
                                                 <img src="img/no_profile.png" class="imgStudent"
                                                      style="float: left; margin-right: 10px; margin-top: 10px; max-width: 50px; max-height: 50px; text-align: right">
-                                                
+
                                             </a>
                                         </span>
                                     </div>
