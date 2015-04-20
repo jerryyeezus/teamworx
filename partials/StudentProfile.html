@@ -10,6 +10,8 @@
             <a href= {{current_member.github}} target="_blank"><img id="github_logo" src="img/github_logo.png" style="width: 30px; height: 30px;
             margin-top: 10px; position: relative; top: auto;"></a>
         </div>
-        <h3>Biography : {{current_member.bio}}</h3>
+        <h3>Biography : <span ng-class="{'not-set': !current_member.bio}">{{current_member.bio || "Not set"}}</span>
+        <h3>Skills : <span ng-class="{'not-set': !current_member.skills_str}">{{current_member.skills_str || "Not set"}}</span>
+        </h3>
     </div>
 </div>

@@ -85,7 +85,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
         }, studentProfile = {
             name: 'main.studentProfile',
             url: '/studentProfile',
-            templateUrl: 'partials/studentProfile.html',
+            templateUrl: 'partials/StudentProfile.html',
             controller: 'StudentProfileController'
         }, team_overview = {
             name: 'main.team_overview',

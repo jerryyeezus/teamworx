@@ -21,7 +21,6 @@
                 </h2>
             </h3>
 
-            <hr/>
             <h3>
                 Seeking Skills:
                             <span e-form="seekSkillBtnForm" style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
@@ -33,7 +32,6 @@
                     <span ng-if="isOwner" class="animate-show glyphicon glyphicon-pencil"></span>
                 </a>
             </h3>
-            <hr/>
             <h3>Members</h3>
             <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                 <div class="studentProfile">
@@ -45,11 +43,9 @@
                         {{member.name}} </br> </a>
                 </div>
             </ul>
-            <hr/>
             <button ng-if ="true" class="btn btn-warning btn-lg" data-drop="true"
                     jqyoui-droppable="{beforeDrop: 'denyRequester()'}">
                 <span class="glyphicon glyphicon-trash"></span> Delete Member
             </button>
-        <hr/>
     </div>
 </div>
