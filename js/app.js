@@ -299,6 +299,4 @@ myApp.filter('capitalize', function () {
         }) : '';
     }
 });
-
-
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);
