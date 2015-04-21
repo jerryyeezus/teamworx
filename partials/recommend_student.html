@@ -1,0 +1,15 @@
+<ul style="list-style-type:none; padding: 0px">
+    <li data-drag="isProfessor" ng-repeat="student in recommendStudents | filter: search"
+        jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(student)'}"
+        data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
+        class="container-fluid" ng-click="selectStudent(student)" ui-sref="main.studentProfile">
+        <div class="studentProfile">
+            <img src="img/no_profile.png" class="imgStudent" ng-if="!hasProfile(student)">
+            <br>
+            <a class="student-main">
+                {{student.name}}
+            </a>
+        </div>
+        <hr>
+    </li> </br>
+</ul>

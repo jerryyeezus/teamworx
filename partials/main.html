@@ -61,6 +61,24 @@
                     </ul>
                 </li>
 
+                <li class="dropdown" ng-if="isStudent">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Recommendation
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-if="isStudent">
+                            <a ng-click="showUIViewContent()" ui-sref="main.recommend_team"> Recommend Team </a>
+                        </li>
+
+                        <li ng-if="isStudent">
+                            <a ng-click="showUIViewContent()" ui-sref="main.recommend_student">
+                                Recommend Student</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="dropdown" id="settingsMenu">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
                         <span class="caret"></span></a>

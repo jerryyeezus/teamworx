@@ -107,6 +107,16 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
             url: '/register',
             templateUrl: 'partials/register.html',
             controller: 'CredentialsController'
+        }, recommend_team = {
+            name: 'main.recommend_team',
+            url: '/recommend_team/:which_assignment',
+            templateUrl: 'partials/recommend_team.html',
+            controller: 'CMainController'
+        },recommend_student = {
+            name: 'main.recommend_student',
+            url: '/recommend_student/:which_assignment',
+            templateUrl: 'partials/recommend_student.html',
+            controller: 'CMainController'
         }, create_class = {
             name: 'portal.create_class',
             url: '/portal/create_class',
@@ -265,7 +275,9 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     main_state.state(pending_request);
     main_state.state(team_overview);
     main_state.state(admin);
-    main_state.state(add_project)
+    main_state.state(add_project);
+    main_state.state(recommend_student);
+    main_state.state(recommend_team);
     $stateProvider.state(register);
 
     var portal_state = $stateProvider.state(portal)

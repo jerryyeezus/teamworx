@@ -128,14 +128,17 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
                 $scope.students.forEach(function(student) {
                     student['lfg'] = false;
-                    $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response) {
-                        $scope.lfgList = response.data;
-                        $scope.lfgList.forEach(function(lfg) {
-                            if(lfg.user_fk == student.user_type + '|' + student.email) {
-                                student['lfg'] = true;
-                            };
+                    if ($scope.assignment.pk != undefined) {
+                        $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function (response) {
+                            $scope.lfgList = response.data;
+                            $scope.lfgList.forEach(function (lfg) {
+                                if (lfg.user_fk == student.user_type + '|' + student.email) {
+                                    student['lfg'] = true;
+                                }
+                                ;
+                            });
                         });
-                    });
+                    };
                 });
             });
 
@@ -174,15 +177,17 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                     $scope.students = response.data;
                     $scope.students.forEach(function(student) {
                         student['lfg'] = false;
-                        $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function(response)
-                        {
-                            $scope.lfgList = response.data;
-                            $scope.lfgList.forEach(function(lfg) {
-                                if(lfg.user_fk == student.user_type + '|' + student.email) {
-                                    student['lfg'] = true;
-                                };
+                        if ($scope.assignment.pk != undefined) {
+                            $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function (response) {
+                                $scope.lfgList = response.data;
+                                $scope.lfgList.forEach(function (lfg) {
+                                    if (lfg.user_fk == student.user_type + '|' + student.email) {
+                                        student['lfg'] = true;
+                                    }
+                                    ;
+                                });
                             });
-                        });
+                        };
                     });
                 });
                 $scope.isInterested = false;
@@ -589,6 +594,21 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.showCourseReview = false;
             $scope.showUIView = true;
         };
+
+        var dataObject = {};
+
+        dataObject['user'] = $scope.user;
+        dataObject['which_assignment']  = $cookieStore.get('assignment_pk');
+
+        $http.post(Authentication.server_url + 'recommend_team/', dataObject).then(function(response) {
+            $scope.recommendTeams  = response.data;
+        });
+
+
+        $http.post(Authentication.server_url + 'recommend_student/', dataObject).then(function(response) {
+            $scope.recommendStudents = response.data;
+        });
+
         /* Logout function */
         $scope.logout = function () {
             Authentication.logout();
