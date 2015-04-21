@@ -9,7 +9,7 @@ var myApp = angular.module('myApp', [
 ]);
 
 // flag
-var DEBUG = false;
+var DEBUG = true;
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
     server_url = 'http://localhost:8000/';
