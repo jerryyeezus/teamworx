@@ -7,6 +7,7 @@ mainControllers.controller('GroupProfileController', ['$http', '$stateParams', '
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.course = $cookieStore.get('course');
         $scope.team = group_service.getGroup();
+        console.log($scope.team);
         $scope.isLFM = $scope.team.lfm;
 
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
