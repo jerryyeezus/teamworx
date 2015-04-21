@@ -151,6 +151,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         $scope.teams[i].members[j] = $scope.students[student_map[member]];
                     }
                 };
+                console.log($scope.teams);
                 $scope.haveGroupFlag = false;
                 if ($scope.teams.length > 0) {
                     $scope.teams.forEach(function (team) {

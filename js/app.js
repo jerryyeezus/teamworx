@@ -9,7 +9,7 @@ var myApp = angular.module('myApp', [
 ]);
 
 // flag
-var DEBUG = true;
+var DEBUG = false;
 var server_url = 'http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com:8000/';
 if (DEBUG)
     server_url = 'http://localhost:8000/';
@@ -309,6 +309,18 @@ myApp.filter('capitalize', function () {
         return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function (txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         }) : '';
+    }
+});
+
+myApp.filter('formatLFM', function () {
+    return function (input, all) {
+        return input ? '(Enabled)' : '(Disabled)'
+    }
+});
+
+myApp.filter('formatTeam', function () {
+    return function (input, all) {
+        return 'Team ' + input;
     }
 });
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);

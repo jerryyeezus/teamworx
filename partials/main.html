@@ -63,7 +63,7 @@
 
                 <li class="dropdown" ng-if="isStudent">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        Recommendation
+                        Find Match
                         <span class="caret"></span>
                     </a>
 
@@ -74,7 +74,7 @@
 
                         <li ng-if="isStudent">
                             <a ng-click="showUIViewContent()" ui-sref="main.recommend_student">
-                                Recommend Student</a>
+                                Recommend Students</a>
                         </li>
                     </ul>
                 </li>
@@ -83,7 +83,6 @@
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="">Change Password</a></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
                     </ul>
                 </li>
@@ -211,7 +210,7 @@
                         <span class="glyphicon glyphicon-trash"></span> Delete
                     </button>
 
-                    <p ng-if="isStudent" style="position:absolute; top:115px; right: 16px;">LFG
+                    <p ng-if="isStudent" style="position:absolute; top:115px; right: 16px;">Set status as looking for group:
                         <button type="button" class="btn btn-primary btn-small" style="position:relative; left:auto"
                                 ng-click="enableLFG()"> Enable
                         </button>
@@ -251,8 +250,9 @@
                                         jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                         jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
                                         data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                                        <span ng-hide="'Team ' + team.number == team.name">
-                                        Team {{team.name}}: </span>
+                                        <!--<span ng-hide="'Team ' + team.number == team.name">-->
+                                        <!--Team {{team.name}}: </span>-->
+                                        <!--{{team.name}}-->
                                         {{team.name}}
                                     </h3>
                                     <p style="font-style: italic;">
