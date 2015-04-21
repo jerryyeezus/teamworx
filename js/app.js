@@ -311,4 +311,16 @@ myApp.filter('capitalize', function () {
         }) : '';
     }
 });
+
+myApp.filter('formatLFM', function () {
+    return function (input, all) {
+        return input ? '(Enabled)' : '(Disabled)'
+    }
+});
+
+myApp.filter('formatTeam', function () {
+    return function (input, all) {
+        return 'Team ' + input;
+    }
+});
 var mainControllers = angular.module('mainControllers', ['ngAnimate']);

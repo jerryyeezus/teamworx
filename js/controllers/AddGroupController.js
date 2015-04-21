@@ -6,13 +6,15 @@ mainControllers.controller('AddGroupController',
             $scope.the_user = Authentication.getAuthenticatedAccount();
             $scope.submitTheForm = function () {
                 var dataObject = {
-                    name: $scope.myForm.team_name,
-                    description: $scope.myForm.team_description,
+                    team_name: $scope.myForm.team_name,
+                    team_description: $scope.myForm.team_description,
                     which_class: $scope.which_class,
                     which_assignment: $cookieStore.get('assignment_pk'),
                     members:[$scope.the_user.email],
                     owner: "STUDENT|" + $scope.the_user.email
                 };
+
+                console.log(dataObject);
 
                 var responsePromise = $http.post(Authentication.server_url + 'add_team/', dataObject, {});
                 responsePromise.success(function () {

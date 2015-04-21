@@ -5,7 +5,9 @@
             <img src="img/no_group.jpg" id="GroupProfileSidebarImage">
         </div>
         <div class="container-fluid" id="pageGroupProfileHeaderMain">
-            <h1>Group {{team.number}}</h1>
+            <h1>{{team.team_name || team.number | formatTeam}}</h1>
+            <img ng-if="team.lfm" src="img/flag.png" height="25" width="25"/>
+            <span ng-if="team.lfm">Looking for more teammates</span>
 
             <h4>Class: {{course.course_dept_and_id}}</h4>
 
@@ -21,13 +23,10 @@
 
         <div align="left" class="container-fluid" id="pageGroupProfileBodyMain">
             <h2 style=" text-align:left;">
-                Description: {{team.description}}
+                Description: {{team.description || "Not set"}}
             </h2>
             <h2>
-                Seeking Skills: {{team.skills_needed}}
-            </h2>
-            <h2>
-                Project Preference: {{team.description}}
+                Seeking Skills: {{team.skills_needed || "Not set"}}
             </h2>
             <h2>Members</h2>
             <div class="MemberListContent">
