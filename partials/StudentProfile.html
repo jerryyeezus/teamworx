@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="container-fluid" style="width:25%; float:left;">
-        <img src="img/no_profile.jpg" style="width:100%; height: auto; border-radius: 50%">
+        <img src="img/no_profile.png" style="width:100%; height: auto; border-radius: 50%">
     </div>
     <div class="container-fluid" style="width:50%; float:left; text-align:left;">
         <h1>{{current_member.name}}</h1>
@@ -10,8 +10,22 @@
             <a href= "{{current_member.github}}" target="_blank"><img id="github_logo" src="img/github_logo.png" style="width: 30px; height: 30px;
             margin-top: 10px; position: relative; top: auto;"></a>
         </div>
-        <h3>Biography : <span ng-class="{'not-set': !current_member.bio}">{{current_member.bio || "Not set"}}</span>
-        <h3>Skills : <span ng-class="{'not-set': !current_member.skills_str}">{{current_member.skills_str || "Not set"}}</span>
-        </h3>
+    </div>
+
+    <div class="container-fluid" style="width:100%; float:left; text-align:left">
+        <br><br>
+        <h4 style="font-weight: bold">
+            Biography:
+        </h4>
+        <p>
+            <span ng-class="{'not-set': !current_member.bio}">{{current_member.bio || "Not set"}}</span>
+        </p>
+        <br>
+        <h4 style="font-weight: bold">
+            Skills:
+        </h4>
+        <p>
+            <span ng-class="{'not-set': !current_member.skills_str}">{{current_member.skills_str || "Not set"}}</span>
+        </p>
     </div>
 </div>
