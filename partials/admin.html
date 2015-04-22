@@ -1,10 +1,10 @@
 <toaster-container toaster-options="{'time-out': 1300, 'position-class': 'toast-bottom-center'}"></toaster-container>
 <div class="container-fluid">
-    <div align="left" class="container-fluid">
+    <div align="left" class="container-fluid" style="height: auto; max-height: 100%; width: 73%; overflow: auto; float: left">
         <h3>
             Description:
                             <span e-form="descriptionBtnForm"
-                                  style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
+                                  style="cursor:pointer; color:darkslateblue; font-style: italic; font-size: 75%; padding-right: 0.3em"
                                   onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
                                   editable-text="team.description">
                             {{team.description || "Not set" }}
@@ -19,7 +19,7 @@
         <h3>
             Seeking Skills:
                             <span e-form="seekSkillBtnForm"
-                                  style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
+                                  style="cursor:pointer; color:darkslateblue; font-style: italic; font-size: 75%; padding-right: 0.3em"
                                   onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
                                   editable-text="team.description">
                             {{ team.seeking_skills || "Not set" }}
@@ -40,8 +40,8 @@
                 ng-click="disableLFM()"> Disable
         </button>
         </p>
-           
-        <h3>Members</h3>
+        <br><br>
+        <h3>Members:</h3>
         <ul style="list-style-type: none; margin: 0px; padding: 0px;" ng-mouseover="hoverIn()"
             ng-mouseleave="hoverOut()">
             <div class="studentProfile">
