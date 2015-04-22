@@ -375,7 +375,7 @@ a:active {
 .groupProfile {
     height: 50%;
     max-height: 200px;
-    width: 45%;
+    width: 100%;
     background-color: grey;
     opacity: 0.9;
     border-radius: 8px;
@@ -388,7 +388,7 @@ a:active {
     min-height: 100px;
     height: auto;
     max-height: 135px;
-    width: 150px;
+    width: 400px;
     margin: -18px 10px -12px 10px;
     /*border: 3px solid black;*/
     border-radius: 3px;
@@ -411,7 +411,7 @@ a:active {
 .groupProfileContent {
     /*min-height: 70px;*/
     height: 100%;
-    width: 38%;
+    width: 108%;
     /*max-height: 120px;*/
     margin: 0px 10px -12px 5px;
     text-align: right;
@@ -431,13 +431,14 @@ a:active {
 .groupProfileHover {
     height: 50%;
     max-height: 200px;
-    width: 45%;
+    width: 100%;
     background-color: darkolivegreen;
     opacity: 1.0;
     color: #000000;
     cursor: pointer;
     border-radius: 8px;
-    background: url(/teamworx/img/bg/bg_08.jpg) no-repeat 0 0 fixed;
+    background: url(/teamworx/img/bg/bg_08.jpg) no-repeat 0 0;
+    /*background: url(/teamworx/img/bg/bg_08.jpg) no-repeat 0 0 fixed;*/
     margin: 8px 18px 18px 8px;
     padding: 5px 5px 5px 5px;
     float: left;
