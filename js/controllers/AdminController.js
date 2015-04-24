@@ -16,10 +16,51 @@ mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authent
             Authentication.updateAuthenticatedAccount(which_field, data);
         };
 
+
         $http.get(Authentication.server_url + 'projects/' + $cookieStore.get('assignment_pk')).then (function(response) {
             $scope.projects = response.data;
+            $scope.possibleProjects = [];
+            $scope.projects.forEach(function(project) {
+                var flag = false;
+                $scope.myTeam.project_pref.forEach(function(pro) {
+                    if (pro.pk == project.pk) {
+                        flag = true;
+                    }
+                })
+                if (!flag) {
+                    $scope.possibleProjects.push(project);
+                }
+            });
         });
 
+
+        $scope.addPref = function(project) {
+            var dataObject = {};
+            dataObject['which_project'] = project.pk;
+            dataObject['which_team'] = $scope.myTeam.pk;
+            $http.put(Authentication.server_url + 'add_project_pref/', dataObject, {}).then(function(response) {
+                console.log("Do we get here");
+                    $scope.updatePref();
+            }
+        )};
+
+        $scope.updatePref = function() {
+            $http.get(Authentication.server_url + 'projects/' + $cookieStore.get('assignment_pk')).then (function(response) {
+                $scope.projects = response.data;
+                $scope.possibleProjects = [];
+                $scope.projects.forEach(function(project) {
+                    var flag = false;
+                    $scope.myTeam.project_pref.forEach(function(pro) {
+                        if (pro.pk == project.pk) {
+                            flag = true;
+                        }
+                    })
+                    if (!flag) {
+                        $scope.possibleProjects.push(project);
+                    }
+                });
+            });
+        }
 
         $scope.hoverIn = function (team) {
             this.hovered = team;

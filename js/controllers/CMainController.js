@@ -610,10 +610,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         $http.post(Authentication.server_url + 'recommend_team/', dataObject).then(function(response) {
             $scope.recommendTeams  = response.data;
-            console.log($scope.recommendTeams);
-            console.log($scope.recommendTeams[0].members);
         });
-
 
         $http.post(Authentication.server_url + 'recommend_student/', dataObject).then(function(response) {
             $scope.recommendStudents = response.data;

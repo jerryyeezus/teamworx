@@ -487,21 +487,22 @@ a:active {
 
 
 .qDiv {
-    opacity: 0.7;
-    padding: 20px 20px 20px 20px;
+    padding: 10px 10px 10px 10px;
     width: 400px;
-    min-height: 130px;
+    min-height: 100px;
     height: auto;
     max-height: 200px;
     border-radius: 5px;
+    background-color: #696969;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: -20px;
 }
 
 .qText {
     color: aliceblue;
-    font-size: x-large;
+    font-size: large;
     margin: 0 auto;
     font-weight: bold;
 }

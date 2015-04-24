@@ -31,8 +31,15 @@
 
         <h3> Project Preference:
             <h4>
-                <li ng-repeat="project_pref in projects">
-                {{project_pref.description}}
+                <li ng-repeat="project in team.project_pref">
+                    {{project.description}}
+                </li>
+            </h4>
+            <h4>
+                <li ng-repeat="project in possibleProjects">
+                    <button type = "button" class = "btn btn-primary btn-small"
+                            ng-click ="addPref(project)"> + Add </button>
+                    {{project.description}}
                 </li>
             </h4>
         </h3>
