@@ -173,7 +173,7 @@ a:active {
 #myTeamOverview {
     width: 70%;
     height: auto;
-    max-height: 75vh;
+    max-height: 76vh;
     margin-top: 20px;
     overflow: auto;
 }
@@ -765,18 +765,15 @@ a:active {
 }
 
 #pageGroupProfileFull {
-    min-height: 86%;
+    min-height: 92%;
     height: auto;
-    max-height: 86%;
     width: auto;
-    max-width: 96%;
+    max-width: 99%;
     margin: 5px auto;
-    margin-top: 20px;
     top: 51px;
     left: 0;
     right: 0;
     position: absolute;
-    overflow: auto;
 }
 
 #pageGroupProfileHeader {
