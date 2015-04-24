@@ -4,7 +4,7 @@
         <img src="img/no_group.jpg" style="width:110%; height: auto; margin-left: -20px">
     </div>
     <div class="container-fluid" style="width:50%; float:left; text-align:left;">
-        <h1>{{team.name}}</h1>
+        <h1>{{myTeam.name}}</h1>
 
         <h4>Class: {{course.course_dept_and_id}}</h4>
 
@@ -15,14 +15,14 @@
             Description:
         </h4>
         <p>
-            {{team.description}}
+            {{myTeam.description}}
         </p>
         <br>
         <h4 style="font-weight: bold">
             Seeking Skills:
         </h4>
         <p>
-            (NEED A NEW THING FOR SKILLS HERE) {{team.description}}
+            (NEED A NEW THING FOR SKILLS HERE) {{myTeam.description}}
         </p>
         <br>
         <h4 style="font-weight: bold">
@@ -32,7 +32,7 @@
             <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                 <div class="studentProfile">
                     <a class="container-fluid" ui-sref ="main.studentProfile"
-                       ng-repeat="member in team.members" ng-click ="selectMember(member)">
+                       ng-repeat="member in myTeam.members" ng-click ="selectMember(member)">
                         <img src="img/no_profile.png" class="imgStudent"/>
                         {{member.name}} </br> </a>
                 </div>
