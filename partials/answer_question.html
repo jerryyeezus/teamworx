@@ -1,7 +1,7 @@
 <div>
-    <h2>Survey</h2>
+    <h2 style="text-align: center; margin-top: -15px">Survey</h2>
 
-    <div style="max-height: 60vh; overflow: auto">
+    <div style="max-height: 70vh; max-width: 80%; overflow: auto; margin-right: auto; margin-left: auto">
     <form>
         <div class="qDiv" ng-repeat="question in questions">
             <div class="qText" style="color: #87CEFA">
@@ -11,7 +11,7 @@
             <div style="max-width: 353px; margin-left: auto; margin-right: auto">
                 <div class="row">
                     <div class="col-md-2">
-                        <h4>{{question.lo | capitalize }}</h4>
+                        <p>{{question.lo | capitalize }}</p>
                     </div>
                     <div class="col-md-6" style="color: yellow; margin-left: 30px">
                         <rating ng-model="question.answer"
@@ -23,7 +23,7 @@
                         </rating>
                     </div>
                     <div class="col-md-2">
-                        <h4>{{question.hi | capitalize}}</h4>
+                        <p>{{question.hi | capitalize}}</p>
                     </div>
                 </div>
             </div>
