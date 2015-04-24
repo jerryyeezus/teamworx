@@ -13,33 +13,33 @@ mainControllers.controller('QuestionController', ['$http', '$stateParams', 'Auth
             $scope.questions = response.data;
         });
 
-        $http.get(Authentication.server_url + 'projects/' + $cookieStore.get('assignment_pk')).then (function(response) {
-            $scope.projects = response.data;
-            console.log($scope.projects);
-            console.log($scope.questions);
-            if ($scope.questions.length == 0 && $scope.projects.length > 0) {
-                $scope.projects.forEach(function(project) {
-                    var dataObject = {};
-                    dataObject['ass_fk'] = $cookieStore.get('assignment_pk');
-                    dataObject['lo'] = 1;
-                    dataObject['hi'] = 5;
-                    dataObject['text'] = "How do you prefer Project" + project.name;
-                    console.log(dataObject);
-                    var responsePromise = $http.post(Authentication.server_url + 'questions/', dataObject, {});
-                    responsePromise.success(function () {
-                        $scope.updateQuestion();
-                        add_question_service.setDirty();
-                    });
-
-                    responsePromise.error(function (a, b) {
-                        alert("Submitting form failed!");
-                        console.log(dataObject);
-                        console.log(a);
-                        console.log(b);
-                    });
-                });
-            };
-        });
+        //$http.get(Authentication.server_url + 'projects/' + $cookieStore.get('assignment_pk')).then (function(response) {
+        //    $scope.projects = response.data;
+        //    console.log($scope.projects);
+        //    console.log($scope.questions);
+        //    //if ($scope.questions.length == 0 && $scope.projects.length > 0) {
+        //    if ($scope.projects.length > 0) {
+        //        $scope.projects.forEach(function(project) {
+        //            var dataObject = {};
+        //            dataObject['ass_fk'] = $cookieStore.get('assignment_pk');
+        //            dataObject['lo'] = 1;
+        //            dataObject['hi'] = 5;
+        //            dataObject['text'] = "How do you prefer Project " + project.name;
+        //            var responsePromise = $http.post(Authentication.server_url + 'questions/', dataObject, {});
+        //            responsePromise.success(function () {
+        //                $scope.updateQuestion();
+        //                add_question_service.setDirty();
+        //            });
+        //
+        //            responsePromise.error(function (a, b) {
+        //                alert("Submitting form failed!");
+        //                console.log(dataObject);
+        //                console.log(a);
+        //                console.log(b);
+        //            });
+        //        });
+        //    };
+        //});
 
 
         $scope.showEditing = false;

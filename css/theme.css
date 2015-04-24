@@ -384,6 +384,20 @@ a:active {
     float: left;
 }
 
+.recGroupProfile {
+    min-height: 150px;
+    height: 100%;
+    max-height: 500px;
+    width: 90%;
+    background-color: grey;
+    opacity: 0.9;
+    border-radius: 8px;
+    margin: 8px 18px 18px 8px;
+    padding: 5px 5px 5px 5px;
+    float: left;
+}
+
+
 .groupProfileHeader {
     min-height: 100px;
     height: auto;
@@ -396,6 +410,19 @@ a:active {
     text-overflow: ellipsis;
     display: inline-block;
 
+}
+
+.recGroupProfileHeader {
+    min-height: 150px;
+    height: auto;
+    max-height: 500px;
+    width: 400px;
+    margin: -18px 10px -12px 10px;
+    /*border: 3px solid black;*/
+    border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 .groupProfileMembers {
@@ -442,6 +469,22 @@ a:active {
     padding: 5px 5px 5px 5px;
     float: left;
 }
+
+.recGroupProfileHover {
+    height: 100%;
+    max-height: 200px;
+    width: 90%;
+    background-color: darkolivegreen;
+    opacity: 1.0;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 8px;
+    background: url(/teamworx/img/bg/bg_08.jpg) no-repeat 0 0;
+    margin: 8px 18px 18px 8px;
+    padding: 5px 5px 5px 5px;
+    float: left;
+}
+
 
 .qDiv {
     background-color: brown;

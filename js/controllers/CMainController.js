@@ -257,6 +257,13 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             }
         };
 
+        $scope.divClassRec = function (team) {
+            if (team == this.hovered) {
+                return 'recGroupProfileHover';
+            } else {
+                return 'groupProfile';
+            }
+        };
         //Select Assignment in the navigation bar
         $scope.selectAssignment = function (id, pk, ass) {
             ass_service.setWhichAssignment(id);

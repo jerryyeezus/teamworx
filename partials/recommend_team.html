@@ -1,11 +1,11 @@
-<div class="groupProfile" data-drop="isProfessor" ng-repeat="team in recommendTeams"
-     ng-class="divClass(team)"
+<div class="recGroupProfile" data-drop="isProfessor" ng-repeat="team in recommendTeams"
+     ng-class="divClassRec(team)"
      ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
      ng-mouseenter="hoverIn(team)"
      ng-click="selectTeam(team)" ui-sref="main.groupProfile">
 
     <img src="img/no_group.jpg" style="width: auto; height: 110px; float: left; margin: 5px 5px 5px 5px">
-    <div class="groupProfileHeader" ng-click="selectTeam(team)" ui-sref="main.groupProfile" style="float: left">
+    <div class="recGroupProfileHeader" ng-click="selectTeam(team)" ui-sref="main.groupProfile" style="float: left">
         <h2 data-drag="isProfessor"
             jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
             jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
@@ -14,10 +14,12 @@
                                     Team {{team.number}}: </span>
             {{team.name || 'Unnamed Team'}}
         </h2>
-        <h3> Description: {{team.description}}</h3>
-        <h3>
-            Members
-        </h3>
+
+        <h3> Compatibility: {{team.score}}</h3>
+
+        <p style="font-style: italic;">
+            {{team.description | limitTo: 24 || "This is what the description would look like if they had entered one in."}}</p>
+
         <div ng-repeat="member in team.members">
             <span custom-popover
                   popover-html="
