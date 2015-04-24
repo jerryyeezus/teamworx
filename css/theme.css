@@ -764,15 +764,20 @@ a:active {
 }
 
 #pageGroupProfileFull {
-    min-height: 92%;
-    height: auto;
-    width: auto;
-    max-width: 99%;
-    margin: 5px auto;
-    top: 51px;
-    left: 0;
-    right: 0;
-    position: absolute;
+     min-height: 92%;
+     min-height: 86%;
+     height: auto;
+     max-height: 86%;
+     width: auto;
+     max-width: 99%;
+     max-width: 96%;
+     margin: 5px auto;
+     margin-top: 20px;
+     top: 51px;
+     left: 0;
+     right: 0;
+     position: absolute;
+     overflow: auto;
 }
 
 #pageGroupProfileHeader {
