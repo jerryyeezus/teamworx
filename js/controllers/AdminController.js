@@ -1,6 +1,6 @@
-mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authentication',
+mainControllers.controller('AdminController', ['$http', '$state', '$stateParams', 'Authentication',
     '$scope', '$rootScope', '$cookieStore', '$modal', 'toaster',
-    function ($http, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
+    function ($http, $state, $stateParams, Authentication, $scope, $rootScope, $cookieStore,
               $modal, toaster) {
 
         $scope.updateProfile = function (which_field, data, user_type, user_email) {
@@ -31,6 +31,7 @@ mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authent
                     $scope.possibleProjects.push(project);
                 }
             });
+            console.log($scope.possibleProjects);
         });
 
 
@@ -38,29 +39,18 @@ mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authent
             var dataObject = {};
             dataObject['which_project'] = project.pk;
             dataObject['which_team'] = $scope.myTeam.pk;
-            $http.put(Authentication.server_url + 'add_project_pref/', dataObject, {}).then(function(response) {
+            $http.put(Authentication.server_url + 'add_project_pref/', dataObject, {}).then(function() {
                 console.log("Do we get here");
-                    $scope.updatePref();
-            }
-        )};
-
-        $scope.updatePref = function() {
-            $http.get(Authentication.server_url + 'projects/' + $cookieStore.get('assignment_pk')).then (function(response) {
-                $scope.projects = response.data;
-                $scope.possibleProjects = [];
-                $scope.projects.forEach(function(project) {
-                    var flag = false;
-                    $scope.myTeam.project_pref.forEach(function(pro) {
-                        if (pro.pk == project.pk) {
-                            flag = true;
-                        }
-                    })
-                    if (!flag) {
-                        $scope.possibleProjects.push(project);
+                $scope.myTeam.project_pref.push(project);
+                var newPossibleProjects = [];
+                $scope.possibleProjects.forEach(function(p) {
+                    if (p.pk != project.pk) {
+                        newPossibleProjects.push(p);
                     }
                 });
-            });
-        }
+                $scope.possibleProjects = newPossibleProjects;
+            }
+        )};
 
         $scope.hoverIn = function (team) {
             this.hovered = team;
@@ -79,12 +69,11 @@ mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authent
             dataObject['which_student'] = $scope.user.user_type + '|' + $scope.user.email;
             var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
             responsePromise.success(function () {
+                toaster.pop('success', 'Enable LFM');
             });
             responsePromise.error(function (data) {
-                console.log(data);
-                console.log(dataObject);
             });
-            toaster.pop('success', 'Enable LFM');
+
         };
 
         $scope.disableLFM = function() {
@@ -96,11 +85,10 @@ mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authent
             dataObject['which_student'] = $scope.user.user_type + '|' + $scope.user.email;
             var responsePromise = $http.put(Authentication.server_url + 'add_team/', dataObject, {});
             responsePromise.success(function () {
+                toaster.pop('success', 'Disable LFM');
             });
             responsePromise.error(function (data) {
-                console.log(data);
-                console.log(dataObject);
             });
-            toaster.pop('success', 'Disable LFM');
+
         };
     }]);

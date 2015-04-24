@@ -15,7 +15,7 @@
         </div>
     </div>
 
-<<<<<<< HEAD
+
     <div class="container-fluid" id="pageGroupProfileBody">
         <button  ng-if="!isMember && !isRequest && !isProfessor"
              class="btn btn-lg btn-info"  ng-click ="sendJoinRequest()"
@@ -65,35 +65,4 @@
                     </slide>
                 </carousel>
             </div>
-=======
-    <div class="container-fluid" style="width:100%; float:left; text-align:left">
-        <h4 style="font-weight: bold">
-            Description:
-        </h4>
-        <p>
-            {{team.description || "Not set"}}
-        </p>
-        <br>
-        <h4 style="font-weight: bold">
-            Seeking Skills:
-        </h4>
-        <p>
-            {{team.skills_needed || "Not set"}}
-        </p>
-        <br>
-        <h4 style="font-weight: bold">
-            Members:
-        </h4>
-        <div class="MemberListContent">
-            <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                <div class="studentProfile">
-                    <a class="container-fluid" ui-sref ="main.studentProfile"
-                       +                       ng-repeat="member in team.members" ng-click ="selectMember(member)">
-                        <img src="img/no_profile.png" class="imgStudent"/>
-                        {{member.name}} </br> </a>
-                </div>
-            </ul>
->>>>>>> af5383c6fb53856e73e671aec47fac6f78ae3ca1
-        </div>
-    </div>
 </div>

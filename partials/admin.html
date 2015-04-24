@@ -20,7 +20,7 @@
             Seeking Skills:
                             <span e-form="seekSkillBtnForm"
                                   style="cursor:pointer; color:darkslateblue; padding-right: 0.3em"
-                                  onbeforesave="updateProfile('description', $data, user.user_type, user.email)"
+                                  onbeforesave="updateProfile('seeking_skills', $data, user.user_type, user.email)"
                                   editable-text="team.description">
                             {{ team.seeking_skills || "Not set" }}
                             </span>
@@ -31,7 +31,7 @@
 
         <h3> Project Preference:
             <h4>
-                <li ng-repeat="project in team.project_pref">
+                <li ng-repeat="project in myTeam.project_pref">
                     {{project.description}}
                 </li>
             </h4>

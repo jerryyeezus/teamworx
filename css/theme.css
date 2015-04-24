@@ -385,6 +385,7 @@ a:active {
 }
 
 .recGroupProfile {
+    overflow-y: scroll;
     min-height: 150px;
     height: 100%;
     max-height: 500px;

@@ -1,23 +1,26 @@
+<div class="container-fluid">
 <div class="recGroupProfile" data-drop="isProfessor" ng-repeat="team in recommendTeams"
-     ng-class="divClassRec(team)"
-     ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
-     ng-mouseenter="hoverIn(team)"
-     ng-click="selectTeam(team)" ui-sref="main.groupProfile">
+         ng-class="divClassRec(team)"
+         ng-mouseleave="hoverOut(team)" jqyoui-droppable="{beforeDrop: 'beforeDrop(team)'}"
+         ng-mouseenter="hoverIn(team)"
+         ng-click="selectTeam(team)" ui-sref="main.groupProfile">
 
-    <img src="img/no_group.jpg" style="width: auto; height: 110px; float: left; margin: 5px 5px 5px 5px">
-    <div class="recGroupProfileHeader" ng-click="selectTeam(team)" ui-sref="main.groupProfile" style="float: left">
-        <h2 data-drag="isProfessor"
-            jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
-            jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
-            data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
-                                    <span ng-hide="'Team ' + team.number == team.name">
-                                    Team {{team.number}}: </span>
-            {{team.name || 'Unnamed Team'}}
-        </h2>
+        <img src="img/no_group.jpg" style="width: auto; height: 110px; float: left; margin: 5px 5px 5px 5px">
+        <div class="recGroupProfileHeader" ng-click="selectTeam(team)" ui-sref="main.groupProfile" style="float: left">
+            <h2 data-drag="isProfessor"
+                jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
+                jqyoui-draggable="{animate: true, placeholder: 'keep', onStart: 'startDragTeam(team)'}"
+                data-jqyoui-options="{revert: 'invalid', helper: 'clone'}">
+                                        <span ng-hide="'Team ' + team.number == team.name">
+                                        Team {{team.number}}: </span>
+                {{team.name || 'Unnamed Team'}}
+            </h2>
 
-        <h3> Compatibility: {{team.score}}</h3>
+            <h3> Compatibility: {{team.score}}</h3>
 
-        <p style="font-style: italic;">
-            {{team.description | limitTo: 24 || "This is what the description would look like if they had entered one in."}}</p>
+            <p style="font-style: italic;">
+                {{team.description | limitTo: 24 || "This is what the description would look like if they had entered one in."}}</p>
+        </div>
     </div>
+</div>
 </div>
