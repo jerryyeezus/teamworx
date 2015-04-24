@@ -1,6 +1,7 @@
 <div>
     <h2>Survey</h2>
 
+    <div style="max-height: 60vh; overflow: auto">
     <form>
         <div class="qDiv" ng-repeat="project in projects">
             <div class="qText">
@@ -62,4 +63,5 @@
         <br>
         <button ng-click="submit(questions, projects)" class="btn btn-success btn-lg center-block">Submit</button>
     </form>
+    </div>
 </div>
