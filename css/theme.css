@@ -429,7 +429,7 @@ a:active {
     min-height: 30%;
     height: auto;
     max-height: 30%;
-    width: 100%;
+    width: 110%;
     margin: 5px 5px 5px 5px;
     /*border: 3px solid black;*/
 
@@ -487,11 +487,12 @@ a:active {
 
 
 .qDiv {
-    background-color: brown;
     opacity: 0.7;
     padding: 20px 20px 20px 20px;
     width: 400px;
     min-height: 130px;
+    height: auto;
+    max-height: 200px;
     border-radius: 5px;
     margin-top: 20px;
     margin-left: auto;
@@ -807,15 +808,20 @@ a:active {
 }
 
 #pageGroupProfileFull {
-    min-height: 92%;
-    height: auto;
-    width: auto;
-    max-width: 99%;
-    margin: 5px auto;
-    top: 51px;
-    left: 0;
-    right: 0;
-    position: absolute;
+     min-height: 92%;
+     min-height: 86%;
+     height: auto;
+     max-height: 86%;
+     width: auto;
+     max-width: 99%;
+     max-width: 96%;
+     margin: 5px auto;
+     margin-top: 20px;
+     top: 51px;
+     left: 0;
+     right: 0;
+     position: absolute;
+     overflow: auto;
 }
 
 #pageGroupProfileHeader {

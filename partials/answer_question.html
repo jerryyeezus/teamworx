@@ -1,12 +1,12 @@
 <div>
     <h2>Survey</h2>
 
+    <div style="max-height: 60vh; overflow: auto">
     <form>
         <div class="qDiv" ng-repeat="project in projects">
             <div class="qText">
                 How do you prefer {{project.name | capitalize}}?
             </div>
-            <br>
 
             <div style="max-width: 353px; margin-left: auto; margin-right: auto">
                 <div class="row">
@@ -27,7 +27,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
 
@@ -56,10 +55,12 @@
                     </div>
                 </div>
             </div>
-
+            <br>
+            <hr>
         </div>
 
         <br>
         <button ng-click="submit(questions, projects)" class="btn btn-success btn-lg center-block">Submit</button>
     </form>
+    </div>
 </div>

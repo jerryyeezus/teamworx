@@ -1,14 +1,16 @@
 <h2>Team Formation Questions</h2>
 
+<div style="max-height: 130px; overflow: auto;">
 <div class="myEditable" ng-repeat="question in questions" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-    <h3 style="cursor:pointer" data-drag="true"
+    <h4 style="cursor:pointer" data-drag="true"
         jqyoui-draggable="{animate: true, placeholder: 'keep', onStart:'startCallback(question)'}"
         data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-click="startEditing(question)">
 
         {{question.text}}
 
         <span ng-show="hoverEdit" class="animate-show glyphicon glyphicon-pencil"></span>
-    </h3>
+    </h4>
+</div>
 </div>
 
 <hr>
@@ -32,12 +34,12 @@
 
                 <div class="row">
                     <div class="col-xs-6 ">
-                        <label>Left Category: </label><br>
+                        <label>Low Category: </label><br>
                         <input class="form-control" type="text" size="50" ng-model="addFormLo">
                     </div>
 
                     <div class="col-xs-6 ">
-                        <label>Upper Category: </label><br>
+                        <label>High Category: </label><br>
                         <input class="form-control" type="text" size="50" ng-model="addFormHi">
                     </div>
                 </div>

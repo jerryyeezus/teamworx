@@ -12,9 +12,12 @@
             <h4>Class: {{course.course_dept_and_id}}</h4>
 
             <h4>Assignment: {{assignment.assignment_number}}</h4>
+
+            <button  ng-if="!isMember && !isRequest && !isProfessor"
+                     class="btn btn-primary btn-lg"  ng-click ="sendJoinRequest()"
+                     style="margin: 0 auto;">Send Join Request</button>
         </div>
     </div>
-
 
     <div class="container-fluid" id="pageGroupProfileBody">
         <button  ng-if="!isMember && !isRequest && !isProfessor"
@@ -46,8 +49,6 @@
                 </ul>
             </h2>
 
-
-
             <h2>Members</h2>
             <div class="MemberListContent">
                 <ul style="list-style-type: none; margin: 0px; padding: 0px;"ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
@@ -69,7 +70,6 @@
                     </slide>
                 </carousel>
             </div>
-
         </div>
     </div>
 </div>
