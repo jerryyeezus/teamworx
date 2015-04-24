@@ -12,10 +12,6 @@
             <h4>Class: {{course.course_dept_and_id}}</h4>
 
             <h4>Assignment: {{assignment.assignment_number}}</h4>
-
-            <button  ng-if="!isMember && !isRequest && !isProfessor"
-                     class="btn btn-primary btn-lg"  ng-click ="sendJoinRequest()"
-                     style="margin: 0 auto;">Send Join Request</button>
         </div>
     </div>
 
@@ -32,22 +28,20 @@
                 Seeking Skills: {{team.skills_needed || "Not set"}}
             </h2>
 
-            <h2 class="dropdown">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    Project Preference <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li ng-repeat="pref in team.project_pref">
-                        <a style="cursor:pointer">
-                            <p> {{pref}} </p>
-                        </a>
-                    </li>
-                    <li>
-                        <button class="btn btn-sm" ng-if="isMember"
-                            ui-sref="main.add_preference"><b>+ Add Project Preference</b></button>
-                    </li>
 
-                </ul>
+            <h2> Project Preference:
+                <h3>
+                    <li ng-repeat="project_pref in team.project_pref">
+                        {{project_pref}}
+                    </li>
+                </h3>
             </h2>
+
+            <!--<li>-->
+                <!--<button class="btn btn-sm" ng-if="isMember"-->
+                    <!--ui-sref="main.add_preference"><b>+ Add Project Preference</b></button>-->
+            <!--</li>-->
+
 
             <h2>Members</h2>
             <div class="MemberListContent">

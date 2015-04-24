@@ -16,6 +16,11 @@ mainControllers.controller('AdminController', ['$http', '$stateParams', 'Authent
             Authentication.updateAuthenticatedAccount(which_field, data);
         };
 
+        $http.get(Authentication.server_url + 'projects/' + $cookieStore.get('assignment_pk')).then (function(response) {
+            $scope.projects = response.data;
+        });
+
+
         $scope.hoverIn = function (team) {
             this.hovered = team;
         };

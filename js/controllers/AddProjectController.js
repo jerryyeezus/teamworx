@@ -22,8 +22,6 @@ mainControllers.controller('AddProjectController',
                     dataObject['text'] = "How do you prefer Project " + $scope.myForm.project_name;
                     var responsePromise = $http.post(Authentication.server_url + 'questions/', dataObject, {});
                     responsePromise.success(function () {
-                        $scope.updateQuestion();
-                        add_question_service.setDirty();
                     });
 
                     responsePromise.error(function (a, b) {

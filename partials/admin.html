@@ -29,6 +29,14 @@
             </a>
         </h3>
 
+        <h3> Project Preference:
+            <h4>
+                <li ng-repeat="project_pref in projects">
+                {{project_pref.description}}
+                </li>
+            </h4>
+        </h3>
+
         <p>
 
         <h3>Looking for more members <span ng-class="{'myEnabled': team.lfm, 'myDisabled': !team.lfm}">{{team.lfm | formatLFM}}</span>
