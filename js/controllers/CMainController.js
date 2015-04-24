@@ -12,7 +12,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.course = $cookieStore.get('course');
         $scope.user = Authentication.getAuthenticatedAccount();
         $scope.isProfessor = ($scope.user.user_type == 'INSTRUCTOR');
-        console.log($scope.isProfessor);
         $scope.isStudent = ($scope.user.user_type == 'STUDENT');
         var which_class = $stateParams.which_class;
         $scope.my_pk = which_class;
@@ -135,42 +134,12 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                             $scope.lfgList.forEach(function (lfg) {
                                 if (lfg.user_fk == student.user_type + '|' + student.email) {
                                     student['lfg'] = true;
-                                };
+                                }
+                                ;
                             });
                         });
                     };
                 });
-
-                if ($scope.students.length > 0) {
-                    $scope.isUploaded = true;
-                };
-                for (var i = 0; i < response.data.length; i++) {
-                    student_map[response.data[i].user_type + '|' + response.data[i].email] = i;
-                };
-
-
-                $scope.beforeDrop = function(event, ui, dropTeam) {
-                    $scope.dropTeam = dropTeam;
-                    $scope.sameTeamFlag = false;
-                    $scope.dropTeam.members.forEach(function (mem) {
-                        if (mem.email == $scope.dragStudent.email) {
-                            $scope.sameTeamFlag = true;
-                        }
-                    });
-
-                    drag_student_service.setDragStudent($scope.dragStudent);
-                    drag_student_service.setDropTeam($scope.dropTeam);
-                    drag_student_service.setDragTeam($scope.dragTeam);
-                    drag_student_service.setSameTeamFlag($scope.sameTeamFlag);
-
-                    var modalInstance = $modal.open({
-                        templateUrl: 'partials/drag_student.html',
-                        controller: 'DragStudentController'
-                    });
-                    return modalInstance.result;
-                };
-
-
             });
 
 
@@ -182,6 +151,7 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         $scope.teams[i].members[j] = $scope.students[student_map[member]];
                     }
                 };
+                console.log($scope.teams);
                 $scope.haveGroupFlag = false;
                 if ($scope.teams.length > 0) {
                     $scope.teams.forEach(function (team) {
@@ -204,6 +174,23 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
                 $scope.assignment = ass_service.getAssignment();
 
+                $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
+                    $scope.students = response.data;
+                    $scope.students.forEach(function(student) {
+                        student['lfg'] = false;
+                        if ($scope.assignment.pk != undefined) {
+                            $http.get(Authentication.server_url + 'add_lfg/' + $scope.assignment.pk).then(function (response) {
+                                $scope.lfgList = response.data;
+                                $scope.lfgList.forEach(function (lfg) {
+                                    if (lfg.user_fk == student.user_type + '|' + student.email) {
+                                        student['lfg'] = true;
+                                    }
+                                    ;
+                                });
+                            });
+                        };
+                    });
+                });
                 $scope.isInterested = false;
                 if ($scope.haveGroupFlag) {
                     $scope.requestersList = [];
@@ -225,8 +212,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
                         });
                     });
                 };
-
-                console.log($scope.teams + 'line 229');
             });
         });
 
@@ -234,7 +219,6 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         //Pass the key value of the current assignment to back end to randomly assign group
         $scope.randomAssign = function () {
             $scope.teams = [];
-            console.log("Do we get here");
             var dataObject = {
                 which_assignment: ass_service.getAssignmentpk()
             };
@@ -496,6 +480,38 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
             $scope.delMemberFlag = true;
         };
 
+        $http.get(Authentication.server_url + 'roster/' + $scope.course.pk).then(function (response) {
+            $scope.students = response.data;
+            if ($scope.students.length > 0) {
+                $scope.isUploaded = true;
+            };
+            for (var i = 0; i < response.data.length; i++) {
+                student_map[response.data[i].user_type + '|' + response.data[i].email] = i;
+            };
+
+
+            $scope.beforeDrop = function(event, ui, dropTeam) {
+                $scope.dropTeam = dropTeam;
+                $scope.sameTeamFlag = false;
+                $scope.dropTeam.members.forEach(function (mem) {
+                    if (mem.email == $scope.dragStudent.email) {
+                        $scope.sameTeamFlag = true;
+                    }
+                });
+
+                drag_student_service.setDragStudent($scope.dragStudent);
+                drag_student_service.setDropTeam($scope.dropTeam);
+                drag_student_service.setDragTeam($scope.dragTeam);
+                drag_student_service.setSameTeamFlag($scope.sameTeamFlag);
+
+                var modalInstance = $modal.open({
+                    templateUrl: 'partials/drag_student.html',
+                    controller: 'DragStudentController'
+                });
+                return modalInstance.result;
+            };
+        });
+
         $scope.deleteDragTeamOrMember  = function() {
             delete_team_member_service.setDragStudent($scope.dragStudent);
             delete_team_member_service.setDragTeam($scope.dragTeam);
@@ -513,6 +529,12 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
         $scope.viewAssText = function() {
 
         };
+
+        //$scope.startDragTeam = function(event, ui, dragTeam) {
+        //    $scope.delTeamFlag = true;
+        //    $scope.delMemberFlag = false;
+        //    $scope.dragTeam = dragTeam;
+        //};
 
         $scope.addRemoveMember = function(event, ui, mem) {
             $scope.deleteMember = mem;
@@ -578,12 +600,9 @@ mainControllers.controller('CMainController', ['$http', '$stateParams', 'Authent
 
         dataObject['user'] = $scope.user;
         dataObject['which_assignment']  = $cookieStore.get('assignment_pk');
-        console.log(dataObject);
 
         $http.post(Authentication.server_url + 'recommend_team/', dataObject).then(function(response) {
             $scope.recommendTeams  = response.data;
-            console.log($scope.recommendTeams);
-            console.log('line 607');
         });
 
 
