@@ -1,12 +1,12 @@
 # Teamworx
 This repository contains all the Teamworx front-end capability.
 
-Public URL: http://ec2-54-69-18-202.us-west-2.compute.amazonaws.com/
+Public URL: goo.gl/bBf92W
 
 ## Backend repository (Django REST) for Teamworx is here:
   - https://github.com/jerryyeezus/initech
 
-### Sample Roster CSV
+### Sample Roster CSV for professor import feature
   - https://github.com/jerryyeezus/teamworx/blob/master/roster.csv
   
 ### Members
