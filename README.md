@@ -1,7 +1,8 @@
 # Teamworx
 This repository contains all the Teamworx front-end capability.
 
-Public URL: goo.gl/bBf92W
+Public URL: 
+  - http://goo.gl/bBf92W
 
 ## Backend repository (Django REST) for Teamworx is here:
   - https://github.com/jerryyeezus/initech
