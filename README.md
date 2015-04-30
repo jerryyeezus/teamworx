@@ -1,29 +1,52 @@
 # Teamworx
-This repository contains all the Teamworx front-end capability.
+This is the front-end repository for Teamworx. We have a separate repository for the backend code [here](https://github.com/jerryyeezus/initech)
 
 Public URL: 
-  - http://goo.gl/bBf92W
+    http://goo.gl/bBf92W
+  
+### Dependencies
+Backend
+  - Django
+  
+Frontend
+  - Bower
+  
+### Running it
 
-## Backend repository (Django REST) for Teamworx is here:
-  - https://github.com/jerryyeezus/initech
+  You can use the [public url](http://goo.gl/bBf92W) if you just want to view the site.
+  
+  If for some reason you wanna run it yourself, follow the steps: clone the two repos (this one and backend one). 
+  
+In the front-end directory, install angular dependencies with bower:
+  
+    bower install
+    
+If you wanna run the backend on your machine instead of my hosted AWS, after cloning the server repository, in the front-end's js/app.js change the line
 
-### Sample Roster CSV for professor import feature
+    DEBUG = true
+to
+
+    DEBUG = false
+    
+Then run:
+
+    python manage.py runserver 0:8000
+  
+
+Now, import the frontend into an IDE such as Webstorm or similar (needed in order to make the http requests work). Run that as a server on a different port <your_port>. You can goto http://localhost:<your_port> to view.
+
+### Documentation
+User docs are available in ./documentation
+
+### Import Roster feature
+The .csv file for importing follows the structure in this sample file. You can use it as a sample.
+
   - https://github.com/jerryyeezus/teamworx/blob/master/roster.csv
   
 ### Members
 
-Jerry Yee
+  - Jerry Yee
 
-Thang Nguyen
+  - Thang Nguyen
 
-Joe Murphy
-
-#### Site Overview
-
-In order to access the site, you must launch index.html, which brings you to the login page. The login information should already be available
-for submitting, but there is an option to register as well. The login page then takes you to the portal page, where you are able to view
-and edit your profile, as well as view your courses (and add new ones if you are an instructor). Clicking on a course link leads you
-to the main page for that course, where you can upload the student CSV (if the course is new and you are an instructor), as well as add/view
-assignments in the Assignment tab. Additionally, currently you can select groups or students to view individual profiles, although these pages are
-still partially under construction. If you are a student, you can also indicate whether or not you are looking for a group (LFG).
-You also have the ability to log out via the Settings tab. Any functionality beyond this is only partially completed.
+  - Joe Murphy
