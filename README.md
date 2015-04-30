@@ -1,6 +1,6 @@
 # Teamworx
 
-Teamworx is a team recommender and management site. It is for school project.
+Teamworx is a team recommender and management site for group-based courses. It is for school project.
 
 This is the front-end repository for Teamworx. We have a separate repository for the backend code [here](https://github.com/jerryyeezus/teamworx-REST).
 
