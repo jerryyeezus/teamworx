@@ -1,8 +1,11 @@
 # Teamworx
-This is the front-end repository for Teamworx. We have a separate repository for the backend code [here](https://github.com/jerryyeezus/initech)
 
-Public URL: 
-    http://goo.gl/bBf92W
+Teamworx is a team recommender and management site. It is for school project.
+
+This is the front-end repository for Teamworx. We have a separate repository for the backend code [here](https://github.com/jerryyeezus/teamworx-REST).
+
+### Public URL
+http://goo.gl/bBf92W
   
 ### Dependencies
 Backend
